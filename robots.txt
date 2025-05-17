@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://yashi-nomi.com/sitemap.xml

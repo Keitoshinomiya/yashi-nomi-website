@@ -1,0 +1,14 @@
+/* ファビコン用の簡易スタイル */
+.favicon {
+  width: 32px;
+  height: 32px;
+  background-color: #198754;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  font-family: sans-serif;
+}

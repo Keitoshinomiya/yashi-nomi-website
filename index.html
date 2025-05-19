@@ -12,6 +12,7 @@
     
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <link href="https://calendar.google.com/calendar/scheduling-button-script.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 
     <!-- OGP Tags -->
     <meta property="og:title" content="合同会社ヤシノミ【公式】| Amazon運用支援・ECコンサルティング（大阪）">
@@ -29,80 +30,96 @@
         html { scroll-behavior: smooth; }
         body {
             font-family: 'Noto Sans JP', sans-serif;
-            color: #212529; 
+            color: #1f2937; 
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
-            background-color: #fff; 
+            background-color: #fff;
         }
-        .hero-section { 
-            background-color: #f8f9fa; 
-            overflow: hidden;
-            position: relative; 
-        }
-        .hero-content-wrapper { 
-            position: relative;
-            z-index: 10; 
-        }
-        .hero-shapes-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            pointer-events: none; 
-            z-index: 1; 
-        }
-        .hero-shape {
-            position: absolute;
-            will-change: transform; 
-            animation-timing-function: ease-in-out;
-            animation-iteration-count: infinite;
-            animation-direction: alternate; 
-        }
-        .shape-circle { border-radius: 50%; }
-        .shape-rounded-square { border-radius: 20%; }
-        .shape-triangle {
-            width: 0; height: 0;
-            border-left: 40px solid transparent; 
-            border-right: 40px solid transparent;
-            border-bottom: 69.28px solid; 
-            background-color: transparent !important; 
-        }
-        @keyframes float1 { 0% { transform: translateY(0px) rotate(0deg) scale(1); } 100% { transform: translateY(-15px) rotate(10deg) scale(1.03); } }
-        @keyframes float2 { 0% { transform: translateY(0px) rotate(0deg) scale(1); } 100% { transform: translateY(12px) rotate(-8deg) scale(0.97); } }
-        @keyframes float3 { 0% { transform: translateY(0px) rotate(0deg) scale(1); } 100% { transform: translateY(-8px) rotate(6deg) scale(1.01); } }
-        @keyframes float4 { 0% { transform: translateY(0px) rotate(0deg) scale(1); } 100% { transform: translateY(10px) rotate(-5deg) scale(0.99); } }
-
-        .shape1 { animation-name: float1; animation-duration: 7s; }
-        .shape2 { animation-name: float2; animation-duration: 9s; }
-        .shape3 { animation-name: float3; animation-duration: 8s; }
-        .shape4 { animation-name: float4; animation-duration: 10s; }
-
-        .primary-color { color: #005A9C; }
-        .primary-bg { background-color: #005A9C; }
-        .primary-bg-hover:hover { background-color: #004170; }
-        .accent-gold-text { color: #FFC107; }
-        .secondary-color { color: #003366; }
-        .amazon-orange-text { color: #FF9900; }
         
-        .text-blue-200 { color: #A8D8FF; } 
-        .text-blue-300 { color: #7BC4FF; }
-        .text-yellow-300 { color: #FFEB99; } 
-        .text-orange-300 { color: #FFCC99; } 
-        .text-gray-300 { color: #D1D5DB; } 
+        :root {
+            --primary-color: #005A9C; 
+            --primary-color-dark: #004170;
+            --accent-orange: #FF9900;
+            --accent-gold: #FFC107;
+            --text-dark: #1f2937;
+            --text-medium: #4b5563;
+            --text-light: #6b7280;
+            --bg-light: #f8f9fa; 
+            --border-color: #e5e7eb; 
+        }
+
+        .primary-color { color: var(--primary-color); }
+        .primary-bg { background-color: var(--primary-color); }
+        .primary-bg-hover:hover { background-color: var(--primary-color-dark); }
+        .amazon-orange-text { color: var(--accent-orange); }
+        .accent-gold-text { color: var(--accent-gold); }
+        .secondary-color { color: #003366; }
+
+        .hero-section-swiper {
+            width: 100%;
+            height: 75vh; 
+            min-height: 500px; 
+            max-height: 700px; 
+            background-color: var(--bg-light); 
+            position: relative; 
+            overflow: hidden;
+        }
+        .swiper-slide {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            box-sizing: border-box; 
+        }
+        .hero-slide-icon {
+            width: 4.5rem; 
+            height: 4.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            opacity: 0.8;
+        }
+        .hero-slide-title {
+            font-size: 2.5rem; 
+            line-height: 1.25;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            max-width: 600px; 
+        }
+        .hero-slide-subtitle {
+            font-size: 1.125rem; 
+            color: var(--text-medium);
+            margin-bottom: 2rem;
+            max-width: 550px; 
+            line-height: 1.7;
+        }
+        .swiper-pagination-bullet-active {
+            background-color: var(--primary-color) !important;
+        }
+        .swiper-button-next, .swiper-button-prev {
+            color: var(--primary-color) !important;
+            --swiper-navigation-size: 28px; 
+        }
+        .swiper-button-next:after, .swiper-button-prev:after {
+             font-size: var(--swiper-navigation-size) !important; 
+        }
+
+        .btn { padding: 0.875rem 1.75rem; border-radius: 0.375rem; font-weight: 500; transition: all 0.3s ease; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; border: none; box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.1); }
+        .btn-primary { background-image: linear-gradient(to right, var(--primary-color) 0%, var(--primary-color-dark) 50%, var(--primary-color) 100%); background-size: 200% auto; color: white; }
+        .btn-primary:hover { background-position: right center; box-shadow: 0 6px 20px 0 rgba(0, 90, 156, 0.2); }
+        .btn-outline-primary { background-color: transparent; color: var(--primary-color); border: 2px solid var(--primary-color); }
+        .btn-outline-primary:hover { background-color: rgba(0, 90, 156, 0.08); color: var(--primary-color-dark); }
+        .btn-accent-gold { background-image: linear-gradient(to right, var(--accent-gold) 0%, #FFB300 50%, var(--accent-gold) 100%); background-size: 200% auto; color: var(--text-dark); }
+        .btn-accent-gold:hover { background-position: right center; box-shadow: 0 6px 20px 0 rgba(255, 193, 7, 0.3); }
 
         .section-title-en { font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; color: #6c757d; font-weight: 500; }
         .section-title-jp { font-size: 2.25rem; font-weight: 700; color: var(--secondary-color, #003366); margin-bottom: 0.75rem; }
         .section-subtitle { font-size: 1.125rem; color: #495057; max-width: 48rem; margin-left: auto; margin-right: auto; line-height: 1.75; }
-        .card { background-color: #fff; border: 1px solid #dee2e6; border-radius: 0.5rem; transition: transform 0.3s ease-out, box-shadow 0.3s ease-out; overflow: hidden; }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0, 51, 102, 0.1); }
-        .card-icon-bg { background-color: #E0EFFF; color: #005A9C; border-radius: 0.375rem; }
-        .btn { padding: 0.875rem 1.75rem; border-radius: 0.375rem; font-weight: 500; transition: all 0.2s ease-out; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; border: 2px solid transparent; }
-        .btn-primary { background-color: #005A9C; color: white; border-color: #005A9C; }
-        .btn-primary:hover { background-color: #004170; border-color: #004170; box-shadow: 0 4px 12px 0 rgba(0, 90, 156, 0.3); }
-        .btn-outline-primary { background-color: transparent; color: #005A9C; border-color: #005A9C; }
-        .btn-outline-primary:hover { background-color: rgba(0, 90, 156, 0.05); color: #004170; border-color: #004170; }
+        .card { background-color: #fff; border: 1px solid var(--border-color); border-radius: 0.75rem; transition: transform 0.3s ease-out, box-shadow 0.3s ease-out; overflow: hidden; }
+        .card:hover { transform: translateY(-6px); box-shadow: 0 12px 28px -5px rgba(0, 51, 102, 0.12), 0 8px 16px -6px rgba(0, 51, 102, 0.08); }
+        .card-icon-bg { background-color: rgba(0, 90, 156, 0.1); color: var(--primary-color); border-radius: 0.5rem; }
         
         .mobile-menu-body { transform: translateX(100%); transition: transform 0.3s ease-in-out; }
         .mobile-menu-body.open { transform: translateX(0); }
@@ -113,7 +130,7 @@
         .map-container { position: relative; overflow: hidden; padding-top: 56.25%; }
         .map-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
     </style>
-    <!-- 構造化データ -->
+    <!-- 構造化データ (v17と同じ) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -143,10 +160,11 @@
     </script>
 </head>
 <body class="antialiased">
-    <!-- ヘッダー -->
+    <!-- 1. HEADER -->
     <header class="shadow-sm sticky top-0 bg-white z-50">
         <div class="container mx-auto px-6 py-3 flex justify-between items-center">
             <a href="#" class="flex items-center">
+                <!-- <img src="./images/logo.png" alt="合同会社ヤシノミ ロゴ" class="h-8 mr-2"> --> <!-- TODO: imagesフォルダ内のロゴを指定 -->
                 <h1 class="text-2xl font-bold primary-color">合同会社ヤシノミ</h1>
             </a>
             <nav class="hidden md:flex space-x-7 items-center">
@@ -183,68 +201,68 @@
             </nav>
         </div>
     </header>
+    <!-- 1. END HEADER -->
 
-    <!-- ヒーローセクション (中央寄せ、幾何学図形背景、75点に修正) -->
-    <section class="hero-section py-32 md:py-40"> 
-        <div class="hero-shapes-container">
-            <div class="hero-shape shape-circle shape1 bg-blue-200 opacity-40" style="width: 100px; height: 100px; top: 15%; left: 10%;"></div>
-            <div class="hero-shape shape-rounded-square shape2 bg-yellow-300 opacity-50" style="width: 130px; height: 130px; top: 20%; right: 12%;"></div>
-            <div class="hero-shape shape-triangle shape3 border-b-orange-300 opacity-40" style="border-left-width: 50px; border-right-width: 50px; border-bottom-width: 86.6px; bottom: 10%; left: 20%;"></div>
-            <div class="hero-shape shape-circle shape4 bg-blue-300 opacity-30" style="width: 70px; height: 70px; bottom: 25%; right: 25%;"></div>
-            <div class="hero-shape shape-rounded-square shape1 bg-gray-300 opacity-30" style="width: 60px; height: 60px; top: 50%; left: 30%; animation-duration: 11s;"></div>
-            <div class="hero-shape shape-circle shape2 bg-orange-200 opacity-40" style="width: 50px; height: 50px; top: 65%; right: 40%; animation-duration: 8s;"></div>
-        </div>
-
-        <div class="container mx-auto px-6 hero-content-wrapper text-center"> 
-            <h2 class="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 secondary-color !leading-tight md:!leading-snug">
-                <span class="amazon-orange-text">Amazon</span>運用の<span class="primary-color">自走</span>へ導く、<br>
-                <span class="primary-color">現役セラー</span>の実践的サポート。
-            </h2>
-            <p class="text-base sm:text-lg md:text-xl mb-10 text-gray-600 max-w-3xl mx-auto leading-relaxed md:leading-loose"> 
-                創業2年、自社ブランド<strong class="font-semibold primary-color">3商品・年商9000万円</strong>を達成したノウハウを凝縮。<br class="hidden sm:inline">
-                お客様社内に再現可能な<strong class="font-semibold primary-color">「75点の運用体制」</strong>構築をゴールとします。<br>
-                <strong class="font-semibold primary-color">大阪府内および近隣のお客様を中心</strong>に、訪問による対面サポートで「自走」を徹底支援。<strong class="font-semibold primary-color">初期費用はいただきません。</strong>
-            </p>
-            <div class="bg-white/80 backdrop-blur-sm p-4 sm:p-6 rounded-lg shadow-lg inline-block mb-12 text-left text-xs sm:text-sm"> 
-                <p class="font-medium text-gray-700 mb-2 flex items-center"> 
-                    <svg class="w-4 h-4 text-blue-600 mr-2.5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-                    現役ECプレイヤー (自社年商9000万円達成)
-                </p>
-                <p class="font-medium text-gray-700 mb-2 flex items-center">
-                    <svg class="w-4 h-4 text-blue-600 mr-2.5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-                    再現可能な「75点の自走運用」がゴール
-                </p>
-                 <p class="font-medium text-gray-700 mb-2 flex items-center">
-                    <svg class="w-4 h-4 text-blue-600 mr-2.5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-                    大阪府内中心の対面サポート
-                </p>
-                <p class="font-medium text-gray-700 flex items-center">
-                    <svg class="w-4 h-4 text-blue-600 mr-2.5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-                    完全定額制・初期費用不要・1ヶ月更新
-                </p>
+    <!-- 2. HERO SECTION -->
+    <section class="hero-section-swiper"> 
+        <div class="swiper-wrapper">
+            <!-- Slide 1: メインメッセージ -->
+            <div class="swiper-slide">
+                <div> 
+                    <h2 class="hero-slide-title">
+                        <span class="amazon-orange-text">Amazon</span>運用の<span class="primary-color">自走</span>を、<br>
+                        <span class="primary-color">現役セラー</span>が伴走サポート。
+                    </h2>
+                    <p class="hero-slide-subtitle">
+                        自社年商9000万円の実績とノウハウで、貴社のEC事業を成長軌道へ。
+                    </p>
+                    <div>
+                        <script src="https://calendar.google.com/calendar/scheduling-button-script.js" async></script>
+                        <script>
+                        (function() {var target = document.currentScript; window.addEventListener('load', function() {calendar.schedulingButton.load({ url: 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ0m96FUWkX0hHh4vQSddNAF_OO4H9pPPMneHGUJDb-uZB9zZiiyNJLMbG6f1cRFZNgzBnXQbk4e?gv=true', color: '#005A9C', label: '無料オンライン相談を予約する', target, });});})();
+                        </script>
+                    </div>
+                </div>
             </div>
-            <div>
-                <!-- Google Calendar Appointment Scheduling begin -->
-                <script src="https://calendar.google.com/calendar/scheduling-button-script.js" async></script>
-                <script>
-                (function() {
-                  var target = document.currentScript;
-                  window.addEventListener('load', function() {
-                    calendar.schedulingButton.load({
-                      url: 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ0m96FUWkX0hHh4vQSddNAF_OO4H9pPPMneHGUJDb-uZB9zZiiyNJLMbG6f1cRFZNgzBnXQbk4e?gv=true', // TODO: 実際の予約スケジュールURL
-                      color: '#005A9C', 
-                      label: '無料オンライン相談を予約する',
-                      target,
-                    });
-                  });
-                })();
-                </script>
-                <!-- end Google Calendar Appointment Scheduling -->
+            <!-- Slide 2: 提供価値1 - 再現性の高い運用基盤 -->
+            <div class="swiper-slide" style="background-color: #f0f4f8;"> 
+                <div>
+                    <svg class="hero-slide-icon mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25a2.25 2.25 0 01-2.25-2.25v-2.25z" />
+                    </svg>
+                    <h3 class="hero-slide-title">再現性の高い<span class="primary-color">運用基盤</span>を構築</h3>
+                    <p class="hero-slide-subtitle">「75点の確実な成果」から100点を目指す、持続可能な成長戦略をご提案します。</p>
+                    <a href="#services" class="btn btn-outline-primary">サービス詳細へ</a>
+                </div>
+            </div>
+            <!-- Slide 3: 提供価値2 - 大阪中心の対面サポート -->
+            <div class="swiper-slide" style="background-color: #e6f3ff;"> 
+                <div>
+                    <img src="./images/osaka-logo.png" alt="大阪中心のサポート" class="hero-slide-icon mx-auto"> {/* 大阪府のロゴ画像 */}
+                    <h3 class="hero-slide-title"><span class="primary-color">大阪</span>中心、<span class="primary-color">顔の見える</span>手厚い支援</h3>
+                    <p class="hero-slide-subtitle">訪問コンサルティングと密な連携で、お客様の自走を徹底サポートします。</p>
+                    <a href="#features" class="btn btn-primary">ヤシノミの強み</a>
+                </div>
+            </div>
+             <!-- Slide 4: 実績ハイライト -->
+            <div class="swiper-slide" style="background-color: #fff8e1;"> 
+                <div>
+                    <svg class="hero-slide-icon mx-auto text-yellow-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.324l5.58.813a.563.563 0 01.31.956l-4.024 3.921a.563.563 0 00-.162.498l.949 5.55a.563.563 0 01-.815.593l-5.006-2.633a.563.563 0 00-.52 0l-5.006 2.633a.563.563 0 01-.815-.593l.949-5.55a.563.563 0 00-.162-.498L2.795 10.69a.563.563 0 01.31-.956l5.58-.813a.563.563 0 00.475-.324L11.48 3.5z" />
+                    </svg>
+                    <h3 class="hero-slide-title">創業2年で<span class="primary-color">年商9000万円</span>達成</h3>
+                    <p class="hero-slide-subtitle">現役セラーだからこそ提供できる、実践的なノウハウでお応えします。</p>
+                    <a href="#testimonials" class="btn btn-accent-gold">お客様の声を見る</a>
+                </div>
             </div>
         </div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
     </section>
+    <!-- 2. END HERO SECTION -->
 
-    <!-- サービス内容 -->
+    <!-- 3. SERVICES SECTION -->
     <section id="services" class="py-20 md:py-28 bg-white fade-in-section">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16">
@@ -277,13 +295,15 @@
             </div>
         </div>
     </section>
+    <!-- 3. END SERVICES SECTION -->
 
+    <!-- 4. FEATURES SECTION -->
     <section id="features" class="py-20 md:py-28 bg-gray-50 fade-in-section">
          <div class="container mx-auto px-6">
             <div class="text-center mb-16">
                 <p class="section-title-en mb-2">Why Choose Us</p>
                 <h2 class="section-title-jp">ヤシノミが選ばれる理由</h2>
-                <p class="section-subtitle mt-3">私たちは単なるコンサルタントではありません。現役<span class="amazon-orange-text">Amazon</span>セラーとしての実践知と、<span class="amazon-orange-text">Amazon</span>コンサル会社での経験を融合し、お客様の「<span class="primary-color">75点の自走</span>」を徹底的にサポートします。</p>
+                <p class="section-subtitle mt-3">私たちは単なるコンサルタントではありません。現役<span class="amazon-orange-text">Amazon</span>セラーとしての実践知と、<span class="amazon-orange-text">Amazon</span>コンサル会社での経験を融合し、お客様の「<span class="primary-color">再現性の高い運用基盤</span>」の確立を徹底的にサポートします。</p>
             </div>
             <div class="grid md:grid-cols-2 gap-x-8 gap-y-10">
                 <div class="card p-6 sm:p-8 flex">
@@ -301,7 +321,7 @@
                     </div>
                     <div>
                         <h3 class="text-lg sm:text-xl font-semibold mb-2 primary-color">「75点の自走運用」がゴール</h3>
-                        <p class="text-gray-500 text-xs sm:text-sm leading-relaxed">私たちの最終目標は、お客様自身が<span class="amazon-orange-text">Amazon</span>運用を<strong class="font-medium primary-color">75点のレベルで自律的に行える</strong>ようになること。特に<strong class="font-medium primary-color">大阪府内および近隣のお客様へは訪問による密なコミュニケーション</strong>を重視し、教育、仕組み作り、思考法まで徹底的に伴走し、社内にノウハウが蓄積されることをお約束します。</p>
+                        <p class="text-gray-500 text-xs sm:text-sm leading-relaxed">私たちは、まず<strong class="font-medium primary-color">再現性の高い75点の運用基盤</strong>を確立し、そこから100点を目指す土台を作ることを重視します。特に<strong class="font-medium primary-color">大阪府内および近隣のお客様へは訪問による密なコミュニケーション</strong>で、社内にノウハウが蓄積されるよう伴走します。</p>
                     </div>
                 </div>
                 <div class="card p-6 sm:p-8 flex">
@@ -325,7 +345,9 @@
             </div>
         </div>
     </section>
+    <!-- 4. END FEATURES SECTION -->
 
+    <!-- 5. TESTIMONIALS SECTION -->
     <section id="testimonials" class="py-20 md:py-28 bg-white fade-in-section">
          <div class="container mx-auto px-6">
             <div class="text-center mb-16">
@@ -334,27 +356,17 @@
                 <p class="section-subtitle mt-3">実際にサービスをご利用いただいたお客様からの評価をご紹介します。</p>
             </div>
             <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                <div class="card p-6 sm:p-8 flex flex-col">
-                    <div class="flex items-center mb-4">
-                        <img src="./images/placeholder-logo-nokurosu.png" alt="お客様ロゴ 株式会社ノクロス 様" class="w-12 h-12 rounded-full mr-4 border-2 border-white shadow-sm"> 
-                        <div>
-                            <h4 class="font-semibold text-gray-800">株式会社ノクロス 様</h4>
-                            <p class="text-xs text-gray-500">（業種）</p> 
-                        </div>
-                    </div>
-                    <p class="text-gray-600 mb-6 italic text-sm leading-relaxed flex-grow">"ヤシノミさんのサポートのおかげで、<span class="amazon-orange-text">Amazon</span>の売上が<strong class='primary-color'>3ヶ月で150%</strong>という目覚ましい成果を達成できました！特に広告運用の最適化と、担当者への丁寧な教育が素晴らしく、社内に実践的なノウハウが確実に蓄積されたことを実感しています。まさに<strong class='primary-color'>自走できる体制</strong>が整いました。"</p>
-                    <div class="text-right text-xs text-gray-500">- 代表取締役 二木 様</div>
+                <div class="card p-6 sm:p-8 flex flex-col items-center text-center"> 
+                    <img src="./images/placeholder-logo-nokurosu.png" alt="株式会社ノクロス 様" class="w-20 h-20 sm:w-24 sm:h-24 rounded-full mb-5 shadow-md"> 
+                    <h4 class="text-lg font-semibold text-gray-800 mb-1">株式会社ノクロス 様</h4>
+                    <p class="text-xs text-gray-500 mb-4">代表取締役 二木 様 (EC小売業)</p> 
+                    <p class="text-gray-600 italic text-sm leading-relaxed flex-grow">"ヤシノミさんに<span class="amazon-orange-text">Amazon</span>の運用サポートをお願いしてから、特に広告の成果が目に見えて変わりました。3ヶ月ほどで売上も大きく伸び、手応を感じています。何より、以前は手探りだった運用について、担当者がヤシノミさんから直接指導を受けることで、社内で判断できることが増え、自信を持って取り組めるようになったのが大きな収穫です。これなら自社で運用を続けていけそうだと感じています。"</p>
                 </div>
-                <div class="card p-6 sm:p-8 flex flex-col">
-                    <div class="flex items-center mb-4">
-                        <img src="./images/placeholder-logo-addiction.png" alt="お客様ロゴ 美容サロン Addiction1138 様" class="w-12 h-12 rounded-full mr-4 border-2 border-white shadow-sm"> 
-                        <div>
-                            <h4 class="font-semibold text-gray-800">美容サロン Addiction1138 様</h4>
-                            <p class="text-xs text-gray-500">美容サロン・美容商材開発</p>
-                        </div>
-                    </div>
-                    <p class="text-gray-600 mb-6 italic text-sm leading-relaxed flex-grow">"スポットでLステップの構築をお願いしたのですが、その効果に驚いています。購入後の顧客フォローが自動化されただけでなく、<strong class="primary-color">お客様からの温かいレビューが以前の3倍以上に増加</strong>し、リピート率も目に見えて向上しました。Lステップの戦略的な活用方法まで丁寧に指導いただき、<strong class="primary-color">顧客との新しいコミュニケーションチャネル</strong>を確立できました。本当に感謝しています。"</p>
-                    <div class="text-right text-xs text-gray-500">- 担当 岡島 様</div>
+                <div class="card p-6 sm:p-8 flex flex-col items-center text-center">
+                    <img src="./images/placeholder-logo-addiction.png" alt="美容サロン Addiction1138 様" class="w-20 h-20 sm:w-24 sm:h-24 rounded-full mb-5 shadow-md">
+                    <h4 class="text-lg font-semibold text-gray-800 mb-1">美容サロン Addiction1138 様</h4>
+                    <p class="text-xs text-gray-500 mb-4">担当 岡島 様</p> 
+                    <p class="text-gray-600 italic text-sm leading-relaxed flex-grow">"スポットでLステップの構築をお願いしたのですが、その効果に驚いています。購入後の顧客フォローが自動化されただけでなく、<strong class="primary-color">お客様からの温かいレビューが以前の3倍以上に増加</strong>し、リピート率も目に見えて向上しました。Lステップの戦略的な活用方法まで丁寧に指導いただき、<strong class="primary-color">顧客との新しいコミュニケーションチャネル</strong>を確立できました。本当に感謝しています。"</p>
                 </div>
             </div>
              <div class="text-center mt-16">
@@ -364,7 +376,9 @@
             </div>
         </div>
     </section>
+    <!-- 5. END TESTIMONIALS SECTION -->
 
+    <!-- 6. PLANS SECTION -->
     <section id="plans" class="py-20 md:py-28 bg-gray-50 fade-in-section">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16">
@@ -382,11 +396,11 @@
                     <ul class="mb-8 space-y-3.5 text-gray-600 text-sm leading-relaxed flex-grow">
                         <li class="flex items-start">
                             <svg class="w-5 h-5 text-blue-600 mr-2.5 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-                            <span>月1回の訪問コンサルティング (大阪府内および近隣)</span>
+                            <span>月次定例ミーティング（オンライン or 対面）</span>
                         </li>
                         <li class="flex items-start">
                             <svg class="w-5 h-5 text-blue-600 mr-2.5 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-                            <span>月次定例ミーティング（オンライン or 対面）</span>
+                            <span>チャット or メールでの週次報告</span>
                         </li>
                         <li class="flex items-start">
                             <svg class="w-5 h-5 text-blue-600 mr-2.5 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
@@ -409,7 +423,7 @@
                     </a>
                 </div>
                 <div class="card p-8 flex flex-col">
-                    <h3 class="text-2xl font-semibold mb-2 primary-color"><span class="amazon-orange-text">Amazon</span>広告調整のみプラン</h3>
+                    <h3 class="text-2xl font-semibold mb-2 primary-color"><span class="amazon-orange-text">Amazon</span>広告調整プラン</h3>
                     <div class="text-4xl font-bold mb-6 secondary-color">
                         ¥50,000<span class="text-lg text-gray-500 font-normal"> / 月額 (税抜)</span>
                     </div>
@@ -420,15 +434,15 @@
                         </li>
                         <li class="flex items-start">
                             <svg class="w-5 h-5 text-blue-600 mr-2.5 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-                            <span>月次レポートでの運用状況報告</span>
-                        </li>
-                        <li class="flex items-start">
-                            <svg class="w-5 h-5 text-blue-600 mr-2.5 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
                             <span>キーワード選定・入札単価最適化</span>
                         </li>
                         <li class="flex items-start">
                             <svg class="w-5 h-5 text-blue-600 mr-2.5 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
                             <span>キャンペーン構造の改善提案</span>
+                        </li>
+                         <li class="flex items-start">
+                            <svg class="w-5 h-5 text-blue-600 mr-2.5 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                            <span>チャット or メールでの週次報告</span>
                         </li>
                     </ul>
                     <div class="bg-blue-50 p-3 rounded-md text-xs mb-8 text-blue-700">
@@ -444,7 +458,7 @@
                 <h3 class="text-2xl font-semibold mb-8 text-center secondary-color">オプションサービス</h3>
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
                     <div class="card p-6 flex flex-col">
-                        <h4 class="font-semibold text-lg mb-1 primary-color">Amazonブランド登録 フルサポート</h4>
+                        <h4 class="font-semibold text-lg mb-1 primary-color">Amazonブランド登録サポート</h4>
                         <p class="text-xl font-bold mb-2 secondary-color">¥15,000 <span class="text-sm text-gray-500 font-normal">(税抜)</span></p>
                         <p class="text-xs text-gray-500 leading-relaxed mb-1 flex-grow">商標取得からAmazon Brand Registry登録までワンストップ支援。Amazonに強い提携専門弁理士をご紹介可。</p>
                         <p class="text-xs text-gray-400 leading-relaxed">※弁理士費用別途</p>
@@ -502,7 +516,9 @@
             </div>
         </div>
     </section>
+    <!-- 6. END PLANS SECTION -->
 
+    <!-- 7. KPI GOAL SECTION -->
     <section id="kpi-goal" class="py-20 md:py-28 bg-white fade-in-section">
        <div class="container mx-auto px-6">
             <div class="text-center mb-16">
@@ -546,7 +562,9 @@
              <p class="text-center text-gray-600 mt-8 text-sm">※上記はあくまで一例です。お客様の事業特性や目標に応じて、最適な指標設定と運用体制構築をご支援します。</p>
         </div>
     </section>
+    <!-- 7. END KPI GOAL SECTION -->
 
+    <!-- 8. FAQ SECTION -->
     <section id="faq" class="py-20 md:py-28 bg-gray-50 fade-in-section">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16">
@@ -630,7 +648,9 @@
             </div>
         </div>
     </section>
+    <!-- 8. END FAQ SECTION -->
 
+    <!-- 9. COMPANY SECTION -->
     <section id="company" class="py-20 md:py-28 bg-white fade-in-section">
          <div class="container mx-auto px-6">
             <div class="text-center mb-16">
@@ -684,7 +704,7 @@
                         <h3 class="text-xl font-semibold mb-6 primary-color text-center">代表メッセージ</h3>
                         <img src="./images/placeholder-profile.png" alt="代表 四宮 慶人" class="w-28 h-28 rounded-full mx-auto mb-6 shadow-md border-4 border-white"> 
                         <p class="text-gray-700 mb-4 text-sm leading-relaxed">「困難は必ず解決策をつれてやってくる」<br>この言葉を信条に、私たちはECビジネスが直面する様々な課題に、お客様と共に取り組みます。</p>
-                        <p class="text-gray-700 mb-4 text-sm leading-relaxed">特に<span class="amazon-orange-text">Amazon</span>はその複雑さから、多くの事業者様が可能性を感じつつも、ノウハウ不足やリソース不足で成果に繋がらないケースを目の当たりにしてきました。私自身、自社ブランド<strong class="font-medium primary-color">3商品・年商9000万円</strong>を達成した経験（現在は3名体制で運営）から、その難しさと可能性を肌で感じています。</p>
+                        <p class="text-gray-700 mb-4 text-sm leading-relaxed">特に<span class="amazon-orange-text">Amazon</span>はその複雑さから、多くの事業者様が可能性を感じつつも、ノウハウ不足やリソース不足で成果に繋がらないケースを目の当たりにしてきました。私自身、自社ブランド<strong class="font-medium primary-color">3商品・年商9000万円</strong>を達成した経験（現在は3名体制で運営）、そして<a href="https://cho-ju-jp.myshopify.com/" target="_blank" rel="noopener noreferrer" class="primary-color hover:underline">自社ブランド「CHO-JU」</a>の運営を通じて、その難しさと可能性を肌で感じています。</p>
                         <p class="text-gray-700 text-sm leading-relaxed">ヤシノミは単なる「運用代行屋」ではありません。元<span class="amazon-orange-text">Amazon</span>コンサル会社での経験と、現役セラーとしての実践知を融合させ、「教育と伴走」を核としてお客様のチームが<strong class="font-medium primary-color">「75点の自走運用」</strong>を実現できるよう、全力でサポートいたします。特に<strong class="font-medium primary-color">大阪のお客様とは顔の見える関係</strong>を大切にしています。</p>
                         <p class="text-right mt-6 font-medium primary-color text-sm">代表社員 四宮 慶人</p>
                     </div>
@@ -693,7 +713,7 @@
                     <h3 class="text-xl font-semibold mb-4 primary-color text-center md:text-left">アクセス</h3>
                     <div class="map-container rounded-lg shadow-md overflow-hidden">
                         <iframe 
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3275.914494132827!2d135.4274623156097!3d34.80780898040754!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6000fa4f19f82a91%3A0x8c88c7a25f671863!2z44GE44GR44G044OU44Ki44Oe44Or44K744Oz44K_44O8!5e0!3m2!1sja!2sjp!4v1678886400000!5m2!1sja!2sjp" 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3275.914494132827!2d135.4274623156097!3d34.80780898040754!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6000fa4f19f82a91%3A0x8c88c7a25f671863!2z44GE44GR44G044OU44Ki44Oe44Or44K744Oz44K_44O8!5e0!3m2!1sja!2sjp!4v1715958924189!5m2!1sja!2sjp" 
                             width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" 
                             referrerpolicy="no-referrer-when-downgrade">
                         </iframe>
@@ -707,7 +727,9 @@
             </div>
         </div>
     </section>
+    <!-- 9. END COMPANY SECTION -->
 
+    <!-- 10. CONTACT SECTION -->
     <section id="contact" class="py-20 md:py-28 bg-gray-800 text-white fade-in-section">
         <div class="container mx-auto px-6">
             <div class="text-center mb-12">
@@ -787,7 +809,9 @@
             </div>
         </div>
     </section>
+    <!-- 10. END CONTACT SECTION -->
 
+    <!-- 11. FOOTER -->
     <footer class="bg-gray-900 text-gray-400 py-16 fade-in-section">
         <div class="container mx-auto px-6">
             <div class="grid md:grid-cols-3 gap-10 mb-10">
@@ -824,10 +848,37 @@
             </div>
         </div>
     </footer>
+    <!-- 11. END FOOTER -->
     
+    <!-- 12. SCRIPTS -->
     <script defer src="https://unpkg.com/alpinejs@3.13.x/dist/cdn.min.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // --- Swiper Hero Carousel ---
+            const heroSwiper = new Swiper('.hero-section-swiper', { 
+                loop: true,
+                autoplay: {
+                    delay: 6000, 
+                    disableOnInteraction: false,
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+                effect: 'fade', 
+                fadeEffect: {
+                    crossFade: true
+                },
+                watchOverflow: true, 
+                speed: 800, 
+            });
+
+            // --- Mobile Menu ---
             const menuButton = document.getElementById('mobile-menu-button');
             const closeMenuButton = document.getElementById('close-mobile-menu-button');
             const mobileMenuBody = document.getElementById('mobile-menu-body');
@@ -850,23 +901,26 @@
                 link.addEventListener('click', closeMenu);
             });
 
+            // --- Footer Year ---
             const currentYearElement = document.getElementById('current-year');
             if (currentYearElement) {
                 currentYearElement.textContent = new Date().getFullYear();
             }
 
+            // --- Scroll Animation ---
             const fadeInSections = document.querySelectorAll('.fade-in-section');
-            const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
-            const observer = new IntersectionObserver((entries, observer) => {
+            const observerOptions = { root: null, rootMargin: '0px', threshold: 0.05 }; 
+            const observer = new IntersectionObserver((entries, obs) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('is-visible');
-                        observer.unobserve(entry.target);
+                        obs.unobserve(entry.target);
                     }
                 });
             }, observerOptions);
             fadeInSections.forEach(section => { observer.observe(section); });
         });
     </script>
+    <!-- 12. END SCRIPTS -->
 </body>
 </html>

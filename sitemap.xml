@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://www.yashi-nomi.com/</loc>
+    <lastmod>2024-05-18</lastmod> {/* 最終更新日を記述 */}
+    <changefreq>monthly</changefreq> {/* 更新頻度 */}
+    <priority>1.0</priority> {/* 重要度 */}
+  </url>
+  {/* もし、重要なアンカーリンク先のセクションを個別のページのように扱いたい場合、
+      <loc>https://www.yashi-nomi.com/#services</loc> のように追加することも検討できますが、
+      通常はトップページだけで十分です。 */}
+</urlset>

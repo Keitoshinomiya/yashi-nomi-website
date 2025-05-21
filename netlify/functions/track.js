@@ -3,7 +3,7 @@ exports.handler = async (event, context) => {
   const params = event.queryStringParameters;
   const userId = params.user_id || "unknown_user"; 
 
-  const slackWebhookUrl = "https://hooks.slack.com/services/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"; 
+  const slackWebhookUrl = "https://hooks.slack.com/services/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"; 
 
   const timestamp = new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" });
 

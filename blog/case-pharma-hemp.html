@@ -157,14 +157,14 @@
                         <div class="md:w-1/3 shrink-0">
                             <div class="bg-blue-50 h-full rounded-lg flex flex-col items-center justify-center p-4 text-center border border-blue-100">
                                 <span class="text-4xl font-bold text-blue-200 mb-2">04</span>
-                                <h4 class="font-bold text-lg text-blue-800">自社出荷でも売れる<br>広告チューニング</h4>
+                                <h4 class="font-bold text-lg text-blue-800">ROAS・TACOS管理による<br>利益最大化</h4>
                             </div>
                         </div>
                         <div class="md:w-2/3">
-                            <h4 class="text-xl font-bold mb-3 text-gray-800">「検索連動」で顕在層を確実に刈り取る</h4>
+                            <h4 class="text-xl font-bold mb-3 text-gray-800">「売上」と「利益」のメリハリ運用</h4>
                             <p class="text-sm leading-7">
-                                FBA（Amazon倉庫）を使わない自社出荷モデルのため、プライムマークがつかないハンデがありました。そこで重要になったのが<strong>「広告運用の精度」</strong>です。<br>
-                                ビッグワードでの無駄な露出を抑え、購買意欲の高い「指名検索」や「ロングテールキーワード」に予算を集中。入札単価を日々細かくチューニングすることで、費用対効果（ROAS）を維持しながら売上を積み上げる「勝ちパターン」を確立しました。
+                                立ち上げ初月（7月）は、まず市場データを収集するために広告を積極的に配信し、一気に露出を確保（ブースト施策）。ここで「売れるキーワード」と「顧客の反応」を徹底的に検証しました。<br>
+                                翌月（8月）からはフェーズを一転させ、<strong>ROAS（広告費用対効果）</strong>と<strong>TACOS（売上高広告宣伝費率）</strong>を厳格に管理。「売上は立つが利益が出ない広告」をカットし、利益が確実に残る健全な運用体制へとシフトしました。
                             </p>
                         </div>
                     </div>
@@ -176,12 +176,25 @@
                 <h2 class="text-2xl font-bold mb-6 primary-color text-center">そして、4ヶ月後...</h2>
                 
                 <!-- Sales Chart -->
-                <div class="mb-10 bg-white p-4 rounded-lg shadow-sm border border-gray-200">
-                    <h3 class="text-center font-bold text-gray-700 mb-4">Amazon売上推移（立ち上げ開始：7月〜）</h3>
-                    <div class="w-full h-64 md:h-80 relative">
-                        <canvas id="salesChart"></canvas>
+                <div class="mb-10 bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                    <h3 class="text-center font-bold text-gray-700 mb-2">Amazon成長イメージ（立ち上げ7月〜）</h3>
+                    <p class="text-xs text-gray-500 text-center mb-6">※戦略的なフェーズ移行による推移</p>
+                    
+                    <div class="relative">
+                        <div class="w-full h-64 md:h-80">
+                            <canvas id="salesChart"></canvas>
+                        </div>
+                        <!-- Annotations overlay (HTML/CSS positioning) -->
+                        <div class="hidden md:block absolute top-10 left-[18%] bg-blue-100 text-blue-800 text-xs p-2 rounded opacity-90 border border-blue-200 shadow-sm pointer-events-none">
+                            <strong>7月: ブースト期</strong><br>広告で露出最大化＆<br>データ収集
+                        </div>
+                        <div class="hidden md:block absolute top-28 left-[35%] bg-green-100 text-green-800 text-xs p-2 rounded opacity-90 border border-green-200 shadow-sm pointer-events-none">
+                            <strong>8月: 利益構造改革</strong><br>ROAS/TACOSを管理し<br>利益重視へシフト
+                        </div>
+                        <div class="hidden md:block absolute top-5 right-[10%] bg-orange-100 text-orange-800 text-xs p-2 rounded opacity-90 border border-orange-200 shadow-sm pointer-events-none">
+                            <strong>9月以降: 再成長</strong><br>健全な利益体質で<br>売上拡大
+                        </div>
                     </div>
-                    <p class="text-xs text-gray-500 text-center mt-2">※実際の売上データを基にした推移グラフ</p>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8 items-center">
@@ -192,8 +205,8 @@
                     </div>
                     <div class="space-y-4">
                         <div class="bg-white p-4 rounded shadow-sm border-l-4 border-yellow-500">
-                            <h4 class="font-bold text-gray-800">楽天と同規模の売上へ</h4>
-                            <p class="text-sm text-gray-600">長年積み上げてきた楽天店舗の月商に、わずか4ヶ月で並ぶスピード成長を達成。</p>
+                            <h4 class="font-bold text-gray-800">利益体質への転換</h4>
+                            <p class="text-sm text-gray-600">単に売上を作るだけでなく、ROASとTACOSを適正値にコントロール。8月以降、利益をしっかり残しながら成長する土台が完成しました。</p>
                         </div>
                         <div class="bg-white p-4 rounded shadow-sm border-l-4 border-primary-color">
                             <h4 class="font-bold text-gray-800">「指名検索」の増加</h4>
@@ -345,18 +358,25 @@
                     scales: {
                         y: {
                             beginAtZero: true,
-                            ticks: {
-                                callback: function(value) {
-                                    return '¥' + value.toLocaleString();
-                                }
-                            },
+                            display: false, // Hide Y axis labels
                             grid: {
-                                color: '#f3f4f6'
+                                display: false // Hide grid lines
                             }
                         },
                         x: {
                             grid: {
                                 display: false
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            enabled: true,
+                            callbacks: {
+                                label: function(context) {
+                                    return '売上推移'; // Hide actual values
+                                }
                             }
                         }
                     }

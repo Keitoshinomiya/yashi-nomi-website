@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Amazon販売を成功させるための第1章。基本方針、自社ブランドの定義、売れる商品選定と開発、そしてマーケティング戦略まで、Amazon事業の全体像を徹底解説します。">
+    <title>Amazonで勝つブランドの作り方：商品企画から販売戦略までの概要 | 合同会社ヤシノミ</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            color: #1f2937; 
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background-color: #f8f9fa;
+        }
+        
+        :root {
+            --primary-color: #005A9C; 
+            --primary-color-dark: #004170;
+            --accent-orange: #FF9900;
+            --text-dark: #1f2937;
+            --text-medium: #4b5563;
+        }
+
+        .primary-color { color: var(--primary-color); }
+        .amazon-orange-text { color: var(--accent-orange); }
+
+        .btn { padding: 0.875rem 1.75rem; border-radius: 0.375rem; font-weight: 500; transition: all 0.3s ease; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; border: none; box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.1); cursor: pointer; }
+        .btn-primary { background-image: linear-gradient(to right, var(--primary-color) 0%, var(--primary-color-dark) 50%, var(--primary-color) 100%); background-size: 200% auto; color: white; }
+        .btn-primary:hover { background-position: right center; box-shadow: 0 6px 20px 0 rgba(0, 90, 156, 0.2); }
+
+        article h2 {
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e5e7eb;
+        }
+        
+        article h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            border-left: 5px solid var(--accent-orange);
+            padding-left: 1rem;
+        }
+
+        article p {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            color: var(--text-medium);
+        }
+
+        article ul, article ol {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+            color: var(--text-medium);
+        }
+        article ul { list-style-type: disc; }
+        article ol { list-style-type: decimal; }
+        article li { margin-bottom: 0.5rem; }
+
+        .highlight-box {
+            background-color: #f0f9ff;
+            border-left: 4px solid var(--primary-color);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border-radius: 0.375rem;
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <!-- HEADER -->
+    <header class="shadow-sm sticky top-0 bg-white z-50">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="../index.html" class="flex items-center gap-3">
+                <img src="../images/logo.png" alt="ヤシノミ ロゴ" class="h-8 w-auto md:h-10">
+                <h1 class="text-lg md:text-xl font-bold primary-color hidden sm:block">合同会社ヤシノミ</h1>
+            </a>
+            <nav class="hidden lg:flex space-x-6 items-center">
+                <a href="../index.html#services" class="text-gray-600 hover:text-blue-700 transition duration-200 font-medium text-sm">Service</a>
+                <a href="./index.html" class="text-blue-700 font-bold transition duration-200 font-medium text-sm">Blog</a>
+                <a href="../index.html#contact" class="btn btn-primary text-xs px-5 py-2 shadow-lg transform hover:scale-105">CONTACT</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="py-16 bg-white">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <!-- Breadcrumb -->
+                    <div class="text-sm text-gray-500 mb-8">
+                <a href="../index.html" class="hover:text-blue-600">ホーム</a> &gt; 
+                <a href="./index.html" class="hover:text-blue-600">ブログ</a> &gt; 
+                <span>Amazonで勝つブランドの作り方</span>
+            </div>
+
+            <!-- Article Header -->
+            <div class="mb-12 text-center">
+                <span class="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full mb-4 inline-block">Amazon基礎講座</span>
+                <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6 leading-tight">
+                    【第1章】Amazonで勝つブランドの作り方：<br>
+                    商品企画から販売戦略までの概要
+                </h1>
+                <div class="text-gray-500 text-sm">
+                    <span class="mr-4">公開日: 2025.12.02</span>
+                    <span>カテゴリー: Amazon運用ノウハウ</span>
+                </div>
+            </div>
+
+            <!-- Eye Catch Image -->
+            <div class="mb-16 rounded-xl overflow-hidden shadow-lg">
+                <img src="https://placehold.co/1200x630/005A9C/FFFFFF?text=Amazon+Basic+Strategy+Chapter+1" alt="Amazon販売戦略の基礎" class="w-full h-auto">
+            </div>
+
+            <!-- Article Body -->
+            <article>
+                <p class="text-lg font-medium text-gray-700 mb-8">
+                    「Amazonで売上を上げたいが、何から始めればいいかわからない」「自社商品はあるが、Amazonでの売り方がわからない」。<br>
+                    Amazon販売は単なる出品作業ではありません。成功するためには、Amazonという巨大なマーケットプレイスの特性を理解し、戦略的に取り組む必要があります。<br>
+                    本記事では、Amazon販売の「第1章」として、全体の方針から具体的な商品開発・マーケティングまでのロードマップを解説します。
+                </p>
+
+                <div class="highlight-box">
+                    <h3 class="!mt-0 !mb-4 text-lg">この記事でわかること</h3>
+                    <ul class="!mb-0">
+                        <li>Amazon販売における基本方針と戦略</li>
+                        <li>Amazonにおける「自社ブランド」の定義</li>
+                        <li>失敗しない商品選定とリサーチ方法</li>
+                        <li>売れる商品開発のステップ</li>
+                        <li>初速をつける商品マーケティング戦略</li>
+                    </ul>
+                </div>
+
+                <h2>1. Amazonの方針と販売戦略</h2>
+                <p>
+                    Amazonは「地球上で最もお客様を大切にする企業」を掲げています。この理念は、出品者（セラー）に対する評価システムや検索アルゴリズム（SEO）にも色濃く反映されています。<br>
+                    つまり、<strong>「顧客満足度の高い商品・サービスを提供するセラーが勝つ」</strong>仕組みになっています。
+                </p>
+
+                <h3>Amazonで勝つための3つの基本原則</h3>
+                <ol>
+                    <li><strong>商品力（Product）：</strong> 市場のニーズに合致し、品質が担保されていること。</li>
+                    <li><strong>商品ページ（Listing）：</strong> 商品の魅力が正しく伝わり、顧客が迷わず購入できる情報が揃っていること。</li>
+                    <li><strong>集客（Traffic）：</strong> 検索キーワード対策（SEO）や広告運用で、適切な顧客に商品を露出させること。</li>
+                </ol>
+                <p>
+                    この3つは掛け算です。どれか一つが欠けても、爆発的な売上は生まれません。<br>
+                    特に初心者が陥りがちなのが、「良い商品なら勝手に売れる」という誤解です。Amazonには数億点の商品があります。その中で見つけてもらうための「販売戦略」が不可欠です。
+                </p>
+
+                <h2>2. 「自社ブランド」の定義とは？</h2>
+                <p>
+                    Amazon販売における「自社ブランド（プライベートブランド）」とは、単にロゴを入れた商品を作ることではありません。<br>
+                    <strong>「特定の顧客の悩みを解決し、独自の価値を提供する商品群」</strong>と定義すべきです。
+                </p>
+                <p>
+                    転売（せどり）との最大の違いは、<strong>「資産性」</strong>です。<br>
+                    他社メーカー品を横流しするだけでは、価格競争に巻き込まれ、利益率は低下し続けます。一方、自社ブランドは、ブランド認知が広まれば「指名買い」が増え、広告費を抑えても売れ続ける資産になります。
+                </p>
+                <div class="highlight-box">
+                    <p class="font-bold !mb-2">Amazonブランド登録（Brand Registry）の重要性</p>
+                    <p class="!mb-0 text-sm">
+                        自社ブランドを展開するなら、商標権を取得し「Amazonブランド登録」を行うことが必須です。<br>
+                        これにより、商品紹介コンテンツ（A+）の作成、スポンサーブランド広告の利用、偽物排除の保護機能など、売上アップに直結する機能が解放されます。
+                    </p>
+                </div>
+
+                <h2>3. 商品選定とリサーチ：市場の「隙間」を見つける</h2>
+                <p>
+                    「何を作るか」で勝負の8割は決まります。自分の作りたいものではなく、<strong>「市場が求めているもの」</strong>を作るのが鉄則です。
+                </p>
+                <h3>リサーチの3ステップ</h3>
+                <ul>
+                    <li><strong>需要の確認：</strong> 検索ボリュームや競合商品の売上規模をツール（Helium10やSeller Spriteなど）で確認します。「売れている市場」に参入するのが大前提です。</li>
+                    <li><strong>競合の分析：</strong> ベストセラー商品のレビュー（特に低評価レビュー）を読み込みます。「重すぎる」「壊れやすい」「説明書がわかりにくい」といった顧客の不満（ペイン）こそが、参入のチャンスです。</li>
+                    <li><strong>差別化ポイントの発見：</strong> 競合の不満を解消できる要素を洗い出します。機能、デザイン、セット内容、サポート体制など、顧客にとって価値ある差別化を定義します。</li>
+                </ul>
+
+                <h2>4. 商品の開発：品質とスピードの両立</h2>
+                <p>
+                    リサーチで勝てる見込みが立ったら、商品開発（OEM/ODM）に進みます。<br>
+                    ここでは、中国工場などとの連携が一般的ですが、重要なのは<strong>「サンプル確認」</strong>の徹底です。
+                </p>
+                <p>
+                    写真だけで判断せず、必ず実物を取り寄せ、競合商品と比較・使用テストを行ってください。<br>
+                    初期不良はAmazonアカウントの健全性を著しく損ないます。検品体制の構築も含め、品質管理にはコストを惜しまないことが、長期的な利益につながります。
+                </p>
+
+                <h2>5. 商品マーケティング：発売後の垂直立ち上げ</h2>
+                <p>
+                    どれだけ良い商品を作っても、Amazonの検索結果の1ページ目に表示されなければ、存在しないのと同じです。<br>
+                    発売直後（ハネムーン期間）にどれだけ販売実績を作れるかが、その後の運命を左右します。
+                </p>
+
+                <h3>発売直後の重要アクション</h3>
+                <ul>
+                    <li><strong>SEO対策（キーワード設定）：</strong> 商品タイトル、仕様、検索キーワードフィールドに、リサーチした「売れるキーワード」を適切に盛り込みます。</li>
+                    <li><strong>Amazon広告（スポンサープロダクト）：</strong> 初期は利益度外視で広告を回し、インプレッション（露出）と販売実績を稼ぎます。これによりオーガニック（自然検索）順位を引き上げます。</li>
+                    <li><strong>レビュー施策（Amazon Vine）：</strong> Amazon公式のレビュー獲得プログラム「Vine先取りプログラム」を活用し、初期の信頼（レビュー）を早期に獲得します。</li>
+                </ul>
+
+                <div class="mt-12 p-8 bg-gray-100 rounded-lg text-center">
+                    <h3 class="!mt-0 !border-none text-2xl font-bold mb-4">Amazon販売の戦略立案でお悩みですか？</h3>
+                    <p class="mb-6">
+                        「リサーチの方法が合っているか不安」「自社商品の強みがわからない」<br>
+                        そんな方は、現役セラーであるヤシノミにご相談ください。<br>
+                        貴社の状況に合わせた、最適なAmazon戦略をご提案します。
+                    </p>
+                    <a href="https://calendar.app.google/TZrQ5YLexng2gPRV8" target="_blank" class="btn btn-primary shadow-xl transform hover:scale-105">
+                        無料オンライン相談を予約する
+                    </a>
+                </div>
+            </article>
+
+            <!-- Back to List -->
+            <div class="mt-16 text-center border-t pt-8">
+                <a href="./index.html" class="text-blue-600 hover:text-blue-800 font-medium flex items-center justify-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                    記事一覧に戻る
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-900 text-gray-400 py-12">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-sm">© 2023-2025 合同会社ヤシノミ All Rights Reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

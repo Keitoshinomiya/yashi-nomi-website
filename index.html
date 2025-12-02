@@ -1,6 +1,45 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PBN7WNCX8N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-PBN7WNCX8N');
+    </script>
+    <!-- Custom Event Tracking for Navigation -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.body.addEventListener('click', function(e) {
+            var target = e.target.closest('a, button, .btn');
+            if (target) {
+                var text = target.innerText ? target.innerText.trim().substring(0, 100) : '';
+                var href = target.getAttribute('href') || '';
+                var id = target.getAttribute('id') || '';
+                var location = 'body';
+                
+                if (target.closest('header')) location = 'header';
+                else if (target.closest('footer')) location = 'footer';
+                else if (target.closest('.hero-section-swiper')) location = 'hero';
+                else if (target.closest('#contact')) location = 'contact_section';
+                else if (target.closest('#plans')) location = 'plans_section';
+                else if (target.closest('#blog')) location = 'blog_section';
+                else if (target.closest('#services')) location = 'services_section';
+                
+                gtag('event', 'click_tracking', {
+                    'event_category': 'navigation',
+                    'event_label': text + ' (' + location + ')',
+                    'link_url': href,
+                    'link_location': location
+                });
+            }
+        });
+    });
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="大阪府池田市のAmazon/EC支援企業。自社ブランド年商9000万円達成、少数精鋭チームの現役セラーがEC事業の自走を徹底サポート。大阪府内中心に対面支援。初期費用不要。">

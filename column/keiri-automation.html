@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PBN7WNCX8N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-PBN7WNCX8N');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ECの売上を会計ソフトへ手入力する作業は、毎月の固定残業のようなもの。私たちは通販モールの精算データを会計ソフトへ自動で投入する仕組みを作り、月初の経理を数時間から十数分に縮めました。仕訳の作り方・つまずきポイントを表と図で公開します。">
+    <title>EC売上の会計ソフト入力を自動化する：月初経理を数時間から十数分に - 合同会社ヤシノミ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0a3d62;
+            --primary-color-dark: #06283d;
+            --accent-orange: #FF9900;
+            --border-color: #e5e7eb;
+        }
+        body { font-family: 'Noto Sans JP', sans-serif; color: #1f2937; background-color: #f8f9fa; }
+        .font-serif-jp { font-family: 'Noto Serif JP', serif; }
+        .primary-color { color: var(--primary-color); }
+        .text-accent { color: var(--accent-orange); }
+        .btn-primary { background-image: linear-gradient(to right, #0a3d62 0%, #06283d 50%, #0a3d62 100%); background-size: 200% auto; color: white; }
+        .btn-primary:hover { background-position: right center; }
+        .marker { background: linear-gradient(transparent 60%, #cfe8ff 60%); font-weight: 700; }
+        .prose h2 { scroll-margin-top: 80px; }
+        .toc a:hover { color: var(--primary-color); text-decoration: underline; }
+        table.data { width:100%; border-collapse:collapse; font-size:0.82rem; }
+        table.data th, table.data td { border:1px solid var(--border-color); padding:8px 10px; text-align:center; }
+        table.data th { background:var(--primary-color); color:#fff; font-weight:700; }
+        table.data tr:nth-child(even) td { background:#fafafa; }
+        table.data td.l { text-align:left; }
+    </style>
+
+    <link rel="icon" href="https://yashi-nomi.com/images/logo.png" type="image/png" sizes="192x192">
+    <link rel="apple-touch-icon" href="https://yashi-nomi.com/images/logo.png">
+</head>
+<body>
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="../index.html" class="flex items-center gap-2">
+                <img src="../images/logo.png" alt="ヤシノミ ロゴ" class="h-8 w-auto">
+                <span class="font-bold primary-color">合同会社ヤシノミ</span>
+            </a>
+            <a href="https://calendar.app.google/TZrQ5YLexng2gPRV8" target="_blank" class="btn-primary px-4 py-2 rounded text-sm font-bold transition shadow-md">無料相談を予約</a>
+        </div>
+    </header>
+
+    <article class="container mx-auto px-6 py-12 max-w-3xl bg-white mt-8 rounded-xl shadow-sm">
+        <div class="flex items-center gap-2 mb-4 flex-wrap">
+            <span class="text-white text-xs font-bold px-3 py-1 rounded" style="background:var(--primary-color);">仕組み化・自動化</span>
+            <span class="text-gray-400 text-xs">業務改善コラム</span>
+        </div>
+        <h1 class="font-serif-jp text-3xl md:text-4xl font-bold mt-2 mb-4 leading-tight text-gray-800" style="letter-spacing:0.02em;">
+            EC売上の会計ソフト入力を自動化する<br>
+            <span class="text-2xl md:text-3xl mt-3 block text-gray-600 font-normal">月初の経理を「数時間」から「十数分」へ</span>
+        </h1>
+        <p class="text-sm text-gray-400 mb-8">業務改善コラム ／ 仕組み化・自動化 ／ 読了目安：約10分</p>
+
+        <div class="prose max-w-none text-gray-700 leading-relaxed space-y-8">
+            <p class="text-lg font-medium leading-8 pl-4 p-4 rounded-r" style="border-left:4px solid var(--primary-color);background:#f1f7fd;">
+                ネットショップを運営していると、毎月必ずやってくる作業があります。<span class="marker">モールの精算データを見ながら、会計ソフトに売上や手数料を打ち込む作業</span>です。<br>
+                これは、やってもやっても利益を生まない「固定残業」のようなもの。私たちは自社のEC経理でこの作業を自動化し、月初の手入力をほぼゼロに近づけました。この記事では、その考え方と仕訳の作り方を、表と図でできるだけ具体的に公開します。
+            </p>
+
+            <nav class="toc text-sm bg-gray-50 border rounded-lg p-5" style="border-color:var(--border-color);">
+                <p class="font-bold text-gray-800 mb-3">この記事の内容</p>
+                <ol class="list-decimal pl-5 space-y-1.5 text-gray-600">
+                    <li><a href="#pain">毎月の経理が「重い」本当の理由</a></li>
+                    <li><a href="#before">Before：手入力でやっていた頃</a></li>
+                    <li><a href="#after">After：データから自動で仕訳を作る</a></li>
+                    <li><a href="#shiwake">仕訳のイメージ：売上・手数料はこう分ける</a></li>
+                    <li><a href="#pitfall">つまずきポイント（手数料は数ヶ月遅れて来る）</a></li>
+                    <li><a href="#type">他社でも使える「経理自動化」の型</a></li>
+                    <li><a href="#summary">まとめ</a></li>
+                </ol>
+            </nav>
+
+            <section id="pain">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">1. 毎月の経理が「重い」本当の理由</h2>
+                <p>
+                    EC事業の経理がつらいのは、計算が難しいからではありません。<strong>「量が多くて、毎月必ず来る」</strong>からです。
+                    Amazonや楽天などのモールは、売上から販売手数料・広告費・配送代行料などを差し引いた金額を入金してきます。
+                    入金額をそのまま「売上」として記帳すると、手数料や広告費が消えてしまい、本当の利益が分からなくなります。
+                </p>
+                <p>
+                    だから本当は、<span class="marker">「総売上」「販売手数料」「広告費」「入金額」を分けて記帳する</span>必要がある。
+                    モールごとに精算書のフォーマットが違い、項目名もバラバラ。これを毎月、手で会計ソフトに転記していると、月初は何時間も経理に取られます。
+                    しかも転記ミスがあれば、決算で帳尻が合わずに探し回ることになります。
+                </p>
+            </section>
+
+            <section id="before">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">2. Before：手入力でやっていた頃</h2>
+                <p>自動化する前の流れは、おおよそこうでした。</p>
+                <div class="grid sm:grid-cols-2 gap-4 mt-5 text-sm">
+                    <div class="border rounded-lg p-4" style="border-color:var(--border-color);">
+                        <p class="font-bold text-gray-800 mb-2">😵 Before（手作業）</p>
+                        <ol class="list-decimal pl-4 space-y-1 text-gray-600">
+                            <li>各モールの管理画面から精算書CSVをダウンロード</li>
+                            <li>Excelで売上・手数料・広告費を電卓で集計</li>
+                            <li>会計ソフトを開いて1件ずつ仕訳を手入力</li>
+                            <li>入金額と帳簿が合うか目視でチェック</li>
+                            <li>合わなければ原因を探して修正</li>
+                        </ol>
+                        <p class="mt-3 text-xs text-gray-500">→ モールが増えるほど時間が膨らむ。毎月のことなので慣れても短くならない。</p>
+                    </div>
+                    <div class="border rounded-lg p-4" style="border-color:var(--primary-color);background:#f1f7fd;">
+                        <p class="font-bold primary-color mb-2">🙂 After（自動）</p>
+                        <ol class="list-decimal pl-4 space-y-1 text-gray-700">
+                            <li>精算データを所定のフォルダに置く</li>
+                            <li>スクリプトが項目を読み取り、仕訳の形に整える</li>
+                            <li>会計ソフトのAPIに自動で投入</li>
+                            <li>人は「投入された仕訳が妥当か」だけ確認</li>
+                        </ol>
+                        <p class="mt-3 text-xs primary-color font-bold">→ 集計と転記が消え、人の仕事は「確認」だけに。</p>
+                    </div>
+                </div>
+                <div class="mt-6 rounded-lg p-5 text-white text-center" style="background:linear-gradient(135deg,#0a3d62,#06283d);">
+                    <p class="text-sm opacity-80 mb-1">月初の経理にかかる時間</p>
+                    <p class="text-2xl md:text-3xl font-bold">数時間 &nbsp;→&nbsp; 十数分（確認のみ）</p>
+                    <p class="text-xs opacity-70 mt-2">※自社EC経理での実感値。モール構成や仕訳の細かさで変わります。</p>
+                </div>
+            </section>
+
+            <section id="after">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">3. After：データから自動で仕訳を作る</h2>
+                <p>
+                    自動化といっても、特別な発明はありません。やっていることは3つだけです。
+                </p>
+                <ol class="list-decimal pl-6 space-y-2">
+                    <li><strong>読み取る：</strong>精算CSVから「総売上」「手数料」「広告費」「入金額」などを項目名で拾う。</li>
+                    <li><strong>整える：</strong>拾った数字を、会計ソフトが受け取れる「仕訳の形（借方／貸方）」に組み立てる。</li>
+                    <li><strong>投入する：</strong>会計ソフトのAPIに送って、仕訳として登録する。</li>
+                </ol>
+                <p>
+                    ポイントは、<span class="marker">人間が判断していたルールを、そのままプログラムのルールに書き写しただけ</span>だということ。
+                    「この項目は売上高」「この項目は支払手数料」という対応表さえ一度作れば、あとは毎月同じ処理が走ります。
+                    モールごとに対応表を1枚ずつ用意しておけば、新しいモールが増えても表を足すだけで済みます。
+                </p>
+            </section>
+
+            <section id="shiwake">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">4. 仕訳のイメージ：売上・手数料はこう分ける</h2>
+                <p>
+                    たとえば「総売上10万円、販売手数料1.5万円、広告費5千円、入金8万円」という1回の精算を、入金額だけで記帳してはいけません。
+                    下のように<strong>総額で売上を立て、差し引かれた分を費用として記帳</strong>します（金額はすべて説明用の例です）。
+                </p>
+                <table class="data mt-4">
+                    <thead>
+                        <tr><th>借方（左）</th><th>金額</th><th>貸方（右）</th><th>金額</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="l">普通預金（入金）</td><td>80,000</td><td class="l">売上高</td><td>100,000</td></tr>
+                        <tr><td class="l">支払手数料（販売手数料）</td><td>15,000</td><td></td><td></td></tr>
+                        <tr><td class="l">広告宣伝費</td><td>5,000</td><td></td><td></td></tr>
+                        <tr><td class="l" style="font-weight:700;">合計</td><td style="font-weight:700;">100,000</td><td class="l" style="font-weight:700;">合計</td><td style="font-weight:700;">100,000</td></tr>
+                    </tbody>
+                </table>
+                <p class="text-xs text-gray-500 mt-2">※借方合計と貸方合計が一致するのが仕訳の鉄則。自動化でもこの一致チェックは必ず入れる。</p>
+                <p class="mt-4">
+                    自動化のプログラムは、精算CSVの数字を読み取って、この表とまったく同じ構造の仕訳を組み立てます。
+                    人がやっていた「総売上で立てて、手数料と広告費を分ける」という判断を、コードに固定しているだけです。
+                </p>
+            </section>
+
+            <section id="pitfall">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">5. つまずきポイント（手数料は数ヶ月遅れて来る）</h2>
+                <p>EC経理の自動化で、特に注意したい落とし穴を挙げます。</p>
+                <table class="data mt-4">
+                    <thead>
+                        <tr><th>落とし穴</th><th>何が起きるか</th><th>対策</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="l">手数料が遅れて確定する</td>
+                            <td class="l">モールによっては販売手数料・広告費が2〜3ヶ月遅れて精算される</td>
+                            <td class="l">「いつの売上に対する費用か」を意識して計上。決算期をまたぐ場合は按分する</td>
+                        </tr>
+                        <tr>
+                            <td class="l">アカウントの取り違え</td>
+                            <td class="l">複数法人・複数店舗で、別の会社の仕訳に入れてしまう</td>
+                            <td class="l">「どのデータ＝どの事業」の対応を最初に固定し、絶対に逆にしない</td>
+                        </tr>
+                        <tr>
+                            <td class="l">税区分の付け忘れ</td>
+                            <td class="l">課税・対象外の区分を間違えると消費税計算がずれる</td>
+                            <td class="l">項目ごとに税区分も対応表に書いておき、自動で付与する</td>
+                        </tr>
+                        <tr>
+                            <td class="l">「全部おまかせ」にする</td>
+                            <td class="l">自動投入を信じきって、誰も中身を見なくなる</td>
+                            <td class="l">投入後の「妥当性チェック」だけは必ず人が残す</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="mt-4">
+                    特に最初の「手数料が遅れて確定する」は、自動化していなくても間違えやすいところです。
+                    <span class="marker">自動化は「速くするだけ」で、判断の正しさは人間が設計する</span>もの。
+                    だからこそ、自動化する前に「自分の経理ルールを言葉にできるか」がいちばん大事になります。
+                </p>
+            </section>
+
+            <section id="type">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">6. 他社でも使える「経理自動化」の型</h2>
+                <p>業種が違っても、定期的に同じ形のデータが届く経理なら、同じ型が使えます。</p>
+                <ol class="list-decimal pl-6 space-y-3 mt-3">
+                    <li><strong>毎月くり返す入力を1つ選ぶ。</strong>「決まったデータを、決まった勘定科目に転記する」作業が狙い目。判断が毎回違う処理は後回し。</li>
+                    <li><strong>自分の判断を対応表にする。</strong>「この項目→この科目・この税区分」を1枚の表に書き出す。これが自動化の設計図になる。</li>
+                    <li><strong>仕訳の形に組み立てる。</strong>借方・貸方が必ず一致する形でデータを整える。一致しなければ止める仕組みにする。</li>
+                    <li><strong>会計ソフトへ投入する。</strong>API連携が使えれば自動投入。難しければCSVインポートでも十分に時短になる。</li>
+                    <li><strong>確認だけは人が残す。</strong>自動で作った仕訳が妥当かを毎回ざっと見る。ここを残すから安心して任せられる。</li>
+                </ol>
+            </section>
+
+            <section id="summary">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">7. まとめ</h2>
+                <p>
+                    EC経理の自動化は、難しい会計知識ではなく<strong>「自分の経理ルールを言葉にできるか」</strong>で決まります。
+                    手で転記していた判断を対応表にして、データから仕訳を組み立て、会計ソフトに流す。人は確認だけ残す。
+                    これだけで、月初の重い数時間が、十数分の確認作業に変わります。
+                </p>
+                <p>
+                    私たちは自社でこの仕組みを回しながら、同じ悩みを持つEC事業者さんの「経理が重い」を一緒にほどいています。
+                    「毎月の入力がしんどい」「本当の利益が見えていない気がする」という方は、お気軽にご相談ください。
+                </p>
+            </section>
+
+            <div class="mt-12 rounded-xl p-8 text-center text-white" style="background:linear-gradient(135deg,#0a3d62,#06283d);">
+                <p class="font-serif-jp text-xl font-bold mb-2">毎月の「重い経理」、一度棚卸ししませんか？</p>
+                <p class="text-sm opacity-85 mb-5">どの作業が自動化できるか、無料相談でご一緒に見極めます。</p>
+                <a href="https://calendar.app.google/TZrQ5YLexng2gPRV8" target="_blank" class="inline-block bg-white text-gray-900 font-bold px-8 py-3 rounded-full shadow hover:shadow-lg transition">無料相談を予約する</a>
+            </div>
+
+            <div class="border-t pt-6 mt-10" style="border-color:var(--border-color);">
+                <a href="./index.html" class="primary-color font-bold hover:underline">← 業務改善コラム 一覧へ戻る</a>
+            </div>
+        </div>
+    </article>
+
+    <footer class="text-white py-10 mt-16" style="background:var(--primary-color-dark);">
+        <div class="container mx-auto px-6 text-center text-sm opacity-80">
+            <p class="font-bold mb-1">合同会社ヤシノミ</p>
+            <p>Amazon運用支援・EC業務改善コンサルティング</p>
+            <p class="mt-3 opacity-60">&copy; 2026 Yashinomi LLC.</p>
+        </div>
+    </footer>
+</body>
+</html>

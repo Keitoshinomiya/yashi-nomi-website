@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PBN7WNCX8N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-PBN7WNCX8N');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="新規のお客様を集めるより、一度買ってくれた人にもう一度買ってもらうほうがずっと安い。私たちはLINEでの「お礼・使い方・再購入の声かけ」を自動のステップ配信に置き換え、手作業のフォローをなくしながらリピートにつなげる仕組みを作りました。配信フロー図つきで公開します。">
+    <title>LINEの手作業フォローを自動化する：一度きりの客を「また来る客」に変える仕組み - 合同会社ヤシノミ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0a3d62;
+            --primary-color-dark: #06283d;
+            --accent-orange: #FF9900;
+            --accent-green: #06c755;
+            --border-color: #e5e7eb;
+        }
+        body { font-family: 'Noto Sans JP', sans-serif; color: #1f2937; background-color: #f8f9fa; }
+        .font-serif-jp { font-family: 'Noto Serif JP', serif; }
+        .primary-color { color: var(--primary-color); }
+        .text-accent { color: var(--accent-orange); }
+        .btn-primary { background-image: linear-gradient(to right, #0a3d62 0%, #06283d 50%, #0a3d62 100%); background-size: 200% auto; color: white; }
+        .btn-primary:hover { background-position: right center; }
+        .marker { background: linear-gradient(transparent 60%, #c8f3da 60%); font-weight: 700; }
+        .prose h2 { scroll-margin-top: 80px; }
+        .toc a:hover { color: var(--primary-color); text-decoration: underline; }
+        table.data { width:100%; border-collapse:collapse; font-size:0.82rem; }
+        table.data th, table.data td { border:1px solid var(--border-color); padding:8px 10px; text-align:center; }
+        table.data th { background:var(--primary-color); color:#fff; font-weight:700; }
+        table.data tr:nth-child(even) td { background:#fafafa; }
+        table.data td.l { text-align:left; }
+        .flow-step { position:relative; }
+        .flow-step:not(:last-child)::after { content:"▼"; display:block; text-align:center; color:#9ca3af; margin:6px 0; font-size:0.8rem; }
+    </style>
+
+    <link rel="icon" href="https://yashi-nomi.com/images/logo.png" type="image/png" sizes="192x192">
+    <link rel="apple-touch-icon" href="https://yashi-nomi.com/images/logo.png">
+</head>
+<body>
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="../index.html" class="flex items-center gap-2">
+                <img src="../images/logo.png" alt="ヤシノミ ロゴ" class="h-8 w-auto">
+                <span class="font-bold primary-color">合同会社ヤシノミ</span>
+            </a>
+            <a href="https://calendar.app.google/TZrQ5YLexng2gPRV8" target="_blank" class="btn-primary px-4 py-2 rounded text-sm font-bold transition shadow-md">無料相談を予約</a>
+        </div>
+    </header>
+
+    <article class="container mx-auto px-6 py-12 max-w-3xl bg-white mt-8 rounded-xl shadow-sm">
+        <div class="flex items-center gap-2 mb-4 flex-wrap">
+            <span class="text-white text-xs font-bold px-3 py-1 rounded" style="background:var(--primary-color);">集客・見える化</span>
+            <span class="text-gray-400 text-xs">業務改善コラム</span>
+        </div>
+        <h1 class="font-serif-jp text-3xl md:text-4xl font-bold mt-2 mb-4 leading-tight text-gray-800" style="letter-spacing:0.02em;">
+            LINEの手作業フォローを自動化する<br>
+            <span class="text-2xl md:text-3xl mt-3 block text-gray-600 font-normal">一度きりの客を「また来る客」に変える</span>
+        </h1>
+        <p class="text-sm text-gray-400 mb-8">業務改善コラム ／ 集客・見える化 ／ 読了目安：約10分</p>
+
+        <div class="prose max-w-none text-gray-700 leading-relaxed space-y-8">
+            <p class="text-lg font-medium leading-8 pl-4 p-4 rounded-r" style="border-left:4px solid var(--accent-green);background:#effaf3;">
+                新しいお客様を1人集めるのには、広告費も手間もかかります。でも<span class="marker">一度買ってくれた人にもう一度買ってもらうのは、その何分の一のコスト</span>で済みます。<br>
+                問題は、その「もう一度」を生むフォロー——お礼・使い方の案内・再購入の声かけ——が、手作業だと続かないこと。私たちはこれをLINEの自動ステップ配信に置き換えました。この記事では、配信の流れを図にしながら、仕組みの作り方を公開します。
+            </p>
+
+            <nav class="toc text-sm bg-gray-50 border rounded-lg p-5" style="border-color:var(--border-color);">
+                <p class="font-bold text-gray-800 mb-3">この記事の内容</p>
+                <ol class="list-decimal pl-5 space-y-1.5 text-gray-600">
+                    <li><a href="#why">なぜ「フォロー」は手作業だと続かないのか</a></li>
+                    <li><a href="#why-line">なぜLINEなのか</a></li>
+                    <li><a href="#flow">配信フロー：買った後の数週間を設計する</a></li>
+                    <li><a href="#segment">「全員に同じ」をやめる：分けて送る</a></li>
+                    <li><a href="#pitfall">やりすぎ厳禁：嫌われない設計</a></li>
+                    <li><a href="#type">他社でも使える「自動フォロー」の型</a></li>
+                    <li><a href="#summary">まとめ</a></li>
+                </ol>
+            </nav>
+
+            <section id="why">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">1. なぜ「フォロー」は手作業だと続かないのか</h2>
+                <p>
+                    買ってくれたお客様へのフォローが大事なのは、誰でも分かっています。
+                    それでも続かないのは、フォローが<strong>「忙しいときほどサボってしまう作業」</strong>だからです。
+                    注文が増えれば発送やお問い合わせ対応に追われ、「お礼メッセージを送る」「使い方を案内する」は後回しになります。
+                </p>
+                <p>
+                    しかも手作業のフォローは、人によって・日によって質がバラつきます。
+                    元気なときは丁寧に、疲れているときはそっけなく。<span class="marker">「やったりやらなかったり」が一番もったいない</span>のです。
+                    だったら、買った直後に必ず届く流れを、最初に一度だけ設計してしまう。これが自動ステップ配信の考え方です。
+                </p>
+            </section>
+
+            <section id="why-line">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">2. なぜLINEなのか</h2>
+                <p>
+                    メールは開封されにくく、迷惑メールに沈みがちです。その点LINEは、日本では多くの人が毎日開くアプリで、通知に気づいてもらいやすい。
+                    お客様にとっても、友だち登録さえすれば追加の手間なくつながれます。
+                </p>
+                <table class="data mt-4">
+                    <thead><tr><th>連絡手段</th><th>気づかれやすさ</th><th>登録の手間</th><th>向いている用途</th></tr></thead>
+                    <tbody>
+                        <tr><td>メール</td><td>低め（埋もれる）</td><td>住所入力が必要</td><td class="l">領収書・正式な案内</td></tr>
+                        <tr><td>SNS投稿</td><td>運次第（流れる）</td><td>フォローのみ</td><td class="l">新規の認知づくり</td></tr>
+                        <tr><td style="font-weight:700;">LINE</td><td style="font-weight:700;">高い（通知が届く）</td><td>友だち追加だけ</td><td class="l">購入後のフォロー・再購入</td></tr>
+                    </tbody>
+                </table>
+                <p class="mt-4">
+                    つまりLINEは、<strong>「買ってくれた人と、買った後もつながり続ける」</strong>のに一番向いている。
+                    だから私たちは、購入後フォローの入れ物としてLINEを選んでいます。
+                </p>
+            </section>
+
+            <section id="flow">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">3. 配信フロー：買った後の数週間を設計する</h2>
+                <p>
+                    自動ステップ配信とは、<span class="marker">「友だち追加」や「購入」をきっかけに、決めた間隔でメッセージが自動で届く仕組み</span>です。
+                    たとえば、こんな流れを一度作っておきます（内容・日数は商材に合わせて調整します）。
+                </p>
+                <div class="mt-5 space-y-0">
+                    <div class="flow-step">
+                        <div class="border-l-4 rounded-r-lg p-4 bg-gray-50" style="border-color:var(--accent-green);">
+                            <p class="font-bold text-gray-800">きっかけ：友だち追加 / 初回購入</p>
+                            <p class="text-sm text-gray-600">ここから自動の流れがスタート</p>
+                        </div>
+                    </div>
+                    <div class="flow-step">
+                        <div class="border rounded-lg p-4" style="border-color:var(--border-color);">
+                            <p class="font-bold primary-color">当日：お礼とごあいさつ</p>
+                            <p class="text-sm text-gray-600">「ありがとうございます」を即届ける。第一印象をここで作る。</p>
+                        </div>
+                    </div>
+                    <div class="flow-step">
+                        <div class="border rounded-lg p-4" style="border-color:var(--border-color);">
+                            <p class="font-bold primary-color">2〜3日後：使い方・楽しみ方の案内</p>
+                            <p class="text-sm text-gray-600">「失敗しない使い方」を伝え、満足度と再購入の土台をつくる。</p>
+                        </div>
+                    </div>
+                    <div class="flow-step">
+                        <div class="border rounded-lg p-4" style="border-color:var(--border-color);">
+                            <p class="font-bold primary-color">1週間後：困りごとを聞く</p>
+                            <p class="text-sm text-gray-600">「お困りはないですか？」と一声。返信が来たら個別対応につなぐ。</p>
+                        </div>
+                    </div>
+                    <div class="flow-step">
+                        <div class="border rounded-lg p-4" style="border-color:var(--border-color);">
+                            <p class="font-bold primary-color">使い切る頃：そろそろの声かけ</p>
+                            <p class="text-sm text-gray-600">なくなる頃を見計らって再購入を案内。押し売りにならない言葉で。</p>
+                        </div>
+                    </div>
+                </div>
+                <p class="mt-5">
+                    大事なのは、<strong>売り込みは最後の1通だけ</strong>にすること。
+                    前半の数通は「お礼」と「役に立つ情報」に徹します。先に信頼を積んでおくから、最後の声かけが効くのです。
+                </p>
+            </section>
+
+            <section id="segment">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">4. 「全員に同じ」をやめる：分けて送る</h2>
+                <p>
+                    自動配信に慣れてきたら、次は<span class="marker">相手によって送る内容を変える</span>段階です。
+                    全員に同じメッセージを送ると、「自分には関係ない」と思われて読まれなくなります。
+                </p>
+                <table class="data mt-4">
+                    <thead><tr><th>分け方</th><th>送る内容の例</th></tr></thead>
+                    <tbody>
+                        <tr><td class="l">初めて買った人</td><td class="l">使い方の基本、ブランドの紹介</td></tr>
+                        <tr><td class="l">2回以上買った人</td><td class="l">まとめ買いの案内、関連商品の提案</td></tr>
+                        <tr><td class="l">しばらく買っていない人</td><td class="l">「お久しぶりです」の声かけ、再開のきっかけ</td></tr>
+                        <tr><td class="l">クリックや返信が多い人</td><td class="l">新商品の先行案内など、踏み込んだ提案</td></tr>
+                    </tbody>
+                </table>
+                <p class="mt-4">
+                    こうした「誰に何を送るか」は、お客様の行動データ（いつ買ったか・何回開いたか）をもとに自動で振り分けられます。
+                    手作業では到底できない細かさを、仕組みなら淡々とこなせます。
+                </p>
+            </section>
+
+            <section id="pitfall">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">5. やりすぎ厳禁：嫌われない設計</h2>
+                <p>自動配信は便利な反面、設計を間違えると一気にブロックされます。私たちが守っているルールです。</p>
+                <table class="data mt-4">
+                    <thead><tr><th>やってはいけない</th><th>代わりにこうする</th></tr></thead>
+                    <tbody>
+                        <tr><td class="l">毎日のように送る</td><td class="l">意味のあるタイミングだけに絞る</td></tr>
+                        <tr><td class="l">売り込みばかり送る</td><td class="l">役立つ情報：売り込み＝おおむね3:1以上に</td></tr>
+                        <tr><td class="l">配信解除をしにくくする</td><td class="l">いつでも止められる安心感を残す</td></tr>
+                        <tr><td class="l">送りっぱなしで放置する</td><td class="l">反応（開封・ブロック率）を見て内容を直す</td></tr>
+                    </tbody>
+                </table>
+                <p class="mt-4">
+                    自動化のゴールは「たくさん送ること」ではありません。<strong>「ちょうどいいタイミングで、ちょうどいい一言を届けること」</strong>です。
+                    送る回数を減らしたほうが、結果として読まれ、買ってもらえることはよくあります。
+                </p>
+            </section>
+
+            <section id="type">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">6. 他社でも使える「自動フォロー」の型</h2>
+                <ol class="list-decimal pl-6 space-y-3 mt-3">
+                    <li><strong>つながる入口を1つ作る。</strong>商品同梱のカードやレジ横で、LINE友だち追加をお願いする。ここがすべての起点。</li>
+                    <li><strong>買った後の数週間を紙に書く。</strong>「当日・3日後・1週間後…」と、いつ何を伝えるかを先に決める。これが配信の設計図。</li>
+                    <li><strong>前半は売らない。</strong>お礼と役立つ情報に徹し、売り込みは最後だけにする。</li>
+                    <li><strong>相手で内容を変える。</strong>初回客・リピーター・離れた客で、送る言葉を分ける。</li>
+                    <li><strong>反応を見て直す。</strong>開封・ブロック・返信を見ながら、刺さらない通を入れ替える。</li>
+                </ol>
+            </section>
+
+            <section id="summary">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">7. まとめ</h2>
+                <p>
+                    フォローは「やったほうがいい」ではなく「やり続けられる形にする」もの。
+                    手作業に頼るとどうしても波が出るフォローを、一度だけ設計してLINEの自動配信に乗せれば、
+                    <span class="marker">忙しい日でも、お礼と気づかいが必ずお客様に届きます。</span>
+                    それが、一度きりのお客様を「また来てくれるお客様」に変えていきます。
+                </p>
+                <p>
+                    私たちは自社で配信の仕組みを回しながら、LINEを使ったリピート施策の設計をお手伝いしています。
+                    「リピートが伸びない」「フォローが続かない」という方は、ぜひ一度ご相談ください。
+                </p>
+            </section>
+
+            <div class="mt-12 rounded-xl p-8 text-center text-white" style="background:linear-gradient(135deg,#0a3d62,#06283d);">
+                <p class="font-serif-jp text-xl font-bold mb-2">「買って終わり」を「また来る」に変えませんか？</p>
+                <p class="text-sm opacity-85 mb-5">LINEを使ったフォロー設計を、無料相談でご一緒に描きます。</p>
+                <a href="https://calendar.app.google/TZrQ5YLexng2gPRV8" target="_blank" class="inline-block bg-white text-gray-900 font-bold px-8 py-3 rounded-full shadow hover:shadow-lg transition">無料相談を予約する</a>
+            </div>
+
+            <div class="border-t pt-6 mt-10" style="border-color:var(--border-color);">
+                <a href="./index.html" class="primary-color font-bold hover:underline">← 業務改善コラム 一覧へ戻る</a>
+            </div>
+        </div>
+    </article>
+
+    <footer class="text-white py-10 mt-16" style="background:var(--primary-color-dark);">
+        <div class="container mx-auto px-6 text-center text-sm opacity-80">
+            <p class="font-bold mb-1">合同会社ヤシノミ</p>
+            <p>Amazon運用支援・EC業務改善コンサルティング</p>
+            <p class="mt-3 opacity-60">&copy; 2026 Yashinomi LLC.</p>
+        </div>
+    </footer>
+</body>
+</html>

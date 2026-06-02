@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PBN7WNCX8N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-PBN7WNCX8N');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="知人の現場管理は、ExcelとGASで『すでに回って』いました。それでもアプリ「デズラ」に作り替えたのはなぜか。どんな手札を比べ、なぜその設計を選んだか――結果自慢ではなく、課題への向き合い方そのものを公開します。">
+    <title>動いている仕組みを、なぜわざわざアプリに作り替えたのか ― 現場管理アプリ「デズラ」の設計判断 - 合同会社ヤシノミ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0a3d62;
+            --primary-color-dark: #06283d;
+            --accent-orange: #FF9900;
+            --border-color: #e5e7eb;
+            --dz: #2f6f9f;        /* デズラ系アクセント（モック用） */
+            --line-green: #06c755;
+            --good: #4E7C59;
+            --alert: #B23A3A;
+        }
+        body { font-family: 'Noto Sans JP', sans-serif; color: #1f2937; background-color: #f8f9fa; }
+        .font-serif-jp { font-family: 'Noto Serif JP', serif; }
+        .primary-color { color: var(--primary-color); }
+        .text-accent { color: var(--accent-orange); }
+        .btn-primary { background-image: linear-gradient(to right, #0a3d62 0%, #06283d 50%, #0a3d62 100%); background-size: 200% auto; color: white; }
+        .btn-primary:hover { background-position: right center; }
+        .marker { background: linear-gradient(transparent 60%, #ffe7c2 60%); font-weight: 700; }
+        .prose h2 { scroll-margin-top: 80px; }
+        .toc a:hover { color: var(--primary-color); text-decoration: underline; }
+
+        /* 比較・データ表 */
+        table.data { width:100%; border-collapse:collapse; font-size:0.86rem; }
+        table.data th, table.data td { border:1px solid var(--border-color); padding:9px 11px; text-align:left; vertical-align:top; }
+        table.data thead th { background:var(--primary-color); color:#fff; font-weight:700; }
+        table.data tbody tr:nth-child(even){ background:#f6f8fb; }
+        table.data td .o{ color:var(--good); font-weight:700; }
+        table.data td .x{ color:var(--alert); font-weight:700; }
+
+        /* スマホ風モック */
+        .phone { width:240px; margin:0 auto; border:10px solid #1f2937; border-radius:30px; background:#eef2f6; overflow:hidden; box-shadow:0 14px 30px rgba(6,40,61,.18); }
+        .phone-bar { background:var(--line-green); color:#fff; font-size:.7rem; padding:7px 12px; font-weight:700; display:flex; align-items:center; gap:6px; }
+        .phone-body { padding:12px; min-height:150px; }
+        /* リッチメニュー（4分割） */
+        .richmenu { display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-top:8px; }
+        .rm-cell { background:#fff; border:1px solid var(--border-color); border-radius:10px; padding:10px 6px; text-align:center; }
+        .rm-cell .ic { font-size:1.2rem; }
+        .rm-cell .lb { font-size:.66rem; color:#374151; margin-top:3px; font-weight:700; }
+        /* FLEXバブル */
+        .flex-bubble { background:#fff; border-radius:14px; overflow:hidden; box-shadow:0 4px 12px rgba(0,0,0,.08); border:1px solid var(--border-color); }
+        .flex-hero { background:linear-gradient(135deg,var(--dz),var(--primary-color-dark)); color:#fff; padding:12px 14px; font-weight:700; font-size:.82rem; }
+        .flex-body2 { padding:12px 14px; font-size:.74rem; color:#374151; line-height:1.6; }
+        .flex-btn { display:block; text-align:center; background:var(--line-green); color:#fff; font-weight:700; font-size:.76rem; padding:9px; border-radius:8px; margin-top:10px; }
+
+        .step-num { font-family:'Noto Serif JP',serif; font-size:1.5rem; color:var(--dz); flex-shrink:0; line-height:1.2; width:2.2rem; }
+    </style>
+
+    <link rel="icon" href="https://yashi-nomi.com/images/logo.png" type="image/png" sizes="192x192">
+    <link rel="apple-touch-icon" href="https://yashi-nomi.com/images/logo.png">
+</head>
+<body>
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="../index.html" class="flex items-center gap-2">
+                <img src="../images/logo.png" alt="ヤシノミ ロゴ" class="h-8 w-auto">
+                <span class="font-bold primary-color">合同会社ヤシノミ</span>
+            </a>
+            <a href="https://calendar.app.google/TZrQ5YLexng2gPRV8" target="_blank" class="btn-primary px-4 py-2 rounded text-sm font-bold transition shadow-md">無料相談を予約</a>
+        </div>
+    </header>
+
+    <article class="container mx-auto px-6 py-12 max-w-3xl bg-white mt-8 rounded-xl shadow-sm">
+        <div class="flex items-center gap-2 mb-4">
+            <span class="text-white text-xs font-bold px-3 py-1 rounded" style="background:var(--primary-color);">現場DX・業務アプリ</span>
+            <span class="text-gray-400 text-xs">業務改善コラム</span>
+        </div>
+        <h1 class="font-serif-jp text-3xl md:text-4xl font-bold mt-2 mb-4 leading-tight text-gray-800" style="letter-spacing:0.02em;">
+            動いている仕組みを、なぜわざわざ作り替えたのか
+            <span class="text-2xl md:text-3xl mt-3 block text-gray-600 font-normal">現場管理アプリ「デズラ」で考えた、設計の判断</span>
+        </h1>
+        <p class="text-sm text-gray-400 mb-8">業務改善コラム ／ 現場DX・業務アプリ ／ 読了目安：約9分</p>
+
+        <div class="prose max-w-none text-gray-700 leading-relaxed space-y-8">
+            <p class="text-lg font-medium leading-8 pl-4 p-4 rounded-r" style="border-left:4px solid var(--accent-orange);background:#fff8ef;">
+                これは、私たちの本業であるAmazon・ECとは少し違う事例です。知人（建設業の親方）の「出面（でづら）管理」を、
+                <span class="marker">現場管理アプリ「デズラ」（<a href="https://dezura.site" target="_blank" rel="noopener" class="underline" style="color:var(--dz);">dezura.site</a>）として作り直し、いまも私たちが運用しています。</span><br>
+                ただし最初にお断りします。これは「導入したら〇〇が△分になりました」という成果自慢の記事ではありません。
+                その知人の現場は、実はExcelとプログラムで<strong>すでにそれなりに回っていました</strong>。
+                それでもなぜ作り替えたのか――どんな手札を並べ、なぜその設計を選んだのか。私たちの考え方そのものをお見せします。
+            </p>
+
+            <!-- 目次 -->
+            <nav class="toc text-sm bg-gray-50 border rounded-lg p-5" style="border-color:var(--border-color);">
+                <p class="font-bold text-gray-800 mb-3">この記事の内容</p>
+                <ol class="list-decimal pl-5 space-y-1.5 text-gray-600">
+                    <li><a href="#start">出発点：すでに「回っていた」仕組みだった</a></li>
+                    <li><a href="#problem">「動く」と「続く」は別だ、という気づき</a></li>
+                    <li><a href="#cards">手札を全部出して、却下理由まで言葉にする</a></li>
+                    <li><a href="#design">なぜその設計を選んだか（4つの判断）</a></li>
+                    <li><a href="#now">いまの正直な状態</a></li>
+                    <li><a href="#type">業種を問わない「作り替え」の型</a></li>
+                </ol>
+            </nav>
+
+            <section id="start">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">1. 出発点：すでに「回っていた」仕組みだった</h2>
+                <p>
+                    相談をくれたのは、建設の現場を持つ知人でした。「現場の出勤管理が手間だ」という話だったのですが、
+                    よく聞くと、その人はすでに<strong>表計算ソフトと簡単なプログラムを組み合わせて、かなりのところまで自動化していた</strong>のです。
+                </p>
+                <ul class="list-disc pl-6 space-y-2 mt-4 text-sm">
+                    <li>誰が・どの現場に・何日出たかを表計算で記録する</li>
+                    <li>締め日が来たら、その期間ぶんを一枚の書類に自動でまとめる</li>
+                    <li>できあがった書類を、取引先（元請）へメールで送る</li>
+                </ul>
+                <p class="mt-4">
+                    つまり「困っているけれど何も手を打っていない」状態ではなく、<span class="marker">すでに自力で工夫して、業務を回していた</span>。
+                    だから私たちが最初に立てた問いは、「便利にしましょう」ではなく――
+                    <strong>「これ、本当に作り替える必要があるんだろうか？」</strong>でした。動いているものを壊すのは、いちばん避けたいことだからです。
+                </p>
+            </section>
+
+            <section id="problem">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">2. 「動く」と「続く」は別だ、という気づき</h2>
+                <p>
+                    話を掘り下げるうちに、解くべき課題は「手間」そのものではないと分かってきました。本当の弱点は<strong>続けられる構造になっていない</strong>ことでした。
+                </p>
+                <div class="grid sm:grid-cols-3 gap-4 mt-6">
+                    <div class="p-4 rounded-lg border" style="border-color:var(--border-color);background:#fafafa;">
+                        <p class="font-bold text-gray-800 text-sm mb-1">① 一人に依存している</p>
+                        <p class="text-xs text-gray-600">仕組みを作った本人しか中身を触れない。その人が忙しい・いなくなると、たちまち止まる。</p>
+                    </div>
+                    <div class="p-4 rounded-lg border" style="border-color:var(--border-color);background:#fafafa;">
+                        <p class="font-bold text-gray-800 text-sm mb-1">② 現場の人が使えない</p>
+                        <p class="text-xs text-gray-600">表計算は事務所のPC前提。現場で働く人がスマホでその場に記録する、という形になっていない。</p>
+                    </div>
+                    <div class="p-4 rounded-lg border" style="border-color:var(--border-color);background:#fafafa;">
+                        <p class="font-bold text-gray-800 text-sm mb-1">③ 業界特有の事情</p>
+                        <p class="text-xs text-gray-600">「人工（にんく）」という単位や、月末でない締め日など、既製の枠に収まらない部分を手作業で吸収していた。</p>
+                    </div>
+                </div>
+                <p class="mt-6 text-sm text-gray-600 bg-gray-50 border-l-4 pl-4 py-3" style="border-color:var(--primary-color);">
+                    「いま動いているか」と「来年も、別の人でも回るか」は、まったく別の問いです。
+                    私たちが見ていたのは後者でした。手間を半分にすることより、<strong>属人化をほどいて、人に渡せる形にすること</strong>が課題だったのです。
+                </p>
+            </section>
+
+            <section id="cards">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">3. 手札を全部出して、却下理由まで言葉にする</h2>
+                <p>
+                    課題が「属人化をほどく」だと分かれば、打ち手は一つではありません。私たちはいきなり「アプリを作りましょう」とは言わず、
+                    まず<strong>選べる手札を全部並べて、それぞれの向き・不向きを正直に書き出しました。</strong>
+                </p>
+                <div class="overflow-x-auto mt-6">
+                <table class="data">
+                    <thead>
+                        <tr><th style="width:22%;">手札</th><th>向いている点</th><th>向いていない点（正直に）</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>案A</strong><br>既製の勤怠SaaSを導入</td>
+                            <td><span class="o">○</span> すぐ使える／自分たちで作らなくていい</td>
+                            <td><span class="x">×</span> 「人工」「特殊な締め日」「元請へ書類送付」など建設特有の流れに合わない。機能が多すぎて現場が迷う</td>
+                        </tr>
+                        <tr>
+                            <td><strong>案B</strong><br>いまの表計算を改良し続ける</td>
+                            <td><span class="o">○</span> 慣れた形のまま／追加コストが小さい</td>
+                            <td><span class="x">×</span> 一番の課題＝属人化が解けない。スマホで現場入力にするのは無理がある</td>
+                        </tr>
+                        <tr>
+                            <td><strong>案C</strong><br>専用アプリを作る</td>
+                            <td><span class="o">○</span> この現場の事情ちょうどに作れる／運用も私たちが引き受けられる</td>
+                            <td><span class="x">×</span> 作る手間・時間がかかる。作った側が運用責任を負い続ける</td>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+                <p class="mt-5">
+                    最終的に選んだのは<strong>案C（専用アプリ）</strong>でした。決め手は、課題が「機能不足」ではなく「<span class="marker">業界特有の流れと、属人化</span>」だった点です。
+                    そこは既製品では埋まらず、表計算の改良でも解けない。だから作る、と決めました。
+                    同時に「作る手間と運用責任は私たちが背負う」という案Cの弱点も、最初から引き受ける前提で進めています。
+                    <strong>都合の良い面だけで選ばないこと</strong>を、私たちはいつも大事にしています。
+                </p>
+            </section>
+
+            <section id="design">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">4. なぜその設計を選んだか（4つの判断）</h2>
+                <p>
+                    アプリを作ると決めてからは、「何を載せるか」より<strong>「何を載せないか」</strong>に時間を使いました。現場の人が毎日さわるものは、単純であるほど続くからです。代表的な判断を4つ紹介します。
+                </p>
+
+                <div class="mt-6 space-y-7">
+                    <div>
+                        <p class="font-bold text-gray-800">判断① ログインは「LINEだけ」。専用パスワードは作らない</p>
+                        <p class="text-sm mt-1">
+                            ITに不慣れな方ほど「新しいIDとパスワードを覚える」で離脱します。そこで普段使っているLINEでそのまま入れる形にしました。
+                            副次効果として、自前でパスワードを預からないぶん<span class="marker">守るべきものが減り、安全面でも有利</span>になります。
+                        </p>
+                    </div>
+
+                    <div>
+                        <p class="font-bold text-gray-800">判断② 「メニューを開かない前提」で日常を回す</p>
+                        <p class="text-sm mt-1">
+                            締め日のお知らせや明細は、LINEのメッセージとして届きます。そのボタンを押せば該当画面に直接着地し、操作を終えたらLINEに戻る。
+                            「アプリを開いて、メニューを探して……」という動作を、日常からほぼ無くしました。下は実際のリッチメニューとお知らせの考え方を、ごく簡略にイメージにしたものです。
+                        </p>
+                        <div class="grid sm:grid-cols-2 gap-6 mt-5 items-start">
+                            <div class="phone">
+                                <div class="phone-bar"><svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 5.94 2 10.8c0 4.3 3.5 7.9 8.2 8.6.32.07.76.21.87.49.1.25.06.64.03.9l-.14.84c-.04.25-.2.97.85.53 1.05-.44 5.66-3.33 7.72-5.7C21.1 14.9 22 12.96 22 10.8 22 5.94 17.52 2 12 2z"/></svg>現場の公式LINE</div>
+                                <div class="phone-body">
+                                    <p class="text-xs text-gray-500 mb-1">タップで完結するメニュー</p>
+                                    <div class="richmenu">
+                                        <div class="rm-cell"><div class="ic">🕒</div><div class="lb">出面入力</div></div>
+                                        <div class="rm-cell"><div class="ic">🧾</div><div class="lb">経費入力</div></div>
+                                        <div class="rm-cell"><div class="ic">📅</div><div class="lb">出勤履歴</div></div>
+                                        <div class="rm-cell"><div class="ic">💬</div><div class="lb">お問い合わせ</div></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500 mb-2">締め日が近づくと届くお知らせ（イメージ）</p>
+                                <div class="flex-bubble">
+                                    <div class="flex-hero">まもなく締め日です</div>
+                                    <div class="flex-body2">
+                                        今期ぶんの出面がそろっているか、ご確認ください。<br>ボタンから、そのまま書類づくりに進めます。
+                                        <span class="flex-btn">出面をまとめる →</span>
+                                    </div>
+                                </div>
+                                <p class="text-xs text-gray-400 mt-2">※ 見た目はイメージ。実物は <a href="https://dezura.site" target="_blank" rel="noopener" class="underline" style="color:var(--dz);">dezura.site</a> をご覧ください。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <p class="font-bold text-gray-800">判断③ 入力は「その場で1回だけ」。写真からも拾えるように</p>
+                        <p class="text-sm mt-1">
+                            事務所に戻ってまとめて打ち直すのをやめ、現場で発生したその場で1タップ記録する形にしました。
+                            手書きのメモなどは写真からも読み取れるようにし、<span class="marker">「同じ数字を何度も書き写す」作業そのものを設計から消す</span>ことを狙っています。
+                        </p>
+                    </div>
+
+                    <div>
+                        <p class="font-bold text-gray-800">判断④ ただの勤怠ではなく「損益が見える」道具にする</p>
+                        <p class="text-sm mt-1">
+                            一つの出勤記録は、見方を変えると2つのお金につながります。<strong>取引先へ請求する金額（売上)</strong>と、<strong>働いた人へ支払う金額（原価）</strong>です。
+                            この2つを同じ記録から扱えるようにして、単なる「出欠の記録」ではなく<span class="marker">「いくら残るか」が見える道具</span>を目指しました。出面管理を、経営の数字に直結させる狙いです。
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="now">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">5. いまの正直な状態</h2>
+                <p>
+                    ここで成果の数字を並べたいところですが、あえて出しません。理由は二つあります。
+                </p>
+                <ul class="list-disc pl-6 space-y-2 mt-3 text-sm">
+                    <li>デズラはまだ、<strong>最初の知人ひとりの現場を、丁寧に支えている段階</strong>だからです。横展開はこれから少しずつ始めるところで、「広く成果が出た」と言える段階ではありません。</li>
+                    <li>私たちが見ている指標は時短の分数ではなく、<span class="marker">「使い続けてもらえているか」</span>の一点だからです。途中で使われなくなった仕組みは、どんなに高機能でも失敗です。</li>
+                </ul>
+                <p class="mt-4">
+                    決まっていないことも正直にお伝えします。たとえば「親方自身が現場に出たときの取り分をどう計算・表示するか」「取引先（元請）側にどこまで見せる画面を用意するか」は、
+                    <strong>まだ設計を確定させていません。</strong>実際に使う方や同業の声を聞いてから決める、というのが私たちの進め方です。
+                    あえて表現するなら、「まず1人に深く向き合い、満足してもらってから、その満足ごと次の人へ広げる」。地味ですが、これがいまの方針です。
+                </p>
+            </section>
+
+            <section id="type">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">6. 業種を問わない「作り替え」の型</h2>
+                <p>
+                    この事例は建設の話ですが、考え方はどの業種にも当てはまります。「すでに動いている仕組みを、続く形に作り替える」ときに私たちがたどる手順を、型としてまとめます。
+                </p>
+                <div class="space-y-6 mt-6">
+                    <div class="flex gap-4">
+                        <span class="step-num">01</span>
+                        <div>
+                            <p class="font-bold text-gray-800">「動いている＝直さなくていい」を一度疑う</p>
+                            <p class="text-sm mt-1">回っていても、特定の一人に依存していたり、後任に渡せなかったりすれば、それは弱い構造です。まず「来年も、別の人でも回るか」を問います。</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="step-num">02</span>
+                        <div>
+                            <p class="font-bold text-gray-800">課題を「手間」から「構造」へ言い換える</p>
+                            <p class="text-sm mt-1">「面倒」の正体が、属人化なのか・現場で使えないことなのか・業界特有の事情なのかを切り分けます。打ち手は、課題の言い換え方で決まります。</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="step-num">03</span>
+                        <div>
+                            <p class="font-bold text-gray-800">手札を全部出し、却下理由まで書く</p>
+                            <p class="text-sm mt-1">既製品・改良・自作――選べる道を並べ、それぞれの不向きまで言葉にします。良い面だけで選ばないことが、後悔しない選択につながります。</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="step-num">04</span>
+                        <div>
+                            <p class="font-bold text-gray-800">「何を載せないか」で設計する</p>
+                            <p class="text-sm mt-1">毎日さわる人を基準に、要らない機能は削る。覚えることを減らし、「迷わず終わる」状態を最優先にします。</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="step-num">05</span>
+                        <div>
+                            <p class="font-bold text-gray-800">運用と改善は、作った側が引き受ける</p>
+                            <p class="text-sm mt-1">「導入して終わり」にすると、現場に新しい負担が残ります。日々の運用やちょっとした手直しはこちらが背負い、相手には本業に集中してもらいます。</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="p-8 rounded-xl border text-center mt-12" style="border-color:var(--border-color);background:#f1f6fb;">
+                <h3 class="font-serif-jp text-xl font-bold mb-4 text-gray-800">「いまのやり方、回ってはいるけれど不安」という方へ</h3>
+                <p class="mb-6 text-left md:text-center">
+                    特定の一人に依存している。現場で使いにくい。既製のツールが業界の事情に合わない。
+                    そんな状態でしたら、まずは現状をお聞かせください。<br>
+                    高機能なツールを売り込むのではなく、<strong>そもそも作り替えるべきか</strong>から、一緒に考えます。
+                </p>
+                <a href="https://calendar.app.google/TZrQ5YLexng2gPRV8" target="_blank" class="btn-primary inline-block px-8 py-4 rounded-lg font-bold text-lg shadow-lg transform hover:-translate-y-1 transition duration-300">
+                    無料相談を予約する（30分）
+                </a>
+            </div>
+        </div>
+
+        <div class="mt-10 text-center">
+            <a href="./index.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium transition-colors">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                業務改善コラム一覧に戻る
+            </a>
+        </div>
+    </article>
+
+    <footer class="text-gray-400 py-8 mt-12 text-center text-xs" style="background:var(--primary-color-dark);">
+        <p>© 2026 合同会社ヤシノミ All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

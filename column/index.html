@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PBN7WNCX8N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-PBN7WNCX8N');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="業務改善コラム一覧。合同会社ヤシノミが実際に取り組んだ業務改善・現場DX・仕組み化を徹底的に深掘りし、他社でもそのまま使える『型』として公開します。Amazon運用ノウハウも掲載。">
+    <title>業務改善コラム一覧 | 合同会社ヤシノミ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #0a3d62;
+            --primary-color-dark: #06283d;
+            --accent-orange: #FF9900;
+            --border-color: #e5e7eb;
+        }
+        body { font-family: 'Noto Sans JP', sans-serif; color: #1f2937; background-color: #f8f9fa; }
+        .font-serif-jp { font-family: 'Noto Serif JP', serif; }
+        .primary-color { color: var(--primary-color); }
+        .btn-primary { background-image: linear-gradient(to right, #0a3d62 0%, #06283d 50%, #0a3d62 100%); background-size: 200% auto; color: white; }
+        .btn-primary:hover { background-position: right center; }
+        .card { background:#fff; border:1px solid var(--border-color); border-radius:0.75rem; overflow:hidden; transition:transform .3s, box-shadow .3s; }
+        .card:hover { transform:translateY(-4px); box-shadow:0 12px 30px rgba(10,61,98,0.12); }
+        .btn-outline-primary { border:1px solid var(--primary-color); color:var(--primary-color); border-radius:0.5rem; transition:.2s; }
+        .btn-outline-primary:hover { background:var(--primary-color); color:#fff; }
+    </style>
+
+    <link rel="icon" href="https://yashi-nomi.com/images/logo.png" type="image/png" sizes="192x192">
+    <link rel="apple-touch-icon" href="https://yashi-nomi.com/images/logo.png">
+</head>
+<body x-data="{ cat: 'all' }">
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="../index.html" class="flex items-center gap-2">
+                <img src="../images/logo.png" alt="ヤシノミ ロゴ" class="h-8 w-auto">
+                <span class="font-bold primary-color">合同会社ヤシノミ</span>
+            </a>
+            <a href="https://calendar.app.google/TZrQ5YLexng2gPRV8" target="_blank" class="btn-primary px-4 py-2 rounded text-sm font-bold transition shadow-md">無料相談を予約</a>
+        </div>
+    </header>
+
+    <!-- PAGE TITLE -->
+    <section class="py-16 bg-white border-b" style="border-color:var(--border-color);">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-sm font-semibold tracking-widest mb-2" style="color:var(--accent-orange);">BUSINESS IMPROVEMENT INSIGHTS</p>
+            <h1 class="font-serif-jp text-3xl md:text-4xl font-bold text-gray-800 mb-4" style="letter-spacing:0.03em;">業務改善コラム</h1>
+            <p class="text-gray-600 max-w-2xl mx-auto">弊社が実際に取り組んだ業務改善を徹底的に深掘りし、他社でもそのまま使える「型」として公開していきます。</p>
+        </div>
+    </section>
+
+    <!-- BLOG LIST -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-6">
+
+            <!-- タグフィルター -->
+            <div class="flex flex-wrap justify-center gap-2 mb-12">
+                <button @click="cat='all'" class="text-sm font-semibold px-4 py-2 rounded-full border transition"
+                    :style="cat==='all' ? 'background:var(--primary-color);color:#fff;border-color:var(--primary-color);' : 'background:#fff;color:#4b5563;border-color:var(--border-color);'">すべて</button>
+                <button @click="cat='dx'" class="text-sm font-semibold px-4 py-2 rounded-full border transition"
+                    :style="cat==='dx' ? 'background:var(--primary-color);color:#fff;border-color:var(--primary-color);' : 'background:#fff;color:#4b5563;border-color:var(--border-color);'">現場DX・業務アプリ</button>
+                <button @click="cat='mieruka'" class="text-sm font-semibold px-4 py-2 rounded-full border transition"
+                    :style="cat==='mieruka' ? 'background:var(--primary-color);color:#fff;border-color:var(--primary-color);' : 'background:#fff;color:#4b5563;border-color:var(--border-color);'">集客・見える化</button>
+                <button @click="cat='auto'" class="text-sm font-semibold px-4 py-2 rounded-full border transition"
+                    :style="cat==='auto' ? 'background:var(--primary-color);color:#fff;border-color:var(--primary-color);' : 'background:#fff;color:#4b5563;border-color:var(--border-color);'">仕組み化・自動化</button>
+                <button @click="cat='amazon'" class="text-sm font-semibold px-4 py-2 rounded-full border transition"
+                    :style="cat==='amazon' ? 'background:var(--accent-orange);color:#fff;border-color:var(--accent-orange);' : 'background:#fff;color:#4b5563;border-color:var(--border-color);'">Amazonコラム</button>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+
+                <!-- 仕組み化・自動化（公開済み） -->
+                <a href="./business-automation.html" class="card flex flex-col group hover:no-underline h-full" x-show="cat==='all' || cat==='auto'">
+                    <div class="relative h-48 overflow-hidden flex items-center justify-center" style="background:linear-gradient(135deg,var(--primary-color),var(--primary-color-dark));">
+                        <svg class="w-14 h-14 text-white opacity-50 transition-transform duration-500 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:rgba(255,255,255,0.18);">仕組み化・自動化</div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-lg font-bold text-gray-800 mb-3 group-hover:text-blue-600 transition-colors">定例業務を仕組みで消す：私たちが実際に止めた「毎日の手作業」とその設計図</h3>
+                        <p class="text-sm text-gray-600 mb-4" style="display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;">3人の会社が人を増やさず事業を回すために自動化した実物リストと、業種を問わず使える「自動化の型」5ステップを公開します。</p>
+                        <span class="mt-auto text-blue-600 font-semibold text-sm flex items-center">記事を読む<svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></span>
+                    </div>
+                </a>
+
+                <!-- 現場DX（公開済み） -->
+                <a href="./case-dezura-genba-dx.html" class="card flex flex-col group hover:no-underline h-full" x-show="cat==='all' || cat==='dx'">
+                    <div class="relative h-48 overflow-hidden flex items-center justify-center" style="background:linear-gradient(135deg,var(--primary-color),var(--primary-color-dark));">
+                        <svg class="w-14 h-14 text-white opacity-50 transition-transform duration-500 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:rgba(255,255,255,0.18);">現場DX・業務アプリ</div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-lg font-bold text-gray-800 mb-3 group-hover:text-blue-600 transition-colors">動いている仕組みを、なぜわざわざアプリに作り替えたのか：現場管理アプリ「デズラ」の設計判断</h3>
+                        <p class="text-sm text-gray-600 mb-4" style="display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;">すでに回っていた知人の現場管理を、それでも作り替えた理由。どんな手札を比べ、なぜその設計を選んだか――成果自慢ではなく、課題への向き合い方を公開します。</p>
+                        <span class="mt-auto text-blue-600 font-semibold text-sm flex items-center">記事を読む<svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></span>
+                    </div>
+                </a>
+
+                <!-- アーネスト サロン立て直し（集客・見える化） -->
+                <a href="./case-earnest-salon-rebuild.html" class="card flex flex-col group hover:no-underline h-full" x-show="cat==='all' || cat==='mieruka'">
+                    <div class="relative h-48 overflow-hidden flex items-center justify-center" style="background:linear-gradient(135deg,#7A3047,#06283d);">
+                        <svg class="w-14 h-14 text-white opacity-50 transition-transform duration-500 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:rgba(255,255,255,0.18);">集客・見える化</div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-lg font-bold text-gray-800 mb-3 group-hover:text-blue-600 transition-colors">売上が1ヶ月で86%落ちたサロンを、どう読み解いたか</h3>
+                        <p class="text-sm text-gray-600 mb-4" style="display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;">本業のEC・Amazon運用で使う「数字で原因を一段に絞り込む」考え方を、別業種のサロン立て直しに適用した実例。結果ではなく、課題への向き合い方そのものを公開します。</p>
+                        <span class="mt-auto text-blue-600 font-semibold text-sm flex items-center">記事を読む<svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></span>
+                    </div>
+                </a>
+
+                <!-- AI診断の設計思想（集客・見える化） -->
+                <a href="./ai-shindan-sekkei.html" class="card flex flex-col group hover:no-underline h-full" x-show="cat==='all' || cat==='mieruka'">
+                    <div class="relative h-48 overflow-hidden flex items-center justify-center" style="background:linear-gradient(135deg,#4E7C59,#06283d);">
+                        <svg class="w-14 h-14 text-white opacity-50 transition-transform duration-500 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:rgba(255,255,255,0.18);">集客・見える化</div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-lg font-bold text-gray-800 mb-3 group-hover:text-blue-600 transition-colors">「売り込む前に、見極めてもらう」：なぜサイトに"診断"を置くのか</h3>
+                        <p class="text-sm text-gray-600 mb-4" style="display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;">診断を成約の罠にしない、という設計思想。質問の選び方・結果の返し方・やらないと決めたこと――煽らず見極めてもらう導線の作り方を解説します。</p>
+                        <span class="mt-auto text-blue-600 font-semibold text-sm flex items-center">記事を読む<svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></span>
+                    </div>
+                </a>
+
+                <!-- 集客・見える化（公開済み） -->
+                <a href="./uriage-mieruka.html" class="card flex flex-col group hover:no-underline h-full" x-show="cat==='all' || cat==='mieruka'">
+                    <div class="relative h-48 overflow-hidden flex items-center justify-center" style="background:linear-gradient(135deg,var(--primary-color),var(--primary-color-dark));">
+                        <svg class="w-14 h-14 text-white opacity-50 transition-transform duration-500 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:rgba(255,255,255,0.18);">集客・見える化</div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-lg font-bold text-gray-800 mb-3 group-hover:text-blue-600 transition-colors">「どこから売上が来ているか分からない」を解決する、経路別・見える化の作り方</h3>
+                        <p class="text-sm text-gray-600 mb-4" style="display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;">集客経路を分解し、HP・LINEを連携させて「毎朝、次の一手が分かる」状態をどう作るか。中小事業者がすぐ真似できる見える化の手順を解説します。</p>
+                        <span class="mt-auto text-blue-600 font-semibold text-sm flex items-center">記事を読む<svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></span>
+                    </div>
+                </a>
+
+                <!-- 経理自動化（仕組み化・自動化） -->
+                <a href="./keiri-automation.html" class="card flex flex-col group hover:no-underline h-full" x-show="cat==='all' || cat==='auto'">
+                    <div class="relative h-48 overflow-hidden flex items-center justify-center" style="background:linear-gradient(135deg,var(--primary-color),var(--primary-color-dark));">
+                        <svg class="w-14 h-14 text-white opacity-50 transition-transform duration-500 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:rgba(255,255,255,0.18);">仕組み化・自動化</div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-lg font-bold text-gray-800 mb-3 group-hover:text-blue-600 transition-colors">EC売上の会計ソフト入力を自動化する：月初経理を数時間から十数分に</h3>
+                        <p class="text-sm text-gray-600 mb-4" style="display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;">モール精算データから仕訳を自動で組み立て会計ソフトへ投入する仕組みを、仕訳イメージ図とつまずきポイントの表つきで公開します。</p>
+                        <span class="mt-auto text-blue-600 font-semibold text-sm flex items-center">記事を読む<svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></span>
+                    </div>
+                </a>
+
+                <!-- LINE×Claude Code（仕組み化・自動化） -->
+                <a href="./line-claude-code.html" class="card flex flex-col group hover:no-underline h-full" x-show="cat==='all' || cat==='auto'">
+                    <div class="relative h-48 overflow-hidden flex items-center justify-center" style="background:linear-gradient(135deg,#06c755,#06283d);">
+                        <svg class="w-14 h-14 text-white opacity-60 transition-transform duration-500 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:rgba(255,255,255,0.18);">仕組み化・自動化</div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-lg font-bold text-gray-800 mb-3 group-hover:text-blue-600 transition-colors">LINE配信を「AIに話すだけ」で組む：なぜ出来合いSaaSではなく自作×Claude Codeなのか</h3>
+                        <p class="text-sm text-gray-600 mb-4" style="display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;">やりたい配信やFLEXメッセージのデザインを日本語で指示するだけで形にできる柔軟さを、手札の比較表とFLEXの実例つきで解説します。安さではなく「自在さ」の話です。</p>
+                        <span class="mt-auto text-blue-600 font-semibold text-sm flex items-center">記事を読む<svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></span>
+                    </div>
+                </a>
+
+                <!-- LINE自動フォロー（集客・見える化） -->
+                <a href="./line-follow-automation.html" class="card flex flex-col group hover:no-underline h-full" x-show="cat==='all' || cat==='mieruka'">
+                    <div class="relative h-48 overflow-hidden flex items-center justify-center" style="background:linear-gradient(135deg,var(--primary-color),var(--primary-color-dark));">
+                        <svg class="w-14 h-14 text-white opacity-50 transition-transform duration-500 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:rgba(255,255,255,0.18);">集客・見える化</div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-lg font-bold text-gray-800 mb-3 group-hover:text-blue-600 transition-colors">LINEの手作業フォローを自動化する：一度きりの客を「また来る客」に変える</h3>
+                        <p class="text-sm text-gray-600 mb-4" style="display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;">お礼・使い方・再購入の声かけを自動ステップ配信に置き換える方法を、配信フロー図と「嫌われない設計」の表つきで解説します。</p>
+                        <span class="mt-auto text-blue-600 font-semibold text-sm flex items-center">記事を読む<svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></span>
+                    </div>
+                </a>
+
+                <!-- ブログ量産SEO（集客・見える化） -->
+                <a href="./blog-seo.html" class="card flex flex-col group hover:no-underline h-full" x-show="cat==='all' || cat==='mieruka'">
+                    <div class="relative h-48 overflow-hidden flex items-center justify-center" style="background:linear-gradient(135deg,var(--primary-color),var(--primary-color-dark));">
+                        <svg class="w-14 h-14 text-white opacity-50 transition-transform duration-500 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:rgba(255,255,255,0.18);">集客・見える化</div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-lg font-bold text-gray-800 mb-3 group-hover:text-blue-600 transition-colors">検索からお客様が来る仕組みをつくる：記事を「量産」する前に決めること</h3>
+                        <p class="text-sm text-gray-600 mb-4" style="display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;">広告を止めても来る入口の作り方。キーワード選び・記事の型・購入導線・順位の見える化までを、表と推移グラフで具体的に公開します。</p>
+                        <span class="mt-auto text-blue-600 font-semibold text-sm flex items-center">記事を読む<svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></span>
+                    </div>
+                </a>
+
+                <!-- 定期実行インフラ（仕組み化・自動化） -->
+                <a href="./scheduled-infra.html" class="card flex flex-col group hover:no-underline h-full" x-show="cat==='all' || cat==='auto'">
+                    <div class="relative h-48 overflow-hidden flex items-center justify-center" style="background:linear-gradient(135deg,var(--primary-color),var(--primary-color-dark));">
+                        <svg class="w-14 h-14 text-white opacity-50 transition-transform duration-500 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:rgba(255,255,255,0.18);">仕組み化・自動化</div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-lg font-bold text-gray-800 mb-3 group-hover:text-blue-600 transition-colors">止まらない自動化のつくり方：毎日動く処理を「止めない」ための仕組み</h3>
+                        <p class="text-sm text-gray-600 mb-4" style="display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;">専用マシン・時間帯リトライ・重複防止・別マシンからの見張り。「静かに止まる」事故を防ぐ4つの仕掛けを、全体図つきで解説します。</p>
+                        <span class="mt-auto text-blue-600 font-semibold text-sm flex items-center">記事を読む<svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></span>
+                    </div>
+                </a>
+
+                <!-- ===== Amazonコラム ===== -->
+
+                <!-- 失敗パターン集（Amazonコラム） -->
+                <a href="./shippai-pattern-db.html" class="card flex flex-col group hover:no-underline h-full" x-show="cat==='all' || cat==='amazon'">
+                    <div class="relative h-48 overflow-hidden flex items-center justify-center" style="background:linear-gradient(135deg,#B23A3A,#06283d);">
+                        <svg class="w-14 h-14 text-white opacity-50 transition-transform duration-500 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:var(--accent-orange);">Amazonコラム</div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-lg font-bold text-gray-800 mb-3 group-hover:text-blue-600 transition-colors">失敗を二度くり返さないために：社内に貯めている「失敗パターン集」の作り方</h3>
+                        <p class="text-sm text-gray-600 mb-4" style="display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;">成功談ではなく、失敗をどう型として蓄積し、次の意思決定に差し込むか。3人の会社が失敗を組織の資産に変える方法を公開します。</p>
+                        <span class="mt-auto text-blue-600 font-semibold text-sm flex items-center">記事を読む<svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></span>
+                    </div>
+                </a>
+
+                <!-- Amazon広告 早期警告（Amazon × 仕組み化・自動化 の両タグ） -->
+                <a href="./amazon-ads-early-warning.html" class="card flex flex-col group hover:no-underline h-full" x-show="cat==='all' || cat==='amazon' || cat==='auto'">
+                    <div class="relative h-48 overflow-hidden flex items-center justify-center" style="background:linear-gradient(135deg,#b8730a,#0a3d62);">
+                        <svg class="w-14 h-14 text-white opacity-50 transition-transform duration-500 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                        <div class="absolute top-0 left-0 flex">
+                            <span class="text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:var(--accent-orange);">Amazonコラム</span>
+                            <span class="text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:rgba(255,255,255,0.22);">仕組み化・自動化</span>
+                        </div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-lg font-bold text-gray-800 mb-3 group-hover:text-blue-600 transition-colors">広告の不調を「悪化する前」に止める：Amazon広告の自己改善ループ</h3>
+                        <p class="text-sm text-gray-600 mb-4" style="display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;">毎週の改善ループと毎日の早期警告で「気づいたら赤字」を防ぐ仕組み。4レンジ分析・入札ルール・危険シグナルを表とグラフで公開します。</p>
+                        <span class="mt-auto text-blue-600 font-semibold text-sm flex items-center">記事を読む<svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></span>
+                    </div>
+                </a>
+
+                <a href="../blog/why-no-marunage.html" class="card flex flex-col group hover:no-underline h-full" x-show="cat==='all' || cat==='amazon'">
+                    <div class="relative h-48 overflow-hidden flex items-center justify-center" style="background:linear-gradient(135deg,#b91c1c,#7f1d1d);">
+                        <svg class="w-14 h-14 text-white opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#dc2626;">Amazonコラム</div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-lg font-bold text-gray-800 mb-3 group-hover:text-blue-600 transition-colors">【必読】なぜ私たちは「丸投げ」をお断りするのか？</h3>
+                        <p class="text-sm text-gray-600 mb-4" style="display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;">本気で成果を上げたい企業様だけに知ってほしい、私たちの支援スタンス。なぜ当事者意識が成果を分けるのか。</p>
+                        <span class="mt-auto text-blue-600 font-semibold text-sm flex items-center">記事を読む<svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></span>
+                    </div>
+                </a>
+
+                <a href="../blog/amazon-basics-policy.html" class="card flex flex-col group hover:no-underline h-full" x-show="cat==='all' || cat==='amazon'">
+                    <div class="relative h-48 overflow-hidden flex items-center justify-center" style="background:linear-gradient(135deg,var(--primary-color),var(--primary-color-dark));">
+                        <svg class="w-14 h-14 text-white opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:var(--accent-orange);">Amazonコラム</div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-lg font-bold text-gray-800 mb-3 group-hover:text-blue-600 transition-colors">Amazonで勝つブランドの作り方：商品企画から販売戦略までの概要</h3>
+                        <p class="text-sm text-gray-600 mb-4" style="display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;">Amazon販売で成功するための全体像。基本方針、自社ブランドの定義、売れる商品選定と開発のステップを解説します。</p>
+                        <span class="mt-auto text-blue-600 font-semibold text-sm flex items-center">記事を読む<svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></span>
+                    </div>
+                </a>
+
+                <a href="../blog/pre-launch-strategy.html" class="card flex flex-col group hover:no-underline h-full" x-show="cat==='all' || cat==='amazon'">
+                    <div class="relative h-48 overflow-hidden flex items-center justify-center" style="background:linear-gradient(135deg,var(--primary-color),var(--primary-color-dark));">
+                        <svg class="w-14 h-14 text-white opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:var(--accent-orange);">Amazonコラム</div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-lg font-bold text-gray-800 mb-3 group-hover:text-blue-600 transition-colors">Amazon新商品発売で失敗しない！爆発的な初速を作る「事前集客」の極意</h3>
+                        <p class="text-sm text-gray-600 mb-4" style="display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;">Amazonで成功するかは「初日の動き」で決まる。発売前から見込み客を集め、スタートダッシュを決める3ステップを公開。</p>
+                        <span class="mt-auto text-blue-600 font-semibold text-sm flex items-center">記事を読む<svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></span>
+                    </div>
+                </a>
+
+                <a href="../blog/amazon-seo-optimization.html" class="card flex flex-col group hover:no-underline h-full" x-show="cat==='all' || cat==='amazon'">
+                    <div class="relative h-48 overflow-hidden flex items-center justify-center" style="background:linear-gradient(135deg,var(--primary-color),var(--primary-color-dark));">
+                        <svg class="w-14 h-14 text-white opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:var(--accent-orange);">Amazonコラム</div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-lg font-bold text-gray-800 mb-3 group-hover:text-blue-600 transition-colors">AI時代のAmazon SEO対策：キーワード埋め込みだけでは勝てない理由</h3>
+                        <p class="text-sm text-gray-600 mb-4" style="display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;">キーワードの羅列はもう古い。AI（Rufus）に好かれる文脈作りと、スマホユーザーに刺さる「売れる画像」の鉄則とは？</p>
+                        <span class="mt-auto text-blue-600 font-semibold text-sm flex items-center">記事を読む<svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></span>
+                    </div>
+                </a>
+
+                <a href="../blog/amazon-ads-profitability.html" class="card flex flex-col group hover:no-underline h-full" x-show="cat==='all' || cat==='amazon'">
+                    <div class="relative h-48 overflow-hidden flex items-center justify-center" style="background:linear-gradient(135deg,var(--primary-color),var(--primary-color-dark));">
+                        <svg class="w-14 h-14 text-white opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:var(--accent-orange);">Amazonコラム</div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-lg font-bold text-gray-800 mb-3 group-hover:text-blue-600 transition-colors">Amazon広告運用で利益を残す！ROAS改善と無駄なコストを削減するテクニック</h3>
+                        <p class="text-sm text-gray-600 mb-4" style="display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;">広告費の垂れ流しを防ぐ「除外キーワード」設定や、利益を見るための指標「TACOS」の考え方について。</p>
+                        <span class="mt-auto text-blue-600 font-semibold text-sm flex items-center">記事を読む<svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></span>
+                    </div>
+                </a>
+
+                <a href="../blog/osaka-amazon-consulting.html" class="card flex flex-col group hover:no-underline h-full" x-show="cat==='all' || cat==='amazon'">
+                    <div class="relative h-48 overflow-hidden flex items-center justify-center" style="background:linear-gradient(135deg,var(--primary-color),var(--primary-color-dark));">
+                        <svg class="w-14 h-14 text-white opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:var(--accent-orange);">Amazonコラム</div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-lg font-bold text-gray-800 mb-3 group-hover:text-blue-600 transition-colors">大阪でAmazon運用支援を探すなら「対面サポート」が重要な3つの理由</h3>
+                        <p class="text-sm text-gray-600 mb-4" style="display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;">Zoomだけでは伝わらない熱量や細かいニュアンス。大阪・関西圏の企業様に向けて、対面で話すことのメリットを解説します。</p>
+                        <span class="mt-auto text-blue-600 font-semibold text-sm flex items-center">記事を読む<svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></span>
+                    </div>
+                </a>
+
+                <a href="../blog/amazon-consulting-cost.html" class="card flex flex-col group hover:no-underline h-full" x-show="cat==='all' || cat==='amazon'">
+                    <div class="relative h-48 overflow-hidden flex items-center justify-center" style="background:linear-gradient(135deg,var(--primary-color),var(--primary-color-dark));">
+                        <svg class="w-14 h-14 text-white opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:var(--accent-orange);">Amazonコラム</div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-lg font-bold text-gray-800 mb-3 group-hover:text-blue-600 transition-colors">Amazonコンサルの費用相場と失敗しない選び方</h3>
+                        <p class="text-sm text-gray-600 mb-4" style="display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;">「成果報酬型」と「固定報酬型」どっちが得？初期費用の相場は？安さだけで選んで失敗しないための料金体系の裏側。</p>
+                        <span class="mt-auto text-blue-600 font-semibold text-sm flex items-center">記事を読む<svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></span>
+                    </div>
+                </a>
+
+                <a href="../blog/amazon-inhouse-operation.html" class="card flex flex-col group hover:no-underline h-full" x-show="cat==='all' || cat==='amazon'">
+                    <div class="relative h-48 overflow-hidden flex items-center justify-center" style="background:linear-gradient(135deg,var(--primary-color),var(--primary-color-dark));">
+                        <svg class="w-14 h-14 text-white opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:var(--accent-orange);">Amazonコラム</div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-lg font-bold text-gray-800 mb-3 group-hover:text-blue-600 transition-colors">Amazon運用で「自走」するために必要なこととは？頼りきらない組織作り</h3>
+                        <p class="text-sm text-gray-600 mb-4" style="display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;">社内にノウハウを蓄積し、自分たちで売上を作れるチームを作るための具体的なステップとマインドセット。</p>
+                        <span class="mt-auto text-blue-600 font-semibold text-sm flex items-center">記事を読む<svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></span>
+                    </div>
+                </a>
+
+            </div>
+
+            <div class="mt-16 text-center">
+                <a href="../index.html" class="btn-outline-primary inline-block px-8 py-3 font-semibold">トップページに戻る</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="text-gray-400 py-8 mt-0 text-center text-xs" style="background:var(--primary-color-dark);">
+        <p>© 2026 合同会社ヤシノミ All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PBN7WNCX8N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-PBN7WNCX8N');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="自動化のいちばんの敵は「いつの間にか止まっていた」。私たちは毎日の自動処理を止めないために、専用マシンでの定期実行・10分おきリトライ・重複防止フラグ・復旧後の自動再実行・別マシンからのヘルスチェックという仕組みを組んでいます。図と表で公開します。">
+    <title>止まらない自動化のつくり方：毎日動く処理を「止めない」ための仕組み - 合同会社ヤシノミ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0a3d62;
+            --primary-color-dark: #06283d;
+            --accent-orange: #FF9900;
+            --border-color: #e5e7eb;
+        }
+        body { font-family: 'Noto Sans JP', sans-serif; color: #1f2937; background-color: #f8f9fa; }
+        .font-serif-jp { font-family: 'Noto Serif JP', serif; }
+        .primary-color { color: var(--primary-color); }
+        .text-accent { color: var(--accent-orange); }
+        .btn-primary { background-image: linear-gradient(to right, #0a3d62 0%, #06283d 50%, #0a3d62 100%); background-size: 200% auto; color: white; }
+        .btn-primary:hover { background-position: right center; }
+        .marker { background: linear-gradient(transparent 60%, #ffe7c2 60%); font-weight: 700; }
+        .prose h2 { scroll-margin-top: 80px; }
+        .toc a:hover { color: var(--primary-color); text-decoration: underline; }
+        table.data { width:100%; border-collapse:collapse; font-size:0.82rem; }
+        table.data th, table.data td { border:1px solid var(--border-color); padding:8px 10px; text-align:center; }
+        table.data th { background:var(--primary-color); color:#fff; font-weight:700; }
+        table.data tr:nth-child(even) td { background:#fafafa; }
+        table.data td.l { text-align:left; }
+    </style>
+
+    <link rel="icon" href="https://yashi-nomi.com/images/logo.png" type="image/png" sizes="192x192">
+    <link rel="apple-touch-icon" href="https://yashi-nomi.com/images/logo.png">
+</head>
+<body>
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="../index.html" class="flex items-center gap-2">
+                <img src="../images/logo.png" alt="ヤシノミ ロゴ" class="h-8 w-auto">
+                <span class="font-bold primary-color">合同会社ヤシノミ</span>
+            </a>
+            <a href="https://calendar.app.google/TZrQ5YLexng2gPRV8" target="_blank" class="btn-primary px-4 py-2 rounded text-sm font-bold transition shadow-md">無料相談を予約</a>
+        </div>
+    </header>
+
+    <article class="container mx-auto px-6 py-12 max-w-3xl bg-white mt-8 rounded-xl shadow-sm">
+        <div class="flex items-center gap-2 mb-4 flex-wrap">
+            <span class="text-white text-xs font-bold px-3 py-1 rounded" style="background:var(--primary-color);">仕組み化・自動化</span>
+            <span class="text-gray-400 text-xs">業務改善コラム</span>
+        </div>
+        <h1 class="font-serif-jp text-3xl md:text-4xl font-bold mt-2 mb-4 leading-tight text-gray-800" style="letter-spacing:0.02em;">
+            止まらない自動化のつくり方<br>
+            <span class="text-2xl md:text-3xl mt-3 block text-gray-600 font-normal">毎日動く処理を「止めない」ための仕組み</span>
+        </h1>
+        <p class="text-sm text-gray-400 mb-8">業務改善コラム ／ 仕組み化・自動化 ／ 読了目安：約11分</p>
+
+        <div class="prose max-w-none text-gray-700 leading-relaxed space-y-8">
+            <p class="text-lg font-medium leading-8 pl-4 p-4 rounded-r" style="border-left:4px solid var(--accent-orange);background:#fff8ef;">
+                自動化の本当の敵は、派手なバグではありません。<span class="marker">「いつの間にか止まっていて、誰も気づかなかった」</span>です。<br>
+                毎朝走るはずのレポートが3日前から動いていない——それに気づくのが月末だったら、自動化はかえって危険です。私たちは毎日の自動処理を「止めない」ために、いくつもの仕掛けを重ねています。この記事では、その仕組みを図と表で公開します。専門用語は使わず、考え方として読めるようにしました。
+            </p>
+
+            <nav class="toc text-sm bg-gray-50 border rounded-lg p-5" style="border-color:var(--border-color);">
+                <p class="font-bold text-gray-800 mb-3">この記事の内容</p>
+                <ol class="list-decimal pl-5 space-y-1.5 text-gray-600">
+                    <li><a href="#enemy">自動化の敵は「静かに止まること」</a></li>
+                    <li><a href="#machine">①専用のマシンで動かす</a></li>
+                    <li><a href="#retry">②「決まった時刻に1回」をやめる</a></li>
+                    <li><a href="#flag">③同じ処理を二度やらない工夫</a></li>
+                    <li><a href="#healthcheck">④別のマシンから見張る</a></li>
+                    <li><a href="#diagram">全体像：4つの仕掛けの関係</a></li>
+                    <li><a href="#type">他社でも使える「止めない自動化」の型</a></li>
+                    <li><a href="#summary">まとめ</a></li>
+                </ol>
+            </nav>
+
+            <section id="enemy">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">1. 自動化の敵は「静かに止まること」</h2>
+                <p>
+                    自動化された処理は、調子よく動いているうちは誰も見ません。それが自動化の良さです。
+                    でも裏を返せば、<strong>止まっても誰も気づかない</strong>ということ。
+                </p>
+                <p>
+                    たとえば、毎朝の売上集計が止まっていたとします。エラー画面が出るわけでも、警告音が鳴るわけでもありません。
+                    ただ静かに、何も起きないだけ。<span class="marker">「動いて当たり前」になっているものほど、止まったときに気づけない。</span>
+                    だから「止まらない仕組み」と「止まったらすぐ気づく仕組み」を、最初から組み込んでおく必要があります。
+                </p>
+            </section>
+
+            <section id="machine">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">2. ①専用のマシンで動かす</h2>
+                <p>
+                    最初の工夫は、<strong>自動処理を「普段使うパソコン」でやらない</strong>ことです。
+                    日常的に使うノートPCは、持ち歩いて電源を切ったり、スリープしたり、別の作業で重くなったりします。
+                    そんな環境では、決まった時刻に処理が走る保証がありません。
+                </p>
+                <p>
+                    そこで私たちは、<span class="marker">電源を入れっぱなしにできる1台を「定期実行の専用マシン」</span>に決めています。
+                    普段は触らず、ただ淡々と毎日の処理を回すためだけの存在。これだけで「PCを閉じていて動かなかった」という事故がなくなります。
+                    大げさな設備は不要で、使っていない1台で十分です。
+                </p>
+            </section>
+
+            <section id="retry">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">3. ②「決まった時刻に1回」をやめる</h2>
+                <p>
+                    「毎朝9時にこの処理を1回動かす」——一見、正しそうです。でもこれには弱点があります。
+                    <strong>その9時ちょうどに、たまたまネットが切れていたら？</strong> その日の処理は丸ごと飛んでしまいます。
+                </p>
+                <p>
+                    そこで私たちは、「決まった時刻に1回」ではなく<span class="marker">「ある時間帯のあいだ、何度も挑戦する」</span>形にしています。
+                    たとえば朝9時から昼前まで、10分おきに「もう今日の処理は終わった？まだなら実行」とくり返す。
+                    一度成功したら、その日はもう動きません（次の工夫で説明します）。
+                </p>
+                <div class="grid sm:grid-cols-2 gap-4 mt-5 text-sm">
+                    <div class="border rounded-lg p-4" style="border-color:var(--border-color);">
+                        <p class="font-bold text-gray-800 mb-1">😵 決まった時刻に1回</p>
+                        <p class="text-gray-600">9:00にネット断 → その日は実行されず、誰も気づかない。</p>
+                    </div>
+                    <div class="border rounded-lg p-4" style="border-color:var(--primary-color);background:#f1f7fd;">
+                        <p class="font-bold primary-color mb-1">🙂 時間帯で何度も挑戦</p>
+                        <p class="text-gray-700">9:00に失敗しても、9:10・9:20…と再挑戦。復旧した瞬間に実行される。</p>
+                    </div>
+                </div>
+                <p class="mt-4">
+                    これで、「実行のタイミングだけ一瞬ネットが切れていた」という事故に強くなります。
+                    回線が復旧すれば、次の挑戦で自動的に追いつきます。
+                </p>
+            </section>
+
+            <section id="flag">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">4. ③同じ処理を二度やらない工夫</h2>
+                <p>
+                    10分おきに挑戦するなら、<strong>「今日はもう成功した」という記録</strong>が必要です。
+                    これがないと、1日に何回も同じレポートを送ってしまいます。
+                </p>
+                <p>
+                    やり方はシンプルです。処理が成功したら、<span class="marker">「今日やった」という目印（フラグ）を1つ残す</span>。
+                    次の挑戦では、まずその目印があるかを確認し、あれば何もせず終了します。
+                </p>
+                <table class="data mt-4">
+                    <thead><tr><th>時刻</th><th>目印の確認</th><th>動作</th></tr></thead>
+                    <tbody>
+                        <tr><td>9:00</td><td class="l">今日の目印なし</td><td class="l">実行 → 失敗（ネット断）</td></tr>
+                        <tr><td>9:10</td><td class="l">今日の目印なし</td><td class="l">実行 → 成功 → 目印を残す</td></tr>
+                        <tr><td>9:20</td><td class="l">今日の目印あり</td><td class="l">何もせず終了</td></tr>
+                        <tr><td>9:30〜</td><td class="l">今日の目印あり</td><td class="l">何もせず終了</td></tr>
+                    </tbody>
+                </table>
+                <p class="mt-4">
+                    「何度も挑戦する（リトライ）」と「一度だけ実行する（重複防止）」は、セットで効きます。
+                    片方だけだと、止まりやすいか、二重実行するか、どちらかの事故が起きます。
+                </p>
+            </section>
+
+            <section id="healthcheck">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">5. ④別のマシンから見張る</h2>
+                <p>
+                    ここまでで処理は止まりにくくなりました。でも、専用マシン自体が固まったり、電源が落ちたら？
+                    <strong>そのマシンの中の仕組みだけでは、自分が止まったことを知らせられません。</strong>
+                </p>
+                <p>
+                    だから私たちは、<span class="marker">別のマシンから「ちゃんと終わった？」を毎日確認</span>させています。
+                    たとえば普段使うPCが、決まった時刻に「今日の処理は完了しているか」をチェックし、
+                    完了の印が見当たらなければ、チャットに「今日のバッチが終わっていません」と通知を飛ばす。
+                </p>
+                <p>
+                    ポイントは<strong>「見張る役と、見張られる役を別にする」</strong>こと。
+                    同じマシンに見張りを置くと、そのマシンごと止まったときに通知も出せません。
+                    別々にしておくから、片方が倒れてももう片方が気づけます。
+                </p>
+            </section>
+
+            <section id="diagram">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">6. 全体像：4つの仕掛けの関係</h2>
+                <p>ここまでの4つを1枚にすると、こうなります。</p>
+                <div class="border rounded-xl p-5 mt-4 bg-gray-50 text-sm" style="border-color:var(--border-color);">
+                    <div class="rounded-lg p-4 text-white mb-3" style="background:var(--primary-color);">
+                        <p class="font-bold">🖥 専用マシン（止めずに動かす）</p>
+                        <div class="mt-3 ml-3 space-y-2">
+                            <div class="bg-white bg-opacity-10 rounded p-2">
+                                <p class="font-bold">⏱ 時間帯リトライ：10分おきに「まだ？」と挑戦</p>
+                            </div>
+                            <div class="bg-white bg-opacity-10 rounded p-2">
+                                <p class="font-bold">🏁 重複防止フラグ：成功したら今日の目印を残す</p>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-center text-gray-400 mb-3">▲ 完了の印を確認 ▲</p>
+                    <div class="rounded-lg p-4 border-2" style="border-color:var(--accent-orange);">
+                        <p class="font-bold text-gray-800">📱 別マシン（見張り役）</p>
+                        <p class="text-gray-600 mt-1">毎日「完了の印はある？」と確認 → なければチャットに通知</p>
+                    </div>
+                </div>
+                <p class="mt-4">
+                    この4つが重なることで、<span class="marker">「一瞬の不調では止まらず、本当に止まったらすぐ気づく」</span>状態になります。
+                    どれか1つでも欠けると、静かに止まる事故が起こり得ます。
+                </p>
+            </section>
+
+            <section id="type">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">7. 他社でも使える「止めない自動化」の型</h2>
+                <ol class="list-decimal pl-6 space-y-3 mt-3">
+                    <li><strong>専用の1台を決める。</strong>普段使いのPCではなく、つけっぱなしにできる1台で動かす。</li>
+                    <li><strong>1回きりにしない。</strong>「決まった時刻に1回」ではなく「時間帯で何度も挑戦」する。</li>
+                    <li><strong>二度やらない印を残す。</strong>成功したら今日の目印を残し、以降はスキップする。</li>
+                    <li><strong>見張りを別に置く。</strong>別のマシンから「終わった？」を確認し、止まっていたら通知する。</li>
+                    <li><strong>通知は人が見る場所へ。</strong>毎日見るチャットに飛ばす。メールの奥に埋もれさせない。</li>
+                </ol>
+            </section>
+
+            <section id="summary">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">8. まとめ</h2>
+                <p>
+                    自動化は「作って終わり」ではありません。<span class="marker">作った後に、止まらない・止まったら気づく仕組みを足してこそ、安心して任せられます。</span>
+                    専用マシン・時間帯リトライ・重複防止・別マシンの見張り。どれも難しい技術ではなく、「考え方」で組めるものばかりです。
+                </p>
+                <p>
+                    私たちは自社の自動化をこの形で守りながら、同じように「自動化したいけど止まったら怖い」という事業者さんを支援しています。
+                    「自動化を任せたいが、放置で止まるのが不安」という方は、ぜひ一度ご相談ください。
+                </p>
+            </section>
+
+            <div class="mt-12 rounded-xl p-8 text-center text-white" style="background:linear-gradient(135deg,#0a3d62,#06283d);">
+                <p class="font-serif-jp text-xl font-bold mb-2">「止まったら怖い」を仕組みで解決しませんか？</p>
+                <p class="text-sm opacity-85 mb-5">止まらない自動化の設計を、無料相談でご一緒に組み立てます。</p>
+                <a href="https://calendar.app.google/TZrQ5YLexng2gPRV8" target="_blank" class="inline-block bg-white text-gray-900 font-bold px-8 py-3 rounded-full shadow hover:shadow-lg transition">無料相談を予約する</a>
+            </div>
+
+            <div class="border-t pt-6 mt-10" style="border-color:var(--border-color);">
+                <a href="./index.html" class="primary-color font-bold hover:underline">← 業務改善コラム 一覧へ戻る</a>
+            </div>
+        </div>
+    </article>
+
+    <footer class="text-white py-10 mt-16" style="background:var(--primary-color-dark);">
+        <div class="container mx-auto px-6 text-center text-sm opacity-80">
+            <p class="font-bold mb-1">合同会社ヤシノミ</p>
+            <p>Amazon運用支援・EC業務改善コンサルティング</p>
+            <p class="mt-3 opacity-60">&copy; 2026 Yashinomi LLC.</p>
+        </div>
+    </footer>
+</body>
+</html>

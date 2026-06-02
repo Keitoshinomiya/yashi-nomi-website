@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PBN7WNCX8N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-PBN7WNCX8N');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="3人の会社が、人を増やさずに事業を回すために実際に自動化した『毎日の手作業』の一覧と、他社でもそのまま使える自動化の型を5ステップで公開します。広告レポート・競合順位・経理仕訳・SNS投稿・LINE顧客フォローの実例つき。">
+    <title>定例業務を仕組みで消す：私たちが実際に止めた「毎日の手作業」とその設計図 - 合同会社ヤシノミ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0a3d62;
+            --primary-color-dark: #06283d;
+            --accent-orange: #FF9900;
+            --border-color: #e5e7eb;
+        }
+        body { font-family: 'Noto Sans JP', sans-serif; color: #1f2937; background-color: #f8f9fa; }
+        .font-serif-jp { font-family: 'Noto Serif JP', serif; }
+        .primary-color { color: var(--primary-color); }
+        .text-accent { color: var(--accent-orange); }
+        .btn-primary { background-image: linear-gradient(to right, #0a3d62 0%, #06283d 50%, #0a3d62 100%); background-size: 200% auto; color: white; }
+        .btn-primary:hover { background-position: right center; }
+        .marker { background: linear-gradient(transparent 60%, #ffe7c2 60%); font-weight: 700; }
+        .prose h2 { scroll-margin-top: 80px; }
+        .toc a:hover { color: var(--primary-color); text-decoration: underline; }
+    </style>
+
+    <link rel="icon" href="https://yashi-nomi.com/images/logo.png" type="image/png" sizes="192x192">
+    <link rel="apple-touch-icon" href="https://yashi-nomi.com/images/logo.png">
+</head>
+<body>
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="../index.html" class="flex items-center gap-2">
+                <img src="../images/logo.png" alt="ヤシノミ ロゴ" class="h-8 w-auto">
+                <span class="font-bold primary-color">合同会社ヤシノミ</span>
+            </a>
+            <a href="https://calendar.app.google/TZrQ5YLexng2gPRV8" target="_blank" class="btn-primary px-4 py-2 rounded text-sm font-bold transition shadow-md">無料相談を予約</a>
+        </div>
+    </header>
+
+    <article class="container mx-auto px-6 py-12 max-w-3xl bg-white mt-8 rounded-xl shadow-sm">
+        <div class="flex items-center gap-2 mb-4">
+            <span class="text-white text-xs font-bold px-3 py-1 rounded" style="background:var(--primary-color);">仕組み化・自動化</span>
+            <span class="text-gray-400 text-xs">業務改善コラム</span>
+        </div>
+        <h1 class="font-serif-jp text-3xl md:text-4xl font-bold mt-2 mb-4 leading-tight text-gray-800" style="letter-spacing:0.02em;">
+            定例業務を仕組みで消す<br>
+            <span class="text-2xl md:text-3xl mt-3 block text-gray-600 font-normal">私たちが実際に止めた「毎日の手作業」とその設計図</span>
+        </h1>
+        <p class="text-sm text-gray-400 mb-8">業務改善コラム ／ 仕組み化・自動化 ／ 読了目安：約10分</p>
+
+        <div class="prose max-w-none text-gray-700 leading-relaxed space-y-8">
+            <p class="text-lg font-medium leading-8 pl-4 p-4 rounded-r" style="border-left:4px solid var(--accent-orange);background:#fff8ef;">
+                私たちは3人の会社です。人を増やさずに複数のブランドと支援先を回すために、
+                <span class="marker">「毎日・毎週かならず発生する手作業」を一つずつ仕組みに置き換えてきました。</span><br>
+                この記事では、私たちが実際に自動化した業務の中身と、業種を問わずそのまま真似できる「自動化の型」を、できるだけ具体的に公開します。ツールの名前ではなく、<strong>「どう考えて、どう減らしたか」</strong>に絞ってお話しします。
+            </p>
+
+            <!-- 目次 -->
+            <nav class="toc text-sm bg-gray-50 border rounded-lg p-5" style="border-color:var(--border-color);">
+                <p class="font-bold text-gray-800 mb-3">この記事の内容</p>
+                <ol class="list-decimal pl-5 space-y-1.5 text-gray-600">
+                    <li><a href="#why">なぜ3人の会社が「自動化」に賭けたのか</a></li>
+                    <li><a href="#list">私たちが実際に自動化した6つの業務</a></li>
+                    <li><a href="#type">他社でも使える「自動化の型」5ステップ</a></li>
+                    <li><a href="#start">では、何から始めればいいのか</a></li>
+                    <li><a href="#keep">自動化が「止まらない」ための地味な工夫</a></li>
+                    <li><a href="#dont">逆に、自動化してはいけないもの</a></li>
+                    <li><a href="#summary">まとめ：自動化は「時間を買う」投資</a></li>
+                </ol>
+            </nav>
+
+            <section id="why">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">1. なぜ3人の会社が「自動化」に賭けたのか</h2>
+                <p>
+                    最初にお伝えしておきたいのは、私たちは「最新ツールが好きだから」自動化を進めたわけではない、ということです。
+                    理由はもっと切実で、<strong>3人では、手作業の量がそのまま事業の上限になってしまう</strong>からでした。
+                </p>
+                <p>
+                    自社ブランドの販売、広告の運用、経理、SNS、お客様への連絡——これらを全部「人が毎日手で」やろうとすると、
+                    新しいことに使える時間がゼロになります。人を増やせば解決するように見えますが、小さな会社にとって採用は重い決断ですし、
+                    増えた人の管理にもまた時間がかかります。
+                </p>
+                <p>
+                    そこで私たちは発想を変えました。<span class="marker">「人を増やして作業をこなす」のではなく、「作業そのものを減らして、人にしかできないことに集中する」。</span>
+                    この一点に絞って、社内のあらゆる定例業務を見直してきました。その結果が、これから紹介する仕組みです。
+                </p>
+                <p class="text-sm text-gray-600 bg-gray-50 border-l-4 pl-4 py-3" style="border-color:var(--primary-color);">
+                    ポイントは「規模が小さいからこそ自動化が効く」という事実です。大企業のような大きなシステムは要りません。
+                    小さな会社の小さな繰り返しこそ、いちばん手早く・安く・確実に減らせます。
+                </p>
+            </section>
+
+            <section id="list">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">2. 私たちが実際に自動化した6つの業務</h2>
+                <p>
+                    まずは「何を自動化したのか」を正直に並べます。どれも特別な業務ではありません。
+                    <strong>どの会社にもある「毎回同じことの繰り返し」</strong>です。それぞれ「before（前）→ after（後）→ 他社ならこう使える」の順でご説明します。
+                </p>
+
+                <!-- ① -->
+                <div class="mt-6 border rounded-lg overflow-hidden" style="border-color:var(--border-color);">
+                    <div class="px-5 py-3 font-bold text-white" style="background:var(--primary-color);">① 広告の数字チェックを「毎朝、向こうから届く」形に</div>
+                    <div class="p-5 space-y-3 text-sm">
+                        <p><strong class="text-gray-800">Before：</strong>毎朝、広告の管理画面に複数ログインし、昨日の広告費・売上・効率を1つずつ目で確認して手元の表に転記。気づけば30分。しかも見落としや転記ミスが起きる。</p>
+                        <p><strong class="text-gray-800">After：</strong>昨日の数字を自動で集計し、その日の状態がチャット（Slack）に文章で届くようにしました。<span class="marker">管理画面を開かなくても、コーヒーを淹れながら状況がわかる</span>。判断にだけ頭を使えるようになりました。</p>
+                        <p class="text-gray-600"><strong class="text-accent">他社への応用：</strong>毎朝の売上速報、店舗別の前日比、予約数の集計——「毎朝、複数の画面を見て回っている」業務はすべて同じ形に置き換えられます。</p>
+                    </div>
+                </div>
+
+                <!-- ② -->
+                <div class="mt-5 border rounded-lg overflow-hidden" style="border-color:var(--border-color);">
+                    <div class="px-5 py-3 font-bold text-white" style="background:var(--primary-color);">② 競合の動きを「変化したときだけ」教えてくれる監視</div>
+                    <div class="p-5 space-y-3 text-sm">
+                        <p><strong class="text-gray-800">Before：</strong>競合商品の検索順位・価格・在庫を、手で検索して目視チェック。毎日やると続かないし、やらないと変化を見逃す。</p>
+                        <p><strong class="text-gray-800">After：</strong>毎日決まった時間に自動で順位・価格・在庫を取得し、<span class="marker">変化があったときだけ</span>、見やすい表の画像つきでチャットに通知。普段は静かで、動きがあったときだけ気づけます。</p>
+                        <p class="text-gray-600"><strong class="text-accent">他社への応用：</strong>競合の価格改定、求人サイトでの相場、自社の口コミ評価——「定期的に見張りたいが、毎日は見ていられない」対象すべてに使えます。</p>
+                    </div>
+                </div>
+
+                <!-- ③ -->
+                <div class="mt-5 border rounded-lg overflow-hidden" style="border-color:var(--border-color);">
+                    <div class="px-5 py-3 font-bold text-white" style="background:var(--primary-color);">③ 経理の「数字を転記するだけ」の時間をなくす</div>
+                    <div class="p-5 space-y-3 text-sm">
+                        <p><strong class="text-gray-800">Before：</strong>通販の売上明細を見ながら、会計ソフトへ仕訳を1件ずつ手入力。件数が多い月は丸一日。単純作業なのに神経を使う。</p>
+                        <p><strong class="text-gray-800">After：</strong>売上データを整え、会計ソフトへの仕訳をほぼ自動で投入できるようにしました。<span class="marker">人は「中身が正しいかの確認」だけ</span>を担当します。</p>
+                        <p class="text-gray-600"><strong class="text-accent">他社への応用：</strong>請求書の発行、立替経費の集計、勤怠の集計——「決まった様式へ数字を写すだけ」の作業は、ほぼ自動化の対象です。</p>
+                    </div>
+                </div>
+
+                <!-- ④ -->
+                <div class="mt-5 border rounded-lg overflow-hidden" style="border-color:var(--border-color);">
+                    <div class="px-5 py-3 font-bold text-white" style="background:var(--primary-color);">④ SNS投稿を「ためて、最適な時間に自動配信」</div>
+                    <div class="p-5 space-y-3 text-sm">
+                        <p><strong class="text-gray-800">Before：</strong>毎日決まった時間にスマホを開いて投稿。忙しい日は抜け、投稿時間もバラバラになる。</p>
+                        <p><strong class="text-gray-800">After：</strong>投稿をまとめて用意しておけば、最適な時間に自動で配信される形に。<span class="marker">「投稿し忘れ」が構造的に起きなくなりました。</span></p>
+                        <p class="text-gray-600"><strong class="text-accent">他社への応用：</strong>定休日のお知らせ、季節の案内、定期的なリマインド——「言うことは決まっているのに、送るのを忘れる」連絡に最適です。</p>
+                    </div>
+                </div>
+
+                <!-- ⑤ -->
+                <div class="mt-5 border rounded-lg overflow-hidden" style="border-color:var(--border-color);">
+                    <div class="px-5 py-3 font-bold text-white" style="background:var(--primary-color);">⑤ 顧客フォロー（LINE）を仕組みにする</div>
+                    <div class="p-5 space-y-3 text-sm">
+                        <p><strong class="text-gray-800">Before：</strong>登録してくれたお客様への案内を、その都度手作業で送る。人によって対応にムラが出る。</p>
+                        <p><strong class="text-gray-800">After：</strong>友だち登録から段階的な案内の配信までを自動化。<span class="marker">問い合わせ対応のような「人がやるべき部分」だけを手元に残しました。</span>誰が対応しても一定の品質で届きます。</p>
+                        <p class="text-gray-600"><strong class="text-accent">他社への応用：</strong>来店後のお礼、申込後の案内、見込み客への段階的な情報提供——「最初の何通かは毎回同じ」フォローは仕組み化できます。</p>
+                    </div>
+                </div>
+
+                <!-- ⑥ -->
+                <div class="mt-5 border rounded-lg overflow-hidden" style="border-color:var(--border-color);">
+                    <div class="px-5 py-3 font-bold text-white" style="background:var(--primary-color);">⑥ 「自動化がちゃんと動いているか」の見張り</div>
+                    <div class="p-5 space-y-3 text-sm">
+                        <p><strong class="text-gray-800">Before：</strong>自動化を組んだはいいが、止まっていても誰も気づかない。気づいたときには数日分のデータが欠けている。</p>
+                        <p><strong class="text-gray-800">After：</strong>本体の自動化とは別に、「今朝の処理は完了したか？」を確認する小さな見張り役を用意。未完了なら通知が来ます。<span class="marker">自動化を、もう一段の自動化で守る</span>という考え方です。</p>
+                        <p class="text-gray-600"><strong class="text-accent">他社への応用：</strong>バックアップ、定期バッチ、自動送信——「止まると痛いが、止まったことに気づきにくい」処理にこそ必要です。</p>
+                    </div>
+                </div>
+
+                <p class="mt-6">
+                    こうして並べてみると、自動化とは魔法ではなく<strong>「繰り返しを見つけて、機械に渡す」作業の積み重ね</strong>だとわかっていただけると思います。
+                    では、何を渡して何を手元に残すか。その判断の型を次に紹介します。
+                </p>
+            </section>
+
+            <section id="type">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">3. 他社でも使える「自動化の型」5ステップ</h2>
+                <p>私たちが「何を自動化するか」を判断するとき、毎回たどっている手順です。<strong>順番が大事</strong>なので、上から順にご覧ください。</p>
+
+                <div class="space-y-6 mt-6">
+                    <div class="flex gap-4">
+                        <span class="font-serif-jp text-2xl primary-color flex-shrink-0" style="line-height:1.2;">01</span>
+                        <div>
+                            <p class="font-bold text-gray-800">手作業を全部、紙に書き出す</p>
+                            <p class="text-sm mt-1">まず「毎日・毎週やっていること」を洗い出します。各作業に「かかる時間」と「ミスした時の痛さ」をメモすると、どれから手をつけるべきかが自然と見えてきます。</p>
+                            <p class="text-sm mt-2 text-gray-500"><strong>ありがちな失敗：</strong>いきなりツールを探し始めること。道具から入ると、本当に減らすべき作業を見失います。まず「自分たちの繰り返し」を直視するのが先です。</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="font-serif-jp text-2xl primary-color flex-shrink-0" style="line-height:1.2;">02</span>
+                        <div>
+                            <p class="font-bold text-gray-800">「毎回まったく同じ手順」だけを切り出す</p>
+                            <p class="text-sm mt-1">自動化が向くのは、判断のいらない繰り返しです。「集計する」「転記する」「決まった時間に送る」はすべて機械の仕事。逆に、例外対応やお客様への配慮が必要な部分は、無理に自動化せず人に残します。</p>
+                            <p class="text-sm mt-2 text-gray-500"><strong>ありがちな失敗：</strong>「ついでに判断もやらせよう」と欲張ること。判断が混じった瞬間に仕組みは複雑になり、壊れやすくなります。まずは一番単純な繰り返しから。</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="font-serif-jp text-2xl primary-color flex-shrink-0" style="line-height:1.2;">03</span>
+                        <div>
+                            <p class="font-bold text-gray-800">定期実行は「閉じても動くマシン」に任せる</p>
+                            <p class="text-sm mt-1">毎朝の自動処理を自分のノートPCに頼ると、PCを閉じた日に止まります。私たちは常時動かしておく小さなマシンを1台用意し、そこに定例処理を集約しました。<span class="marker">「人が在席していなくても動く」状態にして初めて、自動化は仕組みになります。</span></p>
+                            <p class="text-sm mt-2 text-gray-500"><strong>ありがちな失敗：</strong>担当者の個人PC頼みにすること。その人が休んだ日・PCを買い替えた日に、誰も知らないまま止まります。</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="font-serif-jp text-2xl primary-color flex-shrink-0" style="line-height:1.2;">04</span>
+                        <div>
+                            <p class="font-bold text-gray-800">結果は1か所に集める（見に行かない運用にする）</p>
+                            <p class="text-sm mt-1">「毎朝この画面とあの画面を開いて確認」という運用は、忙しい日に必ず途切れます。私たちは結果をすべてチャット（Slack）に集約しました。<strong>こちらが見に行くのではなく、向こうから届く形</strong>にすると、確認が習慣として続きます。</p>
+                            <p class="text-sm mt-2 text-gray-500"><strong>ありがちな失敗：</strong>結果をあちこちのファイルやメールに散らすこと。情報が散ると、結局誰も見なくなります。「全部ここを見ればいい」場所を1つ決めましょう。</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="font-serif-jp text-2xl primary-color flex-shrink-0" style="line-height:1.2;">05</span>
+                        <div>
+                            <p class="font-bold text-gray-800">正常時は黙らせ、異常時だけ人を呼ぶ</p>
+                            <p class="text-sm mt-1">通知が多すぎると、人はやがて全部を無視します。私たちは「いつも通り」のときは静かに、「危険な兆候」が出たときだけアラートを鳴らす設計にしています。たとえば広告では、悪化が確定する前の段階で気づけるよう、早めに知らせる仕組みを入れています。</p>
+                            <p class="text-sm mt-2 text-gray-500"><strong>ありがちな失敗：</strong>「念のため全部通知」にすること。オオカミ少年と同じで、大事なアラートも埋もれます。鳴らすのは「人が動くべきとき」だけに絞ります。</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="start">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">4. では、何から始めればいいのか</h2>
+                <p>
+                    「自動化が大事なのはわかった。でも、どれから?」——ここでつまずく会社がとても多いです。私たちのおすすめは、最初の1つを次の基準で選ぶことです。
+                </p>
+                <ul class="list-disc pl-6 space-y-2 mt-4 text-sm">
+                    <li><strong>毎日・毎週きまって発生する</strong>（たまにしか発生しない作業は後回しでOK）</li>
+                    <li><strong>手順がいつも同じ</strong>（判断が少ないほど、すぐに・確実に自動化できる）</li>
+                    <li><strong>間違えると地味に痛い</strong>（ミスの怖さがある作業ほど、機械に任せる価値が大きい）</li>
+                </ul>
+                <p class="mt-4">
+                    この3つが重なる作業が、最初の1つに最適です。多くの会社では<strong>「毎日の数字集計」や「決まった連絡の送信」</strong>がここに当てはまります。
+                    いきなり全部を自動化しようとせず、<span class="marker">小さく1つ仕組みにして、浮いた時間で次の1つに取りかかる。</span>この積み重ねが、結果的にいちばん早く進みます。
+                </p>
+            </section>
+
+            <section id="keep">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">5. 自動化が「止まらない」ための地味な工夫</h2>
+                <p>
+                    自動化は作って終わりではありません。むしろ<strong>「気づかないうちに止まっていた」が一番こわい</strong>。
+                    私たちが失敗から学んだ、地味だけれど効く工夫を共有します。
+                </p>
+                <ul class="list-disc pl-6 space-y-2 mt-4 text-sm">
+                    <li><strong>二重実行を防ぐ印を置く：</strong>通信が切れて後から再実行されても、同じ処理が二度走らないように「今日はもう実行済み」の印を残します。</li>
+                    <li><strong>通信が切れても自動で復旧させる：</strong>ネットや電源が一瞬切れても、復旧したら自動でやり直す前提で組みます。一度の失敗で丸一日穴があかないようにします。</li>
+                    <li><strong>「ちゃんと動いたか」を別系統で見張る：</strong>本体の自動化とは別に、完了確認の見張り役を置き、未完了なら通知します（前述の⑥）。</li>
+                    <li><strong>記録（ログ）を必ず残す：</strong>うまくいかなかった日に、後から原因を追えるようにします。記録がないと、同じ失敗を繰り返します。</li>
+                </ul>
+                <p class="mt-4 text-sm text-gray-600 bg-gray-50 border-l-4 pl-4 py-3" style="border-color:var(--accent-orange);">
+                    ※私たち自身、環境設定のミスが原因で、ある定例処理が数週間うまく動かなかった経験があります。
+                    その反省から、新しい自動化を組むときは<strong>「見張り」と「記録」を必ず先に用意する</strong>ようになりました。
+                    効率化の前に、まず「止まったとき気づける」ことのほうが大事です。
+                </p>
+            </section>
+
+            <section id="dont">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">6. 逆に、自動化してはいけないもの</h2>
+                <p>
+                    私たちは何でも自動化するわけではありません。<span class="marker">判断・関係性・例外対応は、あえて人に残します。</span>
+                </p>
+                <p>
+                    お客様への謝罪、価格や戦略の意思決定、イレギュラーな問い合わせ——ここを機械任せにすると、効率化どころか信頼を失います。
+                    自動化の目的は「人を消すこと」ではなく、<strong>「機械に任せて浮いた時間を、人にしかできないことへ振り向けること」</strong>です。
+                    むしろ自動化が進むほど、人の仕事は「判断」と「お客様との関係づくり」という、いちばん大切な部分に寄っていきます。
+                </p>
+            </section>
+
+            <section id="summary">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">7. まとめ：自動化は「時間を買う」投資</h2>
+                <p>
+                    私たちにとって自動化とは、最新技術の話ではなく<strong>「時間を買う投資」</strong>でした。
+                    毎日30分の集計を仕組みにすれば、年間で100時間以上が戻ってきます。その時間を、新しい商品や、お客様との対話に使う。
+                    小さな会社ほど、この差が事業のスピードに直結します。
+                </p>
+                <p>
+                    難しく考える必要はありません。<span class="marker">まずは「毎日やっている同じ作業」を1つだけ、機械に渡してみる。</span>
+                    それだけで、会社の景色は少しずつ変わっていきます。
+                </p>
+            </section>
+
+            <div class="p-8 rounded-xl border text-center mt-12" style="border-color:var(--border-color);background:#f1f6fb;">
+                <h3 class="font-serif-jp text-xl font-bold mb-4 text-gray-800">「うちの、あの面倒な作業」も仕組みにできます</h3>
+                <p class="mb-6 text-left md:text-center">
+                    毎日の集計、毎月の転記、決まった時間の連絡——もし社内に「人がやらなくてもいいのに、ずっと人がやっている作業」があれば、
+                    一度、棚卸しからお手伝いします。<br>
+                    私たちが自社で実際に回している方法を、貴社の業務に合わせてご提案します。まずは現状をお聞かせください。
+                </p>
+                <a href="https://calendar.app.google/TZrQ5YLexng2gPRV8" target="_blank" class="btn-primary inline-block px-8 py-4 rounded-lg font-bold text-lg shadow-lg transform hover:-translate-y-1 transition duration-300">
+                    無料相談を予約する（30分）
+                </a>
+            </div>
+        </div>
+
+        <div class="mt-10 text-center">
+            <a href="./index.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium transition-colors">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                業務改善コラム一覧に戻る
+            </a>
+        </div>
+    </article>
+
+    <footer class="text-gray-400 py-8 mt-12 text-center text-xs" style="background:var(--primary-color-dark);">
+        <p>© 2026 合同会社ヤシノミ All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

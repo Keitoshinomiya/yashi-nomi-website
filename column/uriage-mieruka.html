@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PBN7WNCX8N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-PBN7WNCX8N');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="「どこから売上が来ているのか分からない」状態は、多くの店舗・中小事業者が抱える共通の悩みです。集客経路を分解し、HP・LINEとつなげて『毎朝、次の一手が分かる』状態をどう作るか。私たちが実際にやっている見える化の手順を公開します。">
+    <title>「どこから売上が来ているか分からない」を解決する、経路別・見える化の作り方 - 合同会社ヤシノミ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0a3d62;
+            --primary-color-dark: #06283d;
+            --accent-orange: #FF9900;
+            --border-color: #e5e7eb;
+        }
+        body { font-family: 'Noto Sans JP', sans-serif; color: #1f2937; background-color: #f8f9fa; }
+        .font-serif-jp { font-family: 'Noto Serif JP', serif; }
+        .primary-color { color: var(--primary-color); }
+        .text-accent { color: var(--accent-orange); }
+        .btn-primary { background-image: linear-gradient(to right, #0a3d62 0%, #06283d 50%, #0a3d62 100%); background-size: 200% auto; color: white; }
+        .btn-primary:hover { background-position: right center; }
+        .marker { background: linear-gradient(transparent 60%, #ffe7c2 60%); font-weight: 700; }
+        .prose h2 { scroll-margin-top: 80px; }
+        .toc a:hover { color: var(--primary-color); text-decoration: underline; }
+    </style>
+
+    <link rel="icon" href="https://yashi-nomi.com/images/logo.png" type="image/png" sizes="192x192">
+    <link rel="apple-touch-icon" href="https://yashi-nomi.com/images/logo.png">
+</head>
+<body>
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="../index.html" class="flex items-center gap-2">
+                <img src="../images/logo.png" alt="ヤシノミ ロゴ" class="h-8 w-auto">
+                <span class="font-bold primary-color">合同会社ヤシノミ</span>
+            </a>
+            <a href="https://calendar.app.google/TZrQ5YLexng2gPRV8" target="_blank" class="btn-primary px-4 py-2 rounded text-sm font-bold transition shadow-md">無料相談を予約</a>
+        </div>
+    </header>
+
+    <article class="container mx-auto px-6 py-12 max-w-3xl bg-white mt-8 rounded-xl shadow-sm">
+        <div class="flex items-center gap-2 mb-4">
+            <span class="text-white text-xs font-bold px-3 py-1 rounded" style="background:var(--primary-color);">集客・見える化</span>
+            <span class="text-gray-400 text-xs">業務改善コラム</span>
+        </div>
+        <h1 class="font-serif-jp text-3xl md:text-4xl font-bold mt-2 mb-4 leading-tight text-gray-800" style="letter-spacing:0.02em;">
+            「どこから売上が来ているか分からない」を解決する<br>
+            <span class="text-2xl md:text-3xl mt-3 block text-gray-600 font-normal">経路別・見える化の作り方</span>
+        </h1>
+        <p class="text-sm text-gray-400 mb-8">業務改善コラム ／ 集客・見える化 ／ 読了目安：約10分</p>
+
+        <div class="prose max-w-none text-gray-700 leading-relaxed space-y-8">
+            <p class="text-lg font-medium leading-8 pl-4 p-4 rounded-r" style="border-left:4px solid var(--accent-orange);background:#fff8ef;">
+                「忙しいのに、なぜか利益が残らない」「今月は売れたけど、何が効いたのか分からない」——
+                これは多くの店舗や中小事業者に共通する悩みです。原因の多くは、<span class="marker">「どこから売上（お客様）が来ているのかが見えていない」</span>こと。
+                この記事では、集客の経路を分解し、HPやLINEとつなげて<strong>「毎朝、次の一手が分かる」状態</strong>を作るまでの手順を、私たちが実際にやっているやり方に沿って公開します。
+            </p>
+
+            <!-- 目次 -->
+            <nav class="toc text-sm bg-gray-50 border rounded-lg p-5" style="border-color:var(--border-color);">
+                <p class="font-bold text-gray-800 mb-3">この記事の内容</p>
+                <ol class="list-decimal pl-5 space-y-1.5 text-gray-600">
+                    <li><a href="#problem">なぜ「売上の出どころ」が見えなくなるのか</a></li>
+                    <li><a href="#cost">見えないことの本当のコスト</a></li>
+                    <li><a href="#step1">ステップ1：集客経路を「分けて数える」</a></li>
+                    <li><a href="#step2">ステップ2：HP・LINEを入口として整える</a></li>
+                    <li><a href="#step3">ステップ3：毎朝1枚で見える状態にする</a></li>
+                    <li><a href="#action">見えると、何が変わるのか</a></li>
+                    <li><a href="#summary">まとめ：勘から、根拠ある一手へ</a></li>
+                </ol>
+            </nav>
+
+            <section id="problem">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">1. なぜ「売上の出どころ」が見えなくなるのか</h2>
+                <p>
+                    お店やサービスにお客様が来る経路は、思っている以上にたくさんあります。
+                    検索して見つけた人、紹介で来た人、SNSを見た人、チラシを見た人、前から知っていた人——。
+                    それぞれ別の入口から来ているのに、<span class="marker">レジや予約の段階では、全部「1件の売上」としてひとまとめ</span>になってしまいます。
+                </p>
+                <p>
+                    だから月末に売上を見ても、「合計でいくら」しか分かりません。
+                    「今月の伸びは、どの経路のおかげなのか」「逆に、止まっているのはどこか」が見えない。
+                    その結果、<strong>来月も「とりあえず全部の集客を、なんとなく続ける」</strong>ことになりがちです。
+                </p>
+            </section>
+
+            <section id="cost">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">2. 見えないことの本当のコスト</h2>
+                <p>
+                    「出どころが見えない」状態は、ただ気持ち悪いだけではありません。具体的な損につながります。
+                </p>
+                <ul class="list-disc pl-6 space-y-2 mt-4 text-sm">
+                    <li><strong>効いていない集客に、お金と時間を使い続けてしまう</strong>（効果が見えないのでやめる判断ができない）</li>
+                    <li><strong>効いている集客を、伸ばしきれない</strong>（どれが当たりか分からないので、思い切って増やせない）</li>
+                    <li><strong>打ち手の良し悪しが、毎回「勘」になる</strong>（次に同じ判断を迫られても、また勘で決めることになる）</li>
+                </ul>
+                <p class="mt-4">
+                    逆に言えば、経路ごとに見えるようにするだけで、<span class="marker">「やめる・続ける・増やす」の判断が、勘から根拠に変わります。</span>
+                    これが見える化のいちばんの価値です。
+                </p>
+            </section>
+
+            <section id="step1">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">3. ステップ1：集客経路を「分けて数える」</h2>
+                <p>
+                    最初にやるのは、難しい分析ではありません。<strong>「お客様がどこから来たか」を経路ごとに分けて数える</strong>、それだけです。
+                </p>
+                <p>
+                    まずは自社の経路をざっくり書き出します。たとえば「検索」「SNS」「紹介」「チラシ・看板」「リピーター」など。
+                    そのうえで、新規のお客様に「どこで知りましたか?」を一言うかがう、予約時に選んでもらう、といった<span class="marker">小さな一手間で、経路を記録できる形</span>を作ります。
+                </p>
+                <p class="text-sm text-gray-600 bg-gray-50 border-l-4 pl-4 py-3" style="border-color:var(--primary-color);">
+                    コツは、最初から細かく分けすぎないこと。経路は5つ前後で十分です。分類が多いと記録が続かず、かえって見えなくなります。
+                </p>
+            </section>
+
+            <section id="step2">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">4. ステップ2：HP・LINEを入口として整える</h2>
+                <p>
+                    経路を数えられるようになったら、次は<strong>「来てくれた人を、こちらから追える状態」</strong>にします。ここでHPとLINEが効いてきます。
+                </p>
+                <p>
+                    HPは、検索やSNSから来た人の「受け皿」です。ここがあいまいだと、せっかく興味を持った人が、何も残さず去ってしまいます。
+                    そしてLINEは、一度つながったお客様と<span class="marker">継続的に関係を保つための入口</span>です。
+                    友だち登録してもらえれば、その後の案内やフォローを仕組みにできます（このフォローの自動化は別記事で詳しく扱います）。
+                </p>
+                <p>
+                    ポイントは、HP・SNS・LINEを<strong>バラバラの点で終わらせず、一本の流れにつなげる</strong>こと。
+                    「知る → 調べる（HP）→ つながる（LINE）→ また来る」という流れを作ると、各段階で人がどれだけ進んでいるかが見えるようになります。
+                </p>
+            </section>
+
+            <section id="step3">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">5. ステップ3：毎朝1枚で見える状態にする</h2>
+                <p>
+                    データは、集めただけでは使われません。<strong>「見に行かなくても、向こうから届く」</strong>形にして初めて、毎日の判断に使えるようになります。
+                </p>
+                <p>
+                    私たちは、経路別の数字を自動でまとめ、<span class="marker">毎朝それを1枚で確認できる形</span>に整えます。
+                    昨日はどの経路から何件来たか、どこが伸びていてどこが落ちているか。
+                    それが朝のうちに分かれば、「今日は何に力を入れるか」をその場で決められます。
+                </p>
+                <div class="rounded-xl p-6 my-2 text-center" style="background:linear-gradient(135deg,var(--primary-color),var(--primary-color-dark));">
+                    <p class="font-serif-jp text-xl md:text-2xl text-white font-bold">「合計いくら」しか見えない　→　「どの経路がいくら」が毎朝見える</p>
+                </div>
+            </section>
+
+            <section id="action">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">6. 見えると、何が変わるのか</h2>
+                <p>
+                    経路別に見えるようになると、毎日の動きが具体的に変わります。
+                </p>
+                <ul class="list-disc pl-6 space-y-2 mt-4 text-sm">
+                    <li><strong>効いている経路に集中できる：</strong>当たっている入口が分かれば、迷わずそこを伸ばせます。</li>
+                    <li><strong>効いていない経路をやめられる：</strong>成果の出ていない集客を、根拠を持って整理できます。</li>
+                    <li><strong>変化にすぐ気づける：</strong>急に落ちた経路があれば、月末を待たずその日に手を打てます。</li>
+                </ul>
+                <p class="mt-4">
+                    つまり、<span class="marker">「毎朝、次の一手が分かる」状態</span>になります。
+                    これは特別な才能ではなく、見える化という仕組みがもたらす、誰にでも再現できる変化です。
+                </p>
+            </section>
+
+            <section id="summary">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">7. まとめ：勘から、根拠ある一手へ</h2>
+                <p>
+                    「どこから売上が来ているか分からない」は、裏を返せば<strong>「分けて数えれば、すぐに見えるようになる」</strong>ということです。
+                    集客経路を分ける、HP・LINEで流れをつなぐ、毎朝1枚で見えるようにする。
+                    この3つだけで、判断の質は大きく変わります。
+                </p>
+                <p>
+                    難しいツールや大きな投資は要りません。<span class="marker">まずは「お客様がどこから来たか」を数え始めること</span>から。
+                    それが、勘に頼らない経営への第一歩になります。
+                </p>
+            </section>
+
+            <div class="p-8 rounded-xl border text-center mt-12" style="border-color:var(--border-color);background:#f1f6fb;">
+                <h3 class="font-serif-jp text-xl font-bold mb-4 text-gray-800">「売上の出どころ」を、見えるようにしませんか</h3>
+                <p class="mb-6 text-left md:text-center">
+                    忙しいのに利益が残らない。何が効いているのか分からない。
+                    そんな状態でしたら、まずは現状をお聞かせください。<br>
+                    貴社の集客経路を一緒に分解し、<strong>毎朝、次の一手が見える状態</strong>を作るところまでお手伝いします。
+                </p>
+                <a href="https://calendar.app.google/TZrQ5YLexng2gPRV8" target="_blank" class="btn-primary inline-block px-8 py-4 rounded-lg font-bold text-lg shadow-lg transform hover:-translate-y-1 transition duration-300">
+                    無料相談を予約する（30分）
+                </a>
+            </div>
+        </div>
+
+        <div class="mt-10 text-center">
+            <a href="./index.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium transition-colors">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                業務改善コラム一覧に戻る
+            </a>
+        </div>
+    </article>
+
+    <footer class="text-gray-400 py-8 mt-12 text-center text-xs" style="background:var(--primary-color-dark);">
+        <p>© 2026 合同会社ヤシノミ All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

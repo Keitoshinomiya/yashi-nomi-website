@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PBN7WNCX8N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-PBN7WNCX8N');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="広告を止めると問い合わせが止まる——その状態から抜け出すために、私たちは検索からお客様が来る「記事」を仕組みで増やしています。キーワード選び・記事の型・購入への導線・順位の見える化までを、表と図で具体的に公開します。">
+    <title>検索からお客様が来る仕組みをつくる：ブログ記事を「量産」する前に決めること - 合同会社ヤシノミ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0a3d62;
+            --primary-color-dark: #06283d;
+            --accent-orange: #FF9900;
+            --border-color: #e5e7eb;
+        }
+        body { font-family: 'Noto Sans JP', sans-serif; color: #1f2937; background-color: #f8f9fa; }
+        .font-serif-jp { font-family: 'Noto Serif JP', serif; }
+        .primary-color { color: var(--primary-color); }
+        .text-accent { color: var(--accent-orange); }
+        .btn-primary { background-image: linear-gradient(to right, #0a3d62 0%, #06283d 50%, #0a3d62 100%); background-size: 200% auto; color: white; }
+        .btn-primary:hover { background-position: right center; }
+        .marker { background: linear-gradient(transparent 60%, #ffe7c2 60%); font-weight: 700; }
+        .prose h2 { scroll-margin-top: 80px; }
+        .toc a:hover { color: var(--primary-color); text-decoration: underline; }
+        table.data { width:100%; border-collapse:collapse; font-size:0.82rem; }
+        table.data th, table.data td { border:1px solid var(--border-color); padding:8px 10px; text-align:center; }
+        table.data th { background:var(--primary-color); color:#fff; font-weight:700; }
+        table.data tr:nth-child(even) td { background:#fafafa; }
+        table.data td.l { text-align:left; }
+    </style>
+
+    <link rel="icon" href="https://yashi-nomi.com/images/logo.png" type="image/png" sizes="192x192">
+    <link rel="apple-touch-icon" href="https://yashi-nomi.com/images/logo.png">
+</head>
+<body>
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="../index.html" class="flex items-center gap-2">
+                <img src="../images/logo.png" alt="ヤシノミ ロゴ" class="h-8 w-auto">
+                <span class="font-bold primary-color">合同会社ヤシノミ</span>
+            </a>
+            <a href="https://calendar.app.google/TZrQ5YLexng2gPRV8" target="_blank" class="btn-primary px-4 py-2 rounded text-sm font-bold transition shadow-md">無料相談を予約</a>
+        </div>
+    </header>
+
+    <article class="container mx-auto px-6 py-12 max-w-3xl bg-white mt-8 rounded-xl shadow-sm">
+        <div class="flex items-center gap-2 mb-4 flex-wrap">
+            <span class="text-white text-xs font-bold px-3 py-1 rounded" style="background:var(--primary-color);">集客・見える化</span>
+            <span class="text-gray-400 text-xs">業務改善コラム</span>
+        </div>
+        <h1 class="font-serif-jp text-3xl md:text-4xl font-bold mt-2 mb-4 leading-tight text-gray-800" style="letter-spacing:0.02em;">
+            検索からお客様が来る仕組みをつくる<br>
+            <span class="text-2xl md:text-3xl mt-3 block text-gray-600 font-normal">記事を「量産」する前に決めること</span>
+        </h1>
+        <p class="text-sm text-gray-400 mb-8">業務改善コラム ／ 集客・見える化 ／ 読了目安：約11分</p>
+
+        <div class="prose max-w-none text-gray-700 leading-relaxed space-y-8">
+            <p class="text-lg font-medium leading-8 pl-4 p-4 rounded-r" style="border-left:4px solid var(--accent-orange);background:#fff8ef;">
+                広告を止めたら問い合わせがピタッと止まった——多くの事業者が経験することです。広告は「お金を払っている間だけ来る集客」。<br>
+                一方で、検索から記事を読んで来てくれるお客様は、<span class="marker">記事が残っている限り、何ヶ月も何年も来続けます</span>。私たちはこの「検索から来る入口」を仕組みで増やしています。この記事では、ただ記事を量産する前に決めるべきことを、表と図で具体的に説明します。
+            </p>
+
+            <nav class="toc text-sm bg-gray-50 border rounded-lg p-5" style="border-color:var(--border-color);">
+                <p class="font-bold text-gray-800 mb-3">この記事の内容</p>
+                <ol class="list-decimal pl-5 space-y-1.5 text-gray-600">
+                    <li><a href="#stock">広告は「フロー」、記事は「ストック」</a></li>
+                    <li><a href="#keyword">最初の分かれ道：キーワードの選び方</a></li>
+                    <li><a href="#format">記事の「型」を決めてから量産する</a></li>
+                    <li><a href="#cv">読まれて終わりにしない：購入への導線</a></li>
+                    <li><a href="#measure">順位を「見える化」して改善する</a></li>
+                    <li><a href="#type">他社でも使える「検索集客」の型</a></li>
+                    <li><a href="#summary">まとめ</a></li>
+                </ol>
+            </nav>
+
+            <section id="stock">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">1. 広告は「フロー」、記事は「ストック」</h2>
+                <p>集客には大きく2種類あります。お金を払い続ける限り来る「フロー型」と、一度作れば残り続ける「ストック型」です。</p>
+                <table class="data mt-4">
+                    <thead><tr><th></th><th>広告（フロー）</th><th>記事・SEO（ストック）</th></tr></thead>
+                    <tbody>
+                        <tr><td class="l">効果が出る速さ</td><td>速い（出稿した日から）</td><td>遅い（数ヶ月かかる）</td></tr>
+                        <tr><td class="l">止めたとき</td><td>すぐ集客が止まる</td><td>しばらく来続ける</td></tr>
+                        <tr><td class="l">かかるもの</td><td>お金（払い続ける）</td><td>手間（作るときだけ）</td></tr>
+                        <tr><td class="l">向いている場面</td><td>今すぐ売りたい</td><td>長く安定して集めたい</td></tr>
+                    </tbody>
+                </table>
+                <p class="mt-4">
+                    どちらが正しいという話ではなく、<span class="marker">広告で今を回しながら、裏で記事という資産を積む</span>のが理想です。
+                    記事は増えるほど入口が増え、いつか広告に頼らなくても問い合わせが来る状態に近づきます。
+                </p>
+            </section>
+
+            <section id="keyword">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">2. 最初の分かれ道：キーワードの選び方</h2>
+                <p>
+                    記事づくりで一番大事なのは、書く前の<strong>キーワード選び</strong>です。
+                    ここを外すと、どれだけ良い記事を書いても「誰も検索していない言葉」で上位になるだけで、お客様は来ません。
+                </p>
+                <p>選ぶときの基準は3つです。</p>
+                <table class="data mt-4">
+                    <thead><tr><th>見るもの</th><th>意味</th><th>狙いどころ</th></tr></thead>
+                    <tbody>
+                        <tr><td class="l">検索される数</td><td class="l">そのキーワードが月にどれだけ検索されるか</td><td class="l">多すぎず少なすぎず</td></tr>
+                        <tr><td class="l">競争の強さ</td><td class="l">大手や強いサイトがどれだけ上位を占めているか</td><td class="l">勝てる隙間を狙う</td></tr>
+                        <tr><td class="l">買う気の強さ</td><td class="l">検索した人が「買う直前」か「ただ調べている」か</td><td class="l">買う直前を優先</td></tr>
+                    </tbody>
+                </table>
+                <p class="mt-4">
+                    特に大事なのは3つ目の<strong>「買う気の強さ」</strong>です。
+                    たとえば「〇〇 とは」で調べる人はまだ情報収集中ですが、「〇〇 料金」「〇〇 大阪」「〇〇 比較」で調べる人は、もう買う直前。
+                    <span class="marker">アクセス数が少なくても、買う直前のキーワードのほうが問い合わせにつながります。</span>
+                    私たちはまず、この「買う直前の言葉」から記事を埋めていきます。
+                </p>
+            </section>
+
+            <section id="format">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">3. 記事の「型」を決めてから量産する</h2>
+                <p>
+                    「たくさん書こう」と思った瞬間に、品質はバラつき始めます。だから量産の前に、<strong>記事の型（テンプレート）</strong>を決めます。
+                    型があれば、誰が書いても・何記事書いても、最低限の構成と導線が揃います。
+                </p>
+                <div class="border rounded-lg p-5 mt-4 bg-gray-50" style="border-color:var(--border-color);">
+                    <p class="font-bold text-gray-800 mb-3">私たちが使う記事の型（例）</p>
+                    <ol class="list-decimal pl-5 space-y-1.5 text-sm text-gray-700">
+                        <li><strong>悩みの言語化：</strong>読者が今かかえている困りごとを、本人より上手に言葉にする</li>
+                        <li><strong>結論：</strong>「で、どうすればいいの？」に先に答える</li>
+                        <li><strong>理由・根拠：</strong>なぜそう言えるのかを、表や具体例で示す</li>
+                        <li><strong>手順・型：</strong>他社でもそのまま使えるステップに落とす</li>
+                        <li><strong>次の一歩：</strong>「相談する」「資料を見る」など、行動への導線</li>
+                    </ol>
+                </div>
+                <p class="mt-4">
+                    この型は、まさにこの記事自身も使っています。<span class="marker">型を決めてから量産する</span>ことで、記事が増えても「読みやすさ」と「問い合わせへの導線」が崩れません。
+                </p>
+            </section>
+
+            <section id="cv">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">4. 読まれて終わりにしない：購入への導線</h2>
+                <p>
+                    検索から人が来ても、記事を読んで「ふーん」で帰られては意味がありません。
+                    記事の役割は<strong>「読んだ人を、次の一歩に進ませること」</strong>です。私たちは記事ごとに必ず出口を用意します。
+                </p>
+                <table class="data mt-4">
+                    <thead><tr><th>読者の状態</th><th>用意する出口</th></tr></thead>
+                    <tbody>
+                        <tr><td class="l">まだ調べ始め</td><td class="l">関連記事へ誘導し、もっと知ってもらう</td></tr>
+                        <tr><td class="l">迷っている</td><td class="l">無料相談・診断など、ハードルの低い一歩</td></tr>
+                        <tr><td class="l">ほぼ決めている</td><td class="l">予約・購入ページへ直接つなぐ</td></tr>
+                    </tbody>
+                </table>
+                <p class="mt-4">
+                    大事なのは、<span class="marker">記事の内容と出口を合わせること</span>。
+                    調べ始めの人にいきなり「今すぐ購入」を出しても押し売りに感じられます。
+                    記事のテーマと読者の温度に合わせて、ちょうどいい一歩を置く。これだけで、同じアクセス数でも問い合わせの数が変わります。
+                </p>
+            </section>
+
+            <section id="measure">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">5. 順位を「見える化」して改善する</h2>
+                <p>
+                    記事は出して終わりではありません。<strong>狙ったキーワードで今 何位にいるか</strong>を継続して記録し、伸び悩む記事に手を入れていきます。
+                    私たちは順位を毎日自動で取得し、推移を1枚で見られるようにしています。
+                </p>
+                <figure class="my-6">
+                    <svg viewBox="0 0 600 240" class="w-full border rounded-lg bg-white" style="border-color:var(--border-color);">
+                        <!-- y axis labels (rank: lower number = higher) -->
+                        <text x="14" y="40" font-size="11" fill="#9ca3af">1位</text>
+                        <text x="14" y="100" font-size="11" fill="#9ca3af">10位</text>
+                        <text x="14" y="160" font-size="11" fill="#9ca3af">20位</text>
+                        <text x="14" y="220" font-size="11" fill="#9ca3af">30位</text>
+                        <!-- gridlines -->
+                        <line x1="44" y1="36" x2="586" y2="36" stroke="#f0f0f0"/>
+                        <line x1="44" y1="96" x2="586" y2="96" stroke="#f0f0f0"/>
+                        <line x1="44" y1="156" x2="586" y2="156" stroke="#f0f0f0"/>
+                        <line x1="44" y1="216" x2="586" y2="216" stroke="#f0f0f0"/>
+                        <!-- rank line: starts ~28th, climbs to ~4th over time (y smaller=better) -->
+                        <polyline fill="none" stroke="#0a3d62" stroke-width="3"
+                            points="60,206 150,180 240,150 330,120 420,80 510,56 575,50"/>
+                        <circle cx="60" cy="206" r="4" fill="#0a3d62"/>
+                        <circle cx="240" cy="150" r="4" fill="#0a3d62"/>
+                        <circle cx="420" cy="80" r="4" fill="#0a3d62"/>
+                        <circle cx="575" cy="50" r="4" fill="#FF9900"/>
+                        <text x="40" y="234" font-size="11" fill="#9ca3af">公開</text>
+                        <text x="280" y="234" font-size="11" fill="#9ca3af">2〜3ヶ月</text>
+                        <text x="520" y="234" font-size="11" fill="#9ca3af">半年〜</text>
+                    </svg>
+                    <figcaption class="text-xs text-gray-500 mt-2 text-center">検索順位の伸び方のイメージ図。公開直後は下位でも、内容を磨きながら数ヶ月かけて上位に上がっていく傾向（簡略化したイメージ）。</figcaption>
+                </figure>
+                <p>
+                    順位が見えると、<span class="marker">「あと一歩で1ページ目に届く記事」</span>が分かります。
+                    そこに追記や見出しの調整を入れると、効率よく上位に押し上げられる。
+                    やみくもに新記事を増やすより、「もう少しで上がる記事」を仕上げるほうが、ずっと早く成果が出ます。
+                </p>
+            </section>
+
+            <section id="type">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">6. 他社でも使える「検索集客」の型</h2>
+                <ol class="list-decimal pl-6 space-y-3 mt-3">
+                    <li><strong>買う直前の言葉から書く。</strong>「料金」「比較」「地域名」など、検索した人がもう買う気のキーワードを優先。</li>
+                    <li><strong>記事の型を1つ決める。</strong>悩み→結論→根拠→手順→次の一歩。誰が書いても崩れない構成にする。</li>
+                    <li><strong>記事ごとに出口を置く。</strong>読者の温度に合った「次の一歩」を必ず用意する。</li>
+                    <li><strong>順位を毎日記録する。</strong>狙ったキーワードの順位を自動で取り、推移を1枚で見る。</li>
+                    <li><strong>伸びかけを優先で磨く。</strong>新記事より「あと少しで上がる記事」に手を入れる。</li>
+                </ol>
+            </section>
+
+            <section id="summary">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">7. まとめ</h2>
+                <p>
+                    記事による検索集客は、すぐには効きません。でも、<span class="marker">広告を止めても来てくれる入口</span>を、少しずつ増やしていける。
+                    大事なのは、いきなり量産しないこと。買う直前のキーワードを選び、型を決め、出口を置き、順位を見ながら磨く。
+                    この順番を守るだけで、同じ労力でも成果がまるで変わります。
+                </p>
+                <p>
+                    私たちは自社サイトでこの仕組みを回しながら、検索から問い合わせが来る状態づくりをお手伝いしています。
+                    「広告を止めると集客が止まる」「ブログを書いても反応がない」という方は、ぜひ一度ご相談ください。
+                </p>
+            </section>
+
+            <div class="mt-12 rounded-xl p-8 text-center text-white" style="background:linear-gradient(135deg,#0a3d62,#06283d);">
+                <p class="font-serif-jp text-xl font-bold mb-2">「広告を止めても来る入口」をつくりませんか？</p>
+                <p class="text-sm opacity-85 mb-5">検索集客の設計を、無料相談でご一緒に考えます。</p>
+                <a href="https://calendar.app.google/TZrQ5YLexng2gPRV8" target="_blank" class="inline-block bg-white text-gray-900 font-bold px-8 py-3 rounded-full shadow hover:shadow-lg transition">無料相談を予約する</a>
+            </div>
+
+            <div class="border-t pt-6 mt-10" style="border-color:var(--border-color);">
+                <a href="./index.html" class="primary-color font-bold hover:underline">← 業務改善コラム 一覧へ戻る</a>
+            </div>
+        </div>
+    </article>
+
+    <footer class="text-white py-10 mt-16" style="background:var(--primary-color-dark);">
+        <div class="container mx-auto px-6 text-center text-sm opacity-80">
+            <p class="font-bold mb-1">合同会社ヤシノミ</p>
+            <p>Amazon運用支援・EC業務改善コンサルティング</p>
+            <p class="mt-3 opacity-60">&copy; 2026 Yashinomi LLC.</p>
+        </div>
+    </footer>
+</body>
+</html>

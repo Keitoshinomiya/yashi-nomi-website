@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PBN7WNCX8N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-PBN7WNCX8N');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Amazon広告で一番こわいのは「気づいたら赤字」。私たちは毎週の改善ループと毎日の早期警告で、悪化が確定する前に手を打つ仕組みを回しています。4レンジ分析・スマート入札ルール・4つの危険シグナルを、表と図で具体的に公開します。">
+    <title>広告の不調を「悪化する前」に止める：Amazon広告の自己改善ループ - 合同会社ヤシノミ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0a3d62;
+            --primary-color-dark: #06283d;
+            --accent-orange: #FF9900;
+            --border-color: #e5e7eb;
+        }
+        body { font-family: 'Noto Sans JP', sans-serif; color: #1f2937; background-color: #f8f9fa; }
+        .font-serif-jp { font-family: 'Noto Serif JP', serif; }
+        .primary-color { color: var(--primary-color); }
+        .text-accent { color: var(--accent-orange); }
+        .btn-primary { background-image: linear-gradient(to right, #0a3d62 0%, #06283d 50%, #0a3d62 100%); background-size: 200% auto; color: white; }
+        .btn-primary:hover { background-position: right center; }
+        .marker { background: linear-gradient(transparent 60%, #ffe7c2 60%); font-weight: 700; }
+        .prose h2 { scroll-margin-top: 80px; }
+        .toc a:hover { color: var(--primary-color); text-decoration: underline; }
+        table.data { width:100%; border-collapse:collapse; font-size:0.82rem; }
+        table.data th, table.data td { border:1px solid var(--border-color); padding:8px 10px; text-align:center; }
+        table.data th { background:var(--primary-color); color:#fff; font-weight:700; }
+        table.data tr:nth-child(even) td { background:#fafafa; }
+    </style>
+
+    <link rel="icon" href="https://yashi-nomi.com/images/logo.png" type="image/png" sizes="192x192">
+    <link rel="apple-touch-icon" href="https://yashi-nomi.com/images/logo.png">
+</head>
+<body>
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="../index.html" class="flex items-center gap-2">
+                <img src="../images/logo.png" alt="ヤシノミ ロゴ" class="h-8 w-auto">
+                <span class="font-bold primary-color">合同会社ヤシノミ</span>
+            </a>
+            <a href="https://calendar.app.google/TZrQ5YLexng2gPRV8" target="_blank" class="btn-primary px-4 py-2 rounded text-sm font-bold transition shadow-md">無料相談を予約</a>
+        </div>
+    </header>
+
+    <article class="container mx-auto px-6 py-12 max-w-3xl bg-white mt-8 rounded-xl shadow-sm">
+        <div class="flex items-center gap-2 mb-4 flex-wrap">
+            <span class="text-white text-xs font-bold px-3 py-1 rounded" style="background:var(--accent-orange);">Amazonコラム</span>
+            <span class="text-white text-xs font-bold px-3 py-1 rounded" style="background:var(--primary-color);">仕組み化・自動化</span>
+            <span class="text-gray-400 text-xs">業務改善コラム</span>
+        </div>
+        <h1 class="font-serif-jp text-3xl md:text-4xl font-bold mt-2 mb-4 leading-tight text-gray-800" style="letter-spacing:0.02em;">
+            広告の不調を「悪化する前」に止める<br>
+            <span class="text-2xl md:text-3xl mt-3 block text-gray-600 font-normal">私たちのAmazon広告 自己改善ループ</span>
+        </h1>
+        <p class="text-sm text-gray-400 mb-8">業務改善コラム ／ Amazonコラム × 仕組み化・自動化 ／ 読了目安：約12分</p>
+
+        <div class="prose max-w-none text-gray-700 leading-relaxed space-y-8">
+            <p class="text-lg font-medium leading-8 pl-4 p-4 rounded-r" style="border-left:4px solid var(--accent-orange);background:#fff8ef;">
+                Amazon広告で一番こわいのは、派手な失敗ではありません。<span class="marker">「気づいたら、じわじわ赤字が膨らんでいた」</span>という静かな失敗です。<br>
+                私たちは自社ブランドの広告を、毎週の改善ループと毎日の早期警告で運用しています。狙いはただ一つ、<strong>「悪化が確定する前に、手を打つ」</strong>こと。
+                この記事では、その仕組みの中身を、実際に使っている判断基準の表や図とともに公開します。Amazon広告に限らず、「数字で守りながら攻める」考え方として読んでいただけます。
+            </p>
+
+            <!-- 目次 -->
+            <nav class="toc text-sm bg-gray-50 border rounded-lg p-5" style="border-color:var(--border-color);">
+                <p class="font-bold text-gray-800 mb-3">この記事の内容</p>
+                <ol class="list-decimal pl-5 space-y-1.5 text-gray-600">
+                    <li><a href="#fear">広告で一番こわいのは「手遅れ」</a></li>
+                    <li><a href="#loop">全体像：回し続ける改善ループ</a></li>
+                    <li><a href="#range">判断は「4つの期間」で行う</a></li>
+                    <li><a href="#bid">入札は「勘」ではなく「ルール」で決める</a></li>
+                    <li><a href="#warning">毎日の早期警告：4つの危険シグナル</a></li>
+                    <li><a href="#dashboard">数字は1枚のダッシュボードで見る</a></li>
+                    <li><a href="#learn">失敗から学ぶ仕組みを持つ</a></li>
+                    <li><a href="#type">他社でも使える「数字で守る」型</a></li>
+                </ol>
+            </nav>
+
+            <section id="fear">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">1. 広告で一番こわいのは「手遅れ」</h2>
+                <p>
+                    広告は、調子が悪くなってもすぐには痛みを感じません。1日あたり数百円の無駄なら、その日は気づかない。
+                    けれど、それが2週間続けば数万円。月末にまとめて見て、はじめて「あれ、今月は利益が薄い」と気づきます。
+                    <span class="marker">気づいたときには、もう1ヶ月分の損が確定している。</span>これが広告の落とし穴です。
+                </p>
+                <p>
+                    だからこそ私たちは、「月末に振り返る」運用をやめました。代わりに、<strong>毎週ルールを見直し、毎日 異常を見張る</strong>。
+                    悪化が固まる前の「兆し」の段階で気づき、小さく手を打つ。その仕組みを順にご説明します。
+                </p>
+            </section>
+
+            <section id="loop">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">2. 全体像：回し続ける改善ループ</h2>
+                <p>私たちの広告運用は、4つの段階をぐるぐる回す形になっています。</p>
+                <div class="grid sm:grid-cols-2 gap-3 mt-6 text-sm">
+                    <div class="rounded-lg p-4 text-white" style="background:var(--primary-color);">
+                        <p class="font-bold mb-1">① PLAN（仮説を立てる）</p>
+                        <p class="opacity-90">「このキーワードは入札を上げれば伸びる」など、変更ごとに必ず仮説と成功基準（例：7日後に注文8件以上）を決める。</p>
+                    </div>
+                    <div class="rounded-lg p-4 text-white" style="background:var(--primary-color);">
+                        <p class="font-bold mb-1">② DO（最小限だけ動かす）</p>
+                        <p class="opacity-90">1回の変更は必要最小限に。極端な入札変更や、まとめて大量の変更はしない（崩れたとき原因が分からなくなるため）。</p>
+                    </div>
+                    <div class="rounded-lg p-4 text-white" style="background:var(--primary-color);">
+                        <p class="font-bold mb-1">③ CHECK（毎日見張る）</p>
+                        <p class="opacity-90">変更後の数日間、危険な兆候が出ていないかを毎日監視。出たらすぐ補正する（後述の早期警告）。</p>
+                    </div>
+                    <div class="rounded-lg p-4 text-white" style="background:var(--primary-color);">
+                        <p class="font-bold mb-1">④ LEARN（当たり外れを記録）</p>
+                        <p class="opacity-90">翌週、仮説が当たったか外れたかを判定。「的中率」を記録し、外れた条件は次回の判断ルールに反映する。</p>
+                    </div>
+                </div>
+                <p class="mt-6 text-sm text-gray-600 bg-gray-50 border-l-4 pl-4 py-3" style="border-color:var(--accent-orange);">
+                    大事なのは、④の「学習」を毎回残すこと。これがあるから、運用すればするほど判断の精度が上がっていきます。
+                    広告運用を「毎回の力技」ではなく、「改善され続ける仕組み」に変えるのが狙いです。
+                </p>
+            </section>
+
+            <section id="range">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">3. 判断は「4つの期間」で行う</h2>
+                <p>
+                    入札を上げるか下げるかを、昨日1日の数字だけで決めるのは危険です。たまたま良かった/悪かっただけかもしれない。
+                    そこで私たちは<strong>「30日・14日・昨日」を並べて、トレンドで判断</strong>します。同じ「ACOSが高い」でも、改善中なのか悪化中なのかで打ち手は正反対だからです。
+                </p>
+                <div class="overflow-x-auto mt-4">
+                <table class="data">
+                    <thead><tr><th>30日</th><th>14日</th><th>昨日</th><th>状態</th><th>打ち手</th></tr></thead>
+                    <tbody>
+                        <tr><td>良好</td><td>良好</td><td>良好</td><td>安定好調</td><td style="color:#15803d;font-weight:700;">入札を上げる検討</td></tr>
+                        <tr><td>良好</td><td>悪化</td><td>悪化</td><td>直近で悪化</td><td style="color:#b45309;font-weight:700;">入札を下げて様子見</td></tr>
+                        <tr><td>悪い</td><td>悪い</td><td>悪い</td><td>継続赤字</td><td style="color:#b91c1c;font-weight:700;">大幅に下げる／最低入札へ</td></tr>
+                        <tr><td>悪い</td><td>改善</td><td>良好</td><td>回復中</td><td>現状維持で見守る</td></tr>
+                        <tr><td>良好</td><td>良好</td><td>急悪化</td><td>単日の異常</td><td>翌日まで様子見</td></tr>
+                    </tbody>
+                </table>
+                </div>
+                <p class="mt-3 text-xs text-gray-500">※「良好／悪い」は、その商品の損益分岐ラインを基準に判定します（赤字にならない広告費の割合）。</p>
+            </section>
+
+            <section id="bid">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">4. 入札は「勘」ではなく「ルール」で決める</h2>
+                <p>
+                    「なんとなく高そうだから下げる」では、人によって判断がブレます。私たちは<span class="marker">ACOS（広告費 ÷ 広告経由の売上）に応じて、入札の基準をルール化</span>しています。考え方はシンプルです。
+                </p>
+                <div class="overflow-x-auto mt-4">
+                <table class="data">
+                    <thead><tr><th>ACOS（直近）</th><th>評価</th><th>入札の方針</th><th>上限</th></tr></thead>
+                    <tbody>
+                        <tr><td>20%未満</td><td>✨ 超優良</td><td>強気に攻める（CPC維持）</td><td>¥50</td></tr>
+                        <tr><td>20〜30%</td><td>🟢 良好</td><td>やや抑える（CPC×0.9）</td><td>¥40</td></tr>
+                        <tr><td>30〜47%</td><td>🟡 安定</td><td>抑える（CPC×0.75）</td><td>¥35</td></tr>
+                        <tr><td>47〜70%</td><td>🟠 様子見</td><td>大きく抑える（CPC×0.5）</td><td>¥25</td></tr>
+                        <tr><td>70%以上</td><td>🔴 赤字</td><td>最低入札へ／整理</td><td>¥10</td></tr>
+                    </tbody>
+                </table>
+                </div>
+                <p class="mt-4">
+                    ポイントは2つあります。1つは、<strong>赤字でもいきなり止めず「最低入札（¥10）で残す」</strong>こと。
+                    完全に止めるとデータが取れなくなり、「本当にダメなのか」が判断できなくなるからです。コストはほぼゼロのまま、観察を続けます。
+                </p>
+                <p>
+                    もう1つは、<strong>変更は必ず事前に確認・承認してから実行する</strong>こと。ルールはあくまで「たたき台」で、最後は人が判断します。
+                    自動化は「人の判断を奪うもの」ではなく、「人が良い判断をしやすくするもの」と考えています。
+                </p>
+            </section>
+
+            <section id="warning">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">5. 毎日の早期警告：4つの危険シグナル</h2>
+                <p>
+                    入札を変えた後が、いちばん危険です。良かれと思って上げた入札が、裏目に出ることもある。
+                    そこで変更後の数日間、<span class="marker">「結果（ROAS）が悪くなる前に表れる、4つの先行サイン」</span>を毎日見張ります。
+                </p>
+                <div class="overflow-x-auto mt-4">
+                <table class="data">
+                    <thead><tr><th>危険シグナル</th><th>何が起きている</th><th>放置すると</th></tr></thead>
+                    <tbody>
+                        <tr><td style="font-weight:700;">表示回数の急増</td><td>急に広く配信され始めた</td><td>関係ない検索にも出て無駄打ち</td></tr>
+                        <tr><td style="font-weight:700;">広告枠上位比率の急騰</td><td>高い枠に出続けている</td><td>クリック単価が跳ね上がる</td></tr>
+                        <tr><td style="font-weight:700;">クリック単価の急騰</td><td>1クリックが高騰</td><td>同じ売上でも広告費が膨張</td></tr>
+                        <tr><td style="font-weight:700;">注文数の停滞</td><td>費用は増えるが注文は増えない</td><td>静かに赤字が拡大</td></tr>
+                    </tbody>
+                </table>
+                </div>
+                <p class="mt-4">
+                    これらは「結果が出る前の兆し」です。下のイメージのように、<strong>クリック単価や上位比率は、ROASが落ちる数日前から先に動き始めます。</strong>
+                    だから、結果（赤字）が確定する前に気づいて止められる——これが早期警告の肝です。
+                </p>
+
+                <!-- トレンドのイメージ図（SVG / サンプル） -->
+                <figure class="my-6 border rounded-lg p-4 bg-white" style="border-color:var(--border-color);">
+                    <svg viewBox="0 0 520 240" width="100%" role="img" aria-label="先行指標が結果より先に動くイメージ図">
+                        <!-- axes -->
+                        <line x1="50" y1="20" x2="50" y2="190" stroke="#9ca3af" stroke-width="1"/>
+                        <line x1="50" y1="190" x2="500" y2="190" stroke="#9ca3af" stroke-width="1"/>
+                        <!-- danger zone -->
+                        <rect x="300" y="20" width="200" height="170" fill="#fee2e2" opacity="0.5"/>
+                        <text x="400" y="38" text-anchor="middle" font-size="11" fill="#b91c1c" font-weight="700">悪化が確定する領域</text>
+                        <!-- CPC line (leading, orange) rises early -->
+                        <polyline fill="none" stroke="#FF9900" stroke-width="3" points="50,150 130,145 210,135 290,95 370,60 450,40"/>
+                        <!-- ROAS line (lagging, navy) drops later -->
+                        <polyline fill="none" stroke="#0a3d62" stroke-width="3" points="50,70 130,72 210,75 290,85 370,130 450,170"/>
+                        <!-- markers -->
+                        <circle cx="210" cy="135" r="4" fill="#FF9900"/>
+                        <text x="210" y="160" text-anchor="middle" font-size="10" fill="#b45309">ここで先に異変</text>
+                        <text x="150" y="48" font-size="11" fill="#FF9900" font-weight="700">クリック単価・上位比率（先行）</text>
+                        <text x="60" y="62" font-size="11" fill="#0a3d62" font-weight="700">ROAS（結果・遅れて動く）</text>
+                        <text x="270" y="210" text-anchor="middle" font-size="10" fill="#6b7280">→ 時間（変更後の日数）</text>
+                    </svg>
+                    <figcaption class="text-xs text-gray-500 text-center mt-2">※先行指標と結果指標の関係を示すイメージ図（実データに基づく傾向を簡略化したもの）</figcaption>
+                </figure>
+                <p class="text-sm text-gray-600 bg-gray-50 border-l-4 pl-4 py-3" style="border-color:var(--primary-color);">
+                    私たちは「どの先行サインが、結果の悪化を最もよく予測するか」も記録し続けています。
+                    予測力の高いサインを見張りの主役に据えることで、空振りの少ない警告にしています。
+                </p>
+            </section>
+
+            <section id="dashboard">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">6. 数字は1枚のダッシュボードで見る</h2>
+                <p>
+                    調子が悪いとき、「どこから崩れているのか」を素早く特定できないと、手当てが遅れます。
+                    私たちは数字を<strong>大きい順から細かい順へ、4つの階層で見られる1枚のダッシュボード</strong>に集約しています。上から順にたどれば、原因にたどり着けます。
+                </p>
+                <!-- ダッシュボードのイメージ図（ネスト） -->
+                <div class="my-6 space-y-2 text-sm">
+                    <div class="rounded-lg p-3 text-white" style="background:var(--primary-color-dark);">
+                        <span class="font-bold">第1階層</span>　広告タイプ別（全体の調子をひと目で）
+                    </div>
+                    <div class="rounded-lg p-3 text-white ml-4" style="background:var(--primary-color);">
+                        <span class="font-bold">第2階層</span>　商品別（どの商品が効いている／崩れている）
+                    </div>
+                    <div class="rounded-lg p-3 ml-8" style="background:#cfe0ee;color:var(--primary-color-dark);">
+                        <span class="font-bold">第3階層</span>　広告グループ別（その商品の中のどの施策か）
+                    </div>
+                    <div class="rounded-lg p-3 ml-12" style="background:#eef4fa;color:var(--primary-color-dark);border:1px solid var(--border-color);">
+                        <span class="font-bold">第4階層</span>　キーワード／ターゲット別（個別の犯人を特定）
+                    </div>
+                </div>
+                <p>
+                    「売上が落ちた」という相談が来たら、まずこの1枚を上から見ていく。これが私たちの基本の動きです。
+                    <span class="marker">どこを見ればいいかが決まっているから、誰が見ても同じ場所にたどり着けます。</span>
+                </p>
+            </section>
+
+            <section id="learn">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">7. 失敗から学ぶ仕組みを持つ</h2>
+                <p>
+                    どんなに丁寧でも、判断が外れることはあります。大事なのは、<strong>同じ失敗を二度繰り返さない仕組み</strong>を持つこと。私たちは2つの記録を残しています。
+                </p>
+                <ul class="list-disc pl-6 space-y-2 mt-4 text-sm">
+                    <li><strong>的中率の記録：</strong>毎週の提案が成功基準を満たしたかを判定し、「当たった割合」を記録。週を追うごとに上がっているかで、仕組みが機能しているかを確認します。</li>
+                    <li><strong>失敗パターン集：</strong>「サンプル数が少ない（注文が少ない）のに、入札を大きく上げて暴落した」など、過去の失敗を型として残し、新しい提案がそれに当てはまらないかをチェックします。</li>
+                </ul>
+                <p class="mt-4 text-sm text-gray-600 bg-gray-50 border-l-4 pl-4 py-3" style="border-color:var(--accent-orange);">
+                    例：「注文数がまだ少ない段階での大幅な入札アップは、結果が安定せず逆効果になりやすい」。
+                    こうした学びをルール化しておくと、忙しい時でも危ない判断を避けられます。
+                </p>
+            </section>
+
+            <section id="type">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">8. 他社でも使える「数字で守る」型</h2>
+                <p>これはAmazon広告の話ですが、考え方はあらゆる「お金を使う施策」に通じます。</p>
+                <ol class="list-decimal pl-6 space-y-2 mt-4 text-sm">
+                    <li><strong>結果が出る前の「先行サイン」を決める：</strong>最終結果（売上・利益）だけでなく、それより早く動く指標を見張る。</li>
+                    <li><strong>判断を表（ルール）にする：</strong>「この数字ならこうする」を決めておけば、誰がやってもブレない。</li>
+                    <li><strong>変更は小さく、必ず記録する：</strong>大きく動かさない。後から「何が効いたか」を追えるようにする。</li>
+                    <li><strong>当たり外れを毎回ふり返る：</strong>記録を残し、外れた条件を次のルールへ。仕組みが勝手に賢くなっていく。</li>
+                </ol>
+                <p class="mt-4">
+                    広告に限らず、販促・仕入れ・採用など「不確実なことにお金を使う場面」は、すべてこの型で守りながら攻められます。
+                </p>
+            </section>
+
+            <div class="p-8 rounded-xl border text-center mt-12" style="border-color:var(--border-color);background:#f1f6fb;">
+                <h3 class="font-serif-jp text-xl font-bold mb-4 text-gray-800">「広告費が利益を食っている気がする」なら</h3>
+                <p class="mb-6 text-left md:text-center">
+                    Amazon広告の費用対効果が見えない、赤字に気づくのが遅い、運用が担当者の勘頼みになっている——
+                    そんな状態でしたら、まず現状の数字を一緒に見させてください。<br>
+                    私たちが自社で回している「悪化する前に止める」仕組みを、貴社の運用に合わせてご提案します。
+                </p>
+                <a href="https://calendar.app.google/TZrQ5YLexng2gPRV8" target="_blank" class="btn-primary inline-block px-8 py-4 rounded-lg font-bold text-lg shadow-lg transform hover:-translate-y-1 transition duration-300">
+                    無料相談を予約する（30分）
+                </a>
+            </div>
+        </div>
+
+        <div class="mt-10 text-center">
+            <a href="./index.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium transition-colors">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                業務改善コラム一覧に戻る
+            </a>
+        </div>
+    </article>
+
+    <footer class="text-gray-400 py-8 mt-12 text-center text-xs" style="background:var(--primary-color-dark);">
+        <p>© 2026 合同会社ヤシノミ All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PBN7WNCX8N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-PBN7WNCX8N');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="なぜ私たちは自社サイトに『診断』を置くのか。いきなり営業ではなく、まず相手自身に現在地を見極めてもらう――その設計思想と、信頼を落とさない診断の作り方を、結果自慢ではなくプロセスとして公開します。">
+    <title>「売り込む前に、見極めてもらう」 ― なぜ私たちはサイトに“診断”を置くのか - 合同会社ヤシノミ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0a3d62;
+            --primary-color-dark: #06283d;
+            --accent-orange: #FF9900;
+            --border-color: #e5e7eb;
+            --dz: #2f6f9f;        /* アクセント */
+            --good: #4E7C59;
+            --alert: #B23A3A;
+        }
+        body { font-family: 'Noto Sans JP', sans-serif; color: #1f2937; background-color: #f8f9fa; }
+        .font-serif-jp { font-family: 'Noto Serif JP', serif; }
+        .primary-color { color: var(--primary-color); }
+        .text-accent { color: var(--accent-orange); }
+        .btn-primary { background-image: linear-gradient(to right, #0a3d62 0%, #06283d 50%, #0a3d62 100%); background-size: 200% auto; color: white; }
+        .btn-primary:hover { background-position: right center; }
+        .marker { background: linear-gradient(transparent 60%, #ffe7c2 60%); font-weight: 700; }
+        .prose h2 { scroll-margin-top: 80px; }
+        .toc a:hover { color: var(--primary-color); text-decoration: underline; }
+
+        /* 比較・データ表 */
+        table.data { width:100%; border-collapse:collapse; font-size:0.86rem; }
+        table.data th, table.data td { border:1px solid var(--border-color); padding:9px 11px; text-align:left; vertical-align:top; }
+        table.data thead th { background:var(--primary-color); color:#fff; font-weight:700; }
+        table.data tbody tr:nth-child(even){ background:#f6f8fb; }
+        table.data td .o{ color:var(--good); font-weight:700; }
+        table.data td .x{ color:var(--alert); font-weight:700; }
+
+        /* 診断フロー（分岐イメージ） */
+        .flow-box { background:#fff; border:1px solid var(--border-color); border-radius:12px; padding:12px 14px; box-shadow:0 4px 12px rgba(6,40,61,.06); }
+        .flow-q { background:linear-gradient(135deg,var(--dz),var(--primary-color-dark)); color:#fff; border-radius:12px; padding:12px 14px; font-weight:700; font-size:.84rem; text-align:center; }
+        .flow-opt { display:block; text-align:center; border:1px solid var(--border-color); border-radius:10px; padding:9px; font-size:.78rem; color:#374151; font-weight:700; background:#fafbfc; }
+        .flow-arrow { text-align:center; color:var(--dz); font-size:1.2rem; line-height:1; }
+        .flow-result { border:1px dashed var(--dz); border-radius:10px; padding:10px 12px; font-size:.76rem; color:#374151; background:#f4f8fb; }
+
+        .step-num { font-family:'Noto Serif JP',serif; font-size:1.5rem; color:var(--dz); flex-shrink:0; line-height:1.2; width:2.2rem; }
+    </style>
+
+    <link rel="icon" href="https://yashi-nomi.com/images/logo.png" type="image/png" sizes="192x192">
+    <link rel="apple-touch-icon" href="https://yashi-nomi.com/images/logo.png">
+</head>
+<body>
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="../index.html" class="flex items-center gap-2">
+                <img src="../images/logo.png" alt="ヤシノミ ロゴ" class="h-8 w-auto">
+                <span class="font-bold primary-color">合同会社ヤシノミ</span>
+            </a>
+            <a href="https://calendar.app.google/TZrQ5YLexng2gPRV8" target="_blank" class="btn-primary px-4 py-2 rounded text-sm font-bold transition shadow-md">無料相談を予約</a>
+        </div>
+    </header>
+
+    <article class="container mx-auto px-6 py-12 max-w-3xl bg-white mt-8 rounded-xl shadow-sm">
+        <div class="flex items-center gap-2 mb-4">
+            <span class="text-white text-xs font-bold px-3 py-1 rounded" style="background:var(--primary-color);">集客・見える化</span>
+            <span class="text-gray-400 text-xs">業務改善コラム</span>
+        </div>
+        <h1 class="font-serif-jp text-3xl md:text-4xl font-bold mt-2 mb-4 leading-tight text-gray-800" style="letter-spacing:0.02em;">
+            「売り込む前に、見極めてもらう」
+            <span class="text-2xl md:text-3xl mt-3 block text-gray-600 font-normal">なぜ私たちはサイトに“診断”を置くのか</span>
+        </h1>
+        <p class="text-sm text-gray-400 mb-8">業務改善コラム ／ 集客・見える化 ／ 読了目安：約8分</p>
+
+        <div class="prose max-w-none text-gray-700 leading-relaxed space-y-8">
+            <p class="text-lg font-medium leading-8 pl-4 p-4 rounded-r" style="border-left:4px solid var(--accent-orange);background:#fff8ef;">
+                私たちの自社サイトには「Amazon運用タイプ診断」という、いくつかの質問に答えると自分の現在地が分かる仕組みがあります。
+                よくある「無料診断であなたの課題を発見！（→そのまま営業）」とは、最初から意図が違います。<br>
+                <span class="marker">これは成約を取るための罠ではなく、相手自身に現在地を見極めてもらうための道具です。</span>
+                なぜ私たちは、いきなり問い合わせや営業に進ませず、わざわざ「診断」という回り道を置くのか。
+                その設計思想と、信頼を落とさない作り方を――結果自慢ではなく、考え方そのものとしてお見せします。
+            </p>
+
+            <!-- 目次 -->
+            <nav class="toc text-sm bg-gray-50 border rounded-lg p-5" style="border-color:var(--border-color);">
+                <p class="font-bold text-gray-800 mb-3">この記事の内容</p>
+                <ol class="list-decimal pl-5 space-y-1.5 text-gray-600">
+                    <li><a href="#start">「診断」を売り込みツールにしない、と決めている</a></li>
+                    <li><a href="#why-stop">なぜ「いきなり営業」をやめたのか</a></li>
+                    <li><a href="#question">診断を作るときに、私たちが置く問い</a></li>
+                    <li><a href="#return">結果の返し方で、信頼は決まる</a></li>
+                    <li><a href="#donot">設計で「やらない」と決めていること</a></li>
+                    <li><a href="#type">業種を問わない「見極めてもらう」導線の型</a></li>
+                </ol>
+            </nav>
+
+            <section id="start">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">1. 「診断」を売り込みツールにしない、と決めている</h2>
+                <p>
+                    自社サイトに診断を置く会社は多くあります。ただ、その多くは<strong>「問い合わせを増やすための入口」</strong>として作られています。
+                    やさしい質問で気を許させ、結果ページで不安を一気に煽り、「続きは無料相談で」と連絡先を取る。仕組みとしては、よくできています。
+                </p>
+                <p class="mt-4">
+                    私たちは、自社の「Amazon運用タイプ診断」を作るとき、最初にその逆を決めました。
+                    <span class="marker">診断は、こちらが売り込むための道具ではなく、相手が自分の現在地を確かめるための道具にする</span>、と。
+                    だから設計の出発点に置いた問いは、「どうすれば問い合わせが増えるか」ではなく――
+                    <strong>「これに答えた人が、自分の状況を前より分かるようになるか？」</strong>でした。
+                </p>
+                <p class="mt-4 text-sm text-gray-600 bg-gray-50 border-l-4 pl-4 py-3" style="border-color:var(--primary-color);">
+                    補足すると、私たちは自社ブランドの香水サイトでも「香りの診断」を手がけています。
+                    扱う中身はまったく違いますが、<strong>「相手にまず自分のことを知ってもらう」</strong>という診断の役割の置き方は、どちらも同じ考えに立っています。
+                </p>
+            </section>
+
+            <section id="why-stop">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">2. なぜ「いきなり営業」をやめたのか</h2>
+                <p>
+                    理由は、押し売りが嫌われるから、という以上に、もっと実利的なものです。
+                    <strong>相手が自分の現在地を理解していない状態では、どんな良い提案も刺さらない</strong>からです。
+                </p>
+                <p class="mt-4">
+                    たとえばAmazon運用なら、「広告が課題なのか」「商品ページが弱いのか」「そもそも在庫の回し方なのか」で、打つべき手はまるで違います。
+                    ところが、困っているご本人は「なんとなく売れない」までしか言語化できていないことが多い。
+                    その状態でこちらが「では広告運用を代行します」と提案しても、相手にとっては<span class="marker">自分の問題と提案が結びつかない</span>のです。
+                </p>
+                <p class="mt-4">
+                    だから順番を変えました。営業を先に出すのではなく、まず相手に<strong>「自分はいま、こういう状態なんだ」</strong>と気づいてもらう。
+                    現在地が見えてはじめて、提案は「自分ごと」になります。
+                    診断は、その「現在地を一緒に確認する」ための最初のひと手間として置いています。急がば回れ、という設計判断です。
+                </p>
+            </section>
+
+            <section id="question">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">3. 診断を作るときに、私たちが置く問い</h2>
+                <p>
+                    診断の質は、<strong>どんな質問を選ぶか</strong>でほぼ決まります。私たちが質問を作るときに自分へ課しているのは、次の一点です。
+                    「この質問に答えると、答えた本人の頭の中で<span class="marker">課題が一段はっきりするか</span>？」――情報をこちらが集めるための質問ではなく、相手が自分を整理できる質問を選ぶ、ということです。
+                </p>
+                <p class="mt-4">
+                    具体的には、答えにくい数字（正確な売上や広告費）をいきなり聞くのではなく、
+                    本人が普段から感じている「状態」を選ぶ形にします。下は、質問から結果へつながる分岐の考え方を、ごく簡略にイメージにしたものです。
+                </p>
+
+                <div class="mt-6 space-y-4">
+                    <div class="flow-q">Q. いま、いちばん引っかかっているのは？</div>
+                    <div class="flow-arrow">▼</div>
+                    <div class="grid sm:grid-cols-3 gap-3">
+                        <span class="flow-opt">アクセスはあるが<br>売れていない</span>
+                        <span class="flow-opt">そもそも見られて<br>いない気がする</span>
+                        <span class="flow-opt">手が回らず<br>放置している</span>
+                    </div>
+                    <div class="flow-arrow">▼</div>
+                    <div class="grid sm:grid-cols-3 gap-3">
+                        <div class="flow-result"><strong>商品ページ・転換率</strong>に課題があるタイプ。まず見直すのはページの中身。</div>
+                        <div class="flow-result"><strong>露出・広告</strong>に課題があるタイプ。まず見直すのは見つけてもらう設計。</div>
+                        <div class="flow-result"><strong>運用体制</strong>に課題があるタイプ。まず決めるのは「誰がどこまでやるか」。</div>
+                    </div>
+                    <p class="text-xs text-gray-400 mt-1">※ 図はあくまで考え方のイメージです。実際の質問・分岐は自社サイトの「Amazon運用タイプ診断」をご覧ください。</p>
+                </div>
+
+                <p class="mt-6">
+                    大事にしているのは、<strong>正解／不正解を出す診断にしないこと</strong>です。
+                    どの選択肢を選んでも「あなたが悪い」とは言わない。ただ「あなたの状況はこのあたりにある」と地図上の現在地を示す。
+                    叱るためではなく、向きを決めるための問いにする、という設計です。
+                </p>
+            </section>
+
+            <section id="return">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">4. 結果の返し方で、信頼は決まる</h2>
+                <p>
+                    診断のいちばんの分かれ道は、結果ページです。ここで<strong>不安を煽って契約に追い込む</strong>か、
+                    <strong>現在地と次の一歩を手渡す</strong>か。同じ診断でも、結果の返し方ひとつで相手の受け取り方は正反対になります。
+                </p>
+                <div class="overflow-x-auto mt-6">
+                <table class="data">
+                    <thead>
+                        <tr><th style="width:22%;">結果の返し方</th><th>煽り型（やらない）</th><th>伴走型（私たちの選択）</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>伝える中身</strong></td>
+                            <td><span class="x">×</span> 「このままだと危険」と不安を強調する</td>
+                            <td><span class="o">○</span> 「いまはこういう状態です」と現在地を冷静に示す</td>
+                        </tr>
+                        <tr>
+                            <td><strong>次の一歩</strong></td>
+                            <td><span class="x">×</span> 解決策は伏せ、「詳しくは相談で」へ誘導</td>
+                            <td><span class="o">○</span> 「まず自分でできることはこれ」と手札を渡す</td>
+                        </tr>
+                        <tr>
+                            <td><strong>相手の感情</strong></td>
+                            <td><span class="x">×</span> 焦り・不安。急かされた感覚が残る</td>
+                            <td><span class="o">○</span> 納得・安心。自分で選べる感覚が残る</td>
+                        </tr>
+                        <tr>
+                            <td><strong>その後の関係</strong></td>
+                            <td><span class="x">×</span> 取れても、不信からの取引になりやすい</td>
+                            <td><span class="o">○</span> 相談に来なくてもよい。来たときは前提がそろっている</td>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+                <p class="mt-5">
+                    私たちは伴走型を選んでいます。<span class="marker">結果ページで、相談しなくても自分で動ける情報まで渡してしまう</span>。
+                    一見すると「タダで手の内を見せて損では？」と思われるかもしれません。
+                    けれど、自分で試してみて「やっぱりここは任せたい」と思った方が来てくれるほうが、はるかに良い関係で始められます。
+                    診断は契約の入口である前に、<strong>相手の役に立つ単体の道具</strong>であるべきだ、というのが私たちの考えです。
+                </p>
+            </section>
+
+            <section id="donot">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">5. 設計で「やらない」と決めていること</h2>
+                <p>
+                    良い診断は「何を入れるか」より、<strong>「何をやらないか」</strong>で決まると考えています。
+                    成約率を上げようとすると、つい入れたくなる仕掛けがあります。それを正直に「やらないことリスト」として並べます。
+                </p>
+                <div class="mt-6 space-y-7">
+                    <div>
+                        <p class="font-bold text-gray-800">やらない① 質問を増やしすぎない</p>
+                        <p class="text-sm mt-1">
+                            質問が多いほど精度は上がる気がします。でも、答えるのが面倒になった瞬間に人は離脱します。
+                            私たちは<span class="marker">「これ以上聞くと、現在地が分かる前に閉じられる」</span>境目で質問を止めます。精度より、最後まで答えてもらえることを優先します。
+                        </p>
+                    </div>
+                    <div>
+                        <p class="font-bold text-gray-800">やらない② 結果を全員同じにしない</p>
+                        <p class="text-sm mt-1">
+                            どの回答でも結局おなじ結論（＝「相談しましょう」）に着地する診断は、すぐ見抜かれます。
+                            タイプごとに返す内容と「まず自分でできること」を変える。<strong>ちゃんと自分のために答えが変わる</strong>という体験そのものが、信頼の土台になります。
+                        </p>
+                    </div>
+                    <div>
+                        <p class="font-bold text-gray-800">やらない③ 診断後に、即フォーム入力を強制しない</p>
+                        <p class="text-sm mt-1">
+                            結果を見るために連絡先を要求したり、結果ページを問い合わせフォームで塞いだりはしません。
+                            結果はその場で全部見られて、<span class="marker">連絡するもしないも相手が決める</span>。
+                            こちらの都合で出口を狭めないことが、「見極めてもらう道具」としての一貫性だと考えています。
+                        </p>
+                    </div>
+                    <div>
+                        <p class="font-bold text-gray-800">やらない④ 当たって見せるための演出をしない</p>
+                        <p class="text-sm mt-1">
+                            占いのように「ズバリ言い当てた」風の演出を足せば、印象は強くなります。
+                            ただそれは、現在地を冷静に確認するという本来の目的からは外れます。地味でも、<strong>言い切りすぎず、相手が自分で確かめられる余白を残す</strong>ほうを選びます。
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="type">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">6. 業種を問わない「見極めてもらう」導線の型</h2>
+                <p>
+                    これはAmazon運用の話として書きましたが、考え方はどんな業種にも当てはまります。
+                    「いきなり売り込まず、まず相手に現在地を見極めてもらう」導線を作るとき、私たちがたどる手順を型としてまとめます。
+                </p>
+                <div class="space-y-6 mt-6">
+                    <div class="flex gap-4">
+                        <span class="step-num">01</span>
+                        <div>
+                            <p class="font-bold text-gray-800">「問い合わせを増やす道具」にしない、と先に決める</p>
+                            <p class="text-sm mt-1">目的を「成約」ではなく「相手が自分を理解すること」に置く。ここがぶれると、質問も結果も全部、売り込み寄りに歪みます。</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="step-num">02</span>
+                        <div>
+                            <p class="font-bold text-gray-800">相手が「自分を整理できる」質問を選ぶ</p>
+                            <p class="text-sm mt-1">こちらが情報を集めるための質問ではなく、答えると本人の頭の中で課題が一段はっきりする質問にします。数字より「状態」を聞く。</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="step-num">03</span>
+                        <div>
+                            <p class="font-bold text-gray-800">答えやすい長さで止める</p>
+                            <p class="text-sm mt-1">精度を欲張って質問を増やさない。「現在地が分かる前に閉じられない」ぎりぎりで止め、最後まで答えてもらうことを優先します。</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="step-num">04</span>
+                        <div>
+                            <p class="font-bold text-gray-800">結果で「現在地＋自分でできること」を渡す</p>
+                            <p class="text-sm mt-1">不安を煽らず、タイプごとに違う答えと、まず自分で試せる一歩まで手渡す。相談に来なくても役に立つ状態にします。</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="step-num">05</span>
+                        <div>
+                            <p class="font-bold text-gray-800">出口は相手に委ねる</p>
+                            <p class="text-sm mt-1">連絡するかどうかは相手が決める。出口を塞がないことで、来てくれたときには前提がそろい、良い関係で始められます。</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="p-8 rounded-xl border text-center mt-12" style="border-color:var(--border-color);background:#f1f6fb;">
+                <h3 class="font-serif-jp text-xl font-bold mb-4 text-gray-800">まずは「自分の現在地」を確かめてみてください</h3>
+                <p class="mb-6 text-left md:text-center">
+                    この記事で書いた考え方は、自社サイトの「Amazon運用タイプ診断」で実際に形にしています。
+                    数問で、いまの状態がどのタイプにあるか分かります。よければ気軽に試してみてください。<br>
+                    そのうえで「ここは相談してみたい」と思われたら、<strong>売り込みではなく、現在地の確認から</strong>一緒に始めます。
+                </p>
+                <a href="https://calendar.app.google/TZrQ5YLexng2gPRV8" target="_blank" class="btn-primary inline-block px-8 py-4 rounded-lg font-bold text-lg shadow-lg transform hover:-translate-y-1 transition duration-300">
+                    無料相談を予約する（30分）
+                </a>
+            </div>
+        </div>
+
+        <div class="mt-10 text-center">
+            <a href="./index.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium transition-colors">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                業務改善コラム一覧に戻る
+            </a>
+        </div>
+    </article>
+
+    <footer class="text-gray-400 py-8 mt-12 text-center text-xs" style="background:var(--primary-color-dark);">
+        <p>© 2026 合同会社ヤシノミ All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

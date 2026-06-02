@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PBN7WNCX8N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-PBN7WNCX8N');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="私たちには、ある施策で売上を大きく落とした経験があります。その痛みを無駄にしないために、失敗を『型』として社内に貯め、次の意思決定で同じ轍を踏まないようにしています。成果自慢ではなく、失敗を組織の資産に変える方法そのものを公開します。">
+    <title>失敗を二度くり返さないために ― 私たちが社内に貯めている「失敗パターン集」の作り方 - 合同会社ヤシノミ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0a3d62;
+            --primary-color-dark: #06283d;
+            --accent-orange: #FF9900;
+            --border-color: #e5e7eb;
+            --dz: #2f6f9f;
+            --good: #4E7C59;
+            --alert: #B23A3A;
+        }
+        body { font-family: 'Noto Sans JP', sans-serif; color: #1f2937; background-color: #f8f9fa; }
+        .font-serif-jp { font-family: 'Noto Serif JP', serif; }
+        .primary-color { color: var(--primary-color); }
+        .text-accent { color: var(--accent-orange); }
+        .btn-primary { background-image: linear-gradient(to right, #0a3d62 0%, #06283d 50%, #0a3d62 100%); background-size: 200% auto; color: white; }
+        .btn-primary:hover { background-position: right center; }
+        .marker { background: linear-gradient(transparent 60%, #ffe7c2 60%); font-weight: 700; }
+        .prose h2 { scroll-margin-top: 80px; }
+        .toc a:hover { color: var(--primary-color); text-decoration: underline; }
+
+        /* 比較・データ表 */
+        table.data { width:100%; border-collapse:collapse; font-size:0.86rem; }
+        table.data th, table.data td { border:1px solid var(--border-color); padding:9px 11px; text-align:left; vertical-align:top; }
+        table.data thead th { background:var(--primary-color); color:#fff; font-weight:700; }
+        table.data tbody tr:nth-child(even){ background:#f6f8fb; }
+        table.data td .o{ color:var(--good); font-weight:700; }
+        table.data td .x{ color:var(--alert); font-weight:700; }
+
+        /* フロー図（CSSボックス＋矢印） */
+        .flow { display:flex; flex-direction:column; align-items:stretch; gap:0; margin:0 auto; max-width:520px; }
+        .flow-box { background:#fff; border:1px solid var(--border-color); border-radius:10px; padding:12px 16px; text-align:center; box-shadow:0 2px 8px rgba(6,40,61,.06); }
+        .flow-box .lb { font-size:.7rem; color:#6b7280; font-weight:700; letter-spacing:.04em; }
+        .flow-box .tx { font-size:.92rem; color:#1f2937; font-weight:700; margin-top:2px; }
+        .flow-box.hit { border-color:var(--alert); background:#fdf3f3; }
+        .flow-box.go { border-color:var(--good); background:#f3f8f4; }
+        .flow-arrow { width:0; height:0; margin:8px auto; border-left:9px solid transparent; border-right:9px solid transparent; border-top:11px solid var(--primary-color); }
+        .flow-split { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+        .flow-split > div { flex:1; min-width:180px; }
+        .branch-label { display:inline-block; font-size:.68rem; font-weight:700; padding:2px 8px; border-radius:999px; margin-bottom:6px; }
+
+        .step-num { font-family:'Noto Serif JP',serif; font-size:1.5rem; color:var(--dz); flex-shrink:0; line-height:1.2; width:2.2rem; }
+    </style>
+
+    <link rel="icon" href="https://yashi-nomi.com/images/logo.png" type="image/png" sizes="192x192">
+    <link rel="apple-touch-icon" href="https://yashi-nomi.com/images/logo.png">
+</head>
+<body>
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="../index.html" class="flex items-center gap-2">
+                <img src="../images/logo.png" alt="ヤシノミ ロゴ" class="h-8 w-auto">
+                <span class="font-bold primary-color">合同会社ヤシノミ</span>
+            </a>
+            <a href="https://calendar.app.google/TZrQ5YLexng2gPRV8" target="_blank" class="btn-primary px-4 py-2 rounded text-sm font-bold transition shadow-md">無料相談を予約</a>
+        </div>
+    </header>
+
+    <article class="container mx-auto px-6 py-12 max-w-3xl bg-white mt-8 rounded-xl shadow-sm">
+        <div class="flex items-center gap-2 mb-4">
+            <span class="text-white text-xs font-bold px-3 py-1 rounded" style="background:var(--primary-color);">Amazonコラム</span>
+            <span class="text-gray-400 text-xs">業務改善コラム</span>
+        </div>
+        <h1 class="font-serif-jp text-3xl md:text-4xl font-bold mt-2 mb-4 leading-tight text-gray-800" style="letter-spacing:0.02em;">
+            失敗を二度くり返さないために
+            <span class="text-2xl md:text-3xl mt-3 block text-gray-600 font-normal">私たちが社内に貯めている「失敗パターン集」の作り方</span>
+        </h1>
+        <p class="text-sm text-gray-400 mb-8">業務改善コラム ／ Amazonコラム ／ 読了目安：約9分</p>
+
+        <div class="prose max-w-none text-gray-700 leading-relaxed space-y-8">
+            <p class="text-lg font-medium leading-8 pl-4 p-4 rounded-r" style="border-left:4px solid var(--accent-orange);background:#fff8ef;">
+                この記事には、自慢できる成功談は出てきません。むしろ逆で、私たちには
+                <span class="marker">ある施策で売上を大きく落とした経験があります。</span>
+                良かれと思って動いた一手が、数字を大きく下げてしまった――そういう日が、過去にありました。<br>
+                ただ、その痛みをただの「反省」で終わらせたくありませんでした。そこで私たちは、失敗を一つの「型」として社内に貯め、
+                次に何かを決めるとき必ずその型と照らし合わせる、という仕組みを作っています。本記事は、その<strong>失敗を組織の資産に変える方法そのもの</strong>のお話です。
+            </p>
+
+            <!-- 目次 -->
+            <nav class="toc text-sm bg-gray-50 border rounded-lg p-5" style="border-color:var(--border-color);">
+                <p class="font-bold text-gray-800 mb-3">この記事の内容</p>
+                <ol class="list-decimal pl-5 space-y-1.5 text-gray-600">
+                    <li><a href="#why">なぜ「成功事例」ではなく「失敗の貯め方」を書くのか</a></li>
+                    <li><a href="#vanish">なぜ失敗は「個人の反省」で消えてしまうのか</a></li>
+                    <li><a href="#format">失敗を「型」に変える4つの観点</a></li>
+                    <li><a href="#decision">失敗パターンを意思決定にどう差し込むか</a></li>
+                    <li><a href="#signal">数字を「結果」ではなく「異常検知のサイン」として使う</a></li>
+                    <li><a href="#type">業種を問わない「失敗を資産化する」型</a></li>
+                </ol>
+            </nav>
+
+            <section id="why">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">1. なぜ「成功事例」ではなく「失敗の貯め方」を書くのか</h2>
+                <p>
+                    支援会社のブログには、たいてい成功事例が並びます。「売上が伸びました」「順位が上がりました」。
+                    もちろん私たちにも、うまくいった仕事はあります。けれど私たちは、ブログを<strong>信頼を補う場所</strong>だと考えています。
+                    そして信頼を生むのは、きれいな成果報告よりも――<span class="marker">失敗とどう向き合っているか</span>のほうだと思っています。
+                </p>
+                <p class="mt-4">
+                    どんなに経験を積んでも、外す手はあります。市場が動く、競合が動く、前提が崩れる。
+                    大事なのは「外さないこと」ではなく、<strong>外したあとに同じ外し方を二度しないこと</strong>です。
+                    そのために私たちは、隠したくなる失敗ほど丁寧に記録し、次の判断材料に変えています。この記事では、その地味な仕組みの中身をお見せします。
+                </p>
+            </section>
+
+            <section id="vanish">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">2. なぜ失敗は「個人の反省」で消えてしまうのか</h2>
+                <p>
+                    多くの現場で、失敗はきちんと活かされません。原因は能力ではなく、<strong>失敗が「記憶」と「感情」の中だけで処理される</strong>ことにあります。
+                </p>
+                <div class="grid sm:grid-cols-3 gap-4 mt-6">
+                    <div class="p-4 rounded-lg border" style="border-color:var(--border-color);background:#fafafa;">
+                        <p class="font-bold text-gray-800 text-sm mb-1">① 記憶に頼っている</p>
+                        <p class="text-xs text-gray-600">「あのとき失敗したよね」は、半年も経てば曖昧になる。何を狙い、なぜ外したのかという肝心の中身から先に消えていく。</p>
+                    </div>
+                    <div class="p-4 rounded-lg border" style="border-color:var(--border-color);background:#fafafa;">
+                        <p class="font-bold text-gray-800 text-sm mb-1">② 担当者が変わると消える</p>
+                        <p class="text-xs text-gray-600">失敗の知見が一人の頭の中にしかなければ、その人が抜けた瞬間にゼロに戻る。次の担当が同じ穴に落ちる。</p>
+                    </div>
+                    <div class="p-4 rounded-lg border" style="border-color:var(--border-color);background:#fafafa;">
+                        <p class="font-bold text-gray-800 text-sm mb-1">③ 感情で終わる</p>
+                        <p class="text-xs text-gray-600">「焦っていた」「確認不足だった」で締めると気は済むが、次に活かせる形にはならない。反省は記録ではない。</p>
+                    </div>
+                </div>
+                <p class="mt-6 text-sm text-gray-600 bg-gray-50 border-l-4 pl-4 py-3" style="border-color:var(--primary-color);">
+                    私たちが売上を大きく落としたときも、最初に出てきたのは「反省」でした。けれど反省は、感情が落ち着けば薄れていきます。
+                    必要だったのは「気をつける」という決意ではなく、<strong>同じ判断をしようとしたら自動で引っかかる仕掛け</strong>のほうでした。
+                </p>
+            </section>
+
+            <section id="format">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">3. 失敗を「型」に変える4つの観点</h2>
+                <p>
+                    そこで私たちは、失敗が起きるたびに同じ4つの観点で書き残すことにしました。大げさなツールは使いません。
+                    大事なのは項目をそろえることです。<strong>毎回同じ枠で書く</strong>から、後から似た状況を探せる「型」になります。
+                </p>
+                <div class="overflow-x-auto mt-6">
+                <table class="data">
+                    <thead>
+                        <tr><th style="width:24%;">記録する観点</th><th>書くこと</th><th>なぜ必要か</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>① 何を狙ったか</strong></td>
+                            <td>その施策で達成したかった状態。期待していた変化。</td>
+                            <td>狙いを書かないと、後から「結果が悪かった」しか残らない。狙いと結果のズレこそが学び。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>② どんな手札を選んだか</strong></td>
+                            <td>実際に取った打ち手と、そのとき検討して<span class="o">捨てた</span>選択肢。</td>
+                            <td>「なぜ他ではなくこれを選んだか」が分かると、判断の癖が見えてくる。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>③ なぜ外したと考えられるか</strong></td>
+                            <td>仮説でよいので原因。前提の崩れ・確認漏れ・タイミングなど。</td>
+                            <td><span class="x">犯人探しではなく構造の言語化。</span>感情ではなく「条件」で書くのがコツ。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>④ 次にどう判断を変えるか</strong></td>
+                            <td>同じ状況が来たときの判断ルール。「○○のときは△△しない／必ず確認する」。</td>
+                            <td>これが無いと記録は読み物で終わる。次の意思決定で使える「条件付きルール」にして初めて資産になる。</td>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+                <p class="mt-5">
+                    ポイントは<strong>④まで必ず書ききる</strong>ことです。①〜③は「振り返り」、④だけが「次に効く」部分だからです。
+                    私たちが大きく数字を落とした件も、この4観点に落とし込み、④に「<span class="marker">この条件のときは、一気に動かさず段階的に試す</span>」という判断ルールを残しました。
+                    数字そのものより、この一行のほうが資産です。
+                </p>
+            </section>
+
+            <section id="decision">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">4. 失敗パターンを意思決定にどう差し込むか</h2>
+                <p>
+                    型に貯めても、見返さなければ意味がありません。そこで私たちは、<strong>新しい施策を打つ前に、過去の失敗型と必ず照合する</strong>という一手間を、判断の手順に組み込みました。
+                    流れにすると、こうなります。
+                </p>
+
+                <div class="flow mt-7">
+                    <div class="flow-box">
+                        <div class="lb">START</div>
+                        <div class="tx">新しい施策を打とうとする</div>
+                    </div>
+                    <div class="flow-arrow"></div>
+                    <div class="flow-box">
+                        <div class="lb">CHECK</div>
+                        <div class="tx">過去の「失敗パターン集」と照合する</div>
+                    </div>
+                    <div class="flow-arrow"></div>
+                    <div class="flow-split">
+                        <div>
+                            <span class="branch-label" style="background:#fdf3f3;color:var(--alert);">似た型に当たった</span>
+                            <div class="flow-box hit">
+                                <div class="tx">そのときの④（判断ルール）を適用する</div>
+                                <p class="text-xs text-gray-500 mt-2" style="font-weight:400;">→ 一気に動かさない／前提を再確認してから進める</p>
+                            </div>
+                        </div>
+                        <div>
+                            <span class="branch-label" style="background:#f3f8f4;color:var(--good);">該当なし</span>
+                            <div class="flow-box go">
+                                <div class="tx">通常どおり実行する</div>
+                                <p class="text-xs text-gray-500 mt-2" style="font-weight:400;">→ ただし結果は次の型の候補として観察する</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flow-arrow"></div>
+                    <div class="flow-box">
+                        <div class="lb">RECORD</div>
+                        <div class="tx">結果がどうあれ、4観点で記録に戻す</div>
+                    </div>
+                </div>
+
+                <p class="mt-6 text-sm text-gray-600 bg-gray-50 border-l-4 pl-4 py-3" style="border-color:var(--primary-color);">
+                    たった一手間ですが、これがあると<strong>「気をつける」が個人の意志から、手順の一部に変わります。</strong>
+                    意志は揺らぎますが、手順は揺らぎません。3人の小さな会社でも失敗を資産にできるのは、この照合を「人の記憶」ではなく「決まった手順」に置いているからです。
+                </p>
+            </section>
+
+            <section id="signal">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">5. 数字を「結果」ではなく「異常検知のサイン」として使う</h2>
+                <p>
+                    成果報告では、数字は「どれだけ良くなったか」を見せる道具に使われがちです。私たちは、数字をむしろ<strong>逆向きに</strong>使います。
+                    つまり、急に大きく落ちる動きを<span class="marker">「何かを外したかもしれない」という早期警告</span>として読むのです。
+                </p>
+                <p class="mt-4">
+                    過去に売上を大きく落としたとき、いちばん効いたのは「気づくのが遅れた」という反省でした。
+                    だから今は、落ち込みの数字を「失敗の証拠」としてではなく、<strong>もっと早く止めるためのサイン</strong>として見ています。
+                    急落は、自慢のちょうど反対側にある、いちばん価値のある情報だからです。
+                </p>
+                <ul class="list-disc pl-6 space-y-2 mt-4 text-sm">
+                    <li>「上がった数字」を喜ぶより先に、<strong>「想定外に動いた数字」</strong>がないかを見る。良い方向の急変も、原因が分からなければ次に再現できない。</li>
+                    <li>下振れを見つけたら、まず<strong>直前に何を変えたか</strong>をたどる。多くの場合、サインは施策の数日後に出る。</li>
+                    <li>「落ちきってから対処」ではなく、<span class="marker">「落ち始めで一度止めて確認」</span>を基本にする。止める判断ができることが、攻める余裕につながる。</li>
+                </ul>
+                <p class="mt-4 text-sm text-gray-500">
+                    ※ ここで具体的な下落率や金額は出しません。重要なのは数字の大きさではなく、「急変を早期警告として読む」という見方そのものだからです。
+                </p>
+            </section>
+
+            <section id="type">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">6. 業種を問わない「失敗を資産化する」型</h2>
+                <p>
+                    ここまではAmazon運用を念頭に書きましたが、考え方はどの業種でも同じです。失敗を個人の反省で終わらせず、組織の資産に変える手順を、型としてまとめます。
+                </p>
+                <div class="space-y-6 mt-6">
+                    <div class="flex gap-4">
+                        <span class="step-num">01</span>
+                        <div>
+                            <p class="font-bold text-gray-800">失敗を「隠すもの」から「記録するもの」に位置づけ直す</p>
+                            <p class="text-sm mt-1">まず社内で、失敗を責めない前提を共有します。責められると人は隠します。隠れた失敗は資産になりません。出してもらうことが第一歩です。</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="step-num">02</span>
+                        <div>
+                            <p class="font-bold text-gray-800">毎回「同じ4観点」で書く</p>
+                            <p class="text-sm mt-1">狙い／選んだ手札／外した原因（仮説）／次の判断ルール。枠をそろえるから、後から似た状況を探せる「型」になります。自由記述では貯まりません。</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="step-num">03</span>
+                        <div>
+                            <p class="font-bold text-gray-800">「次の判断ルール」を一行で言い切る</p>
+                            <p class="text-sm mt-1">「○○のときは△△しない／必ず確認する」という条件付きの形にします。感想ではなく、次に使えるルールに変換することが要です。</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="step-num">04</span>
+                        <div>
+                            <p class="font-bold text-gray-800">新しい一手の前に、必ず照合する手順を入れる</p>
+                            <p class="text-sm mt-1">意志に頼らず、手順に組み込みます。「打つ前に過去の失敗型を見る」を当たり前の一工程にすれば、同じ轍を踏みにくくなります。</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="step-num">05</span>
+                        <div>
+                            <p class="font-bold text-gray-800">急変は「早期警告」として拾う仕組みを持つ</p>
+                            <p class="text-sm mt-1">数字の急な落ち込みを、良し悪しの評価ではなく「確認のサイン」として扱います。落ちきる前に一度止めて確かめる――それが次の失敗を小さくします。</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="p-8 rounded-xl border text-center mt-12" style="border-color:var(--border-color);background:#f1f6fb;">
+                <h3 class="font-serif-jp text-xl font-bold mb-4 text-gray-800">「過去の失敗を、次にうまく活かせていない」という方へ</h3>
+                <p class="mb-6 text-left md:text-center">
+                    同じ失敗をくり返している気がする。担当者が変わるたびに知見が消える。数字が落ちてから気づく。
+                    そんな状態でしたら、まずは現状をお聞かせください。<br>
+                    派手な成功事例を語るのではなく、<strong>失敗を資産に変える仕組みづくり</strong>から、一緒に考えます。
+                </p>
+                <a href="https://calendar.app.google/TZrQ5YLexng2gPRV8" target="_blank" class="btn-primary inline-block px-8 py-4 rounded-lg font-bold text-lg shadow-lg transform hover:-translate-y-1 transition duration-300">
+                    無料相談を予約する（30分）
+                </a>
+            </div>
+        </div>
+
+        <div class="mt-10 text-center">
+            <a href="./index.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium transition-colors">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                業務改善コラム一覧に戻る
+            </a>
+        </div>
+    </article>
+
+    <footer class="text-gray-400 py-8 mt-12 text-center text-xs" style="background:var(--primary-color-dark);">
+        <p>© 2026 合同会社ヤシノミ All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

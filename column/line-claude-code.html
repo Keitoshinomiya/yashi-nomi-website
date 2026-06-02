@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PBN7WNCX8N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-PBN7WNCX8N');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="LINE配信を月額SaaSの決まったテンプレに縛られるのではなく、自社のLINE基盤をAI（Claude Code）から直接動かす。なぜ私たちがこの構成を選ぶのか、出来合いツールとの手札比較、FLEXメッセージでデザインまで自在に作れる柔軟性を、正直な向き不向きとあわせて解説します。">
+    <title>LINE配信を「AIに話すだけ」で組む － なぜ出来合いSaaSではなく自作×Claude Codeなのか - 合同会社ヤシノミ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0a3d62;
+            --primary-color-dark: #06283d;
+            --accent-orange: #FF9900;
+            --border-color: #e5e7eb;
+            --line-green: #06c755;
+        }
+        body { font-family: 'Noto Sans JP', sans-serif; color: #1f2937; background-color: #f8f9fa; }
+        .font-serif-jp { font-family: 'Noto Serif JP', serif; }
+        .primary-color { color: var(--primary-color); }
+        .btn-primary { background-image: linear-gradient(to right, #0a3d62 0%, #06283d 50%, #0a3d62 100%); background-size: 200% auto; color: white; }
+        .btn-primary:hover { background-position: right center; }
+        .marker { background: linear-gradient(transparent 60%, #ffe7c2 60%); font-weight: 700; }
+        .prose h2 { scroll-margin-top: 80px; }
+        .toc a:hover { color: var(--primary-color); text-decoration: underline; }
+        table.data { width:100%; border-collapse:collapse; font-size:0.85rem; }
+        table.data th { background:var(--primary-color); color:#fff; font-weight:700; padding:8px 10px; text-align:center; }
+        table.data td { border:1px solid var(--border-color); padding:8px 10px; text-align:left; vertical-align:top; }
+        table.data tr:nth-child(even) td { background:#f8f9fa; }
+        /* FLEX風モック */
+        .flex-phone { max-width:280px; margin:0 auto; background:#7494c0; border-radius:22px; padding:16px 12px; }
+        .flex-bubble { background:#fff; border-radius:14px; overflow:hidden; box-shadow:0 4px 14px rgba(0,0,0,0.18); }
+        .flex-hero { height:96px; background:linear-gradient(135deg,#0a3d62,#06283d); display:flex; align-items:center; justify-content:center; color:#fff; font-weight:700; letter-spacing:.05em; }
+        .flex-body { padding:14px; }
+        .flex-btn { display:block; text-align:center; border-radius:8px; padding:9px; font-size:0.8rem; font-weight:700; margin-top:8px; }
+    </style>
+
+    <link rel="icon" href="https://yashi-nomi.com/images/logo.png" type="image/png" sizes="192x192">
+    <link rel="apple-touch-icon" href="https://yashi-nomi.com/images/logo.png">
+</head>
+<body>
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="../index.html" class="flex items-center gap-2">
+                <img src="../images/logo.png" alt="ヤシノミ ロゴ" class="h-8 w-auto">
+                <span class="font-bold primary-color">合同会社ヤシノミ</span>
+            </a>
+            <a href="https://calendar.app.google/TZrQ5YLexng2gPRV8" target="_blank" class="btn-primary px-4 py-2 rounded text-sm font-bold transition shadow-md">無料相談を予約</a>
+        </div>
+    </header>
+
+    <article class="container mx-auto px-6 py-12 max-w-3xl bg-white mt-8 rounded-xl shadow-sm">
+        <div class="flex items-center gap-2 mb-4">
+            <span class="text-white text-xs font-bold px-3 py-1 rounded" style="background:var(--primary-color);">仕組み化・自動化</span>
+            <span class="text-gray-400 text-xs">業務改善コラム</span>
+        </div>
+        <h1 class="font-serif-jp text-3xl md:text-4xl font-bold mt-2 mb-4 leading-tight text-gray-800" style="letter-spacing:0.02em;">
+            LINE配信を「AIに話すだけ」で組む
+            <span class="text-xl md:text-2xl mt-3 block text-gray-600 font-normal">― なぜ出来合いSaaSではなく、自作×Claude Codeなのか</span>
+        </h1>
+        <p class="text-sm text-gray-400 mb-8">業務改善コラム ／ 仕組み化・自動化 ／ 読了目安：約11分</p>
+
+        <div class="prose max-w-none text-gray-700 leading-relaxed space-y-8">
+            <p class="text-lg font-medium leading-8 pl-4 p-4 rounded-r" style="border-left:4px solid var(--line-green);background:#f1fbf5;">
+                LINEで「お客様に配信する仕組み」を持とうとすると、たいていは<strong>月額のLINE配信SaaSを契約する</strong>のが定番です。
+                私たちはあえて別の道——<span class="marker">自社のLINE基盤を、AI（Claude Code）から直接動かす</span>——を選んでいます。<br>
+                安く済むからではありません。<strong>「やりたいこと」をそのまま日本語で指示すれば、配信の中身もデザインも、その場で自在に組めるから</strong>です。
+                この記事では、なぜその構成を選ぶのか、出来合いツールとどう違うのか、そして<strong>どんな会社に向き・不向きなのか</strong>まで正直にお話しします。
+            </p>
+
+            <!-- 目次 -->
+            <nav class="toc text-sm bg-gray-50 border rounded-lg p-5" style="border-color:var(--border-color);">
+                <p class="font-bold text-gray-800 mb-3">この記事の内容</p>
+                <ol class="list-decimal pl-5 space-y-1.5 text-gray-600">
+                    <li><a href="#problem">LINE配信、何で動かすか問題</a></li>
+                    <li><a href="#choice">私たちの選択：自作基盤 × AI直接連携</a></li>
+                    <li><a href="#why-direct">「直接連携」の何がそんなに効くのか</a></li>
+                    <li><a href="#flex">FLEXメッセージ：デザインまで自在に作れる</a></li>
+                    <li><a href="#compare">手札を並べる：3つの選択肢の向き不向き</a></li>
+                    <li><a href="#caution">正直な注意点：誰にでも勧める話ではない</a></li>
+                    <li><a href="#type">自社で考えるときの問い</a></li>
+                </ol>
+            </nav>
+
+            <section id="problem">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">1. LINE配信、何で動かすか問題</h2>
+                <p>
+                    お客様との接点としてLINEを使う会社は増えました。お礼メッセージ、使い方の案内、再購入のひと声、予約のリマインド——どれも効果的です。
+                    問題は「<strong>その配信を、何の上で動かすか</strong>」です。
+                </p>
+                <p>
+                    多くの場合は月額制のLINE配信SaaSを使います。手早く始められる良い選択です。一方で、使い込むほど次のような壁にぶつかることがあります。
+                </p>
+                <ul class="list-disc pl-6 space-y-2 mt-3 text-sm text-gray-600">
+                    <li><strong>できることの上限</strong>：用意されたテンプレ・機能の範囲を超えた配信がしづらい。</li>
+                    <li><strong>カスタムに追加費用</strong>：「この条件で出し分けたい」が上位プランや個別開発になりがち。</li>
+                    <li><strong>他システムと繋ぎにくい</strong>：在庫・購入履歴・予約などの自社データと連動させるのが難しい。</li>
+                    <li><strong>仕様変更・値上げ・サービス終了</strong>のリスクが、自社の都合の外にある。</li>
+                </ul>
+                <p class="mt-4">
+                    やりたいことが「定番の範囲」に収まるうちは快適でも、<span class="marker">事業が育って“ひとひねり”が欲しくなった瞬間に、ツールの天井に頭をぶつける</span>。これがよくある悩みです。
+                </p>
+            </section>
+
+            <section id="choice">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">2. 私たちの選択：自作基盤 × AI直接連携</h2>
+                <p>
+                    そこで私たちが取っているのが、<strong>自社で持てる軽量なLINE基盤を用意し、それをAI（Claude Code）から直接操作する</strong>構成です。
+                    難しそうに聞こえますが、考え方はシンプルです。
+                </p>
+                <div class="rounded-xl border p-5 my-5" style="border-color:var(--border-color);background:#fafafa;">
+                    <p class="text-sm text-gray-500 mb-3 font-bold">ざっくりした全体像</p>
+                    <div class="space-y-2 text-sm">
+                        <div class="p-3 rounded-lg bg-white border" style="border-color:var(--border-color);"><strong>① 配信の土台</strong>：自社で動かせる軽量なLINE連携の仕組み（顧客・配信・履歴を持つ）</div>
+                        <p class="text-center text-gray-400">▲ ここを「日本語の指示」で動かす</p>
+                        <div class="p-3 rounded-lg text-white" style="background:var(--primary-color);"><strong>② AI（Claude Code）</strong>：「こういう配信を作って」「この条件で出し分けて」と指示すると、配信ロジックもメッセージのデザインもその場で組み立てる</div>
+                    </div>
+                </div>
+                <p>
+                    ポイントは、土台が<strong>自社の持ち物</strong>だということです。だから上限も、追加費用も、他人の仕様変更も気にせず、
+                    <span class="marker">「やりたいこと」を起点に、必要な分だけ作り足せます。</span>
+                </p>
+            </section>
+
+            <section id="why-direct">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">3. 「直接連携」の何がそんなに効くのか</h2>
+                <p>
+                    一番の価値は、<strong>作業が「管理画面をポチポチ」から「AIに日本語で頼む」に変わる</strong>ことです。たとえば、こう言うだけです。
+                </p>
+                <div class="p-4 rounded-lg my-4" style="background:#f1fbf5;border:1px solid #bdebcd;">
+                    <p class="text-sm text-gray-700">
+                        💬「初回購入のお客様に、<strong>翌日に使い方の案内</strong>、<strong>3日後に再購入のクーポン</strong>を送るステップ配信を作って。クーポンを使った人には<strong>1週間後にお礼</strong>、使わなかった人には<strong>もう一度だけ違う言い方で</strong>声かけして」
+                    </p>
+                </div>
+                <p>
+                    この一言から、配信の流れ・条件分岐・メッセージ文面・送信タイミングまでを、AIがその場で形にします。
+                    出来合いツールなら「その出し分けは対応していません」で止まる要望が、<span class="marker">自社基盤＋AIなら“ただの相談ごと”として通る</span>。ここが決定的な差です。
+                </p>
+                <p>そしてこの自由度は、私たち自身が日々の業務で実証しています。広告レポートの自動生成、経理データの仕分け、SNS投稿の予約——どれも「AIに指示して仕組みを組む」やり方で運用しています。LINE配信も、その延長線上にあるだけです。</p>
+            </section>
+
+            <section id="flex">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">4. FLEXメッセージ：デザインまで自在に作れる</h2>
+                <p>
+                    LINEには「<strong>FLEXメッセージ</strong>」という、画像・ボタン・カードを自由にレイアウトできる仕組みがあります。
+                    出来合いツールでは選べる型が決まっていることが多いのですが、自作基盤なら<span class="marker">ブランドに合わせて見た目を一から組める</span>。
+                    しかもAIに「こんな雰囲気で」と頼めば、デザインの調整もその場で進みます。
+                </p>
+
+                <figure class="my-6">
+                    <div class="flex-phone">
+                        <div class="flex-bubble">
+                            <div class="flex-hero">期間限定クーポン</div>
+                            <div class="flex-body">
+                                <p class="font-bold text-gray-800 text-sm">いつもありがとうございます</p>
+                                <p class="text-xs text-gray-500 mt-1 leading-relaxed">前回のご購入から1ヶ月が経ちました。今だけ使えるクーポンをお届けします。</p>
+                                <span class="flex-btn text-white" style="background:var(--line-green);">クーポンを受け取る</span>
+                                <span class="flex-btn" style="background:#f0f2f5;color:#0a3d62;">商品を見る</span>
+                            </div>
+                        </div>
+                    </div>
+                    <figcaption class="text-xs text-gray-400 text-center mt-3">FLEXメッセージの構成イメージ（見出し画像・本文・複数ボタンを自由に配置できる）</figcaption>
+                </figure>
+
+                <p>
+                    予約リマインド、明細の通知、キャンペーン案内——用途ごとに「ちょうどいい見た目」を作れるので、
+                    お客様にとっても<strong>「読みやすく、押しやすい」</strong>メッセージになります。テンプレに合わせて妥協する必要がありません。
+                </p>
+            </section>
+
+            <section id="compare">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">5. 手札を並べる：3つの選択肢の向き不向き</h2>
+                <p>
+                    とはいえ「自作×AIが最強」と言いたいわけではありません。<strong>会社の状況によって、正解は変わります。</strong>主な手札を正直に並べます。
+                </p>
+                <figure class="my-5 overflow-x-auto">
+                    <table class="data">
+                        <thead>
+                            <tr><th style="width:22%;">選択肢</th><th>向いている会社</th><th>弱み</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>出来合いの<br>LINE配信SaaS</strong></td>
+                                <td>まず始めたい／定番の配信で十分／社内で完結させたい</td>
+                                <td>できることの上限・カスタム費用・自社データと繋ぎにくい・仕様変更や値上げが他人任せ</td>
+                            </tr>
+                            <tr>
+                                <td><strong>ノーコード<br>連携ツール</strong></td>
+                                <td>複数サービスをある程度つなぎたい／中規模の自動化</td>
+                                <td>込み入った分岐やデザインは苦手・ツールが増えると管理が複雑</td>
+                            </tr>
+                            <tr>
+                                <td><strong>自作基盤 ×<br>AI直接連携</strong></td>
+                                <td>独自の出し分けがしたい／自社データと深く連動／長く使う前提</td>
+                                <td>土台の構築・運用を担える相手が必要（＝丸ごと任せられるかが鍵）</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </figure>
+                <p>
+                    私たちが自作×AIを選ぶのは、<span class="marker">事業の変化にいつでも追従できる柔軟性</span>を最優先しているからです。
+                    一方で、「まず小さく試したい」段階なら出来合いSaaSで十分なこともあります。大事なのは、見栄ではなく<strong>自社のいまに合った手札を選ぶこと</strong>です。
+                </p>
+            </section>
+
+            <section id="caution">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">6. 正直な注意点：誰にでも勧める話ではない</h2>
+                <p>
+                    自作基盤の弱点は表にも書いたとおり、<strong>「作って・運用できる相手」が要る</strong>ことです。ここを軽視すると、いずれ動かせない仕組みが残ります。私たちが大切にしているのは次の3つです。
+                </p>
+                <div class="space-y-4 mt-4">
+                    <div class="p-4 rounded-lg border" style="border-color:var(--border-color);border-left:5px solid var(--line-green);">
+                        <p class="font-bold text-gray-800">運用まで引き受けられるかを最初に確認する</p>
+                        <p class="text-sm mt-1 text-gray-600">「作って渡して終わり」では現場が困ります。日々の運用・改善まで担える体制があって初めて、自作は強みになります。</p>
+                    </div>
+                    <div class="p-4 rounded-lg border" style="border-color:var(--border-color);border-left:5px solid var(--line-green);">
+                        <p class="font-bold text-gray-800">小さく始めて、効果を見てから広げる</p>
+                        <p class="text-sm mt-1 text-gray-600">いきなり全部を作り込まない。まず1本の配信で効果を確かめ、手応えを見ながら足していくのが安全です。</p>
+                    </div>
+                    <div class="p-4 rounded-lg border" style="border-color:var(--border-color);border-left:5px solid var(--line-green);">
+                        <p class="font-bold text-gray-800">お客様に嫌われない設計を守る</p>
+                        <p class="text-sm mt-1 text-gray-600">自由に作れるからこそ、送りすぎは禁物。「役に立つ・ちょうどいい頻度」を超えないことが、長く続く配信の条件です。</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="type">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">7. 自社で考えるときの問い</h2>
+                <p>
+                    「うちはどの手札がいいのか?」を考えるとき、次の問いが役に立ちます。
+                </p>
+                <div class="space-y-6 mt-6">
+                    <div class="flex gap-4">
+                        <span class="font-serif-jp text-2xl primary-color flex-shrink-0" style="line-height:1.2;">01</span>
+                        <div><p class="font-bold text-gray-800">いまやりたい配信は「定番の範囲」に収まるか</p><p class="text-sm mt-1 text-gray-600">収まるなら出来合いで十分。独自の出し分けや自社データ連動が要るなら、自作×AIの出番です。</p></div>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="font-serif-jp text-2xl primary-color flex-shrink-0" style="line-height:1.2;">02</span>
+                        <div><p class="font-bold text-gray-800">この仕組みを「何年使う」つもりか</p><p class="text-sm mt-1 text-gray-600">長く使うほど、上限や値上げの影響は積み上がります。長期前提なら、自分たちで握れる土台が効いてきます。</p></div>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="font-serif-jp text-2xl primary-color flex-shrink-0" style="line-height:1.2;">03</span>
+                        <div><p class="font-bold text-gray-800">運用を任せられる相手がいるか</p><p class="text-sm mt-1 text-gray-600">ここが「はい」になって初めて、自作の柔軟性は安心して使える資産になります。</p></div>
+                    </div>
+                </div>
+                <p class="mt-6">
+                    私たちは、ツールを売りたいのではありません。<span class="marker">お客様のやりたいことを起点に、一番ちょうどいい手札を一緒に選び、必要なら土台ごと引き受ける</span>。
+                    LINE×AIの自由度は、その選択肢を広げるための道具だと考えています。
+                </p>
+            </section>
+
+            <div class="p-8 rounded-xl border text-center mt-12" style="border-color:var(--border-color);background:#f1fbf5;">
+                <h3 class="font-serif-jp text-xl font-bold mb-4 text-gray-800">「LINEでこういうことがしたいけど、できる?」と思ったら</h3>
+                <p class="mb-6 text-left md:text-center">
+                    出来合いのツールで止まっていたアイデアでも、自社基盤＋AIなら実現できることは少なくありません。<br>
+                    まずは「やってみたい配信」をそのままお聞かせください。<strong>手札の選び方から</strong>、一緒に考えます。
+                </p>
+                <a href="https://calendar.app.google/TZrQ5YLexng2gPRV8" target="_blank" class="btn-primary inline-block px-8 py-4 rounded-lg font-bold text-lg shadow-lg transform hover:-translate-y-1 transition duration-300">
+                    無料相談を予約する（30分）
+                </a>
+            </div>
+        </div>
+
+        <div class="mt-10 text-center">
+            <a href="./index.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium transition-colors">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                業務改善コラム一覧に戻る
+            </a>
+        </div>
+    </article>
+
+    <footer class="text-gray-400 py-8 mt-12 text-center text-xs" style="background:var(--primary-color-dark);">
+        <p>© 2026 合同会社ヤシノミ All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

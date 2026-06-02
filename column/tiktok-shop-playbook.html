@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PBN7WNCX8N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-PBN7WNCX8N');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="TikTok Shopを始めた経緯と、実際に「回る」仕組みのリアル。動画→クリエイター→購入の構造、クリエイターを動かす設計、バズ動画の型、ショップ評価スコア（SPS）の重要性、そして初期の販売数量がなぜ効くのか。私たちが運用して得た学びを、数字は伏せつつ実務目線で公開します。">
+    <title>TikTok Shopは「動画で売れる」だけじゃない：始めた経緯と、回す仕組みのリアル － 合同会社ヤシノミ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0a3d62;
+            --primary-color-dark: #06283d;
+            --accent-orange: #FF9900;
+            --border-color: #e5e7eb;
+            --tt: #d6336c;
+            --cyan: #0a9396;
+            --good: #4E7C59;
+            --alert: #B23A3A;
+        }
+        body { font-family: 'Noto Sans JP', sans-serif; color: #1f2937; background-color: #f8f9fa; }
+        .font-serif-jp { font-family: 'Noto Serif JP', serif; }
+        .primary-color { color: var(--primary-color); }
+        .text-accent { color: var(--accent-orange); }
+        .btn-primary { background-image: linear-gradient(to right, #0a3d62 0%, #06283d 50%, #0a3d62 100%); background-size: 200% auto; color: white; }
+        .btn-primary:hover { background-position: right center; }
+        .marker { background: linear-gradient(transparent 60%, #fbd6e3 60%); font-weight: 700; }
+        .prose h2 { scroll-margin-top: 80px; }
+        .toc a:hover { color: var(--primary-color); text-decoration: underline; }
+        table.data { width:100%; border-collapse:collapse; font-size:0.85rem; }
+        table.data th { background:var(--primary-color); color:#fff; font-weight:700; padding:8px 10px; text-align:center; }
+        table.data td { border:1px solid var(--border-color); padding:7px 10px; text-align:center; }
+        table.data tr:nth-child(even) td { background:#f8f9fa; }
+        .note-good { background:#eef5ef; border-left:4px solid var(--good); }
+        .note-alert { background:#fbeeee; border-left:4px solid var(--alert); }
+        .note-tt { background:#fdeef4; border-left:4px solid var(--tt); }
+        .step-box { border:1px solid var(--border-color); border-radius:10px; padding:14px 16px; background:#fff; }
+    </style>
+
+    <link rel="icon" href="https://yashi-nomi.com/images/logo.png" type="image/png" sizes="192x192">
+    <link rel="apple-touch-icon" href="https://yashi-nomi.com/images/logo.png">
+</head>
+<body>
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="../index.html" class="flex items-center gap-2">
+                <img src="../images/logo.png" alt="ヤシノミ ロゴ" class="h-8 w-auto">
+                <span class="font-bold primary-color">合同会社ヤシノミ</span>
+            </a>
+            <a href="https://calendar.app.google/TZrQ5YLexng2gPRV8" target="_blank" class="btn-primary px-4 py-2 rounded text-sm font-bold transition shadow-md">無料相談を予約</a>
+        </div>
+    </header>
+
+    <article class="container mx-auto px-6 py-12 max-w-4xl bg-white mt-8 rounded-xl shadow-sm">
+        <div class="flex items-center gap-2 mb-4">
+            <span class="text-white text-xs font-bold px-3 py-1 rounded" style="background:var(--tt);">集客・見える化</span>
+            <span class="text-gray-400 text-xs">EC・新チャネル運用</span>
+        </div>
+        <h1 class="font-serif-jp text-3xl md:text-4xl font-bold mt-2 mb-4 leading-tight text-gray-800" style="letter-spacing:0.02em;">
+            TikTok Shopは「動画で売れる」だけじゃない
+            <span class="text-xl md:text-2xl mt-3 block text-gray-600 font-normal">― 始めた経緯と、回す仕組みのリアル</span>
+        </h1>
+        <p class="text-sm text-gray-400 mb-8">EC・新チャネル運用 ／ 集客・見える化 ／ 読了目安：約14分</p>
+
+        <div class="prose max-w-none text-gray-700 leading-relaxed space-y-8">
+            <p class="text-lg font-medium leading-8 pl-4 p-4 rounded-r note-tt">
+                「TikTokでバズれば売れる」——半分は本当ですが、半分は違います。<span class="marker">バズは入口にすぎず、売上として回り続けるかは“仕組み”で決まります。</span><br>
+                この記事では、私たちが実際にTikTok Shopを運用して分かった「なぜ始めたのか」「どういう構造で回っているのか」、そして見落とされがちな<strong>ショップ評価スコア（SPS）の重要性</strong>と<strong>初期の販売数量がなぜ効くのか</strong>を、実務の目線で公開します。
+            </p>
+
+            <p class="text-sm text-gray-500 bg-gray-50 border rounded-lg p-4" style="border-color:var(--border-color);">
+                ※ この記事は、当社が運用支援している<strong>ある香水ブランド</strong>のTikTok Shopでの経験に基づきます。ブランド名・取扱商品名・売上や利益などの具体的な数値は伏せ、<strong>仕組みと学び</strong>に絞ってお伝えします。プラットフォームの仕様（スコアの閾値など）は時期や地域で変わる可能性があるため、最新は公式情報をご確認ください。
+            </p>
+
+            <!-- 目次 -->
+            <nav class="toc text-sm bg-gray-50 border rounded-lg p-5" style="border-color:var(--border-color);">
+                <p class="font-bold text-gray-800 mb-3">この記事の内容</p>
+                <ol class="list-decimal pl-5 space-y-1.5 text-gray-600">
+                    <li><a href="#why">なぜTikTok Shopを始めたのか</a></li>
+                    <li><a href="#how">どういう仕組みで「回る」のか</a></li>
+                    <li><a href="#creator">クリエイターは「お願い」では動かない</a></li>
+                    <li><a href="#video">バズ動画の「型」：黄金の4ステップ</a></li>
+                    <li><a href="#sps">見落とされがちな主役：ショップ評価スコア（SPS）</a></li>
+                    <li><a href="#initial">なぜ「初期の販売数量」がここまで効くのか</a></li>
+                    <li><a href="#lesson">運用して分かったこと（薄利・自動化・つまずき）</a></li>
+                    <li><a href="#type">他のチャネルにも効く学び</a></li>
+                </ol>
+            </nav>
+
+            <section id="why">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">1. なぜTikTok Shopを始めたのか</h2>
+                <p>
+                    きっかけは、すでにAmazonなどで売っていた商材を「<strong>もっと“出会ってもらえる”場所</strong>」に置きたかったことです。扱っていたのは、海外の人気ハイブランド香水を<span class="marker">「フルボトルは高くて手が出ない／買って失敗したくない」</span>という人向けに、少量のお試しサイズで届ける商品。つまり「憧れ × 気軽さ」のギャップを突く商材でした。
+                </p>
+                <p>
+                    この「憧れているけど一歩踏み出せない」という気持ちは、<strong>検索（Amazon）では出てきません</strong>。検索する人は、もう買うものが決まっている人だからです。一方、TikTokのショート動画は「探していなかったけど、見たら欲しくなる」需要を作れる。<span class="marker">しかも動画からそのまま購入に飛べる導線（カゴマーク）がある</span>。既存の商材を、まったく別の“出会い方”のチャネルに横展開する——これがTikTok Shopを始めた理由です。
+                </p>
+                <p class="note-tt p-4 rounded-r">
+                    実際、商品の世界観をうまく見せた動画は大きく伸び、<strong>累計で数千万回規模で再生された動画</strong>も生まれました。「検索では掘り起こせない需要を、動画で作る」——この手応えが、本格運用への後押しになりました。
+                </p>
+            </section>
+
+            <section id="how">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">2. どういう仕組みで「回る」のか</h2>
+                <p>
+                    TikTok Shopの基本構造はシンプルです。ただ、Amazonとは「誰が売り場を作るか」がまったく違います。
+                </p>
+                <div class="space-y-3 my-6">
+                    <div class="step-box" style="border-left:5px solid var(--tt);">
+                        <p class="font-bold text-gray-800">① 動画（クリエイター or 自社）が需要を“作る”</p>
+                        <p class="text-sm text-gray-600 mt-1">商品の世界観や使いどころをショート動画で見せ、「欲しい」を喚起する。検索と違い、ここで初めて出会ってもらう。</p>
+                    </div>
+                    <p class="text-center text-gray-300">▼</p>
+                    <div class="step-box" style="border-left:5px solid var(--cyan);">
+                        <p class="font-bold text-gray-800">② 動画から、その場で購入に飛ぶ</p>
+                        <p class="text-sm text-gray-600 mt-1">動画に付いた商品リンクから、TikTok内のショップで完結。離脱が少なく、衝動が冷めないうちに買える。</p>
+                    </div>
+                    <p class="text-center text-gray-300">▼</p>
+                    <div class="step-box" style="border-left:5px solid var(--primary-color);">
+                        <p class="font-bold text-gray-800">③ 売れた実績が、次の露出と信頼を呼ぶ</p>
+                        <p class="text-sm text-gray-600 mt-1">売れるほどショップの評価が上がり、優遇枠が解放され、さらに売れやすくなる（詳しくは第5章）。</p>
+                    </div>
+                </div>
+                <p>
+                    Amazonでは「自社が広告を出して売り場を作る」のが基本ですが、TikTok Shopでは<span class="marker">大勢のクリエイターに動画を作ってもらい、彼らが売り場（＝動画）を量産してくれる</span>のが大きな違いです。だから「いかにクリエイターに扱ってもらうか」が運用の中心になります。
+                </p>
+            </section>
+
+            <section id="creator">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">3. クリエイターは「お願い」では動かない</h2>
+                <p>
+                    クリエイターに商品を扱ってもらうには、頼み込むのではなく<strong>「彼らが得をする設計」</strong>を用意する必要があります。私たちが整えたのは、ざっくり次の4点です。
+                </p>
+                <figure class="my-5 overflow-x-auto">
+                    <table class="data">
+                        <thead>
+                            <tr><th>クリエイター側のメリット</th><th>こちらが用意したこと</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td style="text-align:left;">売れたら報酬が入る</td><td style="text-align:left;">アフィリエイト報酬をしっかり設定</td></tr>
+                            <tr><td style="text-align:left;">在庫リスクなく試せる</td><td style="text-align:left;">撮影用サンプルを無償で提供</td></tr>
+                            <tr><td style="text-align:left;">動画が伸びやすい</td><td style="text-align:left;">人気ブランド名というおすすめに乗りやすい“素材”</td></tr>
+                            <tr><td style="text-align:left;">バズればフォロワーが増える</td><td style="text-align:left;">購買意欲の高い視聴者が集まるテーマ設計</td></tr>
+                        </tbody>
+                    </table>
+                </figure>
+                <p>
+                    ポイントは<span class="marker">「人気ブランド名」という、おすすめ表示に乗りやすい強い素材を渡せること</span>。クリエイターにとって「伸びる動画が作りやすい商品」は、それ自体が扱う理由になります。報酬・サンプル・伸びやすさ・フォロワー増——この4つが揃って初めて、クリエイターは自発的に動いてくれます。
+                </p>
+            </section>
+
+            <section id="video">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">4. バズ動画の「型」：黄金の4ステップ</h2>
+                <p>
+                    伸びる動画は、センスより<strong>構成（型）</strong>で再現できます。私たちが整理したのは、20〜30秒に収める4ステップ構成です。
+                </p>
+                <div class="space-y-3 my-6">
+                    <div class="step-box" style="border-left:5px solid var(--tt);">
+                        <p class="font-bold text-gray-800">STEP1 共感フック（0〜2秒）</p>
+                        <p class="text-sm text-gray-600 mt-1">冒頭に大きなテキストで悩みを提示。「高くて買えない」「失敗したくない」など、最初の2秒で“自分ごと”にさせる。</p>
+                    </div>
+                    <div class="step-box" style="border-left:5px solid var(--tt);">
+                        <p class="font-bold text-gray-800">STEP2 権威・憧れ（3〜10秒）</p>
+                        <p class="text-sm text-gray-600 mt-1">ブランドの世界観や実店舗の雰囲気で「憧れ」を刺激する。欲しい気持ちを最大化する。</p>
+                    </div>
+                    <div class="step-box" style="border-left:5px solid var(--tt);">
+                        <p class="font-bold text-gray-800">STEP3 解決策（11〜20秒）</p>
+                        <p class="text-sm text-gray-600 mt-1">「お試しサイズなら気軽に試せる」と、踏み出せなかった不安を解く具体策を提示。</p>
+                    </div>
+                    <div class="step-box" style="border-left:5px solid var(--tt);">
+                        <p class="font-bold text-gray-800">STEP4 購入導線（21〜30秒）</p>
+                        <p class="text-sm text-gray-600 mt-1">最後にショップへ誘導。気持ちが温まったその場で買える状態にする。</p>
+                    </div>
+                </div>
+                <p class="note-good p-4 rounded-r">
+                    <span class="marker">「共感 → 憧れ → 解決 → 購入」</span>。この順番を外さなければ、属人的なセンスに頼らず、誰が作っても一定の質に乗せられます。型をクリエイターと共有することが、量産の土台になりました。
+                </p>
+            </section>
+
+            <section id="sps">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">5. 見落とされがちな主役：ショップ評価スコア（SPS）</h2>
+                <p>
+                    ここからが、始める前にはまったく知らなかった——でも<strong>いちばん重要だった</strong>話です。TikTok Shopには、ショップの状態を点数化した<strong>評価スコア（SPS）</strong>があります。配送や対応の質などで決まるこのスコアが、売れ方を大きく左右します。
+                </p>
+                <p>なぜ重要かというと、<span class="marker">スコアが一定の水準を超えると「TikTok側が費用を負担する強力な割引（新規購入者向けの大幅オフなど）」が解放される</span>からです。自社の利益を削らずに「初めての人が買いやすい価格」を出せる——この優遇枠を使えるかどうかで、売上の伸び方がまるで違います。</p>
+                <figure class="my-5 overflow-x-auto">
+                    <table class="data">
+                        <thead>
+                            <tr><th>スコアの仕組み（一般的な目安）</th><th>意味すること</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td style="text-align:left;">一定件数の配送完了で<br>スコアの付与が始まる</td><td style="text-align:left;">最初の数十件を捌くまでは、そもそも評価が始まらない</td></tr>
+                            <tr><td style="text-align:left;">新規ショップには<br>最低スコアが保護として与えられる</td><td style="text-align:left;">スタート直後は守られるが、実績で上書きされていく</td></tr>
+                            <tr><td style="text-align:left;">スコアが高いと<br>TikTok負担の割引枠が解放</td><td style="text-align:left;color:var(--good);font-weight:700;">利益を削らずに「買いやすい価格」を打てる</td></tr>
+                        </tbody>
+                    </table>
+                    <figcaption class="text-xs text-gray-400 text-center mt-1">※ 閾値や名称はプラットフォームの仕様変更で変わり得ます。考え方の理解用としてご覧ください。</figcaption>
+                </figure>
+                <p class="note-tt p-4 rounded-r">
+                    広告で殴り合うAmazonの感覚で入ると、この「スコアが優遇を解放する」構造を見落とします。<strong>TikTok Shopでは、配送やキャンセル率といった“地味な運用品質”が、そのまま販促の武器（割引枠）に化ける</strong>。スコアを守ることは、攻めの施策そのものです。
+                </p>
+            </section>
+
+            <section id="initial">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">6. なぜ「初期の販売数量」がここまで効くのか</h2>
+                <p>
+                    前章と地続きで、もうひとつ重要なのが<strong>初速＝最初の販売数量</strong>です。理由は3つあります。
+                </p>
+                <div class="space-y-4 mt-4">
+                    <div class="p-5 rounded-lg border" style="border-color:var(--border-color);border-left:5px solid var(--tt);">
+                        <p class="font-bold text-gray-800">① 評価スコアの“スイッチ”が入る</p>
+                        <p class="text-sm mt-1 text-gray-600">スコアの付与は「一定件数の配送完了」がトリガー。最初の数十件を積めないと、TikTok負担の割引などの優遇が解放されない。</p>
+                    </div>
+                    <div class="p-5 rounded-lg border" style="border-color:var(--border-color);border-left:5px solid var(--tt);">
+                        <p class="font-bold text-gray-800">② アルゴリズムの“初動”が付く</p>
+                        <p class="text-sm mt-1 text-gray-600">早い段階で売れた商品・動画は、おすすめに乗りやすくなる。初速がそのまま露出の差に変わる。</p>
+                    </div>
+                    <div class="p-5 rounded-lg border" style="border-color:var(--border-color);border-left:5px solid var(--tt);">
+                        <p class="font-bold text-gray-800">③ クリエイターが「扱う理由」になる</p>
+                        <p class="text-sm mt-1 text-gray-600">すでに売れている商品はクリエイターも安心して扱える。初速は次の動画を呼ぶ。</p>
+                    </div>
+                </div>
+                <p class="mt-5">
+                    だから私たちは、立ち上げ初期に<span class="marker">「最初の数十件をどう作るか」を“運任せ”にせず、先に設計しました</span>。知り合いやファンへの声かけも含め、人力ででも初速を作りにいく。きれいごとに聞こえるかもしれませんが、<strong>このスイッチが入るまでの最初の山を越えられるかどうかが、その後の伸びを決めます</strong>。
+                </p>
+                <p class="note-good p-4 rounded-r">
+                    売上は、伸びた一部の商品・動画に大きく偏ります。だからこそ<strong>「初速で“当たり”を1つ作れるか」</strong>が全体を左右する。最初から薄く広げるより、<span class="marker">1点に初速を集中させてスイッチを入れる</span>ほうが、結果的に早く回り始めます。
+                </p>
+            </section>
+
+            <section id="lesson">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">7. 運用して分かったこと（薄利・自動化・つまずき）</h2>
+                <div class="space-y-4 mt-4">
+                    <div class="p-5 rounded-lg border" style="border-color:var(--border-color);border-left:5px solid var(--cyan);">
+                        <p class="font-bold text-gray-800">薄利だからこそ「他人のお金で割引する」</p>
+                        <p class="text-sm mt-1 text-gray-600">手数料・送料・割引・広告が乗ると、利益は薄くなります。だから<strong>TikTokが費用を負担してくれる割引枠や、新規向けの広告クレジット</strong>を取りにいく。自社のお金を削らずに攻める設計が、薄利チャネルの肝でした。</p>
+                    </div>
+                    <div class="p-5 rounded-lg border" style="border-color:var(--border-color);border-left:5px solid var(--cyan);">
+                        <p class="font-bold text-gray-800">繰り返す作業はAPI・スクリプトで自動化</p>
+                        <p class="text-sm mt-1 text-gray-600">商品情報の更新・クーポンやセールの設定・売上データの会計仕訳への変換などは、手作業を避けてプログラムで処理。<strong>運用の手間を減らし、人は“伸ばす施策”に集中</strong>します。</p>
+                    </div>
+                    <div class="p-5 rounded-lg border" style="border-color:var(--border-color);border-left:5px solid var(--alert);">
+                        <p class="font-bold text-gray-800">管理画面が“素直に動かない”という現実</p>
+                        <p class="text-sm mt-1 text-gray-600">TikTok Shopの管理画面は特殊な作りで、一般的な自動入力が効かない場面がありました。こうした<strong>泥臭い実務の壁</strong>は、実際にやってみないと見えません。出来合いの想定通りには進まない、というのも学びです。</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="type">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">8. 他のチャネルにも効く学び</h2>
+                <p>
+                    TikTok Shopの話ですが、考え方は新しい販路に挑むとき全般に効きます。型としてまとめます。
+                </p>
+                <div class="space-y-6 mt-6">
+                    <div class="flex gap-4">
+                        <span class="font-serif-jp text-2xl primary-color flex-shrink-0" style="line-height:1.2;">01</span>
+                        <div><p class="font-bold text-gray-800">「憧れ × 気軽さ」のギャップは拡散しやすい</p><p class="text-sm mt-1 text-gray-600">高い・憧れる商材を「お試し／少量」で再パッケージすると、動画で需要を作りやすい。</p></div>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="font-serif-jp text-2xl primary-color flex-shrink-0" style="line-height:1.2;">02</span>
+                        <div><p class="font-bold text-gray-800">バズは「型」で再現する</p><p class="text-sm mt-1 text-gray-600">共感→憧れ→解決→購入。属人芸に頼らず、構成として共有できる形にする。</p></div>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="font-serif-jp text-2xl primary-color flex-shrink-0" style="line-height:1.2;">03</span>
+                        <div><p class="font-bold text-gray-800">人に動いてもらうなら「相手の得」を設計する</p><p class="text-sm mt-1 text-gray-600">クリエイターは頼みでは動かない。報酬・素材・伸びやすさをこちらが用意する。</p></div>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="font-serif-jp text-2xl primary-color flex-shrink-0" style="line-height:1.2;">04</span>
+                        <div><p class="font-bold text-gray-800">プラットフォームの「スコアと初速」を先に読む</p><p class="text-sm mt-1 text-gray-600">優遇枠が解放される条件を最初に把握し、初期の販売数量を“設計”しておく。</p></div>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="font-serif-jp text-2xl primary-color flex-shrink-0" style="line-height:1.2;">05</span>
+                        <div><p class="font-bold text-gray-800">薄利のチャネルは「他人のお金」を取りにいく</p><p class="text-sm mt-1 text-gray-600">プラットフォーム負担の割引・クレジットを使い、自社の利幅を守りながら攻める。</p></div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="p-8 rounded-xl border text-center mt-12" style="border-color:var(--border-color);background:#fdeef4;">
+                <h3 class="font-serif-jp text-xl font-bold mb-4 text-gray-800">「新しい販路、何から手をつければ？」と迷ったとき</h3>
+                <p class="mb-6 text-left md:text-center">
+                    TikTok Shopに限らず、新しいチャネルは「とりあえず始める」と続きません。<strong>その場の“勝ち方の構造”（スコア・初速・誰が売り場を作るか）を先に読み、自社の商材をどう乗せるか</strong>から一緒に設計します。<br>
+                    Amazon・楽天・TikTok Shopなど、多チャネル展開のご相談を承ります。
+                </p>
+                <a href="https://calendar.app.google/TZrQ5YLexng2gPRV8" target="_blank" class="btn-primary inline-block px-8 py-4 rounded-lg font-bold text-lg shadow-lg transform hover:-translate-y-1 transition duration-300">
+                    無料相談を予約する（30分）
+                </a>
+            </div>
+        </div>
+
+        <div class="mt-10 text-center">
+            <a href="./index.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium transition-colors">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                業務改善コラム一覧に戻る
+            </a>
+        </div>
+    </article>
+
+    <footer class="text-gray-400 py-8 mt-12 text-center text-xs" style="background:var(--primary-color-dark);">
+        <p>© 2026 合同会社ヤシノミ All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

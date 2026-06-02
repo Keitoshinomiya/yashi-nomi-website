@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PBN7WNCX8N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-PBN7WNCX8N');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="広告が一切打てないニッチ市場（成人向け雑貨）に、あるCBD系メーカー様とコックリングで新規参入する。私たちが『市場はそもそも在るのか』を海外の実売データで確かめ、原価を逆引きで詰め、提案書をV5からV11まで削り込んで“小さく賭けて早く見極める”計画に落とすまでの意思決定を、金額は相対値で公開します。">
+    <title>「市場はあるか」を勘で決めない：広告が打てないニッチ製品で、参入をどう判断したか － 合同会社ヤシノミ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0a3d62;
+            --primary-color-dark: #06283d;
+            --accent-orange: #FF9900;
+            --border-color: #e5e7eb;
+            --teal: #2C7A7B;
+            --amber: #C2913E;
+            --good: #4E7C59;
+            --alert: #B23A3A;
+        }
+        body { font-family: 'Noto Sans JP', sans-serif; color: #1f2937; background-color: #f8f9fa; }
+        .font-serif-jp { font-family: 'Noto Serif JP', serif; }
+        .primary-color { color: var(--primary-color); }
+        .text-accent { color: var(--accent-orange); }
+        .btn-primary { background-image: linear-gradient(to right, #0a3d62 0%, #06283d 50%, #0a3d62 100%); background-size: 200% auto; color: white; }
+        .btn-primary:hover { background-position: right center; }
+        .marker { background: linear-gradient(transparent 60%, #cdeceb 60%); font-weight: 700; }
+        .prose h2 { scroll-margin-top: 80px; }
+        .toc a:hover { color: var(--primary-color); text-decoration: underline; }
+        table.data { width:100%; border-collapse:collapse; font-size:0.85rem; }
+        table.data th { background:var(--primary-color); color:#fff; font-weight:700; padding:8px 10px; text-align:center; }
+        table.data td { border:1px solid var(--border-color); padding:7px 10px; text-align:center; }
+        table.data tr:nth-child(even) td { background:#f8f9fa; }
+        .stair { color:#fff; border-radius:10px; padding:14px 16px; }
+        .note-good { background:#eef5ef; border-left:4px solid var(--good); }
+        .note-alert { background:#fbeeee; border-left:4px solid var(--alert); }
+        .note-teal { background:#eef5f5; border-left:4px solid var(--teal); }
+    </style>
+
+    <link rel="icon" href="https://yashi-nomi.com/images/logo.png" type="image/png" sizes="192x192">
+    <link rel="apple-touch-icon" href="https://yashi-nomi.com/images/logo.png">
+</head>
+<body>
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="../index.html" class="flex items-center gap-2">
+                <img src="../images/logo.png" alt="ヤシノミ ロゴ" class="h-8 w-auto">
+                <span class="font-bold primary-color">合同会社ヤシノミ</span>
+            </a>
+            <a href="https://calendar.app.google/TZrQ5YLexng2gPRV8" target="_blank" class="btn-primary px-4 py-2 rounded text-sm font-bold transition shadow-md">無料相談を予約</a>
+        </div>
+    </header>
+
+    <article class="container mx-auto px-6 py-12 max-w-4xl bg-white mt-8 rounded-xl shadow-sm">
+        <div class="flex items-center gap-2 mb-4">
+            <span class="text-white text-xs font-bold px-3 py-1 rounded" style="background:var(--accent-orange);">Amazonコラム</span>
+            <span class="text-gray-400 text-xs">商品開発・市場参入</span>
+        </div>
+        <h1 class="font-serif-jp text-3xl md:text-4xl font-bold mt-2 mb-4 leading-tight text-gray-800" style="letter-spacing:0.02em;">
+            「市場はあるか」を、勘で決めない
+            <span class="text-xl md:text-2xl mt-3 block text-gray-600 font-normal">― 広告が打てないニッチ製品で、参入をどう判断したか</span>
+        </h1>
+        <p class="text-sm text-gray-400 mb-8">Amazonコラム ／ 商品開発・市場参入 ／ 読了目安：約15分</p>
+
+        <div class="prose max-w-none text-gray-700 leading-relaxed space-y-8">
+            <p class="text-lg font-medium leading-8 pl-4 p-4 rounded-r note-teal">
+                新しい商品を出すとき、いちばん怖いのは「売れなかったらどうしよう」ではありません。<strong>「そもそも、その市場は本当に在るのか」を確かめないまま走り出すこと</strong>です。<br>
+                この記事は、私たちがあるメーカー様と進めている新規商品の開発を題材に、<span class="marker">勘や勢いではなく、数字で「市場の有無」を確かめてから参入を決めた</span>過程を公開します。これは特殊な商材の話ではなく、業種を問わず使える「参入判断の型」の実例です。
+            </p>
+
+            <p class="text-sm text-gray-500 bg-gray-50 border rounded-lg p-4" style="border-color:var(--border-color);">
+                ※ この事例は、当社がAmazon展開を支援している<strong>あるCBD系メーカー様</strong>と進めている新規商品開発のものです。題材の製品は<strong>成人向けの雑貨（コックリング＝シリコン製のリング雑貨）</strong>で、製品ジャンルはそのまま記載しますが、<strong>クライアント名・競合ブランド名・仕入先・具体的な金額は伏せ</strong>、市場規模や採算は<strong>相対値や割合</strong>でお見せします。本記事の主題はあくまで「市場の有無をどう確かめ、参入をどう判断したか」という<strong>意思決定の型</strong>です。数値はすべて、当社が実際の検討に用いたデータに基づきます。
+            </p>
+
+            <!-- 目次 -->
+            <nav class="toc text-sm bg-gray-50 border rounded-lg p-5" style="border-color:var(--border-color);">
+                <p class="font-bold text-gray-800 mb-3">この記事の内容</p>
+                <ol class="list-decimal pl-5 space-y-1.5 text-gray-600">
+                    <li><a href="#why">なぜ「広告が打てない市場」をあえて狙うのか</a></li>
+                    <li><a href="#demand">市場の有無は「海外の実売データ」で確かめる</a></li>
+                    <li><a href="#domestic">国内市場の地形：競合の厚みと「空白」</a></li>
+                    <li><a href="#cost">原価は「完成品から逆引き」で詰める</a></li>
+                    <li><a href="#decision">「進める」と決めた判断ロジック</a></li>
+                    <li><a href="#design">商品設計：1パッケージを起点にした「階段」</a></li>
+                    <li><a href="#evolution">提案書はV5→V11で何を削ったか</a></li>
+                    <li><a href="#now">いまの正直な現在地</a></li>
+                    <li><a href="#type">業種を問わず使える「参入判断の型」</a></li>
+                </ol>
+            </nav>
+
+            <section id="why">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">1. なぜ「広告が打てない市場」をあえて狙うのか</h2>
+                <p>
+                    話は、あるCBD系メーカー様のAmazon販売支援から始まりました。その関係の延長で「新しい収益の柱を作れないか」という相談をいただき、候補に挙がったのが<strong>成人向けの雑貨</strong>という市場でした。
+                </p>
+                <p>
+                    成人向けの雑貨には、ひとつ大きな特徴があります。<span class="marker">Amazon広告も、Google広告も、Yahoo!広告も、原則すべて出稿できない</span>のです。普通に考えれば「集客手段が封じられている＝不利な市場」です。多くの会社はここで候補から外します。
+                </p>
+                <p>
+                    ですが、私たちは逆に読みました。<strong>「広告が打てない」ということは、後発が広告費を積んで一気に追い抜く、という戦い方が成立しない市場だ</strong>ということです。つまり、
+                </p>
+                <p class="note-teal p-4 rounded-r">
+                    <strong>すでに自社メディアや既存の集客導線を持っている事業者だけが、構造的に優位に立てる市場</strong>——これが狙いの核心でした。今回のクライアント様は、すでにその領域で見られているメディアとSNSを持っています。「広告NG」という一見の弱点が、メディアを持つ側にとっては<strong>参入障壁＝味方</strong>に反転する。ここに勝ち筋があると考えました。
+                </p>
+                <p>
+                    そのうえで、成人向け雑貨の中から具体的な製品を1つ選ぶ段階に入ります。複数のジャンルを「①規制・出品停止リスク ②原価 ③検索需要」の3条件で並べ、すべてを満たしたのが<strong>コックリング</strong>でした。理由は4つです。
+                </p>
+                <div class="space-y-3 mt-4">
+                    <div class="p-4 rounded-lg border" style="border-color:var(--border-color);border-left:5px solid var(--teal);">
+                        <p class="font-bold text-gray-800">① 規制リスクが小さい</p>
+                        <p class="text-sm mt-1 text-gray-600">電気を使わない単純なシリコン雑貨として登録できるため、法規制（電気用品・医療機器など）の対象になりにくく、出品停止リスクが最小。</p>
+                    </div>
+                    <div class="p-4 rounded-lg border" style="border-color:var(--border-color);border-left:5px solid var(--teal);">
+                        <p class="font-bold text-gray-800">② 原価が圧倒的に安い</p>
+                        <p class="text-sm mt-1 text-gray-600">構造が単純な小物のため、製造原価が販売価格に対して非常に低く抑えられる。価格競争に耐える体力を持てる。</p>
+                    </div>
+                    <div class="p-4 rounded-lg border" style="border-color:var(--border-color);border-left:5px solid var(--teal);">
+                        <p class="font-bold text-gray-800">③ 検索需要が十分にある</p>
+                        <p class="text-sm mt-1 text-gray-600">指名検索・一般検索ともに、毎月一定の検索が立っている。「誰も探していない」市場ではない。</p>
+                    </div>
+                    <div class="p-4 rounded-lg border" style="border-color:var(--border-color);border-left:5px solid var(--teal);">
+                        <p class="font-bold text-gray-800">④ 「当たり判定」が早い</p>
+                        <p class="text-sm mt-1 text-gray-600">小さな投資で出せるので、続けるか撤退するかを短期間・少額で判断できる。失敗しても致命傷にならない。</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="demand">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">2. 市場の有無は「海外の実売データ」で確かめる</h2>
+                <p>
+                    候補が決まっても、まだ参入は決めません。次にやったのは、<strong>「この市場に、お金を払う人が本当にいるのか」を自分の感想抜きで確かめる</strong>ことです。
+                </p>
+                <p>
+                    ここで使ったのが<span class="marker">「先に伸びている海外市場の実売データを、需要の代理指標にする」</span>という手法です。同じカテゴリで先行している海外Amazonの上位商品について、販売規模・レビュー数・評価・カテゴリ順位（BSR）を取得し、「この商品ジャンルは、現実にこれだけ売れている」という事実を確認しました。
+                </p>
+                <p>
+                    結論は明快でした。<strong>海外では、同種の商品が安定して大量に売れている</strong>。レビューは数千件規模で積み上がり、評価も高い。<span class="marker">需要は「あるかもしれない」ではなく「すでに実証されている」</span>と判断できる水準でした。一方、日本市場には同じだけのレビュー資産を持つ専業プレイヤーが見当たらない。つまり<strong>需要は証明済み・供給は手薄</strong>。これが参入を後押しする最初の根拠になりました。
+                </p>
+
+                <figure class="my-6">
+                    <p class="text-sm font-bold text-gray-700 mb-2 text-center">海外上位3商品の「レビューの厚み」（最大＝100とした相対比）</p>
+                    <svg viewBox="0 0 720 230" width="100%" role="img" aria-label="海外上位3商品のレビュー数の相対比較">
+                        <line x1="120" y1="40" x2="120" y2="185" stroke="#d8e3e3" stroke-width="1"/>
+                        <!-- bars -->
+                        <rect x="120" y="50"  width="450" height="34" rx="4" fill="#2C7A7B"/>
+                        <rect x="120" y="100" width="166" height="34" rx="4" fill="#7aa6a6"/>
+                        <rect x="120" y="150" width="86"  height="34" rx="4" fill="#aac6c6"/>
+                        <g font-family="Noto Sans JP" font-size="13" fill="#374151">
+                            <text x="112" y="72"  text-anchor="end">上位①</text>
+                            <text x="112" y="122" text-anchor="end">上位②</text>
+                            <text x="112" y="172" text-anchor="end">上位③</text>
+                        </g>
+                        <g font-family="Noto Sans JP" font-size="13" font-weight="700" fill="#1f2937">
+                            <text x="582" y="72">100</text>
+                            <text x="298" y="122">37</text>
+                            <text x="218" y="172">19</text>
+                        </g>
+                    </svg>
+                    <figcaption class="text-xs text-gray-400 text-center mt-1">※ 海外Amazon同カテゴリ上位3商品のレビュー数を、最大の1商品を100とした相対値。いずれもブランド名は伏せています。これだけのレビューが積み上がる＝それだけ売れている、という需要の代理指標です。</figcaption>
+                </figure>
+
+                <p class="note-good p-4 rounded-r">
+                    ポイントは、<strong>「自分が売りたいかどうか」ではなく「すでに売れている事実があるか」から入る</strong>こと。海外の実売データは、自社の願望が混ざらない“他人の財布”の記録です。需要の有無を確かめる最初の一歩として、これ以上に正直な指標はありません。
+                </p>
+            </section>
+
+            <section id="domestic">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">3. 国内市場の地形：競合の厚みと「空白」</h2>
+                <p>
+                    需要があると分かったら、次は<strong>「日本で、誰が、どう戦っているか」</strong>を地図にします。価格帯・強み・弱みで主要プレイヤーを並べると、市場の地形が見えてきました。
+                </p>
+                <figure class="my-5 overflow-x-auto">
+                    <table class="data">
+                        <thead>
+                            <tr><th>プレイヤー類型</th><th>価格帯</th><th>強み</th><th>弱み（＝こちらの余地）</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>海外OEMの無印・乱立品</td><td>下限</td><td>とにかく安い</td><td style="color:var(--alert);">日本語の説明・サポートが弱い／ブランド不在</td></tr>
+                            <tr><td>大手メーカー系</td><td>上限</td><td>ブランド力・信頼</td><td>価格が高く、ニッチ形状は手薄</td></tr>
+                            <tr><td style="font-weight:700;">空いている中間帯</td><td style="font-weight:700;">中</td><td colspan="2" style="text-align:left;color:var(--teal);font-weight:700;">日本語のていねいな説明・サポート＋ブランドで戦える“専業”が不在＝ここが狙い目</td></tr>
+                        </tbody>
+                    </table>
+                </figure>
+                <p>
+                    地形はシンプルでした。<span class="marker">「最安の無印品」と「高い大手」に二極化していて、その間が空いている</span>。しかも無印品はLP（商品ページ）や問い合わせ対応の品質が低い。日本語でていねいに説明し、ブランドとして信頼を積む“専業”がいない。<strong>需要は実証済み・上位は薄い・中間は空白</strong>——参入余地は十分にある、という二つ目の根拠です。
+                </p>
+            </section>
+
+            <section id="cost">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">4. 原価は「完成品から逆引き」で詰める</h2>
+                <p>
+                    「売れそう」だけでは事業になりません。<strong>その値段で、利益が残るのか</strong>。ここを詰めるために、海外で実際に売れている完成品を起点に、<span class="marker">画像から製造元を逆引きで探す</span>という調べ方をしました。
+                </p>
+                <p>
+                    やり方はこうです。売れている完成品の商品画像を、画像検索で現地（中国）の調達プラットフォームにかけ、同型を作っている製造元の候補を洗い出す。テキスト検索だと規制ワードでブロックされてしまう領域なので、<strong>画像検索が突破口</strong>になりました。出てきた製造元を「取引実績・再購入率・出店年数・取り扱い種類」で評価し、有力な候補を数社に絞り込みます。
+                </p>
+                <p>
+                    結果として分かったのは、<strong>原価が海外での販売価格の十数分の一以下に収まる</strong>という低原価構造でした。これなら、無印の安売り品と価格で殴り合わずとも、中間帯で十分な利幅を確保できる。<span class="marker">「売れる」と「儲かる」の両方に、別々のデータで裏が取れた</span>ことになります。
+                </p>
+                <p class="text-sm text-gray-600 bg-gray-50 border-l-4 pl-4 py-3" style="border-color:var(--primary-color);">
+                    ※ 具体的な原価・売価・粗利率、製造元の社名は機密のため伏せています。ここでお伝えしたいのは金額そのものではなく、<strong>「完成品 → 製造元 → 原価」と逆向きにたどれば、参入前に採算の見当がつけられる</strong>という調べ方の型です。
+                </p>
+            </section>
+
+            <section id="decision">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">5. 「進める」と決めた判断ロジック</h2>
+                <p>
+                    ここまでの材料を、提案書（社内・クライアント向けのPPT）では3つの問いに整理しました。これが「進める」と決めた判断の骨格です。
+                </p>
+                <div class="space-y-4 mt-5">
+                    <div class="p-5 rounded-lg border" style="border-color:var(--border-color);border-left:5px solid var(--teal);">
+                        <p class="font-bold text-gray-800">問い①：なぜ、この市場か？</p>
+                        <p class="text-sm mt-1 text-gray-600">広告が打てない＝メディアを持つ側だけが勝てる市場。クライアントはその条件を満たす数少ない事業者。</p>
+                    </div>
+                    <div class="p-5 rounded-lg border" style="border-color:var(--border-color);border-left:5px solid var(--teal);">
+                        <p class="font-bold text-gray-800">問い②：なぜ、この1商品に集中するのか？</p>
+                        <p class="text-sm mt-1 text-gray-600">規制リスクが最小で、原価が安く、当たり判定が早い。あれこれ手を広げず、まず1点で勝ち筋を確かめる。</p>
+                    </div>
+                    <div class="p-5 rounded-lg border" style="border-color:var(--border-color);border-left:5px solid var(--teal);">
+                        <p class="font-bold text-gray-800">問い③：失敗したら、どれだけ痛いのか？</p>
+                        <p class="text-sm mt-1 text-gray-600">初期投資を小さく抑えられるため、外れても損失は限定的。撤退も容易。逆に当たれば大きく伸びる。</p>
+                    </div>
+                </div>
+                <p class="mt-5">
+                    この3問の答えが指していたのは、ひとつの方針です。
+                </p>
+                <div class="rounded-xl p-6 my-4 text-center" style="background:linear-gradient(135deg,var(--teal),var(--primary-color-dark));">
+                    <p class="text-white text-sm opacity-80 mb-1">この事業の性格</p>
+                    <p class="font-serif-jp text-3xl text-white font-bold">小さく賭けて、早く見極める</p>
+                    <p class="text-white text-sm opacity-90 mt-2">想定最大損失に対し、初年度の見込み粗利は概ね「十数倍以上」の非対称な賭け</p>
+                </div>
+                <p>
+                    数字の細部は伏せますが、構図は<span class="marker">「負けても小さく、勝てば大きい」という非対称な賭け</span>です。最大損失が小さいからこそ、迷っている時間より「まず試す」価値が上回る。ここで初めて「進める」と判断しました。<strong>需要（海外実売）・余地（国内地形）・採算（逆引き原価）・リスク（非対称性）の4点すべてに、別々の根拠で裏が取れてからの決定</strong>です。
+                </p>
+            </section>
+
+            <section id="design">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">6. 商品設計：1パッケージを起点にした「階段」</h2>
+                <p>
+                    参入を決めたら、次は「どう売るか」の設計です。いきなり多品種を並べるのではなく、<strong>お客様に一段ずつ上ってもらう「階段」</strong>を引きました。これは私たちがECで日常的に使う考え方そのものです。
+                </p>
+                <div class="space-y-2 my-6">
+                    <div class="stair" style="background:var(--amber);margin-left:0;">
+                        <p class="text-xs font-bold opacity-80 tracking-widest">Phase 3</p>
+                        <p class="font-bold">プレミアムセット ｜ ブランドの「顔」・贈答にも耐える上位商品</p>
+                        <p class="text-xs opacity-90 mt-1">価格で戦わず「ここでしか買えない」という意味で売る</p>
+                    </div>
+                    <p class="text-center text-gray-400 text-sm">▲ 一段ずつ上ってもらう</p>
+                    <div class="stair" style="background:var(--teal);margin-left:0;">
+                        <p class="text-xs font-bold opacity-80 tracking-widest">Phase 2</p>
+                        <p class="font-bold">単品リフィル ｜ 気に入った形状を買い足す。リピート・LTVの主戦場</p>
+                        <p class="text-xs opacity-90 mt-1">メディア・LINE経由の限定導線で継続購入につなげる</p>
+                    </div>
+                    <p class="text-center text-gray-400 text-sm">▲</p>
+                    <div class="stair" style="background:#7aa6a6;margin-left:0;">
+                        <p class="text-xs font-bold opacity-80 tracking-widest">Phase 1（起点）</p>
+                        <p class="font-bold">複数形状の「お試しセット」 ｜ 1パッケージで何種類かを試せる</p>
+                        <p class="text-xs opacity-90 mt-1">「どれが合うか分からない」という最初の不安を、セットで解消する入口</p>
+                    </div>
+                </div>
+                <p>
+                    起点は<strong>「複数の形状をひとつのパッケージで試せるお試しセット」</strong>。この市場の最初の不安は「自分にどれが合うか分からない」です。だからまず全部試せる入口を置き、気に入ったものを単品で買い足してもらい（Phase2）、最終的にブランドの上位商品へ（Phase3）。差別化の柱は<strong>日本語のていねいな説明とサポート・セット販売・既存メディアからの流入・レビューの先行蓄積</strong>。広告が打てないぶん、メディアとレビューで「先に信頼を積んだ者が勝つ」設計です。
+                </p>
+                <p class="text-sm text-gray-600 bg-gray-50 border-l-4 pl-4 py-3" style="border-color:var(--primary-color);">
+                    ブランド保全のため、支援先の本体ブランド（CBD系）とは<strong>別ストア・別ブランド・無地配送</strong>で運用します。本業のブランドイメージに、新規事業のリスクを波及させない。これも参入設計の一部です。
+                </p>
+            </section>
+
+            <section id="evolution">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">7. 提案書はV5→V11で何を削ったか</h2>
+                <p>
+                    ここが、この事例でいちばんお見せしたい部分です。提案書は一発で完成したわけではありません。<strong>V5からV11まで版を重ね、そのたびに「楽観」を削り、「現実」に寄せていきました。</strong>提案書は飾る書類ではなく、<span class="marker">意思決定を磨くための“過程の記録”</span>として使っています。
+                </p>
+                <figure class="my-5 overflow-x-auto">
+                    <table class="data">
+                        <thead>
+                            <tr><th>版</th><th>性格</th><th>このとき何を変えたか</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td style="font-weight:700;">V5</td><td>初版・構想</td><td style="text-align:left;">3年ロードマップや横展開まで含む“壮大版”。ジャンル選定の論理を構築。</td></tr>
+                            <tr><td style="font-weight:700;">V8</td><td style="color:var(--amber);">現実方向へ補正</td><td style="text-align:left;">初期投資を引き上げ（商標・デザイン費を計上）、リターン倍率を下方修正。<strong>「事業の前に確認すべきこと」スライドを新設</strong>し、メディアの実数値・体制をクライアントに問う。</td></tr>
+                            <tr><td style="font-weight:700;">V11</td><td style="color:var(--good);">実行計画へ</td><td style="text-align:left;">壮大な構想を捨て、<strong>「1商品集中・直仕入れ・四半期内ローンチ」の実行計画</strong>へ全面再編。製造元を数社特定し、サンプル発注済みと明記。倍率もさらに現実的な水準に。</td></tr>
+                        </tbody>
+                    </table>
+                </figure>
+                <p>
+                    V5の「夢のある3年計画」から、V11の「地に足のついた実行計画」へ。<strong>初期投資は上方修正し、期待リターンは下方修正</strong>——つまり版を重ねるほど数字は“地味”になっていきました。これは後退ではありません。
+                </p>
+                <p class="note-good p-4 rounded-r">
+                    <span class="marker">提案を作りながら、自分たちの楽観を自分たちで潰していく。</span>原価を願望ではなく実値で積み、確認事項を文書化し、最後はサンプルを実際に発注して机上から現実へ移す。「いい提案書」とは、見栄えではなく<strong>「迷いどころが正直に削り込まれている」</strong>もののことだと考えています。
+                </p>
+            </section>
+
+            <section id="now">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">8. いまの正直な現在地</h2>
+                <p>
+                    では、いまどこまで進んでいるのか。正直にお伝えします。
+                </p>
+                <div class="rounded-xl p-6 my-4 text-center border" style="border-color:var(--border-color);background:#eef5f5;">
+                    <p class="text-sm text-gray-500 mb-1">2026年6月時点</p>
+                    <p class="font-serif-jp text-2xl font-bold" style="color:var(--teal);">企画確定 → 製造元の特定 → サンプル発注済み</p>
+                    <p class="text-sm text-gray-600 mt-2">いまは「サンプルの着荷・品質検証待ち」の段階。<br>撮影・商品ページ制作・出品はこの先で、<strong>売上の結果はまだ出ていません。</strong></p>
+                </div>
+                <p>
+                    成果はまだありません。それでもこの事例を公開するのは、<strong>「市場があるかをどう確かめ、どんな順番で根拠を積み、なぜ進めると決めたか」という考え方こそ、いちばんお見せしたい部分</strong>だからです。結果が出たら、また正直にご報告します。
+                </p>
+            </section>
+
+            <section id="type">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">9. 業種を問わず使える「参入判断の型」</h2>
+                <p>
+                    題材は特殊な商材ですが、私たちがたどった手順は、新商品でも新規事業でも新店舗でも同じように使えます。型としてまとめます。
+                </p>
+                <div class="space-y-6 mt-6">
+                    <div class="flex gap-4">
+                        <span class="font-serif-jp text-2xl primary-color flex-shrink-0" style="line-height:1.2;">01</span>
+                        <div><p class="font-bold text-gray-800">「売りたいか」ではなく「すでに売れているか」から入る</p><p class="text-sm mt-1 text-gray-600">需要の有無は、自分の願望ではなく“他人の財布の記録”（先行市場の実売データ）で確かめる。</p></div>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="font-serif-jp text-2xl primary-color flex-shrink-0" style="line-height:1.2;">02</span>
+                        <div><p class="font-bold text-gray-800">制約を「弱み」ではなく「味方」として読み替える</p><p class="text-sm mt-1 text-gray-600">広告が打てない・参入が面倒——その不利が、すでに条件を満たす自分にとっては参入障壁になることがある。</p></div>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="font-serif-jp text-2xl primary-color flex-shrink-0" style="line-height:1.2;">03</span>
+                        <div><p class="font-bold text-gray-800">「売れる」と「儲かる」を、別々の根拠で確かめる</p><p class="text-sm mt-1 text-gray-600">需要（実売データ）と採算（逆引き原価）は別物。両方に裏が取れて初めて事業になる。</p></div>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="font-serif-jp text-2xl primary-color flex-shrink-0" style="line-height:1.2;">04</span>
+                        <div><p class="font-bold text-gray-800">小さく賭けて、早く見極める</p><p class="text-sm mt-1 text-gray-600">最大損失を小さく設計すれば「まず試す」が正解になる。撤退基準を先に決めておく。</p></div>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="font-serif-jp text-2xl primary-color flex-shrink-0" style="line-height:1.2;">05</span>
+                        <div><p class="font-bold text-gray-800">計画は「楽観を削る過程」として磨く</p><p class="text-sm mt-1 text-gray-600">提案書は飾るものではない。版を重ねて原価を実値に、期待を現実に。最後は実際に動いて机上を出る。</p></div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="p-8 rounded-xl border text-center mt-12" style="border-color:var(--border-color);background:#eef5f5;">
+                <h3 class="font-serif-jp text-xl font-bold mb-4 text-gray-800">「この商品、出して大丈夫だろうか」と迷ったとき</h3>
+                <p class="mb-6 text-left md:text-center">
+                    私たちがまずやるのは、勢いでの「いけます！」でも、不安からの「やめましょう」でもありません。<strong>市場が本当に在るのかを数字で確かめ、採算を逆引きで詰め、小さく試せる形に落とすこと</strong>です。<br>
+                    新商品・新規事業・Amazon展開のご相談、まずは「そもそも市場があるのか」の見立てからお手伝いします。
+                </p>
+                <a href="https://calendar.app.google/TZrQ5YLexng2gPRV8" target="_blank" class="btn-primary inline-block px-8 py-4 rounded-lg font-bold text-lg shadow-lg transform hover:-translate-y-1 transition duration-300">
+                    無料相談を予約する（30分）
+                </a>
+            </div>
+        </div>
+
+        <div class="mt-10 text-center">
+            <a href="./index.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium transition-colors">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                業務改善コラム一覧に戻る
+            </a>
+        </div>
+    </article>
+
+    <footer class="text-gray-400 py-8 mt-12 text-center text-xs" style="background:var(--primary-color-dark);">
+        <p>© 2026 合同会社ヤシノミ All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

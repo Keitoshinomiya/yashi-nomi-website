@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PBN7WNCX8N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-PBN7WNCX8N');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Amazonの自然検索順位・価格・BSRを、なぜ毎日「同じ条件で」追跡するのか。手作業の目視チェックをやめて自動追跡に仕組み化した意思決定と、取得→記録→通知の設計、海外IPで圏外になる等のつまずきまで、実際に運用しているツールの考え方を公開します。">
+    <title>順位を「毎日同じ条件で」見る：Amazon検索順位の追跡を、なぜ仕組み化したか － 合同会社ヤシノミ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0a3d62;
+            --primary-color-dark: #06283d;
+            --accent-orange: #FF9900;
+            --accent-dark: #b8730a;
+            --border-color: #e5e7eb;
+            --good: #4E7C59;
+            --alert: #B23A3A;
+        }
+        body { font-family: 'Noto Sans JP', sans-serif; color: #1f2937; background-color: #f8f9fa; }
+        .font-serif-jp { font-family: 'Noto Serif JP', serif; }
+        .primary-color { color: var(--primary-color); }
+        .text-accent { color: var(--accent-orange); }
+        .btn-primary { background-image: linear-gradient(to right, #0a3d62 0%, #06283d 50%, #0a3d62 100%); background-size: 200% auto; color: white; }
+        .btn-primary:hover { background-position: right center; }
+        .marker { background: linear-gradient(transparent 60%, #ffe7c2 60%); font-weight: 700; }
+        .prose h2 { scroll-margin-top: 80px; }
+        .toc a:hover { color: var(--primary-color); text-decoration: underline; }
+        table.data { width:100%; border-collapse:collapse; font-size:0.85rem; }
+        table.data th { background:var(--primary-color); color:#fff; font-weight:700; padding:8px 10px; text-align:center; }
+        table.data td { border:1px solid var(--border-color); padding:7px 10px; text-align:center; }
+        table.data tr:nth-child(even) td { background:#f8f9fa; }
+        .note-good { background:#eef5ef; border-left:4px solid var(--good); }
+        .note-alert { background:#fbeeee; border-left:4px solid var(--alert); }
+        .note-amber { background:#fff7ec; border-left:4px solid var(--accent-orange); }
+        .flow-box { border:1px solid var(--border-color); border-radius:10px; padding:14px; background:#fff; text-align:center; }
+    </style>
+
+    <link rel="icon" href="https://yashi-nomi.com/images/logo.png" type="image/png" sizes="192x192">
+    <link rel="apple-touch-icon" href="https://yashi-nomi.com/images/logo.png">
+</head>
+<body>
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="../index.html" class="flex items-center gap-2">
+                <img src="../images/logo.png" alt="ヤシノミ ロゴ" class="h-8 w-auto">
+                <span class="font-bold primary-color">合同会社ヤシノミ</span>
+            </a>
+            <a href="https://calendar.app.google/TZrQ5YLexng2gPRV8" target="_blank" class="btn-primary px-4 py-2 rounded text-sm font-bold transition shadow-md">無料相談を予約</a>
+        </div>
+    </header>
+
+    <article class="container mx-auto px-6 py-12 max-w-4xl bg-white mt-8 rounded-xl shadow-sm">
+        <div class="flex items-center gap-2 mb-4">
+            <span class="text-white text-xs font-bold px-3 py-1 rounded" style="background:var(--accent-orange);">Amazonコラム</span>
+            <span class="text-white text-xs font-bold px-3 py-1 rounded" style="background:var(--primary-color);">仕組み化・自動化</span>
+        </div>
+        <h1 class="font-serif-jp text-3xl md:text-4xl font-bold mt-2 mb-4 leading-tight text-gray-800" style="letter-spacing:0.02em;">
+            順位を「毎日同じ条件で」見る
+            <span class="text-xl md:text-2xl mt-3 block text-gray-600 font-normal">― Amazon検索順位の追跡を、なぜ仕組み化したか</span>
+        </h1>
+        <p class="text-sm text-gray-400 mb-8">Amazonコラム ／ 仕組み化・自動化 ／ 読了目安：約13分</p>
+
+        <div class="prose max-w-none text-gray-700 leading-relaxed space-y-8">
+            <p class="text-lg font-medium leading-8 pl-4 p-4 rounded-r note-amber">
+                Amazon運用で「売上が落ちた」と気づいたときには、たいてい手遅れです。売上は<strong>結果</strong>で、結果が動くより先に動いている数字があります。そのひとつが<span class="marker">自然検索順位</span>です。<br>
+                この記事では、私たちが自社・支援先の商品で毎日見ている「検索順位・価格・BSR」を、<strong>なぜ手作業の目視から自動追跡に仕組み化したのか</strong>、その意思決定と設計を、実際に動いているツールの考え方とともに公開します。
+            </p>
+
+            <p class="text-sm text-gray-500 bg-gray-50 border rounded-lg p-4" style="border-color:var(--border-color);">
+                ※ 具体的な商品名・対象キーワード・競合ブランド名・実際の順位やBSRの数値は伏せています。本記事の主題は「何位だったか」ではなく、<strong>順位を“どう見るか”という設計の考え方</strong>です。記載は当社が実運用している仕組みに基づきます。
+            </p>
+
+            <!-- 目次 -->
+            <nav class="toc text-sm bg-gray-50 border rounded-lg p-5" style="border-color:var(--border-color);">
+                <p class="font-bold text-gray-800 mb-3">この記事の内容</p>
+                <ol class="list-decimal pl-5 space-y-1.5 text-gray-600">
+                    <li><a href="#why">そもそも、なぜ「検索順位」を見るのか</a></li>
+                    <li><a href="#what">毎日とる7つの数字と、「順位の定義」を固定する話</a></li>
+                    <li><a href="#manual">手作業の限界：なぜ自動化を決めたのか</a></li>
+                    <li><a href="#system">仕組みの全体図：取得 → 記録 → 通知</a></li>
+                    <li><a href="#gate">「誤ったデータは流さない」品質ゲート</a></li>
+                    <li><a href="#lesson">つまずいて学んだこと</a></li>
+                    <li><a href="#type">他の指標にも使える「定点観測の型」</a></li>
+                </ol>
+            </nav>
+
+            <section id="why">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">1. そもそも、なぜ「検索順位」を見るのか</h2>
+                <p>
+                    Amazonの自然検索順位は、<strong>「そのキーワードで、自社の商品がどれだけ目に触れているか」の直接の指標</strong>です。そして露出が落ちると、売上が落ちるより先に順位が動きます。だから<span class="marker">順位は売上の“先行指標”</span>になり、早期警戒に効きます。
+                </p>
+                <p>順位を見る価値は、3つに整理できます。</p>
+                <div class="grid md:grid-cols-3 gap-4 my-5">
+                    <div class="p-5 rounded-lg border text-center" style="border-color:var(--border-color);border-top:4px solid var(--accent-orange);">
+                        <p class="font-bold text-gray-800 mb-1">① 先に気づける</p>
+                        <p class="text-sm text-gray-600">順位の低下は売上低下の前触れ。「気づいたら赤字」の前に手を打てる。</p>
+                    </div>
+                    <div class="p-5 rounded-lg border text-center" style="border-color:var(--border-color);border-top:4px solid var(--accent-orange);">
+                        <p class="font-bold text-gray-800 mb-1">② 原因を切り分けられる</p>
+                        <p class="text-sm text-gray-600">競合と横並びで見れば「自分が落ちた／市場が動いた／特定競合が攻めてきた」を区別できる。</p>
+                    </div>
+                    <div class="p-5 rounded-lg border text-center" style="border-color:var(--border-color);border-top:4px solid var(--accent-orange);">
+                        <p class="font-bold text-gray-800 mb-1">③ 打ち手につながる</p>
+                        <p class="text-sm text-gray-600">価格・クーポン・広告入札・在庫・ページ改善——どこを動かすかの判断に直結する。</p>
+                    </div>
+                </div>
+                <p>
+                    肝は<strong>自社単独で見ないこと</strong>です。自社の順位が下がったとき、それが自分のせいなのか、市場全体が動いたのか、特定の競合が値下げやクーポンを仕掛けてきたのかは、<span class="marker">競合と同じ画面・同じ日に横並びで並べて初めて分かります</span>。だから私たちは「自社1＋競合数社」をワンセットで、同じキーワードで毎日記録しています。
+                </p>
+            </section>
+
+            <section id="what">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">2. 毎日とる7つの数字と、「順位の定義」を固定する話</h2>
+                <p>1つのキーワードについて、各ブランドごとに次の7項目を毎日取得しています。</p>
+                <figure class="my-5 overflow-x-auto">
+                    <table class="data">
+                        <thead>
+                            <tr><th>取得する数字</th><th>何が分かるか</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>① 参考価格</td><td style="text-align:left;">値引き前の基準価格</td></tr>
+                            <tr><td>② 値引き後価格</td><td style="text-align:left;">実際に表示されている売価</td></tr>
+                            <tr><td>③ 値引き率</td><td style="text-align:left;">どれだけ攻めた価格にしているか</td></tr>
+                            <tr><td>④ バッジ</td><td style="text-align:left;">ベストセラー／Amazonおすすめ／セール表示の有無</td></tr>
+                            <tr><td>⑤ クーポン</td><td style="text-align:left;">追加の値引き施策が出ているか</td></tr>
+                            <tr><td>⑥ 自然検索順位</td><td style="text-align:left;">そのキーワードでの“露出”の位置（最重要）</td></tr>
+                            <tr><td>⑦ BSR（ランキング）</td><td style="text-align:left;">実際の“売れ行き”を表すカテゴリ順位</td></tr>
+                        </tbody>
+                    </table>
+                </figure>
+                <p>
+                    ⑥の自然検索順位と⑦のBSRは似て非なるものです。<strong>順位は「露出」、BSRは「売れ行き」</strong>。両方を並べると「露出はあるのに売れていない（ページや価格に問題）」「売れているのに露出が落ちた（広告やSEOの問題）」といった<span class="marker">ギャップの診断</span>ができます。
+                </p>
+                <p>
+                    ここで決定的に重要なのが、<strong>「順位の定義」を最初に固定すること</strong>です。Amazonの検索結果には広告（スポンサー）枠が混ざります。これを人の目で除外していると、日によって数え方がブレて、順位が信用できなくなります。私たちのツールは<span class="marker">スポンサー枠を構造的に必ず除外し、同じ商品の重複も排除して、純粋な自然検索順位だけを数える</span>ようにしています。
+                </p>
+                <p class="note-amber p-4 rounded-r">
+                    「何位か」より先に<strong>「何をもって順位と呼ぶか」</strong>を決める。広告を含めるか・重複をどう扱うか・いつ・どこから見るか——この定義が毎回ブレていると、どんなにマメに記録しても比較できません。<strong>計測は、定義を固定して初めて意味を持ちます。</strong>
+                </p>
+            </section>
+
+            <section id="manual">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">3. 手作業の限界：なぜ自動化を決めたのか</h2>
+                <p>
+                    もともとは、人が毎日Amazonを開いて順位を目で確認していました。これはすぐに限界が来ます。
+                </p>
+                <div class="space-y-3 mt-4">
+                    <div class="p-4 rounded-lg note-alert"><p class="text-sm"><strong>毎日同じ時刻に、欠かさず</strong>続けるのが難しい。忙しい日は飛ぶ。</p></div>
+                    <div class="p-4 rounded-lg note-alert"><p class="text-sm">スポンサー枠を<strong>人の目で除外</strong>すると、数え方が日によってブレる。</p></div>
+                    <div class="p-4 rounded-lg note-alert"><p class="text-sm">「5ブランド × 7項目」の記録・転記が<strong>地味に重く</strong>、続かない。</p></div>
+                    <div class="p-4 rounded-lg note-alert"><p class="text-sm"><strong>担当者依存</strong>。その人が休むと止まり、見方も人によって変わる。</p></div>
+                </div>
+                <p class="mt-5">
+                    そこで、「<strong>検索 → 数字を抜き出す → スプレッドシートに記録 → 前日と比較 → 通知</strong>」までを1本の処理に仕組み化しました。1回の実行は<strong>2分弱</strong>で終わります。狙いは時短そのものより、<span class="marker">「毎日・同じ条件・同じ定義」で記録が積み上がること</span>。人は「集めて転記する」から解放され、「見て判断する」だけに集中できます。
+                </p>
+            </section>
+
+            <section id="system">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">4. 仕組みの全体図：取得 → 記録 → 通知</h2>
+                <p>全体は3つのブロックでできています。</p>
+                <div class="space-y-3 my-6">
+                    <div class="flow-box" style="border-top:4px solid var(--accent-orange);">
+                        <p class="font-bold text-gray-800">① 取得（実ブラウザで人間のように検索）</p>
+                        <p class="text-sm text-gray-600 mt-1">専用マシンが実ブラウザを自動操作し、検索ボックスに入力 → スポンサー除外 → 順位・価格・バッジ・クーポンを抽出。商品ページからBSRも取得。</p>
+                    </div>
+                    <p class="text-center text-gray-300">▼</p>
+                    <div class="flow-box" style="border-top:4px solid var(--primary-color);">
+                        <p class="font-bold text-gray-800">② 記録（スプレッドシートに当日行を追記）</p>
+                        <p class="text-sm text-gray-600 mt-1">当日の日付行を探し、各ブランドの列に書き込む。通貨・％などの書式も自動で揃える。失敗時はローカルにCSVで退避。</p>
+                    </div>
+                    <p class="text-center text-gray-300">▼</p>
+                    <div class="flow-box" style="border-top:4px solid var(--good);">
+                        <p class="font-bold text-gray-800">③ 通知（前日比つきでチャットへ）</p>
+                        <p class="text-sm text-gray-600 mt-1">直近の推移を表の画像にして、前日比（↑↓）つきメッセージとともにチャットへ自動投稿。朝、見るだけで状況が分かる。</p>
+                    </div>
+                </div>
+                <p>
+                    実行は<strong>専用マシンで毎朝1回</strong>。当初はクラウド上で動かそうとしましたが、ここで大きな落とし穴にぶつかりました（後述）。記録は分析のために<strong>蓄積</strong>し、通知は判断のために<strong>差分（前日比）</strong>を出す——<span class="marker">「貯める場所」と「気づかせる場所」を分けている</span>のがポイントです。
+                </p>
+            </section>
+
+            <section id="gate">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">5. 「誤ったデータは流さない」品質ゲート</h2>
+                <p>
+                    自動化でいちばん怖いのは、<strong>壊れたデータが、正しい顔をしてチャットに流れること</strong>です。順位が取れなかった日に「0位」や空欄が共有されれば、見た人が誤った判断をします。そこで、通知の直前に必ず“門番”を置きました。
+                </p>
+                <figure class="my-5 overflow-x-auto">
+                    <table class="data">
+                        <thead>
+                            <tr><th>判定</th><th>条件</th><th>動き</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td style="color:var(--good);font-weight:700;">正常</td><td style="text-align:left;">自社順位が数値で取れている／半数以上のブランドが有効</td><td style="text-align:left;">ランキング用チャンネルへ画像つきで自動投稿</td></tr>
+                            <tr><td style="color:var(--alert);font-weight:700;">不完全</td><td style="text-align:left;">圏外多発・取得失敗が目立つ</td><td style="text-align:left;"><strong>チャンネルには出さず</strong>、担当者へ個別に「要確認・手動で再実行を」とDM</td></tr>
+                        </tbody>
+                    </table>
+                </figure>
+                <p class="note-good p-4 rounded-r">
+                    <span class="marker">自動化に「沈黙の失敗」を作らない。</span>取れなかったときに“何も言わずそれっぽい数字を出す”のがいちばん危険です。正常なら全員に、不完全なら担当者だけにそっと知らせる。この一段があるだけで、自動化されたデータを安心して信じられるようになります。
+                </p>
+            </section>
+
+            <section id="lesson">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">6. つまずいて学んだこと</h2>
+                <p>うまくいった話だけでは役に立たないので、つまずきも正直に書きます。</p>
+                <div class="space-y-4 mt-4">
+                    <div class="p-5 rounded-lg border" style="border-color:var(--border-color);border-left:5px solid var(--alert);">
+                        <p class="font-bold text-gray-800">海外から見ると、全部「圏外」になった</p>
+                        <p class="text-sm mt-1 text-gray-600">最初はクラウド（海外サーバー）で動かそうとしたところ、検索結果が日本と別物になり順位が取れませんでした。<strong>順位は「どこから見るか」で変わる</strong>。日本市場を見るなら日本から見る必要があり、国内の専用マシンに集約しました。</p>
+                    </div>
+                    <div class="p-5 rounded-lg border" style="border-color:var(--border-color);border-left:5px solid var(--alert);">
+                        <p class="font-bold text-gray-800">画像ファイルの上書きで処理が止まった</p>
+                        <p class="text-sm mt-1 text-gray-600">通知用の画像を毎回同じ名前で出力していたら、ファイルの競合でエラーに。<strong>日付つきのファイル名に分けて</strong>解決。自動化は本体より“周辺の細部”でこける、という典型でした。</p>
+                    </div>
+                    <div class="p-5 rounded-lg border" style="border-color:var(--border-color);border-left:5px solid var(--good);">
+                        <p class="font-bold text-gray-800">いちばんの学び：計測条件こそが命</p>
+                        <p class="text-sm mt-1 text-gray-600">スポンサー除外・重複排除・取得時刻・取得地——この<strong>計測条件を固定したこと</strong>で、初めて日々の小さな変動と前日比を信頼して読めるようになりました。数字を集めることより、<span class="marker">同じ条件で集め続けること</span>のほうが、はるかに価値があります。</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="type">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">7. 他の指標にも使える「定点観測の型」</h2>
+                <p>
+                    この仕組みはAmazonの順位の話ですが、考え方は売上・在庫・広告・SNSなど、毎日変わるあらゆる数字に応用できます。型としてまとめます。
+                </p>
+                <div class="space-y-6 mt-6">
+                    <div class="flex gap-4">
+                        <span class="font-serif-jp text-2xl primary-color flex-shrink-0" style="line-height:1.2;">01</span>
+                        <div><p class="font-bold text-gray-800">「定義」を先に固定してから自動化する</p><p class="text-sm mt-1 text-gray-600">何をその指標と呼ぶか（除外・重複・時刻・取得地）を決め切る。定義がブレると蓄積が無価値になる。</p></div>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="font-serif-jp text-2xl primary-color flex-shrink-0" style="line-height:1.2;">02</span>
+                        <div><p class="font-bold text-gray-800">自社単独でなく「競合横並び＋文脈」で取る</p><p class="text-sm mt-1 text-gray-600">価格・セール・クーポンも一緒に記録すれば、変動の“原因”まで読める。</p></div>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="font-serif-jp text-2xl primary-color flex-shrink-0" style="line-height:1.2;">03</span>
+                        <div><p class="font-bold text-gray-800">「貯める場所」と「気づかせる場所」を分ける</p><p class="text-sm mt-1 text-gray-600">記録は蓄積・分析用、通知は前日比など“差分”で判断の起点に。</p></div>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="font-serif-jp text-2xl primary-color flex-shrink-0" style="line-height:1.2;">04</span>
+                        <div><p class="font-bold text-gray-800">「不完全なデータは流さない」門番を置く</p><p class="text-sm mt-1 text-gray-600">取れた時だけ共有し、壊れた時は人にそっと上げる。沈黙の失敗を作らない。</p></div>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="font-serif-jp text-2xl primary-color flex-shrink-0" style="line-height:1.2;">05</span>
+                        <div><p class="font-bold text-gray-800">人は「集める」から降りて「判断する」に集中する</p><p class="text-sm mt-1 text-gray-600">自動化の目的は時短ではなく、人の時間を“考える側”に寄せること。</p></div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="p-8 rounded-xl border text-center mt-12" style="border-color:var(--border-color);background:#fff7ec;">
+                <h3 class="font-serif-jp text-xl font-bold mb-4 text-gray-800">「順位が落ちた理由が分からない」とき</h3>
+                <p class="mb-6 text-left md:text-center">
+                    私たちは、Amazon運用を“勘”ではなく“毎日の数字”で回します。<strong>順位・価格・BSRを同じ条件で見える化し、競合と横並びで原因を切り分けるところ</strong>から、運用のお手伝いをします。<br>
+                    こうした追跡や見える化の仕組みづくりも、ご相談いただけます。
+                </p>
+                <a href="https://calendar.app.google/TZrQ5YLexng2gPRV8" target="_blank" class="btn-primary inline-block px-8 py-4 rounded-lg font-bold text-lg shadow-lg transform hover:-translate-y-1 transition duration-300">
+                    無料相談を予約する（30分）
+                </a>
+            </div>
+        </div>
+
+        <div class="mt-10 text-center">
+            <a href="./index.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium transition-colors">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                業務改善コラム一覧に戻る
+            </a>
+        </div>
+    </article>
+
+    <footer class="text-gray-400 py-8 mt-12 text-center text-xs" style="background:var(--primary-color-dark);">
+        <p>© 2026 合同会社ヤシノミ All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

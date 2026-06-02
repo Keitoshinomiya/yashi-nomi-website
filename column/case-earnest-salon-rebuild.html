@@ -12,8 +12,8 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="ある美容サロンの売上が1ヶ月で86%落ちました。私たちが本業のEC・Amazon運用で培った『数字で原因を一段に絞り込む』考え方で、何が折れていたのかをどう読み解いたか。結果を誇るのではなく、課題への向き合い方そのものを公開します。">
-    <title>売上が1ヶ月で86%落ちたサロンを、どう読み解いたか － 合同会社ヤシノミ</title>
+    <meta name="description" content="大阪・心斎橋の韓国式肌管理サロンの売上が、ピークの約20分の1まで縮みました。私たちがEC・Amazon運用で使う『数字で原因を絞り込む』手順で、まず“市場がまだあるのか”を検証し、何が折れていたのかをどう読み解いたか。結果自慢ではなく、課題への向き合い方そのものを公開します。">
+    <title>売上がピークの「20分の1」まで落ちたサロンを、どう読み解いたか － 合同会社ヤシノミ</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <style>
@@ -42,6 +42,9 @@
         table.data td { border:1px solid var(--border-color); padding:7px 10px; text-align:center; }
         table.data tr:nth-child(even) td { background:#f8f9fa; }
         .stair { color:#fff; border-radius:10px; padding:14px 16px; }
+        .note-good { background:#eef5ef; border-left:4px solid var(--good); }
+        .note-alert { background:#fbeeee; border-left:4px solid var(--alert); }
+        .note-berry { background:#fbf3f6; border-left:4px solid var(--berry); }
     </style>
 
     <link rel="icon" href="https://yashi-nomi.com/images/logo.png" type="image/png" sizes="192x192">
@@ -64,152 +67,209 @@
             <span class="text-gray-400 text-xs">業務改善コラム</span>
         </div>
         <h1 class="font-serif-jp text-3xl md:text-4xl font-bold mt-2 mb-4 leading-tight text-gray-800" style="letter-spacing:0.02em;">
-            売上が1ヶ月で86%落ちたサロンを、<br>どう読み解いたか
-            <span class="text-xl md:text-2xl mt-3 block text-gray-600 font-normal">― 数字から原因を「一段」に絞り込むまで</span>
+            売上がピークの「20分の1」まで落ちたサロンを、<br>どう読み解いたか
+            <span class="text-xl md:text-2xl mt-3 block text-gray-600 font-normal">― まず「市場はまだあるのか」を確かめる</span>
         </h1>
-        <p class="text-sm text-gray-400 mb-8">業務改善コラム ／ 集客・見える化 ／ 読了目安：約12分</p>
+        <p class="text-sm text-gray-400 mb-8">業務改善コラム ／ 集客・見える化 ／ 読了目安：約16分</p>
 
         <div class="prose max-w-none text-gray-700 leading-relaxed space-y-8">
-            <p class="text-lg font-medium leading-8 pl-4 p-4 rounded-r" style="border-left:4px solid var(--berry);background:#fbf3f6;">
+            <p class="text-lg font-medium leading-8 pl-4 p-4 rounded-r note-berry">
                 先にお伝えしておきます。これは<strong>「立て直して大成功しました」という成果自慢の記事ではありません</strong>。
                 この立て直しは<span class="marker">いまも進行中で、結果はまだ出ていません</span>。<br>
-                それでもこの事例を公開するのは、私たちが<strong>課題にどう向き合い、どんな選択肢の中から、なぜその一手を選んだか</strong>という考え方こそ、
+                それでもこの事例を公開するのは、私たちが<strong>課題にどう向き合い、どんな順番で原因を絞り込み、なぜその一手を選んだか</strong>という考え方こそ、
                 ご相談を検討されている方に一番見ていただきたい部分だからです。本業のEC・Amazon運用で使っている「数字で原因を絞り込む」考え方が、まったく別業種のサロンでもそのまま効く——その実例としてお読みください。
             </p>
 
             <p class="text-sm text-gray-500 bg-gray-50 border rounded-lg p-4" style="border-color:var(--border-color);">
                 ※ この事例は、当社が経営分析・立て直し支援を行っている韓国式肌管理サロン
                 <strong>「EARNEST 大阪心斎橋店」</strong>（<a href="https://earnest-shinsaibashi.com" target="_blank" rel="noopener" class="text-blue-600 underline">earnest-shinsaibashi.com</a>）のものです。
-                掲載は店舗の許可を得ています。なお<strong>同店の公式サイトも、当社が制作・運用</strong>しています。数値はすべて、当社が分析に用いた実データに基づくものです。
+                掲載は店舗の許可を得ています。なお<strong>同店の公式サイトも、当社が制作・運用</strong>しています。
+                売上の実額は伏せ、<strong>ピーク月を100とした相対指数や割合で</strong>お見せします。数値はすべて、当社が分析に用いた実データに基づくものです。
             </p>
 
             <!-- 目次 -->
             <nav class="toc text-sm bg-gray-50 border rounded-lg p-5" style="border-color:var(--border-color);">
                 <p class="font-bold text-gray-800 mb-3">この記事の内容</p>
                 <ol class="list-decimal pl-5 space-y-1.5 text-gray-600">
-                    <li><a href="#fact">起きていたこと：1ヶ月で売上が86%消えた</a></li>
-                    <li><a href="#data">まず「感覚」を捨て、3つの実データを並べた</a></li>
-                    <li><a href="#hypo">最初に疑った「リピート」は、実は健全だった</a></li>
+                    <li><a href="#fact">起きていたこと：売上はピークの「20分の1」になった</a></li>
+                    <li><a href="#data">まず「感覚」を捨て、4つの実データを並べた</a></li>
+                    <li><a href="#market">最初に確かめたのは「市場がまだあるのか」</a></li>
+                    <li><a href="#hypo">「リピートが原因」という仮説は、外れだった</a></li>
                     <li><a href="#funnel">数字で原因を「予約の一段」に絞り込む</a></li>
-                    <li><a href="#cause">何が折れていたのか：一本の柱への依存</a></li>
+                    <li><a href="#pillar">売上を支えていた「一本の柱」とは何だったか</a></li>
+                    <li><a href="#engine">自分で止めた集客エンジン：発信量と売上の連動</a></li>
                     <li><a href="#cards">手札を並べる：本当の問題は3つ</a></li>
                     <li><a href="#choice">なぜ「単価の階段」を選んだのか</a></li>
                     <li><a href="#now">いまの正直な状態と、これから見る数字</a></li>
-                    <li><a href="#type">業種を問わず使える「原因の絞り込み方」</a></li>
+                    <li><a href="#type">業種を問わず使える「読み解きの型」</a></li>
                 </ol>
             </nav>
 
             <section id="fact">
-                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">1. 起きていたこと：1ヶ月で売上が86%消えた</h2>
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">1. 起きていたこと：売上はピークの「20分の1」になった</h2>
                 <p>
                     ご相談をいただいたとき、サロンのオーナーは率直にこうおっしゃいました。「<strong>なぜ落ちたのか、自分でも分からない</strong>」。
-                    口コミの評価は高く、技術にも自信がある。スタッフはきちんと出勤している。それなのに、ある月を境に客足が止まってしまった。
+                    口コミの評価は高く、技術にも自信がある。スタッフはきちんと出勤している。それなのに、いつの間にか来店の勢いが止まってしまった。
                 </p>
-                <p>まず、半年分の月間売上を1枚のグラフにしました。これが出発点です。</p>
+                <p>まず、1年強の月間売上を「ピーク月＝100」とした相対指数にして、1枚のグラフにしました。これが出発点です。</p>
 
                 <figure class="my-6">
-                    <svg viewBox="0 0 600 270" width="100%" role="img" aria-label="月間売上の推移グラフ">
-                        <line x1="38" y1="240" x2="560" y2="240" stroke="#d8cdd1" stroke-width="1"/>
-                        <!-- bars -->
-                        <g font-family="Noto Sans JP" font-size="11" text-anchor="middle">
-                            <!-- 10月 980,100 -->
-                            <rect x="48"  y="44"  width="46" height="196" fill="#B5707E"/>
-                            <text x="71"  y="38"  fill="#7A3047">98.0万</text>
-                            <text x="71"  y="256" fill="#6b6b6b">10月</text>
-                            <!-- 11月 376,500 -->
-                            <rect x="120" y="165" width="46" height="75"  fill="#B5707E"/>
-                            <text x="143" y="159" fill="#6b6b6b">37.7万</text>
-                            <text x="143" y="256" fill="#6b6b6b">11月</text>
-                            <!-- 12月 526,222 -->
-                            <rect x="192" y="135" width="46" height="105" fill="#B5707E"/>
-                            <text x="215" y="129" fill="#6b6b6b">52.6万</text>
-                            <text x="215" y="256" fill="#6b6b6b">12月</text>
-                            <!-- 1月 581,400 -->
-                            <rect x="264" y="124" width="46" height="116" fill="#B5707E"/>
-                            <text x="287" y="118" fill="#6b6b6b">58.1万</text>
-                            <text x="287" y="256" fill="#6b6b6b">1月</text>
-                            <!-- 2月 820,440 ピーク -->
-                            <rect x="336" y="76"  width="46" height="164" fill="#7A3047"/>
-                            <text x="359" y="70"  fill="#7A3047" font-weight="700">82.0万</text>
-                            <text x="359" y="256" fill="#6b6b6b">2月</text>
-                            <!-- 3月 113,100 暴落 -->
-                            <rect x="408" y="217" width="46" height="23"  fill="#B23A3A"/>
-                            <text x="431" y="211" fill="#B23A3A" font-weight="700">11.3万</text>
-                            <text x="431" y="256" fill="#6b6b6b">3月</text>
-                            <!-- 4月 0 -->
-                            <rect x="480" y="238" width="46" height="2"   fill="#B23A3A"/>
-                            <text x="503" y="232" fill="#B23A3A" font-weight="700">0</text>
-                            <text x="503" y="256" fill="#6b6b6b">4月</text>
+                    <svg viewBox="0 0 760 295" width="100%" role="img" aria-label="月間売上の相対指数（ピーク月=100）の推移">
+                        <line x1="44" y1="245" x2="745" y2="245" stroke="#d8cdd1" stroke-width="1"/>
+                        <g font-family="Noto Sans JP" font-size="12" text-anchor="middle">
+                            <!-- bars -->
+                            <rect x="52"  y="112" width="33" height="133" fill="#B5707E"/>
+                            <rect x="102" y="145" width="33" height="100" fill="#B5707E"/>
+                            <rect x="152" y="60"  width="33" height="185" fill="#7A3047"/>
+                            <rect x="202" y="119" width="33" height="126" fill="#B5707E"/>
+                            <rect x="252" y="91"  width="33" height="154" fill="#B5707E"/>
+                            <rect x="302" y="130" width="33" height="115" fill="#B5707E"/>
+                            <rect x="352" y="171" width="33" height="74"  fill="#B5707E"/>
+                            <rect x="402" y="206" width="33" height="39"  fill="#B5707E"/>
+                            <rect x="452" y="206" width="33" height="39"  fill="#B5707E"/>
+                            <rect x="502" y="202" width="33" height="43"  fill="#B5707E"/>
+                            <rect x="552" y="184" width="33" height="61"  fill="#B5707E"/>
+                            <rect x="602" y="217" width="33" height="28"  fill="#B23A3A"/>
+                            <rect x="652" y="230" width="33" height="15"  fill="#B23A3A"/>
+                            <rect x="702" y="236" width="33" height="9"   fill="#B23A3A"/>
+                            <!-- peak & trough value labels -->
+                            <text x="168" y="52"  fill="#7A3047" font-weight="700">100</text>
+                            <text x="718" y="229" fill="#B23A3A" font-weight="700">5</text>
                         </g>
-                        <!-- crash annotation -->
-                        <path d="M359 92 C 380 130, 410 150, 428 205" fill="none" stroke="#B23A3A" stroke-width="1.3" stroke-dasharray="3 3"/>
-                        <text x="470" y="120" font-family="Noto Sans JP" font-size="13" fill="#B23A3A" font-weight="700">2月→3月　−86%</text>
+                        <g font-family="Noto Sans JP" font-size="10" fill="#6b6b6b" text-anchor="middle">
+                            <text x="68" y="259">4</text><text x="118" y="259">5</text><text x="168" y="259">6</text>
+                            <text x="218" y="259">7</text><text x="268" y="259">8</text><text x="318" y="259">9</text>
+                            <text x="368" y="259">10</text><text x="418" y="259">11</text><text x="468" y="259">12</text>
+                            <text x="518" y="259">1</text><text x="568" y="259">2</text><text x="618" y="259">3</text>
+                            <text x="668" y="259">4</text><text x="718" y="259">5</text>
+                            <text x="268" y="278" font-size="11" fill="#9a9a9a">2025年</text>
+                            <text x="618" y="278" font-size="11" fill="#9a9a9a">2026年</text>
+                        </g>
+                        <path d="M168 70 C 320 30, 600 30, 712 224" fill="none" stroke="#B23A3A" stroke-width="1.3" stroke-dasharray="3 3"/>
+                        <text x="430" y="26" font-family="Noto Sans JP" font-size="13" fill="#B23A3A" font-weight="700" text-anchor="middle">ピーク → 直近：指数100→5（約1/20）</text>
                     </svg>
-                    <figcaption class="text-xs text-gray-400 text-center mt-1">※ 当社が分析に用いた売上管理データより作成（イメージ図）</figcaption>
+                    <figcaption class="text-xs text-gray-400 text-center mt-1">※ 当社が分析に用いた売上管理データより作成。縦軸はピーク月（2025年6月）を100とした相対指数。</figcaption>
                 </figure>
 
                 <p>
-                    2月の約82万円をピークに、3月は約11万円。<span class="marker">わずか1ヶ月で86%が消えました。</span>翌4月は記録上ゼロです。
-                    数字にすると衝撃的ですが、ここで大事なのは「グラフを見て驚くこと」ではありません。<strong>この落ち方が、原因を突き止める最初の手がかりになる</strong>ということです。
+                    ポイントは「1ヶ月で突然ゼロになった」のではない、ということです。
+                    <span class="marker">ピークから1年あまりをかけて、売上は100→5、つまり約20分の1までゆっくり縮んでいきました。</span>
+                    一発の事故ではなく、<strong>じわじわ進む地盤沈下</strong>。この「落ち方の形」こそ、原因を突き止める最初の手がかりになります。
                 </p>
             </section>
 
             <section id="data">
-                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">2. まず「感覚」を捨て、3つの実データを並べた</h2>
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">2. まず「感覚」を捨て、4つの実データを並べた</h2>
                 <p>
                     こういうとき一番危ないのは、「たぶん広告が弱いから」「接客の問題かも」と<strong>感覚で原因を決めつけること</strong>です。
                     決めつけると、その思い込みに合う対策ばかり打ってしまい、本当の原因はそのまま残ります。
                 </p>
-                <p>そこで私たちは、まず判断材料になる実データを3つ集め、机の上に並べました。</p>
-                <div class="grid sm:grid-cols-3 gap-3 mt-5 text-sm">
+                <p>そこで私たちは、まず判断材料になる実データを4つ集め、机の上に並べました。</p>
+                <div class="grid sm:grid-cols-2 gap-3 mt-5 text-sm">
                     <div class="p-4 rounded-lg" style="background:#fbf3f6;">
                         <p class="font-bold" style="color:var(--berry);">① 集客レポート</p>
-                        <p class="mt-1 text-gray-600">予約サイト公式の分析データ。表示数・予約率・口コミ・客層・空き枠まで分かる。</p>
+                        <p class="mt-1 text-gray-600">予約サイト公式の分析データ。表示数・予約率・口コミ・お客様の層・空き枠まで分かる。</p>
                     </div>
                     <div class="p-4 rounded-lg" style="background:#fbf3f6;">
                         <p class="font-bold" style="color:var(--berry);">② 売上管理表</p>
-                        <p class="mt-1 text-gray-600">半年分の日次売上・新規/再来・メニュー別売上・コース契約額。</p>
+                        <p class="mt-1 text-gray-600">1年強の月次売上・新規/再来・メニュー別売上・コース契約額。</p>
                     </div>
                     <div class="p-4 rounded-lg" style="background:#fbf3f6;">
-                        <p class="font-bold" style="color:var(--berry);">③ 掲載ページ</p>
-                        <p class="mt-1 text-gray-600">いまお客様に見えている全クーポン・メニュー・価格の構成。</p>
+                        <p class="font-bold" style="color:var(--berry);">③ 掲載ページ・発信履歴</p>
+                        <p class="mt-1 text-gray-600">いまお客様に見えている全クーポン・メニュー・価格と、ブログ／TikTokの投稿履歴。</p>
+                    </div>
+                    <div class="p-4 rounded-lg" style="background:#fbf3f6;">
+                        <p class="font-bold" style="color:var(--berry);">④ 市場の検索トレンド</p>
+                        <p class="mt-1 text-gray-600">提供メニューに関わるキーワードの検索人気度（全国・地域・季節）。<strong>店内ではなく“外の需要”を見る</strong>ための一枚。</p>
                     </div>
                 </div>
                 <p class="mt-5 text-sm text-gray-600 bg-gray-50 border-l-4 pl-4 py-3" style="border-color:var(--primary-color);">
-                    この3つは、ふだんバラバラに存在していて、誰も「つなげて」見ていませんでした。
-                    <strong>「どこから人が来て、どこで落ちているか」は、データを1本の線につないで初めて見えてきます。</strong>これはAmazonの売上分析とまったく同じ作法です。
+                    この4つは、ふだんバラバラに存在していて、誰も「つなげて」見ていませんでした。
+                    <strong>「市場はあるのか／どこから人が来て／どこで落ちているか」は、データを1本の線につないで初めて見えてきます。</strong>これはAmazonの売上分析とまったく同じ作法です。
                 </p>
             </section>
 
-            <section id="hypo">
-                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">3. 最初に疑った「リピート」は、実は健全だった</h2>
+            <section id="market">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">3. 最初に確かめたのは「市場がまだあるのか」</h2>
                 <p>
-                    売上が落ちたと聞いて、私たちが最初に立てた仮説は「<strong>リピート（再来）が壊れているのでは?</strong>」でした。常連が離れれば売上は落ちます。自然な疑いです。
+                    立て直しの相談で、私たちが<strong>打ち手の前に必ず確かめること</strong>があります。それは
+                    「<span class="marker">そもそも、このお店が戦っている市場はまだ存在しているのか？</span>」です。<br>
+                    もし市場そのものが消えているなら、いくら店内を磨いても回復しません。その場合の正しい助言は「撤退・転換」です。
+                    逆に市場が残っているなら、落ちた分は<strong>取り直せる</strong>。<strong>方針が180度変わる分岐点</strong>なので、ここを感覚で飛ばしてはいけません。
                 </p>
                 <p>
-                    ところが予約サイト経由の再来だけを見ると低く見える一方、<span class="marker">電話・LINE・店頭での再来を足すと、再来率は40〜54%</span>。しかも右肩上がりでした。仮説は外れです。
+                    そこで、提供メニューに関わるキーワードの検索人気度（期間内のピークを100とした相対指数）を、市場全体・季節・地域の3つの角度で並べました。
                 </p>
 
                 <figure class="my-5 overflow-x-auto">
                     <table class="data">
                         <thead>
-                            <tr><th>月</th><th>新規</th><th>再来</th><th>再来率</th><th>高単価コース売上</th></tr>
+                            <tr><th>見た角度</th><th>分かったこと</th><th>判定</th></tr>
                         </thead>
                         <tbody>
-                            <tr><td>10月</td><td>6</td><td>4</td><td>40%</td><td>577,500</td></tr>
-                            <tr><td>11月</td><td>14</td><td>4</td><td>22%</td><td>104,500</td></tr>
-                            <tr><td>12月</td><td>10</td><td>10</td><td>50%</td><td>244,200</td></tr>
-                            <tr><td>1月</td><td>12</td><td>13</td><td>52%</td><td>380,200</td></tr>
-                            <tr><td>2月</td><td>11</td><td>13</td><td>54%</td><td>444,900</td></tr>
-                            <tr><td>3月</td><td>6</td><td>6</td><td>50%</td><td style="color:var(--alert);font-weight:700;">0</td></tr>
+                            <tr>
+                                <td>カテゴリ全体の需要<br>（毛穴洗浄・ピーリング系）</td>
+                                <td>全国の検索人気度は、ここ2年ずっと中位（指数40〜60台）で<strong>横ばい〜微増</strong>。需要は消えていない。</td>
+                                <td style="color:var(--good);font-weight:700;">市場アリ</td>
+                            </tr>
+                            <tr>
+                                <td>季節性</td>
+                                <td>毛穴・ピーリングは夏（5〜8月）が高く冬（12〜2月）が低い。落ち込み期は元々の閑散期と重なる。<strong>ただし“ほぼゼロ”は季節性では説明できない。</strong></td>
+                                <td style="color:var(--gold);font-weight:700;">一部だけ説明可</td>
+                            </tr>
+                            <tr>
+                                <td>地域（心斎橋 vs 梅田）</td>
+                                <td>同じ大阪でも「梅田 エステ」の検索が「心斎橋 エステ」の<strong>4〜5倍</strong>。立地の集客力に構造的な差。</td>
+                                <td style="color:var(--gold);font-weight:700;">不利だが致命的でない</td>
+                            </tr>
+                            <tr>
+                                <td>主力メニューの需要<br>（黒ずみ・ピンク系の永続施術）</td>
+                                <td>2025年春に検索が急上昇（プチブーム）→ その後は低下し、現在は<strong>最盛期の約3割の水準で下げ止まり</strong>。ブームは去ったが、ゼロにはなっていない。</td>
+                                <td style="color:var(--gold);font-weight:700;">ブーム終了・市場は残存</td>
+                            </tr>
                         </tbody>
                     </table>
-                    <figcaption class="text-xs text-gray-400 text-center mt-1">※ 売上管理データより作成（イメージ図）</figcaption>
+                    <figcaption class="text-xs text-gray-400 text-center mt-1">※ 検索人気度（相対指数）データより作成。数値は“検索回数”ではなく、期間内ピークを100とした相対値です。</figcaption>
+                </figure>
+
+                <p class="note-good p-4 rounded-r">
+                    <strong>結論：売上崩壊の主因は「市場の消滅」ではない。</strong>
+                    起きていたのは ①主力メニューの<strong>特需（プチブーム）が終わった</strong>こと、②同等の施術がより安く受けられる選択肢にシェアが流れたこと、の2つでした。
+                    カテゴリの需要自体は残っている——だから私たちは「撤退」ではなく、<span class="marker">“通い続けてもらえる”メニューで取り直す</span>方針を選びました。
+                    <strong>市場があると確認できたからこそ、立て直しに踏み込めた</strong>のです。
+                </p>
+            </section>
+
+            <section id="hypo">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">4. 「リピートが原因」という仮説は、外れだった</h2>
+                <p>
+                    市場が残っていると分かれば、次は「店内の、どこが折れているか」です。私たちが最初に立てた仮説は
+                    「<strong>リピート（再来）が壊れているのでは?</strong>」でした。常連が離れれば売上は落ちます。自然な疑いです。
+                </p>
+                <p>
+                    ところが予約サイト経由の再来だけを見ると低く見える一方、<span class="marker">電話・LINE・店頭での再来を足すと、再来率は40〜54%</span>。むしろ後半は上向きでした。仮説は外れです。
+                </p>
+
+                <figure class="my-5 overflow-x-auto">
+                    <table class="data">
+                        <thead>
+                            <tr><th>月</th><th>新規</th><th>再来</th><th>再来率</th><th>主力施術の売上<br>（ピーク比）</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>10月</td><td>6</td><td>4</td><td>40%</td><td>28%</td></tr>
+                            <tr><td>11月</td><td>14</td><td>4</td><td>22%</td><td>5%</td></tr>
+                            <tr><td>12月</td><td>10</td><td>10</td><td>50%</td><td>12%</td></tr>
+                            <tr><td>1月</td><td>12</td><td>13</td><td>52%</td><td>18%</td></tr>
+                            <tr><td>2月</td><td>11</td><td>13</td><td>54%</td><td>22%</td></tr>
+                            <tr><td>3月</td><td>9</td><td>10</td><td>53%</td><td style="color:var(--alert);font-weight:700;">2%</td></tr>
+                        </tbody>
+                    </table>
+                    <figcaption class="text-xs text-gray-400 text-center mt-1">※ 売上管理データより作成。主力施術の売上はピーク月＝100%とした相対値。</figcaption>
                 </figure>
 
                 <p>
-                    この表には、もう一つ重要なことが写っていました。<strong>人は3月もちゃんと来ているのに、一番右の「高単価コース」だけがゼロになっている。</strong>
-                    再来客6人も、安いメニューしか使っていません。
+                    この表には、もう一つ重要なことが写っていました。<strong>人はちゃんと来ているのに（再来率は5割前後で安定）、一番右の「主力施術」の売上だけがピーク比2%まで消えている。</strong>
+                    来ている再来のお客様も、安いメニューしか使っていません。
                 </p>
                 <p>
                     ここで分かったのは「<span class="marker">リピートが無いのではなく、続けたくなる“高単価の中身”が消えた</span>」ということ。
@@ -218,7 +278,7 @@
             </section>
 
             <section id="funnel">
-                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">4. 数字で原因を「予約の一段」に絞り込む</h2>
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">5. 数字で原因を「予約の一段」に絞り込む</h2>
                 <p>
                     次に、集客を「見つかる → 興味 → 予約」の3段に分け、それぞれの数字を競合平均と並べました。
                     どの一段で人が漏れているかを、はっきりさせるためです。
@@ -248,99 +308,138 @@
                     なのに<span class="marker">最後の「予約」のボタンだけを押さない。</span>漏れているのは、たった一段でした。
                 </p>
                 <p>
-                    そして予約の一段を詳しく見ると、押せない理由が見えてきます。<strong>クーポン（来店のきっかけになるオファー）が17本しかない</strong>のです。競合平均は73本。
-                    興味は持たれているのに、「いま予約する具体的な理由」を提示する武器が、4分の1しかありませんでした。
+                    そして予約の一段を詳しく見ると、押せない理由が見えてきます。<strong>来店のきっかけになるクーポン（オファー）が十数本しかない</strong>のです。競合店はその数倍を掲載しています。
+                    興味は持たれているのに、「いま予約する具体的な理由」を提示する武器が、明らかに不足していました。
                 </p>
             </section>
 
-            <section id="cause">
-                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">5. 何が折れていたのか：一本の柱への依存</h2>
+            <section id="pillar">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">6. 売上を支えていた「一本の柱」とは何だったか</h2>
                 <p>
-                    では、なぜ2月まで売上を支えていた高単価コースが3月にゼロになったのか。売上の中身を分解すると、構造的な弱点が見えました。
+                    では、2月まで売上を支えていた「主力施術」とは何だったのか。売上の中身を分解すると、構造的な弱点が見えました。
                 </p>
                 <div class="rounded-xl p-6 my-4 text-center" style="background:linear-gradient(135deg,var(--berry),var(--primary-color-dark));">
-                    <p class="text-white text-sm opacity-80 mb-1">一つの高単価コースが売上に占めた割合</p>
-                    <p class="font-serif-jp text-4xl text-white font-bold">45〜65%</p>
+                    <p class="text-white text-sm opacity-80 mb-1">最盛期、ひとつの高単価メニューが売上に占めた割合</p>
+                    <p class="font-serif-jp text-4xl text-white font-bold">約8割（70〜83%）</p>
                 </div>
                 <p>
-                    収益のほぼ半分以上を、<strong>たった1つの高単価コースに依存</strong>していました。そこへ、同等の施術がより安く受けられる選択肢が市場に登場します。
-                    「高い理由」を説明しきれなくなり、新規の契約も既存客の継続も止まった。<span class="marker">柱が1本しかない建物は、その1本が折れた瞬間に倒れます。</span>
+                    収益のほぼ8割を、<strong>たった1つの高単価メニュー（黒ずみ・ピンク系の永続施術）に依存</strong>していました。
+                    そこへ、同等の施術がより安く受けられる選択肢が市場に登場し、さらに前章の検索トレンドが示すとおり<strong>そのメニューのプチブーム自体が終わった</strong>。
+                    「高い理由」を説明しきれなくなり、新規の契約も既存のお客様の継続も止まった。
+                    <span class="marker">柱が1本しかない建物は、その1本が折れた瞬間に倒れます。</span>
                 </p>
                 <p class="text-sm text-gray-600 bg-gray-50 border-l-4 pl-4 py-3" style="border-color:var(--primary-color);">
-                    これはECでもまったく同じです。1つの売れ筋・1つのキーワードに売上を依存していると、競合の値下げや規約変更ひとつで一気に崩れます。<strong>「売上の分散」は、業種を問わない経営の基本</strong>です。
+                    これはECでもまったく同じです。1つの売れ筋・1つのキーワードに売上を依存していると、競合の値下げや流行の変化ひとつで一気に崩れます。<strong>「売上の分散」は、業種を問わない経営の基本</strong>です。
+                </p>
+            </section>
+
+            <section id="engine">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">7. 自分で止めた集客エンジン：発信量と売上の連動</h2>
+                <p>
+                    もう一つ、データを並べて初めて見えた事実があります。
+                    このお店の最大の集客エンジンは<strong>TikTokの動画</strong>でした。最盛期は主力メニューを主役にした動画を月15〜18本投稿し、なかには<strong>10万〜45万回再生のバズ</strong>も複数。
+                    その投稿の勢いと売上のピークは、見事に重なっていました。
+                </p>
+
+                <figure class="my-5 overflow-x-auto">
+                    <table class="data">
+                        <thead>
+                            <tr><th>月</th><th>TikTok投稿数</th><th>うち主力メニュー比率</th><th>主力施術の売上<br>（ピーク比）</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>2025年6月</td><td>18</td><td>94%</td><td style="font-weight:700;">100%</td></tr>
+                            <tr><td>2025年8月</td><td>11</td><td>100%</td><td>82%</td></tr>
+                            <tr><td>2025年10月</td><td>13</td><td>38%</td><td>28%</td></tr>
+                            <tr><td>2025年12月</td><td>7</td><td>43%</td><td>12%</td></tr>
+                            <tr><td>2026年2月</td><td style="color:var(--alert);font-weight:700;">0</td><td>―</td><td>22%</td></tr>
+                            <tr><td>2026年4月</td><td style="color:var(--alert);font-weight:700;">1</td><td>―</td><td>0.3%</td></tr>
+                            <tr><td>2026年5月</td><td>2</td><td>50%</td><td style="color:var(--alert);font-weight:700;">0%</td></tr>
+                        </tbody>
+                    </table>
+                    <figcaption class="text-xs text-gray-400 text-center mt-1">※ 投稿履歴と売上管理データより作成。売上はピーク月＝100%とした相対値。</figcaption>
+                </figure>
+
+                <p>
+                    2025年秋から主力メニューの投稿比率が落ち、2026年に入ると<span class="marker">投稿“数”そのものが月0〜2本まで激減</span>しました。
+                    エンジンを自分で止めたのです。市場（検索需要）は残っているのに、最大の集客装置を回さなくなった——これは<strong>「需要が無くなった」のではなく「取りに行くのをやめた」取りこぼし</strong>です。
+                </p>
+                <p class="note-good p-4 rounded-r">
+                    裏を返せば、ここは<strong>明確な伸びしろ</strong>です。市場が残っていて、過去に再生数というかたちで反応も取れている。
+                    <span class="marker">発信を“仕組みとして”戻せば、拾い直せる余地が大きい。</span>立て直しの方針に、この発信の再起動を組み込みました。
                 </p>
             </section>
 
             <section id="cards">
-                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">6. 手札を並べる：本当の問題は3つ</h2>
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">8. 手札を並べる：本当の問題は3つ</h2>
                 <p>
                     原因が見えたら、いきなり対策に飛びつかず、まず「<strong>解くべき問題</strong>」を言葉にして並べます。ここを飛ばすと、対策がバラバラになります。整理した結果、本当の問題は3つでした。
                 </p>
                 <div class="space-y-4 mt-5">
                     <div class="p-5 rounded-lg border" style="border-color:var(--border-color);border-left:5px solid var(--alert);">
                         <p class="font-bold text-gray-800">① 「初回だけの店」になっていた</p>
-                        <p class="text-sm mt-1 text-gray-600">深い割引クーポンが、ほぼ全部「新規限定」。再来客が使える割引は実質1個だけ。お客様にも「初回しか得しない店」と伝わっていました。</p>
+                        <p class="text-sm mt-1 text-gray-600">深い割引クーポンが、ほぼ全部「新規限定」。再来のお客様が使える割引は実質1個だけ。お客様にも「初回しか得しない店」と伝わっていました。</p>
                     </div>
                     <div class="p-5 rounded-lg border" style="border-color:var(--border-color);border-left:5px solid var(--alert);">
                         <p class="font-bold text-gray-800">② 「毎月通う」低単価メニューが無い</p>
-                        <p class="text-sm mt-1 text-gray-600">全メニューが「1回お試し」設計。空き枠の約8割が毎日空いているのに、気軽に毎月通えるレギュラーメニューが存在しませんでした。</p>
+                        <p class="text-sm mt-1 text-gray-600">全メニューが「1回お試し」設計。空き枠の大半が毎日空いているのに、気軽に毎月通えるレギュラーメニューが存在しませんでした。</p>
                     </div>
                     <div class="p-5 rounded-lg border" style="border-color:var(--border-color);border-left:5px solid var(--alert);">
                         <p class="font-bold text-gray-800">③ 入口と継続の「段差」が大きすぎた</p>
-                        <p class="text-sm mt-1 text-gray-600">安い体験（〜5,000円）の次が、いきなり月額17,800円やコース。間をつなぐ中段（手頃な回数券・月額）が無く、お客様がジャンプできませんでした。</p>
+                        <p class="text-sm mt-1 text-gray-600">安い体験（〜5,000円）の次が、いきなり月額1.7万円やコース。間をつなぐ中段（手頃な回数券・月額）が無く、お客様がジャンプできませんでした。</p>
                     </div>
                 </div>
                 <p class="mt-5">
                     ここで強調したいのは、<span class="marker">どれも「接客の質」や「努力不足」が原因ではない</span>ということです。
-                    口コミ★4.87、興味喚起率は競合の1.3倍、ブログ更新は月32本（競合の2倍）。<strong>土台はすでに競合以上に強い。</strong>直すべきは「商品設計（メニューとクーポン）」だけでした。
+                    口コミ評価は高く、興味喚起率は競合の1.3倍、ブログ更新も競合以上。<strong>土台はすでに競合以上に強い。</strong>直すべきは「商品設計（メニューとクーポン）」と「発信の再起動」でした。
                 </p>
             </section>
 
             <section id="choice">
-                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">7. なぜ「単価の階段」を選んだのか</h2>
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">9. なぜ「単価の階段」を選んだのか</h2>
                 <p>
                     3つの問題を解く打ち手として、私たちはいくつかの方向を検討しました。
                 </p>
                 <ul class="list-disc pl-6 space-y-2 mt-3 text-sm text-gray-600">
-                    <li><strong>案A：折れた高単価コースを、別の高単価商品で置き換える</strong> → また「柱1本」に戻るだけ。同じ事故を繰り返すので却下。</li>
+                    <li><strong>案A：折れた高単価メニューを、別の高単価商品で置き換える</strong> → また「柱1本」に戻るだけ。同じ事故を繰り返すので却下。</li>
                     <li><strong>案B：値下げで安いライバルに対抗する</strong> → 価格競争は体力のある側が勝つ。サロンの強み（技術・信頼）が活きないので却下。</li>
                     <li><strong>案C：入口から上位まで「単価の階段」を作り、売上を分散させる</strong> → 採用。</li>
                 </ul>
                 <p class="mt-5">
                     案Cを選んだ理由は明確です。これは私たちが<strong>本業のECで毎日使っている考え方</strong>そのものだからです。
-                    ECでは「客寄せ商品 → 定期購入 → 上位商品」と、お客様に一段ずつ階段を上ってもらいます。これをサロンに翻訳しました。
+                    ECでは「入口商品（集客用の手頃な商品） → 定期購入 → 上位商品」と、お客様に一段ずつ階段を上ってもらいます。これをサロンに翻訳しました。
                 </p>
 
                 <div class="space-y-2 my-6">
                     <div class="stair" style="background:var(--berry);margin-left:0;">
                         <p class="text-xs font-bold opacity-80 tracking-widest">上位</p>
-                        <p class="font-bold">高単価・サブ ｜ 旧主力コースは「会員限定の上位オプション」へ格下げ</p>
+                        <p class="font-bold">高単価・会員向け ｜ 旧主力メニューは「会員限定の上位オプション」へ位置づけ直す</p>
                         <p class="text-xs opacity-90 mt-1">安いライバルと値段で戦わず、「会員だけの特別」に意味を移す</p>
                     </div>
                     <p class="text-center text-gray-400 text-sm">▲ 一段ずつ上ってもらう</p>
                     <div class="stair" style="background:var(--gold);margin-left:0;">
                         <p class="text-xs font-bold opacity-80 tracking-widest">本命</p>
-                        <p class="font-bold">中単価・継続 ｜ 回数券・月2回サブスク（LTVの主戦場）</p>
+                        <p class="font-bold">中単価・継続 ｜ 回数券・月額の肌ケアパス（継続売上の主戦場）</p>
                         <p class="text-xs opacity-90 mt-1">ここが一番の稼ぎ頭。入口と高単価の「段差」を埋める踏み台</p>
                     </div>
                     <p class="text-center text-gray-400 text-sm">▲</p>
                     <div class="stair" style="background:var(--rose);margin-left:0;">
                         <p class="text-xs font-bold opacity-80 tracking-widest">入口</p>
-                        <p class="font-bold">低単価・回転 ｜ 0〜5,500円、気軽に毎月通える</p>
-                        <p class="text-xs opacity-90 mt-1">空き枠（約8割）を埋め、再来も使える。母数を増やす</p>
+                        <p class="font-bold">低単価・回転 ｜ 〜5,000円台、気軽に毎月通える毛穴・水光メニュー</p>
+                        <p class="text-xs opacity-90 mt-1">空き枠を埋め、再来のお客様も使える。母数を増やす</p>
                     </div>
                 </div>
 
                 <p>
                     肝は<strong>真ん中の「中段」を新設すること</strong>でした。安い体験で来てくれた人が、いきなり高額コースに飛ばずに済む踏み台。
-                    そして折れた高単価コースは、捨てるのではなく<span class="marker">「結果を求める会員だけの上位オプション」に置き直す</span>。柱を1本から3段に組み替える設計です。
+                    そして折れた高単価メニューは、捨てるのではなく<span class="marker">「結果を求める会員だけの上位オプション」に置き直す</span>。
+                    さらに、市場が残っていると確認できている領域（毛穴・水光・ピーリング）へ、止めていたTikTok発信を戻す。柱を1本から3段に組み替え、エンジンを再起動する設計です。
                 </p>
             </section>
 
             <section id="now">
-                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">8. いまの正直な状態と、これから見る数字</h2>
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">10. いまの正直な状態と、これから見る数字</h2>
                 <p>
-                    冒頭に書いたとおり、ここまでが「分析と設計」です。<strong>メニューとクーポンの組み替えはこれから実行する段階で、立て直しの結果はまだ出ていません。</strong>
+                    冒頭に書いたとおり、ここまでが「分析と設計」です。<strong>メニューとクーポンの組み替え・発信の再起動はこれから実行する段階で、立て直しの結果はまだ出ていません。</strong>
                     結果が出ていないことを、私たちは隠しません。むしろ大事なのは、これから<strong>追いかける数字を入れ替えた</strong>ことです。
                 </p>
                 <figure class="my-5 overflow-x-auto">
@@ -350,21 +449,21 @@
                         </thead>
                         <tbody>
                             <tr><td>一発の高額契約が取れたか</td><td>稼働率（空き枠をどれだけ埋めたか）</td></tr>
-                            <tr><td>月の総売上</td><td>新規客の翌月リピート率</td></tr>
-                            <tr><td>—</td><td>客あたりの月次継続額（ECのMRRと同じ）</td></tr>
-                            <tr><td>—</td><td>入口→中段への引き上げ率</td></tr>
+                            <tr><td>月の総売上</td><td>新規のお客様の翌月リピート率</td></tr>
+                            <tr><td>—</td><td>お客様一人あたりの月次継続額（ECのMRRと同じ）</td></tr>
+                            <tr><td>—</td><td>入口→中段への引き上げ率／月間の発信本数</td></tr>
                         </tbody>
                     </table>
                 </figure>
                 <p>
-                    「一発の大きな契約」を追うのをやめ、<span class="marker">「回転」と「継続」を追う指標に切り替えた</span>。
-                    これも、月に一度の大型受注より積み上がる定期売上を重視するEC・サブスクの発想です。数字を毎週見ながら、メニューを磨き続けていきます。
+                    「一発の大きな契約」を追うのをやめ、<span class="marker">「回転」と「継続」、そして「発信の量」を追う指標に切り替えた</span>。
+                    これも、月に一度の大型受注より積み上がる定期売上を重視するEC・サブスクの発想です。数字を毎週見ながら、メニューと発信を磨き続けていきます。
                     結果が出たら、また正直にご報告します。
                 </p>
             </section>
 
             <section id="type">
-                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">9. 業種を問わず使える「原因の絞り込み方」</h2>
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">11. 業種を問わず使える「読み解きの型」</h2>
                 <p>
                     この事例はサロンの話ですが、私たちがたどった「読み解きの手順」は、ECでも店舗でも製造業でも同じように使えます。型としてまとめます。
                 </p>
@@ -375,19 +474,19 @@
                     </div>
                     <div class="flex gap-4">
                         <span class="font-serif-jp text-2xl primary-color flex-shrink-0" style="line-height:1.2;">02</span>
-                        <div><p class="font-bold text-gray-800">バラバラのデータを1本の線につなぐ</p><p class="text-sm mt-1 text-gray-600">集客・売上・商品ページのように、別々に存在する数字を「発見→興味→購入」の流れに並べ直す。漏れている一段が見える。</p></div>
+                        <div><p class="font-bold text-gray-800">店内の前に「市場がまだあるか」を確かめる</p><p class="text-sm mt-1 text-gray-600">市場が消えているなら正しい助言は「撤退・転換」。残っているなら「取り直し」。ここで方針が180度変わるので、検索トレンド等で“外の需要”を必ず先に見る。</p></div>
                     </div>
                     <div class="flex gap-4">
                         <span class="font-serif-jp text-2xl primary-color flex-shrink-0" style="line-height:1.2;">03</span>
-                        <div><p class="font-bold text-gray-800">仮説は「潰す」ために立てる</p><p class="text-sm mt-1 text-gray-600">外れた仮説（今回は「リピートが原因」）も、原因の場所を狭める前進。当てにいくのではなく、消しにいく。</p></div>
+                        <div><p class="font-bold text-gray-800">バラバラのデータを1本の線につなぐ</p><p class="text-sm mt-1 text-gray-600">集客・売上・商品ページ・発信履歴のように、別々に存在する数字を「発見→興味→予約」の流れに並べ直す。漏れている一段が見える。</p></div>
                     </div>
                     <div class="flex gap-4">
                         <span class="font-serif-jp text-2xl primary-color flex-shrink-0" style="line-height:1.2;">04</span>
-                        <div><p class="font-bold text-gray-800">対策の前に「問題」を言葉にする</p><p class="text-sm mt-1 text-gray-600">解くべき問題を3つに絞ってから、手札（選択肢）を並べる。なぜその一手を選んだかを説明できる状態にする。</p></div>
+                        <div><p class="font-bold text-gray-800">仮説は「潰す」ために立てる</p><p class="text-sm mt-1 text-gray-600">外れた仮説（今回は「リピートが原因」）も、原因の場所を狭める前進。当てにいくのではなく、消しにいく。</p></div>
                     </div>
                     <div class="flex gap-4">
                         <span class="font-serif-jp text-2xl primary-color flex-shrink-0" style="line-height:1.2;">05</span>
-                        <div><p class="font-bold text-gray-800">「柱1本」を「階段」に組み替える</p><p class="text-sm mt-1 text-gray-600">一つの売れ筋への依存は、いつか必ず折れる。入口→中段→上位と分散させ、追う数字も「単発」から「継続」へ変える。</p></div>
+                        <div><p class="font-bold text-gray-800">「柱1本」を「階段」に組み替える</p><p class="text-sm mt-1 text-gray-600">一つの売れ筋・特需への依存は、いつか必ず折れる。入口→中段→上位と分散させ、追う数字も「単発」から「継続」へ変える。</p></div>
                     </div>
                 </div>
             </section>
@@ -395,7 +494,7 @@
             <div class="p-8 rounded-xl border text-center mt-12" style="border-color:var(--border-color);background:#fbf3f6;">
                 <h3 class="font-serif-jp text-xl font-bold mb-4 text-gray-800">「売上は落ちたが、原因が分からない」とき</h3>
                 <p class="mb-6 text-left md:text-center">
-                    私たちがまずやるのは、派手な施策の提案ではありません。<strong>お手元のデータを一緒に並べて、原因を一段に絞り込むこと</strong>です。<br>
+                    私たちがまずやるのは、派手な施策の提案ではありません。<strong>市場がまだあるかを確かめ、お手元のデータを一緒に並べて、原因を一段に絞り込むこと</strong>です。<br>
                     業種はECでもサロンでも飲食でも構いません。「何から手をつければいいか分からない」状態の整理から、お手伝いします。
                 </p>
                 <a href="https://calendar.app.google/TZrQ5YLexng2gPRV8" target="_blank" class="btn-primary inline-block px-8 py-4 rounded-lg font-bold text-lg shadow-lg transform hover:-translate-y-1 transition duration-300">

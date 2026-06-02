@@ -31,6 +31,8 @@
         .btn-primary:hover { background-position: right center; }
         .marker { background: linear-gradient(transparent 60%, #ffe7c2 60%); font-weight: 700; }
         .prose h2 { scroll-margin-top: 80px; }
+        article p, article li { font-size: 1.0625rem; line-height: 1.9; }
+        @media (min-width: 768px) { article p, article li { font-size: 1.125rem; line-height: 1.95; } }
         .toc a:hover { color: var(--primary-color); text-decoration: underline; }
         table.data { width:100%; border-collapse:collapse; font-size:0.82rem; }
         table.data th, table.data td { border:1px solid var(--border-color); padding:8px 10px; text-align:center; }
@@ -53,7 +55,7 @@
         </div>
     </header>
 
-    <article class="container mx-auto px-6 py-12 max-w-4xl bg-white mt-8 rounded-xl shadow-sm">
+    <article class="container mx-auto px-6 py-12 max-w-5xl bg-white mt-8 rounded-xl shadow-sm">
         <div class="flex items-center gap-2 mb-4 flex-wrap">
             <span class="text-white text-xs font-bold px-3 py-1 rounded" style="background:var(--primary-color);">仕組み化・自動化</span>
             <span class="text-gray-400 text-xs">業務改善コラム</span>

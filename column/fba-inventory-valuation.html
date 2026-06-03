@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PBN7WNCX8N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-PBN7WNCX8N');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Amazon FBAの在庫は倉庫に分散し日々動くため、月末の棚卸し（在庫評価）が手作業だと重い。私たちはAmazonのレポートAPIで在庫スナップショットを自動取得し、原価マスタと突合して評価額を自動算出→スプレッドシート記録→Slack通知する仕組みを作りました。設計の流れと、APIのレート制限でつまずいた話まで公開します。">
+    <title>FBA在庫を毎月“自動で”棚卸し評価する：月末の在庫金額を手集計しない - 合同会社ヤシノミ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0a3d62;
+            --primary-color-dark: #06283d;
+            --accent-orange: #FF9900;
+            --border-color: #e5e7eb;
+            --good: #4E7C59;
+            --alert: #B23A3A;
+        }
+        body { font-family: 'Noto Sans JP', sans-serif; color: #1f2937; background-color: #f8f9fa; }
+        .font-serif-jp { font-family: 'Noto Serif JP', serif; }
+        .primary-color { color: var(--primary-color); }
+        .text-accent { color: var(--accent-orange); }
+        .btn-primary { background-image: linear-gradient(to right, #0a3d62 0%, #06283d 50%, #0a3d62 100%); background-size: 200% auto; color: white; }
+        .btn-primary:hover { background-position: right center; }
+        .marker { background: linear-gradient(transparent 60%, #ffe7c2 60%); font-weight: 700; }
+        .prose h2 { scroll-margin-top: 80px; }
+        article p, article li { font-size: 1.0625rem; line-height: 1.9; }
+        @media (min-width: 768px) { article p, article li { font-size: 1.125rem; line-height: 1.95; } }
+        .toc a:hover { color: var(--primary-color); text-decoration: underline; }
+        table.data { width:100%; border-collapse:collapse; font-size:0.85rem; }
+        table.data th, table.data td { border:1px solid var(--border-color); padding:8px 10px; text-align:center; }
+        table.data th { background:var(--primary-color); color:#fff; font-weight:700; }
+        table.data tr:nth-child(even) td { background:#fafafa; }
+        table.data td.l { text-align:left; }
+        .note-good { background:#eef5ef; border-left:4px solid var(--good); }
+        .note-alert { background:#fbeeee; border-left:4px solid var(--alert); }
+        .flow-step { background:#f1f7fd; border:1px solid var(--border-color); border-radius:10px; padding:12px 14px; }
+    </style>
+
+    <link rel="icon" href="https://yashi-nomi.com/images/logo.png" type="image/png" sizes="192x192">
+    <link rel="apple-touch-icon" href="https://yashi-nomi.com/images/logo.png">
+</head>
+<body>
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="../index.html" class="flex items-center gap-2">
+                <img src="../images/logo.png" alt="ヤシノミ ロゴ" class="h-8 w-auto">
+                <span class="font-bold primary-color">合同会社ヤシノミ</span>
+            </a>
+            <a href="https://calendar.app.google/TZrQ5YLexng2gPRV8" target="_blank" class="btn-primary px-4 py-2 rounded text-sm font-bold transition shadow-md">無料相談を予約</a>
+        </div>
+    </header>
+
+    <article class="container mx-auto px-6 py-12 max-w-5xl bg-white mt-8 rounded-xl shadow-sm">
+        <div class="flex items-center gap-2 mb-4 flex-wrap">
+            <span class="text-white text-xs font-bold px-3 py-1 rounded" style="background:var(--accent-orange);">Amazonコラム</span>
+            <span class="text-white text-xs font-bold px-3 py-1 rounded" style="background:var(--primary-color);">仕組み化・自動化</span>
+            <span class="text-gray-400 text-xs">業務改善コラム</span>
+        </div>
+        <h1 class="font-serif-jp text-3xl md:text-4xl font-bold mt-2 mb-4 leading-tight text-gray-800" style="letter-spacing:0.02em;">
+            FBA在庫を毎月“自動で”棚卸し評価する<br>
+            <span class="text-2xl md:text-3xl mt-3 block text-gray-600 font-normal">月末の在庫金額を、手で集計しない</span>
+        </h1>
+        <p class="text-sm text-gray-400 mb-8">業務改善コラム ／ Amazon・仕組み化・自動化 ／ 読了目安：約9分</p>
+
+        <div class="prose max-w-none text-gray-700 leading-relaxed space-y-8">
+            <p class="text-lg font-medium leading-8 pl-4 p-4 rounded-r" style="border-left:4px solid var(--accent-orange);background:#fff8ef;">
+                月末になると、決算や試算表のために「いま在庫がいくら分あるか（棚卸資産）」を出す必要があります。Amazon FBAだと、これが地味に重い。<span class="marker">在庫は複数倉庫に分散し、毎日動き、しかも原価と紐づいていない</span>からです。<br>
+                私たちは自社のEC経理で、この月末作業を<strong>レポートAPIによる自動評価</strong>に置き換えました。考え方と設計の流れ、そして実際につまずいた点（APIのレート制限）まで、できるだけ具体的に公開します。
+            </p>
+
+            <nav class="toc text-sm bg-gray-50 border rounded-lg p-5" style="border-color:var(--border-color);">
+                <p class="font-bold text-gray-800 mb-3">この記事の内容</p>
+                <ol class="list-decimal pl-5 space-y-1.5 text-gray-600">
+                    <li><a href="#why">なぜFBA在庫の棚卸しは面倒なのか</a></li>
+                    <li><a href="#what">何を自動化したか（全体像）</a></li>
+                    <li><a href="#flow">仕組みの流れ：取得→評価→記録→通知</a></li>
+                    <li><a href="#pitfall">つまずき：APIのレート制限</a></li>
+                    <li><a href="#after">月末はどう変わったか</a></li>
+                    <li><a href="#type">他社でも使える「在庫評価」の型</a></li>
+                    <li><a href="#summary">まとめ</a></li>
+                </ol>
+            </nav>
+
+            <section id="why">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">1. なぜFBA在庫の棚卸しは面倒なのか</h2>
+                <p>計算式自体は単純です（在庫数 × 原価）。面倒なのは、その材料を集める工程です。</p>
+                <ul class="list-disc pl-6 space-y-2 mt-4">
+                    <li><strong>在庫が分散している</strong>：FBAの在庫は複数のフルフィルメントセンターに散らばり、さらに「販売可能」「入荷中」「保留」など状態も分かれる。</li>
+                    <li><strong>毎日動く</strong>：売れた・返品された・補充した……で数字は刻々と変わる。「いつ時点か」を固定しないと意味がない。</li>
+                    <li><strong>原価と紐づいていない</strong>：Amazonの画面に出るのは在庫"数"。評価額を出すには、自社で持っているSKUごとの<strong>原価</strong>と突き合わせる必要がある。</li>
+                </ul>
+                <p class="mt-4">
+                    これを毎月、画面からCSVを落として手で集計していると、<span class="marker">月初の数時間がまるごと消える</span>。しかも手作業はミスが混じります。
+                </p>
+            </section>
+
+            <section id="what">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">2. 何を自動化したか（全体像）</h2>
+                <p>
+                    やったことは一言でいうと、<span class="marker">「月末時点の在庫スナップショットを自動で取り、自社の原価表と掛け合わせて評価額を出す」</span>仕組みづくりです。
+                    手でCSVをダウンロードする代わりに、Amazonの<strong>レポートAPI</strong>から在庫データを取得し、原価マスタと突合して、結果をスプレッドシートに記録、最後にSlackへ通知します。
+                </p>
+                <figure class="my-5 overflow-x-auto">
+                    <table class="data">
+                        <thead>
+                            <tr><th>工程</th><th>Before（手作業）</th><th>After（自動）</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td class="l">在庫データ取得</td><td>管理画面から手でCSVダウンロード</td><td>レポートAPIで自動取得</td></tr>
+                            <tr><td class="l">原価と突合</td><td>関数を組んで手で貼り合わせ</td><td>原価マスタと自動で結合</td></tr>
+                            <tr><td class="l">評価額の算出</td><td>表計算で都度計算</td><td>自動計算（在庫数×原価）</td></tr>
+                            <tr><td class="l">記録</td><td>毎月ファイルを別名保存</td><td>月次ログに自動追記</td></tr>
+                            <tr><td class="l">共有</td><td>口頭・メール</td><td>Slackへ自動通知</td></tr>
+                        </tbody>
+                    </table>
+                </figure>
+            </section>
+
+            <section id="flow">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">3. 仕組みの流れ：取得→評価→記録→通知</h2>
+                <div class="grid sm:grid-cols-4 gap-3 mt-6">
+                    <div class="flow-step">
+                        <p class="font-bold text-sm primary-color mb-1">① 取得</p>
+                        <p class="text-xs text-gray-600">レポートAPIに在庫レポートを要求し、月末時点のスナップショットを受け取る。</p>
+                    </div>
+                    <div class="flow-step">
+                        <p class="font-bold text-sm primary-color mb-1">② 評価</p>
+                        <p class="text-xs text-gray-600">SKUごとに自社の原価マスタと突合し、在庫数×原価で評価額を算出。</p>
+                    </div>
+                    <div class="flow-step">
+                        <p class="font-bold text-sm primary-color mb-1">③ 記録</p>
+                        <p class="text-xs text-gray-600">月次ログのスプレッドシートに、日付つきで自動追記。推移が残る。</p>
+                    </div>
+                    <div class="flow-step">
+                        <p class="font-bold text-sm primary-color mb-1">④ 通知</p>
+                        <p class="text-xs text-gray-600">「在庫評価額がいくらになったか」をSlackへ自動投稿。確認は数秒。</p>
+                    </div>
+                </div>
+                <p class="mt-5">
+                    肝は<strong>「原価マスタ」を一度きちんと整える</strong>こと。ここさえ整えば、毎月の評価は完全に自動で回せます。逆にここが曖昧だと、いくら自動化しても数字が信用できません。
+                </p>
+            </section>
+
+            <section id="pitfall">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">4. つまずき：APIのレート制限</h2>
+                <p>
+                    正直に、ハマった点も書きます。最初は<strong>毎回レポートを新規作成して取得</strong>する作りにしていました。ところが、レポートを連続で作成しているうちに<span class="marker">APIのレート制限（リクエスト回数の上限）に当たってしまった</span>のです。
+                </p>
+                <div class="note-alert rounded-r p-4 mt-4 text-sm">
+                    <strong>学び：</strong>「毎回ゼロから作る」のは富豪的でムダ。直近に作られた同種のレポートがあれば<strong>それを再利用</strong>し、無ければ作る——という設計に変えたら、制限に当たらず安定しました。自動化は「動けばいい」ではなく、<strong>外部APIの作法（上限・待ち時間）に合わせて設計する</strong>ことまで含めて初めて"続く"仕組みになります。
+                </div>
+            </section>
+
+            <section id="after">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">5. 月末はどう変わったか</h2>
+                <p>
+                    Beforeは「画面を開いてCSVを落として、関数で原価を貼って、合計して、ファイルを保存して……」という一連の手作業。Afterは、<span class="marker">仕組みが勝手に評価額を出してSlackに通知してくれるので、人は"確認するだけ"</span>になりました。
+                </p>
+                <p class="mt-4">
+                    効果は時短だけではありません。毎月同じ条件・同じ時点で記録されるので、<strong>在庫評価額の「推移」</strong>が自然に貯まります。「在庫が膨らみすぎていないか」「過剰在庫の兆候はないか」を、後から振り返れるようになりました。
+                </p>
+            </section>
+
+            <section id="type">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">6. 他社でも使える「在庫評価」の型</h2>
+                <div class="space-y-6 mt-6">
+                    <div class="flex gap-4">
+                        <span class="font-serif-jp text-2xl primary-color flex-shrink-0" style="line-height:1.2;">01</span>
+                        <div><p class="font-bold text-gray-800">「いつ時点か」を固定する</p><p class="text-sm mt-1 text-gray-600">毎日動く在庫は、月末などの基準時点を決めてスナップショットを取る。これが棚卸しの大前提。</p></div>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="font-serif-jp text-2xl primary-color flex-shrink-0" style="line-height:1.2;">02</span>
+                        <div><p class="font-bold text-gray-800">原価マスタを一度きちんと整える</p><p class="text-sm mt-1 text-gray-600">数（在庫）と金額（原価）は別管理になりがち。突合できる形に揃えれば、評価は自動化できる。</p></div>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="font-serif-jp text-2xl primary-color flex-shrink-0" style="line-height:1.2;">03</span>
+                        <div><p class="font-bold text-gray-800">取得は「再利用優先」で組む</p><p class="text-sm mt-1 text-gray-600">外部APIには上限がある。毎回新規作成せず、直近のデータを再利用する設計にして"続く"形に。</p></div>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="font-serif-jp text-2xl primary-color flex-shrink-0" style="line-height:1.2;">04</span>
+                        <div><p class="font-bold text-gray-800">記録を残し、推移で見る</p><p class="text-sm mt-1 text-gray-600">単月の数字より、積み上がった推移が経営判断に効く。月次ログに自動で貯める。</p></div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="summary">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">7. まとめ</h2>
+                <ul class="list-disc pl-6 space-y-2">
+                    <li>FBA在庫の棚卸しが重いのは計算ではなく<strong>「材料集め」</strong>。分散・変動・原価未紐付けが原因。</li>
+                    <li>レポートAPIで在庫スナップショットを自動取得し、<strong>原価マスタと突合</strong>すれば評価は自動化できる。</li>
+                    <li>外部APIは<strong>レート制限</strong>に注意。毎回新規作成せず再利用する設計に。</li>
+                    <li>毎月同条件で記録すると<strong>在庫評価額の推移</strong>が貯まり、過剰在庫の兆候も見えてくる。</li>
+                </ul>
+            </section>
+
+            <div class="p-8 rounded-xl border text-center mt-12" style="border-color:var(--border-color);background:#fff8ef;">
+                <h3 class="font-serif-jp text-xl font-bold mb-4 text-gray-800">「月末の在庫集計に毎回半日とられている」方へ</h3>
+                <p class="mb-6 text-left md:text-center">
+                    原価マスタの整備から、レポートAPIでの自動取得・評価・記録・通知まで、お客様の在庫の実態に合わせて設計します。<br>
+                    Amazon物販を自分たちでもやっている当事者として、現場で使える形に落とし込みます。まずは無料相談でご相談ください。
+                </p>
+                <a href="https://calendar.app.google/TZrQ5YLexng2gPRV8" target="_blank" class="btn-primary inline-block px-8 py-4 rounded-lg font-bold text-lg shadow-lg transform hover:-translate-y-1 transition duration-300">
+                    無料相談を予約する（30分）
+                </a>
+            </div>
+        </div>
+
+        <div class="mt-10 text-center">
+            <a href="./index.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium transition-colors">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                業務改善コラム一覧に戻る
+            </a>
+        </div>
+    </article>
+
+    <footer class="text-gray-400 py-8 mt-12 text-center text-xs" style="background:var(--primary-color-dark);">
+        <p>© 2026 合同会社ヤシノミ All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

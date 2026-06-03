@@ -134,7 +134,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(to right, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.85) 50%, rgba(255,255,255,0.4) 100%);
+            background: linear-gradient(to right, rgba(2,22,45,0.82) 0%, rgba(2,22,45,0.6) 55%, rgba(2,22,45,0.25) 100%);
             z-index: 1;
         }
         .hero-content-wrapper {
@@ -158,7 +158,7 @@
                 text-align: left;
             }
             .hero-overlay {
-                background: linear-gradient(to right, rgba(255,255,255,0.95) 40%, rgba(255,255,255,0.0) 100%);
+                background: linear-gradient(to right, rgba(2,22,45,0.88) 28%, rgba(2,22,45,0.12) 70%, rgba(2,22,45,0) 100%);
             }
         }
         .hero-slide-title {
@@ -167,9 +167,12 @@
             line-height: 1.45;
             font-weight: 600;
             letter-spacing: 0.03em;
-            color: var(--primary-color-dark);
+            color: #ffffff;
             margin-bottom: 1.5rem;
+            text-shadow: 0 2px 12px rgba(0,0,0,0.25);
         }
+        .hero-slide-title .primary-color,
+        .hero-slide-subtitle .primary-color { color: #FFC107; }
         @media (min-width: 768px) {
             .hero-slide-title {
                 font-size: 2.75rem;
@@ -179,9 +182,10 @@
         .hero-slide-subtitle {
             font-family: var(--sans);
             font-size: 1rem;
-            color: var(--text-medium);
+            color: rgba(255,255,255,0.92);
             margin-bottom: 2.5rem;
             line-height: 1.95;
+            text-shadow: 0 1px 8px rgba(0,0,0,0.3);
         }
         @media (min-width: 768px) {
             .hero-slide-subtitle {
@@ -342,7 +346,7 @@
     <section class="hero-section-swiper"> 
         <div class="swiper-wrapper">
             <!-- Slide 1: メインメッセージ -->
-            <div class="swiper-slide" style="background-image: url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1920&q=80');">
+            <div class="swiper-slide" style="background-image: url('./images/hero-1.jpg');">
                 <div class="hero-overlay"></div>
                 <div class="hero-content-wrapper">
                     <div class="hero-text-col" data-aos="fade-up">
@@ -364,7 +368,7 @@
                 </div>
             </div>
             <!-- Slide 2: 提供価値1 - 再現性の高い運用基盤 -->
-            <div class="swiper-slide" style="background-image: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1920&q=80');"> 
+            <div class="swiper-slide" style="background-image: url('./images/hero-2.jpg');">
                 <div class="hero-overlay"></div>
                 <div class="hero-content-wrapper">
                     <div class="hero-text-col" data-aos="fade-up">
@@ -373,16 +377,15 @@
                             データに基づいた分析と改善サイクル。<br>
                             確実に成果の出るところから着実に。<br>持続可能な成長戦略をご提案します。
                         </p>
-                        <a href="#services" class="btn btn-outline-primary bg-white hover:bg-blue-50">サービス詳細へ</a>
+                        <a href="#services" class="btn" style="background:#fff;color:var(--primary-color-dark);box-shadow:0 4px 14px rgba(0,0,0,0.18);">サービス詳細へ</a>
                     </div>
                 </div>
             </div>
             <!-- Slide 3: 提供価値2 - 大阪中心の対面サポート -->
-            <div class="swiper-slide" style="background-image: url('https://images.unsplash.com/photo-1590559899731-a363ad00b9bd?auto=format&fit=crop&w=1920&q=80');"> 
+            <div class="swiper-slide" style="background-image: url('./images/hero-3.jpg');">
                 <div class="hero-overlay"></div>
                 <div class="hero-content-wrapper">
                     <div class="hero-text-col" data-aos="fade-up">
-                        <img src="./images/osaka-logo.png" alt="大阪中心のサポート" class="w-32 md:w-40 h-auto mb-6 opacity-40">
                         <h3 class="hero-slide-title"><span class="primary-color">大阪</span>を中心に<br>訪問での手厚い支援</h3>
                         <p class="hero-slide-subtitle">
                             Zoomだけでは伝わらない熱量も共有。<br>
@@ -393,7 +396,7 @@
                 </div>
             </div>
              <!-- Slide 4: 実績ハイライト -->
-            <div class="swiper-slide" style="background-image: url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1920&q=80');"> 
+            <div class="swiper-slide" style="background-image: url('./images/hero-4.jpg');">
                 <div class="hero-overlay"></div>
                 <div class="hero-content-wrapper">
                     <div class="hero-text-col" data-aos="fade-up">
@@ -801,8 +804,8 @@
 
                 <!-- コックリング市場参入（Amazon × 商品開発・市場参入） -->
                 <a href="./column/case-cockring-market-entry.html" class="card flex flex-col group hover:no-underline h-full" data-aos="fade-up" x-show="cat==='all' || cat==='amazon'">
-                    <div class="relative h-48 overflow-hidden flex items-center justify-center" style="background:linear-gradient(135deg,#2C7A7B,#06283d);">
-                        <svg class="w-14 h-14 text-white opacity-50 transition-transform duration-500 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path></svg>
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="./images/card-cockring.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                         <div class="absolute top-0 left-0 flex">
                             <span class="text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:var(--accent-orange);">Amazonコラム</span>
                             <span class="text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:rgba(255,255,255,0.22);">商品開発・市場参入</span>
@@ -824,8 +827,8 @@
 
                 <!-- Amazon検索順位の追跡（Amazon × 仕組み化・自動化） -->
                 <a href="./column/amazon-rank-tracking.html" class="card flex flex-col group hover:no-underline h-full" data-aos="fade-up" data-aos-delay="100" x-show="cat==='all' || cat==='amazon' || cat==='auto'">
-                    <div class="relative h-48 overflow-hidden flex items-center justify-center" style="background:linear-gradient(135deg,#b8730a,#0a3d62);">
-                        <svg class="w-14 h-14 text-white opacity-50 transition-transform duration-500 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"></path></svg>
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="./images/card-rank.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                         <div class="absolute top-0 left-0 flex">
                             <span class="text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:var(--accent-orange);">Amazonコラム</span>
                             <span class="text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:rgba(255,255,255,0.22);">仕組み化・自動化</span>
@@ -847,8 +850,8 @@
 
                 <!-- TikTok Shop（集客・見える化） -->
                 <a href="./column/tiktok-shop-playbook.html" class="card flex flex-col group hover:no-underline h-full" data-aos="fade-up" data-aos-delay="200" x-show="cat==='all' || cat==='mieruka'">
-                    <div class="relative h-48 overflow-hidden flex items-center justify-center" style="background:linear-gradient(135deg,#d6336c,#0a9396);">
-                        <svg class="w-14 h-14 text-white opacity-60 transition-transform duration-500 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="./images/card-tiktok.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                         <div class="absolute top-0 left-0 flex">
                             <span class="text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:rgba(255,255,255,0.22);">集客・見える化</span>
                             <span class="text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:rgba(255,255,255,0.18);">EC・新チャネル運用</span>
@@ -870,8 +873,8 @@
 
                 <!-- 失敗パターン集（Amazonコラム） -->
                 <a href="./column/shippai-pattern-db.html" class="card flex flex-col group hover:no-underline h-full" data-aos="fade-up" x-show="cat==='all' || cat==='amazon'">
-                    <div class="relative h-48 overflow-hidden flex items-center justify-center" style="background:linear-gradient(135deg,#B23A3A,#06283d);">
-                        <svg class="w-14 h-14 text-white opacity-50 transition-transform duration-500 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="./images/card-shippai.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                         <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:var(--accent-orange);">Amazonコラム</div>
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
@@ -890,8 +893,8 @@
 
                 <!-- Amazon広告 早期警告（Amazon × 仕組み化・自動化 の両タグ） -->
                 <a href="./column/amazon-ads-early-warning.html" class="card flex flex-col group hover:no-underline h-full" data-aos="fade-up" x-show="cat==='all' || cat==='amazon' || cat==='auto'">
-                    <div class="relative h-48 overflow-hidden flex items-center justify-center" style="background:linear-gradient(135deg,#b8730a,#0a3d62);">
-                        <svg class="w-14 h-14 text-white opacity-50 transition-transform duration-500 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="./images/card-ads-warning.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                         <div class="absolute top-0 left-0 flex">
                             <span class="text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:var(--accent-orange);">Amazonコラム</span>
                             <span class="text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:rgba(255,255,255,0.22);">仕組み化・自動化</span>
@@ -913,8 +916,8 @@
 
                 <!-- 業務改善記事（仕組み化・自動化：経理） -->
                 <a href="./column/keiri-automation.html" class="card flex flex-col group hover:no-underline h-full" data-aos="fade-up" data-aos-delay="100" x-show="cat==='all' || cat==='auto'">
-                    <div class="relative h-48 overflow-hidden flex items-center justify-center" style="background:linear-gradient(135deg,var(--primary-color),var(--primary-color-dark));">
-                        <svg class="w-14 h-14 text-white opacity-50 transition-transform duration-500 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="./images/card-keiri.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                         <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:rgba(255,255,255,0.18);">仕組み化・自動化</div>
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
@@ -933,8 +936,8 @@
 
                 <!-- 業務改善記事（集客・見える化：LINE自動フォロー） -->
                 <a href="./column/line-follow-automation.html" class="card flex flex-col group hover:no-underline h-full" data-aos="fade-up" data-aos-delay="200" x-show="cat==='all' || cat==='mieruka'">
-                    <div class="relative h-48 overflow-hidden flex items-center justify-center" style="background:linear-gradient(135deg,var(--primary-color),var(--primary-color-dark));">
-                        <svg class="w-14 h-14 text-white opacity-50 transition-transform duration-500 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="./images/card-line-follow.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                         <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:rgba(255,255,255,0.18);">集客・見える化</div>
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
@@ -953,8 +956,8 @@
 
                 <!-- 業務改善記事（集客・見える化：ブログ量産SEO） -->
                 <a href="./column/blog-seo.html" class="card flex flex-col group hover:no-underline h-full" data-aos="fade-up" x-show="cat==='all' || cat==='mieruka'">
-                    <div class="relative h-48 overflow-hidden flex items-center justify-center" style="background:linear-gradient(135deg,var(--primary-color),var(--primary-color-dark));">
-                        <svg class="w-14 h-14 text-white opacity-50 transition-transform duration-500 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="./images/card-blog-seo.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                         <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:rgba(255,255,255,0.18);">集客・見える化</div>
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
@@ -973,8 +976,8 @@
 
                 <!-- 業務改善記事（仕組み化・自動化：定期実行インフラ） -->
                 <a href="./column/scheduled-infra.html" class="card flex flex-col group hover:no-underline h-full" data-aos="fade-up" data-aos-delay="100" x-show="cat==='all' || cat==='auto'">
-                    <div class="relative h-48 overflow-hidden flex items-center justify-center" style="background:linear-gradient(135deg,var(--primary-color),var(--primary-color-dark));">
-                        <svg class="w-14 h-14 text-white opacity-50 transition-transform duration-500 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="./images/card-scheduled.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                         <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:rgba(255,255,255,0.18);">仕組み化・自動化</div>
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
@@ -993,8 +996,8 @@
 
                 <!-- 業務改善記事（現場DX）公開済み -->
                 <a href="./column/case-dezura-genba-dx.html" class="card flex flex-col group hover:no-underline h-full" data-aos="fade-up" x-show="cat==='all' || cat==='dx'">
-                    <div class="relative h-48 overflow-hidden flex items-center justify-center" style="background:linear-gradient(135deg,var(--primary-color),var(--primary-color-dark));">
-                        <svg class="w-14 h-14 text-white opacity-50 transition-transform duration-500 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="./images/card-dezura.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                         <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:rgba(255,255,255,0.18);">現場DX・業務アプリ</div>
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
@@ -1013,8 +1016,8 @@
 
                 <!-- アーネスト サロン立て直し（見える化） -->
                 <a href="./column/case-earnest-salon-rebuild.html" class="card flex flex-col group hover:no-underline h-full" data-aos="fade-up" x-show="cat==='all' || cat==='mieruka'">
-                    <div class="relative h-48 overflow-hidden flex items-center justify-center" style="background:linear-gradient(135deg,#7A3047,#06283d);">
-                        <svg class="w-14 h-14 text-white opacity-50 transition-transform duration-500 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="./images/card-salon.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                         <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:rgba(255,255,255,0.18);">集客・見える化</div>
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
@@ -1033,8 +1036,8 @@
 
                 <!-- AI診断の設計思想（見える化） -->
                 <a href="./column/ai-shindan-sekkei.html" class="card flex flex-col group hover:no-underline h-full" data-aos="fade-up" x-show="cat==='all' || cat==='mieruka'">
-                    <div class="relative h-48 overflow-hidden flex items-center justify-center" style="background:linear-gradient(135deg,#4E7C59,#06283d);">
-                        <svg class="w-14 h-14 text-white opacity-50 transition-transform duration-500 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="./images/card-ai-shindan.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                         <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:rgba(255,255,255,0.18);">集客・見える化</div>
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
@@ -1053,8 +1056,8 @@
 
                 <!-- 業務改善記事（見える化）公開済み -->
                 <a href="./column/uriage-mieruka.html" class="card flex flex-col group hover:no-underline h-full" data-aos="fade-up" data-aos-delay="100" x-show="cat==='all' || cat==='mieruka'">
-                    <div class="relative h-48 overflow-hidden flex items-center justify-center" style="background:linear-gradient(135deg,var(--primary-color),var(--primary-color-dark));">
-                        <svg class="w-14 h-14 text-white opacity-50 transition-transform duration-500 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="./images/card-uriage.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                         <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:rgba(255,255,255,0.18);">集客・見える化</div>
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
@@ -1073,8 +1076,8 @@
 
                 <!-- 業務改善記事（仕組み化・自動化）公開済み -->
                 <a href="./column/business-automation.html" class="card flex flex-col group hover:no-underline h-full" data-aos="fade-up" data-aos-delay="200" x-show="cat==='all' || cat==='auto'">
-                    <div class="relative h-48 overflow-hidden flex items-center justify-center" style="background:linear-gradient(135deg,var(--primary-color),var(--primary-color-dark));">
-                        <svg class="w-14 h-14 text-white opacity-50 transition-transform duration-500 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="./images/card-business-auto.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                         <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:rgba(255,255,255,0.18);">仕組み化・自動化</div>
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
@@ -1093,8 +1096,8 @@
 
                 <!-- LINE×Claude Code（仕組み化・自動化） -->
                 <a href="./column/line-claude-code.html" class="card flex flex-col group hover:no-underline h-full" data-aos="fade-up" data-aos-delay="300" x-show="cat==='all' || cat==='auto'">
-                    <div class="relative h-48 overflow-hidden flex items-center justify-center" style="background:linear-gradient(135deg,#06c755,#06283d);">
-                        <svg class="w-14 h-14 text-white opacity-60 transition-transform duration-500 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="./images/card-line-claude.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                         <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:rgba(255,255,255,0.18);">仕組み化・自動化</div>
                     </div>
                     <div class="p-6 flex flex-col flex-grow">

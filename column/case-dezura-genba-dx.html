@@ -12,7 +12,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="知人の現場管理は、ExcelとGASで『すでに回って』いました。それでもアプリ「デズラ」に作り替えたのはなぜか。どんな手札を比べ、なぜその設計を選んだか――結果自慢ではなく、課題への向き合い方そのものを公開します。">
+    <meta name="description" content="現場の出面管理を、まず私たちがスプレッドシートとGASで自動化しPDFを自動送付。それでも専用アプリ「デズラ」に作り替えたのはなぜか。どんな手札を比べ、なぜその設計を選んだか――結果自慢ではなく、課題への向き合い方そのものを公開します。">
     <title>動いている仕組みを、なぜわざわざアプリに作り替えたのか ― 現場管理アプリ「デズラ」の設計判断 - 合同会社ヤシノミ</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
@@ -95,15 +95,15 @@
                 これは、私たちの本業であるAmazon・ECとは少し違う事例です。知人（建設業の親方）の「出面（でづら）管理」を、
                 <span class="marker">現場管理アプリ「デズラ」（<a href="https://dezura.site" target="_blank" rel="noopener" class="underline" style="color:var(--dz);">dezura.site</a>）として作り直し、いまも私たちが運用しています。</span><br>
                 ただし最初にお断りします。これは「導入したら〇〇が△分になりました」という成果自慢の記事ではありません。
-                その知人の現場は、実はExcelとプログラムで<strong>すでにそれなりに回っていました</strong>。
-                それでもなぜ作り替えたのか――どんな手札を並べ、なぜその設計を選んだのか。私たちの考え方そのものをお見せします。
+                もともとは<strong>スマホのメモで現場ごとに管理</strong>していたものを、まず私たちが<strong>スプレッドシートとGASで自動化</strong>し、それなりに回る状態にしていました。
+                それでも専用アプリへ作り替えたのは、なぜか――どんな手札を並べ、なぜその設計を選んだのか。私たちの考え方そのものをお見せします。
             </p>
 
             <!-- 目次 -->
             <nav class="toc text-sm bg-gray-50 border rounded-lg p-5" style="border-color:var(--border-color);">
                 <p class="font-bold text-gray-800 mb-3">この記事の内容</p>
                 <ol class="list-decimal pl-5 space-y-1.5 text-gray-600">
-                    <li><a href="#start">出発点：すでに「回っていた」仕組みだった</a></li>
+                    <li><a href="#start">出発点：メモ管理を、まず私たちがスプレッドシートで自動化した</a></li>
                     <li><a href="#problem">「動く」と「続く」は別だ、という気づき</a></li>
                     <li><a href="#cards">手札を全部出して、却下理由まで言葉にする</a></li>
                     <li><a href="#design">なぜその設計を選んだか（4つの判断）</a></li>
@@ -113,36 +113,41 @@
             </nav>
 
             <section id="start">
-                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">1. 出発点：すでに「回っていた」仕組みだった</h2>
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">1. 出発点：メモ管理を、まず私たちがスプレッドシートで自動化した</h2>
                 <p>
-                    相談をくれたのは、建設の現場を持つ知人でした。「現場の出勤管理が手間だ」という話だったのですが、
-                    よく聞くと、その人はすでに<strong>表計算ソフトと簡単なプログラムを組み合わせて、かなりのところまで自動化していた</strong>のです。
+                    相談をくれたのは、建設の現場を持つ知人でした。「現場の出勤管理が手間だ」という話で、当時は
+                    <strong>現場ごとに、スマホのメモ帳で人の出入りを書き留めている</strong>状態。手元では分かっても、締めや集計はすべて手作業でした。
+                </p>
+                <p class="mt-4">
+                    そこで私たちがまず作ったのが、<strong>スプレッドシートとGAS（簡単なプログラム）を組み合わせた仕組み</strong>です。
                 </p>
                 <ul class="list-disc pl-6 space-y-2 mt-4 text-sm">
                     <li>誰が・どの現場に・何日出たかを表計算で記録する</li>
-                    <li>締め日が来たら、その期間ぶんを一枚の書類に自動でまとめる</li>
-                    <li>できあがった書類を、取引先（元請）へメールで送る</li>
+                    <li>締め日が来たら、その期間ぶんを一枚のPDFに自動でまとめる</li>
+                    <li>できあがったPDFを、指定したメールアドレスへ自動で送る</li>
                 </ul>
                 <p class="mt-4">
-                    つまり「困っているけれど何も手を打っていない」状態ではなく、<span class="marker">すでに自力で工夫して、業務を回していた</span>。
-                    だから私たちが最初に立てた問いは、「便利にしましょう」ではなく――
-                    <strong>「これ、本当に作り替える必要があるんだろうか？」</strong>でした。動いているものを壊すのは、いちばん避けたいことだからです。
+                    これで「手書きを集計する」手間はなくなり、<span class="marker">いったんは業務が回る状態になりました</span>。
+                    ――ここで普通なら「解決」です。でも私たちが次に立てた問いは、「便利になった。
+                    <strong>でも、このまま人や現場が増えても回るんだろうか？</strong>」でした。
                 </p>
             </section>
 
             <section id="problem">
                 <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">2. 「動く」と「続く」は別だ、という気づき</h2>
                 <p>
-                    話を掘り下げるうちに、解くべき課題は「手間」そのものではないと分かってきました。本当の弱点は<strong>続けられる構造になっていない</strong>ことでした。
+                    はっきり気づいたのは、別の親方から<strong>「うちのぶんも、もう一枚シートを作ってほしい」</strong>と頼まれたときでした。
+                    やろうと思えばできます。でもそこで思ったのです。<span class="marker">人が増えるたびにシートを足していくやり方は、すぐに管理しきれなくなる</span>と。
+                    解くべき課題は「手間」そのものではなく、<strong>増えても続けられる構造になっていない</strong>ことでした。
                 </p>
                 <div class="grid sm:grid-cols-3 gap-4 mt-6">
                     <div class="p-4 rounded-lg border" style="border-color:var(--border-color);background:#fafafa;">
-                        <p class="font-bold text-gray-800 text-sm mb-1">① 一人に依存している</p>
-                        <p class="text-xs text-gray-600">仕組みを作った本人しか中身を触れない。その人が忙しい・いなくなると、たちまち止まる。</p>
+                        <p class="font-bold text-gray-800 text-sm mb-1">① 増やすと破綻する</p>
+                        <p class="text-xs text-gray-600">親方や現場が増えるたびにシートを足す方式では、すぐに管理しきれない。今後ほかの人に頼まれたときの拡張性がない。</p>
                     </div>
                     <div class="p-4 rounded-lg border" style="border-color:var(--border-color);background:#fafafa;">
-                        <p class="font-bold text-gray-800 text-sm mb-1">② 現場の人が使えない</p>
-                        <p class="text-xs text-gray-600">表計算は事務所のPC前提。現場で働く人がスマホでその場に記録する、という形になっていない。</p>
+                        <p class="font-bold text-gray-800 text-sm mb-1">② 現場ではスマホが主役</p>
+                        <p class="text-xs text-gray-600">スプレッドシートは事務所のPC前提。現場で働く人がその場でスマホからサッと記録する、という形になっていない。</p>
                     </div>
                     <div class="p-4 rounded-lg border" style="border-color:var(--border-color);background:#fafafa;">
                         <p class="font-bold text-gray-800 text-sm mb-1">③ 業界特有の事情</p>
@@ -150,15 +155,15 @@
                     </div>
                 </div>
                 <p class="mt-6 text-sm text-gray-600 bg-gray-50 border-l-4 pl-4 py-3" style="border-color:var(--primary-color);">
-                    「いま動いているか」と「来年も、別の人でも回るか」は、まったく別の問いです。
-                    私たちが見ていたのは後者でした。手間を半分にすることより、<strong>属人化をほどいて、人に渡せる形にすること</strong>が課題だったのです。
+                    「いま動いているか」と「人が増えても、誰でも回せるか」は、まったく別の問いです。
+                    私たちが見ていたのは後者でした。シートを足し続けることより、<strong>誰が来てもスマホで使えて、増えても破綻しない土台に変えること</strong>が課題だったのです。
                 </p>
             </section>
 
             <section id="cards">
                 <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">3. 手札を全部出して、却下理由まで言葉にする</h2>
                 <p>
-                    課題が「属人化をほどく」だと分かれば、打ち手は一つではありません。私たちはいきなり「アプリを作りましょう」とは言わず、
+                    課題が「増えても続けられる形にする」だと分かれば、打ち手は一つではありません。私たちはいきなり「アプリを作りましょう」とは言わず、
                     まず<strong>選べる手札を全部並べて、それぞれの向き・不向きを正直に書き出しました。</strong>
                 </p>
                 <div class="overflow-x-auto mt-6">
@@ -175,7 +180,7 @@
                         <tr>
                             <td><strong>案B</strong><br>いまの表計算を改良し続ける</td>
                             <td><span class="o">○</span> 慣れた形のまま／追加コストが小さい</td>
-                            <td><span class="x">×</span> 一番の課題＝属人化が解けない。スマホで現場入力にするのは無理がある</td>
+                            <td><span class="x">×</span> 一番の課題＝<strong>増やしても回る形にならない</strong>。スマホで現場入力にするのも無理がある</td>
                         </tr>
                         <tr>
                             <td><strong>案C</strong><br>専用アプリを作る</td>
@@ -186,7 +191,7 @@
                 </table>
                 </div>
                 <p class="mt-5">
-                    最終的に選んだのは<strong>案C（専用アプリ）</strong>でした。決め手は、課題が「機能不足」ではなく「<span class="marker">業界特有の流れと、属人化</span>」だった点です。
+                    最終的に選んだのは<strong>案C（専用アプリ）</strong>でした。決め手は、課題が「機能不足」ではなく「<span class="marker">業界特有の流れと、増えても続けられる拡張性</span>」だった点です。
                     そこは既製品では埋まらず、表計算の改良でも解けない。だから作る、と決めました。
                     同時に「作る手間と運用責任は私たちが背負う」という案Cの弱点も、最初から引き受ける前提で進めています。
                     <strong>都合の良い面だけで選ばないこと</strong>を、私たちはいつも大事にしています。
@@ -292,7 +297,7 @@
                         <span class="step-num">02</span>
                         <div>
                             <p class="font-bold text-gray-800">課題を「手間」から「構造」へ言い換える</p>
-                            <p class="text-sm mt-1">「面倒」の正体が、属人化なのか・現場で使えないことなのか・業界特有の事情なのかを切り分けます。打ち手は、課題の言い換え方で決まります。</p>
+                            <p class="text-sm mt-1">「面倒」の正体が、増えても回らないことなのか・現場で使えないことなのか・業界特有の事情なのかを切り分けます。打ち手は、課題の言い換え方で決まります。</p>
                         </div>
                     </div>
                     <div class="flex gap-4">

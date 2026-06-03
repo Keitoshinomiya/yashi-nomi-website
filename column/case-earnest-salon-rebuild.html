@@ -103,6 +103,7 @@
                     <li><a href="#cards">手札を並べる：本当の問題は3つ</a></li>
                     <li><a href="#choice">なぜ「単価の階段」を選んだのか</a></li>
                     <li><a href="#now">いまの正直な状態と、これから見る数字</a></li>
+                    <li><a href="#daily">毎朝、サロンボードの数字が自動でSlackに届く</a></li>
                     <li><a href="#type">業種を問わず使える「読み解きの型」</a></li>
                 </ol>
             </nav>
@@ -464,8 +465,54 @@
                 </p>
             </section>
 
+            <section id="daily">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">11. 毎朝、サロンボードの数字が自動でSlackに届く</h2>
+                <p>
+                    「これから毎週見る数字」を決めても、<strong>毎回サロンボードにログインして手で集計する</strong>なら、忙しい現場では続きません。続かない仕組みは、無いのと同じです。
+                    そこで私たちは、本業のEC・Amazon運用とまったく同じ発想——<span class="marker">「数字は、見にいくのではなく、毎朝向こうから届く」</span>——を、このサロンにも持ち込みました。
+                </p>
+                <div class="grid md:grid-cols-2 gap-6 mt-6 items-start">
+                    <div>
+                        <p class="font-bold text-gray-800 mb-2">毎朝、自動でやっていること</p>
+                        <ul class="list-disc pl-6 space-y-2 text-sm">
+                            <li><strong>サロンボード（HPB管理画面）から自動取得</strong>：予約一覧と分析レポートを、人の代わりにプログラムが毎朝見にいきます。</li>
+                            <li><strong>集計</strong>：予約数（新規／再来）・<strong>稼働率</strong>・経路別（HPB／LINE／サブスク等）の<strong>見込み売上</strong>を自動でまとめます。</li>
+                            <li><strong>通知</strong>：その結果を<strong>毎朝Slackへ自動投稿</strong>。前日比・前週同曜比つきで「増えたのか減ったのか」が一目で分かります。</li>
+                            <li><strong>利益も別表で</strong>：売上から人件費・仕入・広告・家賃などを引いた<strong>営業利益（本当の利益）</strong>を月別に自動集計しています。</li>
+                        </ul>
+                        <div class="note-good rounded-r p-4 mt-4 text-sm">
+                            ここまで全部、決まった時刻に<strong>自動で動く</strong>ように組んであります。オーナーがやることは、<span class="marker">朝にSlackを1通読むだけ</span>。
+                        </div>
+                    </div>
+                    <div>
+                        <p class="text-xs text-gray-500 mb-2">毎朝Slackに届くお知らせ（イメージ）</p>
+                        <div style="max-width:420px;border:1px solid var(--border-color);border-radius:12px;overflow:hidden;box-shadow:0 6px 18px rgba(0,0,0,.07);background:#fff;">
+                            <div style="background:#3f0e40;color:#fff;padding:9px 14px;font-size:13px;font-weight:700;">#&nbsp;earnest-日次レポート</div>
+                            <div style="padding:14px;display:flex;gap:10px;">
+                                <div style="width:38px;height:38px;border-radius:8px;background:var(--primary-color);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;">弥</div>
+                                <div style="font-size:13px;line-height:1.75;color:#1f2937;">
+                                    <div style="margin-bottom:4px;"><strong>ヤシノミBot</strong> <span style="color:#9ca3af;font-size:11px;">9:05</span></div>
+                                    <div style="font-weight:700;margin-bottom:6px;">📅 EARNEST 予約カレンダー集計（本日時点）</div>
+                                    <div>・本日の予約：<strong>○件</strong>（前週同曜 +○）</div>
+                                    <div>・今週の稼働率：<strong>○%</strong>（前週比 +○pt）</div>
+                                    <div>・見込み売上：<strong>¥○○○</strong></div>
+                                    <div style="color:#6b7280;">&nbsp;&nbsp;└ HPB／LINE／サブスク… 経路別の内訳つき</div>
+                                    <div>・新規 ○件 ／ 再来 ○件</div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-2">※ 表示はイメージです。実際の件数・金額・稼働率は伏せています。</p>
+                    </div>
+                </div>
+                <p class="mt-6">
+                    派手な機能ではありません。けれど<span class="marker">「毎朝、同じ数字が、同じ形で、勝手に届く」</span>だけで、感覚や記憶に頼った経営から抜け出せます。
+                    どこが伸びてどこが漏れているかが毎日見えるから、打ち手の良し悪しも翌週には判断できる。
+                    ——私たちが自社ブランドでずっとやってきた「数字が回る状態」を、いまEARNESTでも一緒に作っている最中です。
+                </p>
+            </section>
+
             <section id="type">
-                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">11. 業種を問わず使える「読み解きの型」</h2>
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">12. 業種を問わず使える「読み解きの型」</h2>
                 <p>
                     この事例はサロンの話ですが、私たちがたどった「読み解きの手順」は、ECでも店舗でも製造業でも同じように使えます。型としてまとめます。
                 </p>

@@ -761,14 +761,14 @@
     <!-- 5.5 BLOG SECTION -->
     <section id="blog" class="py-20 md:py-28 bg-white border-b border-gray-200">
         <div class="container mx-auto px-6">
-            <div class="text-center mb-10" data-aos="fade-up">
+            <div class="text-center mb-10">
                 <p class="section-title-en mb-2">Business Improvement Insights</p>
                 <h2 class="section-title-jp">業務改善コラム</h2>
                 <p class="section-subtitle mt-3">弊社が実際に取り組んだ業務改善を徹底的に深掘りし、他社でも応用できる「型」として公開していきます。</p>
             </div>
 
             <!-- タグフィルター（バニラJS / Alpine非依存） -->
-            <div class="flex flex-wrap justify-center gap-2 mb-12 blog-filter" data-aos="fade-up">
+            <div class="flex flex-wrap justify-center gap-2 mb-12 blog-filter">
                 <button type="button" data-cat="all" class="filter-btn text-sm font-semibold px-4 py-2 rounded-full border transition">すべて</button>
                 <button type="button" data-cat="dx" class="filter-btn text-sm font-semibold px-4 py-2 rounded-full border transition">現場DX・業務アプリ</button>
                 <button type="button" data-cat="mieruka" class="filter-btn text-sm font-semibold px-4 py-2 rounded-full border transition">集客・見える化</button>
@@ -1197,7 +1197,7 @@
                 </a>
             </div>
 
-            <div class="mt-12 text-center" data-aos="fade-up">
+            <div class="mt-12 text-center">
                 <a href="./column/index.html" class="btn btn-outline-primary px-8">
                     記事一覧を見る
                 </a>
@@ -1553,6 +1553,9 @@
       function boot(){
         initFilter(document.getElementById('blog'), 6);       // トップページ：初期6件のみ、フィルターで全件
         initFilter(document.getElementById('blog-archive'));  // 記事一覧ページ：全件
+        // フィルターで表示件数を変えた後、AOSの発火位置がズレるので再計算（下部が表示されない問題の対策）
+        if(window.AOS && typeof AOS.refreshHard==='function'){ AOS.refreshHard(); }
+        setTimeout(function(){ if(window.AOS && typeof AOS.refresh==='function'){ AOS.refresh(); } }, 600);
       }
       if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', boot); } else { boot(); }
     })();

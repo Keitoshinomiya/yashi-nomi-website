@@ -33,12 +33,17 @@
         .card:hover { transform:translateY(-4px); box-shadow:0 12px 30px rgba(10,61,98,0.12); }
         .btn-outline-primary { border:1px solid var(--primary-color); color:var(--primary-color); border-radius:0.5rem; transition:.2s; }
         .btn-outline-primary:hover { background:var(--primary-color); color:#fff; }
+        .filter-btn { background:#fff; color:#4b5563; border-color:var(--border-color); }
+        .filter-btn:hover { border-color:var(--primary-color); color:var(--primary-color); }
+        .filter-btn.is-active { background:var(--primary-color); color:#fff; border-color:var(--primary-color); }
+        .filter-btn.is-active[data-cat="amazon"] { background:var(--accent-orange); border-color:var(--accent-orange); }
+        .filter-btn.is-active[data-cat="culture"] { background:#06283d; border-color:#06283d; }
     </style>
 
     <link rel="icon" href="https://yashi-nomi.com/images/logo.png" type="image/png" sizes="192x192">
     <link rel="apple-touch-icon" href="https://yashi-nomi.com/images/logo.png">
 </head>
-<body x-data="{ cat: 'all' }">
+<body>
     <header class="bg-white shadow-sm sticky top-0 z-50">
         <div class="container mx-auto px-6 py-3 flex justify-between items-center">
             <a href="../index.html" class="flex items-center gap-2">
@@ -59,27 +64,23 @@
     </section>
 
     <!-- BLOG LIST -->
-    <section class="py-16 bg-gray-50">
+    <section id="blog-archive" class="py-16 bg-gray-50">
         <div class="container mx-auto px-6">
 
-            <!-- タグフィルター -->
-            <div class="flex flex-wrap justify-center gap-2 mb-12">
-                <button @click="cat='all'" class="text-sm font-semibold px-4 py-2 rounded-full border transition"
-                    :style="cat==='all' ? 'background:var(--primary-color);color:#fff;border-color:var(--primary-color);' : 'background:#fff;color:#4b5563;border-color:var(--border-color);'">すべて</button>
-                <button @click="cat='dx'" class="text-sm font-semibold px-4 py-2 rounded-full border transition"
-                    :style="cat==='dx' ? 'background:var(--primary-color);color:#fff;border-color:var(--primary-color);' : 'background:#fff;color:#4b5563;border-color:var(--border-color);'">現場DX・業務アプリ</button>
-                <button @click="cat='mieruka'" class="text-sm font-semibold px-4 py-2 rounded-full border transition"
-                    :style="cat==='mieruka' ? 'background:var(--primary-color);color:#fff;border-color:var(--primary-color);' : 'background:#fff;color:#4b5563;border-color:var(--border-color);'">集客・見える化</button>
-                <button @click="cat='auto'" class="text-sm font-semibold px-4 py-2 rounded-full border transition"
-                    :style="cat==='auto' ? 'background:var(--primary-color);color:#fff;border-color:var(--primary-color);' : 'background:#fff;color:#4b5563;border-color:var(--border-color);'">仕組み化・自動化</button>
-                <button @click="cat='amazon'" class="text-sm font-semibold px-4 py-2 rounded-full border transition"
-                    :style="cat==='amazon' ? 'background:var(--accent-orange);color:#fff;border-color:var(--accent-orange);' : 'background:#fff;color:#4b5563;border-color:var(--border-color);'">Amazonコラム</button>
+            <!-- タグフィルター（バニラJS / Alpine非依存） -->
+            <div class="flex flex-wrap justify-center gap-2 mb-12 blog-filter">
+                <button type="button" data-cat="all" class="filter-btn text-sm font-semibold px-4 py-2 rounded-full border transition">すべて</button>
+                <button type="button" data-cat="dx" class="filter-btn text-sm font-semibold px-4 py-2 rounded-full border transition">現場DX・業務アプリ</button>
+                <button type="button" data-cat="mieruka" class="filter-btn text-sm font-semibold px-4 py-2 rounded-full border transition">集客・見える化</button>
+                <button type="button" data-cat="auto" class="filter-btn text-sm font-semibold px-4 py-2 rounded-full border transition">仕組み化・自動化</button>
+                <button type="button" data-cat="amazon" class="filter-btn text-sm font-semibold px-4 py-2 rounded-full border transition">Amazonコラム</button>
+                <button type="button" data-cat="culture" class="filter-btn text-sm font-semibold px-4 py-2 rounded-full border transition">ヤシノミの考え方</button>
             </div>
 
             <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
 
                 <!-- 広告Tier×悪化が見える表（Amazon × 仕組み化・自動化） -->
-                <a href="./amazon-ads-tier-monitoring.html" class="card flex flex-col group hover:no-underline h-full" x-show="cat==='all' || cat==='amazon' || cat==='auto'">
+                <a href="./amazon-ads-tier-monitoring.html" class="card flex flex-col group hover:no-underline h-full" data-cats="amazon auto">
                     <div class="relative h-48 overflow-hidden">
                         <img src="../images/card-ads-tier.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                         <div class="absolute top-0 left-0 flex">
@@ -95,7 +96,7 @@
                 </a>
 
                 <!-- SaaSサブスク棚卸し（仕組み化・自動化） -->
-                <a href="./saas-subscription-audit.html" class="card flex flex-col group hover:no-underline h-full" x-show="cat==='all' || cat==='auto'">
+                <a href="./saas-subscription-audit.html" class="card flex flex-col group hover:no-underline h-full" data-cats="auto">
                     <div class="relative h-48 overflow-hidden">
                         <img src="../images/card-saas-audit.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                         <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#003366;">仕組み化・自動化</div>
@@ -108,7 +109,7 @@
                 </a>
 
                 <!-- FBA在庫の自動棚卸し評価（Amazon × 仕組み化・自動化） -->
-                <a href="./fba-inventory-valuation.html" class="card flex flex-col group hover:no-underline h-full" x-show="cat==='all' || cat==='amazon' || cat==='auto'">
+                <a href="./fba-inventory-valuation.html" class="card flex flex-col group hover:no-underline h-full" data-cats="amazon auto">
                     <div class="relative h-48 overflow-hidden">
                         <img src="../images/card-fba-inventory.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                         <div class="absolute top-0 left-0 flex">
@@ -124,7 +125,7 @@
                 </a>
 
                 <!-- 仕組み化・自動化（公開済み） -->
-                <a href="./business-automation.html" class="card flex flex-col group hover:no-underline h-full" x-show="cat==='all' || cat==='auto'">
+                <a href="./business-automation.html" class="card flex flex-col group hover:no-underline h-full" data-cats="auto">
                     <div class="relative h-48 overflow-hidden">
                         <img src="../images/card-business-auto.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                         <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#003366;">仕組み化・自動化</div>
@@ -137,7 +138,7 @@
                 </a>
 
                 <!-- 現場DX（公開済み） -->
-                <a href="./case-dezura-genba-dx.html" class="card flex flex-col group hover:no-underline h-full" x-show="cat==='all' || cat==='dx'">
+                <a href="./case-dezura-genba-dx.html" class="card flex flex-col group hover:no-underline h-full" data-cats="dx">
                     <div class="relative h-48 overflow-hidden">
                         <img src="../images/card-dezura.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                         <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#003366;">現場DX・業務アプリ</div>
@@ -150,7 +151,7 @@
                 </a>
 
                 <!-- アーネスト サロン立て直し（集客・見える化） -->
-                <a href="./case-earnest-salon-rebuild.html" class="card flex flex-col group hover:no-underline h-full" x-show="cat==='all' || cat==='mieruka'">
+                <a href="./case-earnest-salon-rebuild.html" class="card flex flex-col group hover:no-underline h-full" data-cats="mieruka">
                     <div class="relative h-48 overflow-hidden">
                         <img src="../images/card-salon.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                         <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#003366;">集客・見える化</div>
@@ -163,7 +164,7 @@
                 </a>
 
                 <!-- AI診断の設計思想（集客・見える化） -->
-                <a href="./ai-shindan-sekkei.html" class="card flex flex-col group hover:no-underline h-full" x-show="cat==='all' || cat==='mieruka'">
+                <a href="./ai-shindan-sekkei.html" class="card flex flex-col group hover:no-underline h-full" data-cats="mieruka">
                     <div class="relative h-48 overflow-hidden">
                         <img src="../images/card-ai-shindan.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                         <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#003366;">集客・見える化</div>
@@ -176,7 +177,7 @@
                 </a>
 
                 <!-- 集客・見える化（公開済み） -->
-                <a href="./uriage-mieruka.html" class="card flex flex-col group hover:no-underline h-full" x-show="cat==='all' || cat==='mieruka'">
+                <a href="./uriage-mieruka.html" class="card flex flex-col group hover:no-underline h-full" data-cats="mieruka">
                     <div class="relative h-48 overflow-hidden">
                         <img src="../images/card-uriage.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                         <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#003366;">集客・見える化</div>
@@ -189,7 +190,7 @@
                 </a>
 
                 <!-- 経理自動化（仕組み化・自動化） -->
-                <a href="./keiri-automation.html" class="card flex flex-col group hover:no-underline h-full" x-show="cat==='all' || cat==='auto'">
+                <a href="./keiri-automation.html" class="card flex flex-col group hover:no-underline h-full" data-cats="auto">
                     <div class="relative h-48 overflow-hidden">
                         <img src="../images/card-keiri.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                         <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#003366;">仕組み化・自動化</div>
@@ -202,7 +203,7 @@
                 </a>
 
                 <!-- LINE×Claude Code（仕組み化・自動化） -->
-                <a href="./line-claude-code.html" class="card flex flex-col group hover:no-underline h-full" x-show="cat==='all' || cat==='auto'">
+                <a href="./line-claude-code.html" class="card flex flex-col group hover:no-underline h-full" data-cats="auto">
                     <div class="relative h-48 overflow-hidden">
                         <img src="../images/card-line-claude.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                         <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#003366;">仕組み化・自動化</div>
@@ -215,7 +216,7 @@
                 </a>
 
                 <!-- LINE自動フォロー（集客・見える化） -->
-                <a href="./line-follow-automation.html" class="card flex flex-col group hover:no-underline h-full" x-show="cat==='all' || cat==='mieruka'">
+                <a href="./line-follow-automation.html" class="card flex flex-col group hover:no-underline h-full" data-cats="mieruka">
                     <div class="relative h-48 overflow-hidden">
                         <img src="../images/card-line-follow.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                         <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#003366;">集客・見える化</div>
@@ -228,7 +229,7 @@
                 </a>
 
                 <!-- ブログ量産SEO（集客・見える化） -->
-                <a href="./blog-seo.html" class="card flex flex-col group hover:no-underline h-full" x-show="cat==='all' || cat==='mieruka'">
+                <a href="./blog-seo.html" class="card flex flex-col group hover:no-underline h-full" data-cats="mieruka">
                     <div class="relative h-48 overflow-hidden">
                         <img src="../images/card-blog-seo.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                         <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#003366;">集客・見える化</div>
@@ -241,7 +242,7 @@
                 </a>
 
                 <!-- 定期実行インフラ（仕組み化・自動化） -->
-                <a href="./scheduled-infra.html" class="card flex flex-col group hover:no-underline h-full" x-show="cat==='all' || cat==='auto'">
+                <a href="./scheduled-infra.html" class="card flex flex-col group hover:no-underline h-full" data-cats="auto">
                     <div class="relative h-48 overflow-hidden">
                         <img src="../images/card-scheduled.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                         <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#003366;">仕組み化・自動化</div>
@@ -256,7 +257,7 @@
                 <!-- ===== Amazonコラム ===== -->
 
                 <!-- 失敗パターン集（Amazonコラム） -->
-                <a href="./shippai-pattern-db.html" class="card flex flex-col group hover:no-underline h-full" x-show="cat==='all' || cat==='amazon'">
+                <a href="./shippai-pattern-db.html" class="card flex flex-col group hover:no-underline h-full" data-cats="amazon">
                     <div class="relative h-48 overflow-hidden">
                         <img src="../images/card-shippai.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                         <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:var(--accent-orange);">Amazonコラム</div>
@@ -269,7 +270,7 @@
                 </a>
 
                 <!-- Amazon広告 早期警告（Amazon × 仕組み化・自動化 の両タグ） -->
-                <a href="./amazon-ads-early-warning.html" class="card flex flex-col group hover:no-underline h-full" x-show="cat==='all' || cat==='amazon' || cat==='auto'">
+                <a href="./amazon-ads-early-warning.html" class="card flex flex-col group hover:no-underline h-full" data-cats="amazon auto">
                     <div class="relative h-48 overflow-hidden">
                         <img src="../images/card-ads-warning.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                         <div class="absolute top-0 left-0 flex">
@@ -285,7 +286,7 @@
                 </a>
 
                 <!-- コックリング市場参入（Amazonコラム） -->
-                <a href="./case-cockring-market-entry.html" class="card flex flex-col group hover:no-underline h-full" x-show="cat==='all' || cat==='amazon'">
+                <a href="./case-cockring-market-entry.html" class="card flex flex-col group hover:no-underline h-full" data-cats="amazon">
                     <div class="relative h-48 overflow-hidden">
                         <img src="../images/card-cockring.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                         <div class="absolute top-0 left-0 flex">
@@ -301,7 +302,7 @@
                 </a>
 
                 <!-- Amazon検索順位の追跡（Amazon × 仕組み化・自動化 の両タグ） -->
-                <a href="./amazon-rank-tracking.html" class="card flex flex-col group hover:no-underline h-full" x-show="cat==='all' || cat==='amazon' || cat==='auto'">
+                <a href="./amazon-rank-tracking.html" class="card flex flex-col group hover:no-underline h-full" data-cats="amazon auto">
                     <div class="relative h-48 overflow-hidden">
                         <img src="../images/card-rank.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                         <div class="absolute top-0 left-0 flex">
@@ -317,7 +318,7 @@
                 </a>
 
                 <!-- TikTok Shop（集客・見える化） -->
-                <a href="./tiktok-shop-playbook.html" class="card flex flex-col group hover:no-underline h-full" x-show="cat==='all' || cat==='mieruka'">
+                <a href="./tiktok-shop-playbook.html" class="card flex flex-col group hover:no-underline h-full" data-cats="mieruka">
                     <div class="relative h-48 overflow-hidden">
                         <img src="../images/card-tiktok.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                         <div class="absolute top-0 left-0 flex">
@@ -332,6 +333,45 @@
                     </div>
                 </a>
 
+                <!-- ヤシノミの考え方（Culture） -->
+                <a href="../culture/difficulty-brings-solutions.html" class="card flex flex-col group hover:no-underline h-full" data-cats="culture">
+                    <div class="relative h-48 flex items-center justify-center" style="background:linear-gradient(135deg,#0a3d62,#06283d);">
+                        <span class="text-6xl">🧭</span>
+                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#06283d;">ヤシノミの考え方</div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-lg font-bold text-gray-800 mb-3 group-hover:text-blue-600 transition-colors">困難は必ず解決策を連れてやってくる</h3>
+                        <p class="text-sm text-gray-600 mb-4" style="display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;">問題ゼロではなく、起きたときの向き合い方で信頼を積む。代表の原体験と、困難に出会ったときの5ステップの型を綴ります。</p>
+                        <span class="mt-auto text-blue-600 font-semibold text-sm flex items-center">読む<svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></span>
+                    </div>
+                </a>
+
+                <!-- ヤシノミの考え方（Culture） -->
+                <a href="../culture/awareness-x100.html" class="card flex flex-col group hover:no-underline h-full" data-cats="culture">
+                    <div class="relative h-48 flex items-center justify-center" style="background:linear-gradient(135deg,#0a3d62,#06283d);">
+                        <span class="text-6xl">🔭</span>
+                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#06283d;">ヤシノミの考え方</div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-lg font-bold text-gray-800 mb-3 group-hover:text-blue-600 transition-colors">才能の差は5倍、意識の差は100倍</h3>
+                        <p class="text-sm text-gray-600 mb-4" style="display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;">成果はスキルだけで決まらない。会社は「見たい景色」の解像度で決まる――意識と解像度の話を、身近な例で。</p>
+                        <span class="mt-auto text-blue-600 font-semibold text-sm flex items-center">読む<svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></span>
+                    </div>
+                </a>
+
+                <!-- ヤシノミの考え方（Culture） -->
+                <a href="../culture/systemize-is-kindness.html" class="card flex flex-col group hover:no-underline h-full" data-cats="culture">
+                    <div class="relative h-48 flex items-center justify-center" style="background:linear-gradient(135deg,#0a3d62,#06283d);">
+                        <span class="text-6xl">⚙️</span>
+                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#06283d;">ヤシノミの考え方</div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-lg font-bold text-gray-800 mb-3 group-hover:text-blue-600 transition-colors">仕組み化は、次の人への優しさ</h3>
+                        <p class="text-sm text-gray-600 mb-4" style="display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;">勘や努力への依存をやめ、自分が不在でも回る形に。再現性が文化。AI時代に会社を強くする資産という考え方です。</p>
+                        <span class="mt-auto text-blue-600 font-semibold text-sm flex items-center">読む<svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></span>
+                    </div>
+                </a>
+
             </div>
 
             <div class="mt-16 text-center">
@@ -343,5 +383,28 @@
     <footer class="text-gray-400 py-8 mt-0 text-center text-xs" style="background:var(--primary-color-dark);">
         <p>© 2026 合同会社ヤシノミ All Rights Reserved.</p>
     </footer>
+
+    <!-- タグフィルター（Alpine非依存・バニラJS） -->
+    <script>
+    (function(){
+      function initFilter(scope){
+        if(!scope) return;
+        var btns = scope.querySelectorAll('.filter-btn[data-cat]');
+        var cards = scope.querySelectorAll('a.card[data-cats]');
+        if(!btns.length || !cards.length) return;
+        function apply(cat){
+          cards.forEach(function(c){
+            var cats = (c.getAttribute('data-cats')||'').split(/\s+/);
+            c.style.display = (cat==='all' || cats.indexOf(cat)>-1) ? '' : 'none';
+          });
+          btns.forEach(function(b){ b.classList.toggle('is-active', b.getAttribute('data-cat')===cat); });
+        }
+        btns.forEach(function(b){ b.addEventListener('click', function(){ apply(b.getAttribute('data-cat')); }); });
+        apply('all');
+      }
+      function boot(){ initFilter(document.getElementById('blog-archive')); }
+      if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', boot); } else { boot(); }
+    })();
+    </script>
 </body>
 </html>

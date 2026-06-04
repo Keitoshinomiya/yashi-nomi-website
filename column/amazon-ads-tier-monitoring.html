@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PBN7WNCX8N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-PBN7WNCX8N');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Amazon広告は『気づいたら悪化していた』が一番こわい。私たちは投入候補をTier（S/A/B/C＋手動マーク）で仕分け、毎朝Slackに“悪化が見える表”が自動で届く仕組みで運用しています。日次レポート・経過観察テーブル・週次の改善サイクルの中身を、通知のイメージ付き（数値は伏せて）で公開します。">
+    <title>広告が悪化していないか、毎朝“表”で分かる：Amazon広告をTierと自動通知で運用する - 合同会社ヤシノミ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0a3d62;
+            --primary-color-dark: #06283d;
+            --accent-orange: #FF9900;
+            --border-color: #e5e7eb;
+            --good: #4E7C59;
+            --warn: #C2913E;
+            --alert: #B23A3A;
+        }
+        body { font-family: 'Noto Sans JP', sans-serif; color: #1f2937; background-color: #f8f9fa; }
+        .font-serif-jp { font-family: 'Noto Serif JP', serif; }
+        .primary-color { color: var(--primary-color); }
+        .text-accent { color: var(--accent-orange); }
+        .btn-primary { background-image: linear-gradient(to right, #0a3d62 0%, #06283d 50%, #0a3d62 100%); background-size: 200% auto; color: white; }
+        .btn-primary:hover { background-position: right center; }
+        .marker { background: linear-gradient(transparent 60%, #ffe7c2 60%); font-weight: 700; }
+        .prose h2 { scroll-margin-top: 80px; }
+        article p, article li { font-size: 1.0625rem; line-height: 1.9; }
+        @media (min-width: 768px) { article p, article li { font-size: 1.125rem; line-height: 1.95; } }
+        .toc a:hover { color: var(--primary-color); text-decoration: underline; }
+        table.data { width:100%; border-collapse:collapse; font-size:0.82rem; }
+        table.data th, table.data td { border:1px solid var(--border-color); padding:7px 9px; text-align:center; }
+        table.data th { background:var(--primary-color); color:#fff; font-weight:700; }
+        table.data tr:nth-child(even) td { background:#fafafa; }
+        table.data td.l { text-align:left; }
+        .pill { display:inline-block; color:#fff; font-weight:700; border-radius:6px; padding:2px 8px; font-size:0.78rem; }
+        .note-good { background:#eef5ef; border-left:4px solid var(--good); }
+        .note-alert { background:#fbeeee; border-left:4px solid var(--alert); }
+        /* Slack風モック */
+        .slack { max-width:440px; border:1px solid var(--border-color); border-radius:12px; overflow:hidden; box-shadow:0 6px 18px rgba(0,0,0,.07); background:#fff; }
+        .slack-h { background:#3f0e40; color:#fff; padding:9px 14px; font-size:13px; font-weight:700; }
+        .slack-b { padding:14px; display:flex; gap:10px; }
+        .slack-av { width:38px; height:38px; border-radius:8px; background:var(--primary-color); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; flex-shrink:0; }
+        .slack-t { font-size:12.5px; line-height:1.7; color:#1f2937; }
+    </style>
+
+    <link rel="icon" href="https://yashi-nomi.com/images/logo.png" type="image/png" sizes="192x192">
+    <link rel="apple-touch-icon" href="https://yashi-nomi.com/images/logo.png">
+</head>
+<body>
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="../index.html" class="flex items-center gap-2">
+                <img src="../images/logo.png" alt="ヤシノミ ロゴ" class="h-8 w-auto">
+                <span class="font-bold primary-color">合同会社ヤシノミ</span>
+            </a>
+            <a href="https://calendar.app.google/TZrQ5YLexng2gPRV8" target="_blank" class="btn-primary px-4 py-2 rounded text-sm font-bold transition shadow-md">無料相談を予約</a>
+        </div>
+    </header>
+
+    <article class="container mx-auto px-6 py-12 max-w-5xl bg-white mt-8 rounded-xl shadow-sm">
+        <div class="flex items-center gap-2 mb-4 flex-wrap">
+            <span class="text-white text-xs font-bold px-3 py-1 rounded" style="background:var(--accent-orange);">Amazonコラム</span>
+            <span class="text-white text-xs font-bold px-3 py-1 rounded" style="background:var(--primary-color);">仕組み化・自動化</span>
+            <span class="text-gray-400 text-xs">業務改善コラム</span>
+        </div>
+        <h1 class="font-serif-jp text-3xl md:text-4xl font-bold mt-2 mb-4 leading-tight text-gray-800" style="letter-spacing:0.02em;">
+            広告が悪化していないか、毎朝“表”で分かる<br>
+            <span class="text-2xl md:text-3xl mt-3 block text-gray-600 font-normal">Amazon広告を「Tier」と「自動通知」で運用する</span>
+        </h1>
+        <p class="text-sm text-gray-400 mb-8">業務改善コラム ／ Amazon・仕組み化・自動化 ／ 読了目安：約11分</p>
+
+        <div class="prose max-w-none text-gray-700 leading-relaxed space-y-8">
+            <p class="text-lg font-medium leading-8 pl-4 p-4 rounded-r" style="border-left:4px solid var(--accent-orange);background:#fff8ef;">
+                Amazon広告で一番こわいのは、赤字そのものより<span class="marker">「気づいたら、もう手遅れだった」</span>です。気づくのが2週間遅れれば、その2週間ぶんの広告費はもう戻りません。<br>
+                私たちは自社ブランドの運用で、これを<strong>「仕組み」で防いでいます</strong>。投入候補をTierで仕分け、稼働中のターゲットは<strong>毎朝、Slackに“悪化が見える表”が自動で届く</strong>。この記事では、その全体像と通知のイメージを、数値は伏せながらできるだけ具体的に公開します。
+            </p>
+
+            <nav class="toc text-sm bg-gray-50 border rounded-lg p-5" style="border-color:var(--border-color);">
+                <p class="font-bold text-gray-800 mb-3">この記事の内容</p>
+                <ol class="list-decimal pl-5 space-y-1.5 text-gray-600">
+                    <li><a href="#why">「気づいたら手遅れ」を、仕組みで防ぐ</a></li>
+                    <li><a href="#overview">全体像：日次で“見張り”、週次で“組み替え”</a></li>
+                    <li><a href="#tier">Tierで候補を仕分ける（自動判定＋手動マーク）</a></li>
+                    <li><a href="#daily">毎朝Slackに届く「悪化が見える表」</a></li>
+                    <li><a href="#watch">経過観察テーブル：変えた後を“14日”追う</a></li>
+                    <li><a href="#weekly">週次サイクル：仮説→実行→検証→学習</a></li>
+                    <li><a href="#type">他社でも使える「悪化を見える化する」型</a></li>
+                    <li><a href="#summary">まとめ</a></li>
+                </ol>
+            </nav>
+
+            <section id="why">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">1. 「気づいたら手遅れ」を、仕組みで防ぐ</h2>
+                <p>
+                    広告の数字は、毎日少しずつ動きます。昨日まで良かったキーワードが、今日から静かに悪化し始める。人が毎日全ターゲットを目視チェックするのは現実的ではなく、たいてい<span class="marker">月末にまとめて見て「うわ、ここ赤字だった」と気づく</span>——これが一番もったいないパターンです。
+                </p>
+                <p class="mt-4">
+                    だから私たちは、「頑張って毎日見る」ではなく、<strong>「悪化したものだけが、向こうから毎朝目の前に出てくる」</strong>状態を作りました。人の根性ではなく、表と通知に見張らせるのです。
+                </p>
+            </section>
+
+            <section id="overview">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">2. 全体像：日次で“見張り”、週次で“組み替え”</h2>
+                <p>運用は「日次」と「週次」の2つのリズムで回しています。役割がはっきり分かれているのがポイントです。</p>
+                <div class="grid sm:grid-cols-2 gap-5 mt-6">
+                    <div class="p-5 rounded-lg border" style="border-color:var(--border-color);background:#f1f7fd;">
+                        <p class="font-bold primary-color mb-2">🔁 日次（毎朝9:00）＝見張り役</p>
+                        <p class="text-sm text-gray-600">昨日の結果を取得し、<strong>悪化したターゲットを表にしてSlackへ自動通知</strong>。「今日、手を打つべきものはどれか」だけが分かる。</p>
+                    </div>
+                    <div class="p-5 rounded-lg border" style="border-color:var(--border-color);background:#f1f7fd;">
+                        <p class="font-bold primary-color mb-2">🗓 週次（月曜）＝組み替え役</p>
+                        <p class="text-sm text-gray-600">先週の打ち手を<strong>検証</strong>し、学びを反映。新しい候補を<strong>Tier</strong>から選んで投入提案。承認したものだけ実行する。</p>
+                    </div>
+                </div>
+                <p class="mt-5 text-sm text-gray-600 bg-gray-50 border-l-4 pl-4 py-3" style="border-color:var(--primary-color);">
+                    日次は「守り（悪化を止める）」、週次は「攻め（伸ばす候補を入れる）」。この2層に分けることで、<span class="marker">毎日バタバタ手を入れて余計に壊す</span>ことを防いでいます。
+                </p>
+            </section>
+
+            <section id="tier">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">3. Tierで候補を仕分ける（自動判定＋手動マーク）</h2>
+                <p>
+                    「次に広告へ入れるキーワード／商品」の候補は、放っておくと毎週バラバラに湧いてきます。そこで全候補を<strong>実績データで4段階のTierに自動判定</strong>し、データベースに貯めています。
+                </p>
+                <figure class="my-5 overflow-x-auto">
+                    <table class="data">
+                        <thead>
+                            <tr><th>Tier</th><th>意味</th><th>ざっくりの基準</th><th>アクション</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><span class="pill" style="background:#7c3aed;">S</span></td><td class="l">確実に儲かる超優良</td><td>実績で受注あり・低ACOS</td><td>即投入</td></tr>
+                            <tr><td><span class="pill" style="background:#4E7C59;">A</span></td><td class="l">高効率・優先候補</td><td>受注あり＆効率良 or 検索シェア高</td><td>1〜2週で投入</td></tr>
+                            <tr><td><span class="pill" style="background:#C2913E;">B</span></td><td class="l">中効率・検討対象</td><td>受注はあるが様子見ライン</td><td>予算余裕があれば</td></tr>
+                            <tr><td><span class="pill" style="background:#9ca3af;">C</span></td><td class="l">配信あり・成果なし</td><td>クリックはあるが受注ゼロ等</td><td>投入しない／要見極め</td></tr>
+                        </tbody>
+                    </table>
+                </figure>
+                <p>
+                    ただし自動判定だけだと、<strong>「数字上は優良でも、絶対に入れたくないもの」</strong>（自社商品と関係ない雑多なキーワード等）が毎週また候補に上がってきます。そこで<span class="marker">人にしか分からない判断を“手動マーク”として永続保存</span>しています。
+                </p>
+                <div class="grid sm:grid-cols-3 gap-4 mt-5">
+                    <div class="p-4 rounded-lg border" style="border-color:var(--border-color);background:#fff8e6;">
+                        <p class="font-bold text-gray-800 text-sm mb-1">🌟 VIP</p>
+                        <p class="text-xs text-gray-600">必ず入れる（自社指名語など）。毎週「即投入」で最優先提案。</p>
+                    </div>
+                    <div class="p-4 rounded-lg border" style="border-color:var(--border-color);background:#fbeeee;">
+                        <p class="font-bold text-gray-800 text-sm mb-1">🚫 EXCLUDE</p>
+                        <p class="text-xs text-gray-600">絶対に入れない。一度マークすれば<strong>二度と候補に浮上しない</strong>。</p>
+                    </div>
+                    <div class="p-4 rounded-lg border" style="border-color:var(--border-color);background:#fff3e6;">
+                        <p class="font-bold text-gray-800 text-sm mb-1">⏸ HOLD</p>
+                        <p class="text-xs text-gray-600">今は保留（季節性・LP改善待ち等）。提案はされるが保留表示。</p>
+                    </div>
+                </div>
+                <div class="note-good rounded-r p-4 mt-5 text-sm">
+                    キモは<strong>「同じ判断を毎週くり返さない」</strong>こと。一度マークした判断は貯まり続け、半年も回せば<span class="marker">“経験値のデータベース”</span>になります。人の頭の中にしかなかった判断が、資産として残っていきます。
+                </div>
+            </section>
+
+            <section id="daily">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">4. 毎朝Slackに届く「悪化が見える表」</h2>
+                <p>
+                    稼働中のターゲットは、毎朝9:00に前日結果を集計して<strong>Slackへ自動投稿</strong>します。ポイントは、<span class="marker">「昨日まで問題なかったのに、今日から悪化したもの」を🆕新規として最上段に分離</span>していること。継続中の問題はその下にまとめ、ノイズにしません。だから「今日まず見るべき1件」が毎朝はっきりします。
+                </p>
+                <div class="grid md:grid-cols-2 gap-6 mt-6 items-start">
+                    <div>
+                        <p class="font-bold text-gray-800 mb-2">日次レポートの構成</p>
+                        <ul class="list-disc pl-6 space-y-1.5 text-sm">
+                            <li><strong>昨日の速報</strong>：売上・広告費・TACOS・ACOS（アカウント横並び）</li>
+                            <li><strong>🆕 新規アラート</strong>：今日から悪化したターゲット（最重要）</li>
+                            <li><strong>📋 継続中</strong>：赤字・注意が続いているもの（全件）</li>
+                            <li><strong>📈 好調</strong>：伸びているTOP3</li>
+                            <li><strong>⏳ 経過観察</strong>：変更後14日以内のもの（次章）</li>
+                            <li><strong>異常値アラート</strong>：数字が突然跳ねた箇所</li>
+                        </ul>
+                        <p class="text-xs text-gray-500 mt-3">※ 昨日のデータが未反映なら<strong>レポートは送らず</strong>、取れてから送る設計。古い数字で判断しないためです。</p>
+                    </div>
+                    <div>
+                        <p class="text-xs text-gray-500 mb-2">毎朝Slackに届く日次レポート（イメージ）</p>
+                        <div class="slack">
+                            <div class="slack-h">#&nbsp;広告-日次レポート</div>
+                            <div class="slack-b">
+                                <div class="slack-av">弥</div>
+                                <div class="slack-t">
+                                    <div style="margin-bottom:4px;"><strong>広告Bot</strong> <span style="color:#9ca3af;font-size:11px;">9:00</span></div>
+                                    <div style="font-weight:700;">📊 昨日の速報</div>
+                                    <div>売上 ¥○○／広告費 ¥○○／TACOS ○%</div>
+                                    <div style="margin-top:6px;font-weight:700;color:#B23A3A;">🆕 新規アラート（1件）</div>
+                                    <div>・KW「○○○」 ACOS ○%↑（BE超え）</div>
+                                    <div style="margin-top:6px;font-weight:700;color:#C2913E;">📋 継続中（○件）</div>
+                                    <div>・ASIN ○○ / KW ○○ …</div>
+                                    <div style="margin-top:6px;font-weight:700;color:#4E7C59;">📈 好調 TOP3</div>
+                                    <div>・KW「○○」 ROAS ○○</div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-2">※ 表示はイメージ。実際の売上・広告費・ACOS等は伏せています。</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="watch">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">5. 経過観察テーブル：変えた後を“14日”追う</h2>
+                <p>
+                    入札やキーワードを変えたら、<strong>「変えっぱなし」にしない</strong>のが鉄則です。変更したターゲットは<span class="marker">14日間、毎朝この表で追跡</span>します。変更前の30日ACOSを基準に、昨日／7日／14日の推移と<strong>損益分岐（BE）</strong>を並べ、改善したか・赤字が続くかを毎日ひと目で判定できるようにしています。
+                </p>
+                <figure class="my-5 overflow-x-auto">
+                    <table class="data">
+                        <thead>
+                            <tr><th>ターゲット</th><th>入札(旧→新)</th><th>変更前ACOS</th><th>昨日</th><th>7日</th><th>14日</th><th>BE</th><th>判定</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td class="l">KW ○○○</td><td>¥○→¥○</td><td>○%</td><td>○%</td><td>○%</td><td>○%</td><td>○%</td><td><span class="pill" style="background:#4E7C59;">✅改善</span></td></tr>
+                            <tr><td class="l">ASIN ○○○</td><td>¥○→¥○</td><td>○%</td><td>○%</td><td>○%</td><td>—</td><td>○%</td><td><span class="pill" style="background:#C2913E;">⏳観察中</span></td></tr>
+                            <tr><td class="l">KW ○○○</td><td>¥○→¥○</td><td>○%</td><td>○%</td><td>○%</td><td>○%</td><td>○%</td><td><span class="pill" style="background:#B23A3A;">❌赤字継続</span></td></tr>
+                        </tbody>
+                    </table>
+                    <figcaption class="text-xs text-gray-400 mt-2">※ 表はイメージ。数値はすべて伏せています（○）。判定ロジックだけが本質です。</figcaption>
+                </figure>
+                <p>
+                    判定は機械的です。<strong>ACOSが損益分岐を下回れば✅改善、14日たっても赤字なら❌、データ不足なら観察延長</strong>。さらに変更後3〜5日の段階で「インプレッションだけ急増」「表示順位が急騰したのに受注ゼロ」などの<span class="marker">危険シグナルを検知したら、その場で即アラート</span>し、悪化が固まる前に手を打ちます。
+                </p>
+                <p class="text-sm text-gray-500 mt-3">（この“悪化する前に止める”早期警告の考え方は、別記事 <a href="./amazon-ads-early-warning.html" class="text-blue-600 underline">「広告の不調を『悪化する前』に止める」</a> で詳しく解説しています。）</p>
+            </section>
+
+            <section id="weekly">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">6. 週次サイクル：仮説→実行→検証→学習</h2>
+                <p>
+                    週次は、ただ候補を入れるだけではありません。<strong>毎週「先週の打ち手は当たったか」を検証してから、次の手を決める</strong>——回すほど提案が賢くなるループにしています。
+                </p>
+                <div class="grid sm:grid-cols-4 gap-3 mt-6">
+                    <div class="p-4 rounded-lg border text-center" style="border-color:var(--border-color);background:#f1f7fd;"><p class="font-bold text-sm primary-color mb-1">① 学習</p><p class="text-xs text-gray-600">先週の変更を測定し、的中率と学びを記録</p></div>
+                    <div class="p-4 rounded-lg border text-center" style="border-color:var(--border-color);background:#f1f7fd;"><p class="font-bold text-sm primary-color mb-1">② 計画</p><p class="text-xs text-gray-600">学びを踏まえTierから候補を提案（仮説つき）</p></div>
+                    <div class="p-4 rounded-lg border text-center" style="border-color:var(--border-color);background:#f1f7fd;"><p class="font-bold text-sm primary-color mb-1">③ 実行</p><p class="text-xs text-gray-600">承認したものだけAPIで反映</p></div>
+                    <div class="p-4 rounded-lg border text-center" style="border-color:var(--border-color);background:#f1f7fd;"><p class="font-bold text-sm primary-color mb-1">④ 検証</p><p class="text-xs text-gray-600">翌週また①へ。当たり外れを蓄積</p></div>
+                </div>
+                <p class="mt-5">
+                    各提案には<strong>「仮説・想定リスク・成功基準（例：7日後に受注○件以上）」</strong>を必ず添えます。安全側に逃げず、リスクを認識したうえで取る。そして<span class="marker">外れた仮説こそ記録して、次から同じ失敗を避ける</span>。「高評価だが受注が少ないものを一気に上げると暴落する」といった失敗パターンは、ルール化して自動で警告が出るようにしています。
+                </p>
+            </section>
+
+            <section id="type">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">7. 他社でも使える「悪化を見える化する」型</h2>
+                <p>Amazon広告の話で書きましたが、この型は在庫・経理・店舗の数字管理でもそのまま使えます。</p>
+                <div class="space-y-6 mt-6">
+                    <div class="flex gap-4"><span class="font-serif-jp text-2xl primary-color flex-shrink-0" style="line-height:1.2;">01</span><div><p class="font-bold text-gray-800">「見にいく」をやめ、「届く」に変える</p><p class="text-sm mt-1 text-gray-600">毎日全部を目視しない。悪化したものだけが向こうから出てくる仕組みにする。</p></div></div>
+                    <div class="flex gap-4"><span class="font-serif-jp text-2xl primary-color flex-shrink-0" style="line-height:1.2;">02</span><div><p class="font-bold text-gray-800">「新規の悪化」と「継続の問題」を分ける</p><p class="text-sm mt-1 text-gray-600">今日から悪くなったものを最上段に。継続はまとめてノイズにしない。</p></div></div>
+                    <div class="flex gap-4"><span class="font-serif-jp text-2xl primary-color flex-shrink-0" style="line-height:1.2;">03</span><div><p class="font-bold text-gray-800">候補をTierで仕分け、人の判断を永続化する</p><p class="text-sm mt-1 text-gray-600">自動判定＋手動マークで、同じ判断を毎回くり返さない。判断が資産になる。</p></div></div>
+                    <div class="flex gap-4"><span class="font-serif-jp text-2xl primary-color flex-shrink-0" style="line-height:1.2;">04</span><div><p class="font-bold text-gray-800">変えたら“追う”。基準（損益分岐）と一緒に見る</p><p class="text-sm mt-1 text-gray-600">変更後を一定期間トラッキング。良し悪しは基準線と並べて機械的に判定。</p></div></div>
+                </div>
+            </section>
+
+            <section id="summary">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">8. まとめ</h2>
+                <ul class="list-disc pl-6 space-y-2">
+                    <li>広告で一番こわいのは「手遅れ」。だから<strong>悪化が毎朝“表”で届く</strong>仕組みにする。</li>
+                    <li>運用は<strong>日次（守り）＝悪化の見張り</strong>と<strong>週次（攻め）＝候補の組み替え</strong>の2層に分ける。</li>
+                    <li>候補は<strong>Tier（S/A/B/C）＋手動マーク（VIP/EXCLUDE/HOLD）</strong>で仕分け、人の判断を資産化する。</li>
+                    <li>変更は「変えっぱなし」にせず、<strong>損益分岐と並べて14日追う</strong>。危険シグナルは即アラート。</li>
+                    <li>週次は仮説→実行→検証→学習のループ。<strong>外れた仮説も記録</strong>して提案精度を上げ続ける。</li>
+                </ul>
+            </section>
+
+            <div class="p-8 rounded-xl border text-center mt-12" style="border-color:var(--border-color);background:#fff8ef;">
+                <h3 class="font-serif-jp text-xl font-bold mb-4 text-gray-800">「広告、気づいたら悪化してた」をなくしたい方へ</h3>
+                <p class="mb-6 text-left md:text-center">
+                    Tierでの候補管理から、毎朝の“悪化が見える表”のSlack自動通知、週次の検証ループまで、お客様のアカウントに合わせて設計します。<br>
+                    私たち自身がAmazon物販の当事者として毎日使っている仕組みを、現場で回せる形でお渡しします。まずは無料相談でお気軽にどうぞ。
+                </p>
+                <a href="https://calendar.app.google/TZrQ5YLexng2gPRV8" target="_blank" class="btn-primary inline-block px-8 py-4 rounded-lg font-bold text-lg shadow-lg transform hover:-translate-y-1 transition duration-300">
+                    無料相談を予約する（30分）
+                </a>
+            </div>
+        </div>
+
+        <div class="mt-10 text-center">
+            <a href="./index.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium transition-colors">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                業務改善コラム一覧に戻る
+            </a>
+        </div>
+    </article>
+
+    <footer class="text-gray-400 py-8 mt-12 text-center text-xs" style="background:var(--primary-color-dark);">
+        <p>© 2026 合同会社ヤシノミ All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

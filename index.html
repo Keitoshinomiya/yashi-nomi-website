@@ -778,6 +778,29 @@
 
             <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
 
+                <!-- 広告Tier×悪化が見える表（Amazon × 仕組み化・自動化） -->
+                <a href="./column/amazon-ads-tier-monitoring.html" class="card flex flex-col group hover:no-underline h-full" x-show="cat==='all' || cat==='amazon' || cat==='auto'">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="./images/card-ads-tier.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                        <div class="absolute top-0 left-0 flex">
+                            <span class="text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:var(--accent-orange);">Amazonコラム</span>
+                            <span class="text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#005A9C;">仕組み化・自動化</span>
+                        </div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-lg font-bold text-gray-800 mb-3 group-hover:text-blue-600 transition-colors">
+                            広告が悪化していないか、毎朝“表”で分かる：Amazon広告をTierと自動通知で運用する
+                        </h3>
+                        <p class="text-sm text-gray-600 line-clamp-3 mb-4">
+                            投入候補をTier（S/A/B/C＋手動マーク）で仕分け、稼働中は毎朝Slackに“悪化が見える表”が自動で届く。日次の見張り・経過観察テーブル・週次の検証ループを、通知イメージ付き（数値は伏せ）で公開します。
+                        </p>
+                        <span class="mt-auto text-blue-600 font-semibold text-sm flex items-center">
+                            記事を読む
+                            <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                        </span>
+                    </div>
+                </a>
+
                 <!-- SaaSサブスク棚卸し（仕組み化・自動化） -->
                 <a href="./column/saas-subscription-audit.html" class="card flex flex-col group hover:no-underline h-full" x-show="cat==='all' || cat==='auto'">
                     <div class="relative h-48 overflow-hidden">

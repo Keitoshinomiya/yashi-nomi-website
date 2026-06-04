@@ -774,6 +774,7 @@
                 <button type="button" data-cat="mieruka" class="filter-btn text-sm font-semibold px-4 py-2 rounded-full border transition">集客・見える化</button>
                 <button type="button" data-cat="auto" class="filter-btn text-sm font-semibold px-4 py-2 rounded-full border transition">仕組み化・自動化</button>
                 <button type="button" data-cat="amazon" class="filter-btn text-sm font-semibold px-4 py-2 rounded-full border transition">Amazonコラム</button>
+                <button type="button" data-cat="culture" class="filter-btn text-sm font-semibold px-4 py-2 rounded-full border transition">ヤシノミの考え方</button>
             </div>
 
             <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
@@ -1155,6 +1156,45 @@
                         </span>
                     </div>
                 </a>
+
+                <!-- ヤシノミの考え方（Culture） -->
+                <a href="./culture/difficulty-brings-solutions.html" class="card flex flex-col group hover:no-underline h-full" data-cats="culture">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="./images/card-culture-difficulty.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#003366;">ヤシノミの考え方</div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-lg font-bold text-gray-800 mb-3 group-hover:text-blue-600 transition-colors">困難は必ず解決策を連れてやってくる</h3>
+                        <p class="text-sm text-gray-600 line-clamp-3 mb-4">問題ゼロではなく、起きたときの向き合い方で信頼を積む。代表の原体験と、困難に出会ったときの5ステップの型。</p>
+                        <span class="mt-auto text-blue-600 font-semibold text-sm flex items-center">読む<svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></span>
+                    </div>
+                </a>
+
+                <!-- ヤシノミの考え方（Culture） -->
+                <a href="./culture/awareness-x100.html" class="card flex flex-col group hover:no-underline h-full" data-cats="culture">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="./images/card-culture-awareness.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#003366;">ヤシノミの考え方</div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-lg font-bold text-gray-800 mb-3 group-hover:text-blue-600 transition-colors">才能の差は5倍、意識の差は100倍</h3>
+                        <p class="text-sm text-gray-600 line-clamp-3 mb-4">成果はスキルだけで決まらない。会社は「見たい景色」の解像度で決まる――意識と解像度の話を、身近な例で。</p>
+                        <span class="mt-auto text-blue-600 font-semibold text-sm flex items-center">読む<svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></span>
+                    </div>
+                </a>
+
+                <!-- ヤシノミの考え方（Culture） -->
+                <a href="./culture/systemize-is-kindness.html" class="card flex flex-col group hover:no-underline h-full" data-cats="culture">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="./images/card-culture-systemize.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#003366;">ヤシノミの考え方</div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-lg font-bold text-gray-800 mb-3 group-hover:text-blue-600 transition-colors">仕組み化は、次の人への優しさ</h3>
+                        <p class="text-sm text-gray-600 line-clamp-3 mb-4">勘や努力への依存をやめ、自分が不在でも回る形に。再現性が文化。AI時代に会社を強くする資産という考え方です。</p>
+                        <span class="mt-auto text-blue-600 font-semibold text-sm flex items-center">読む<svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></span>
+                    </div>
+                </a>
             </div>
 
             <div class="mt-12 text-center" data-aos="fade-up">
@@ -1491,15 +1531,19 @@
     <!-- ブログ タグフィルター（Alpine非依存・バニラJS） -->
     <script>
     (function(){
-      function initFilter(scope){
+      function initFilter(scope, limit){
         if(!scope) return;
         var btns = scope.querySelectorAll('.filter-btn[data-cat]');
         var cards = scope.querySelectorAll('a.card[data-cats]');
         if(!btns.length || !cards.length) return;
         function apply(cat){
+          var shown = 0;
           cards.forEach(function(c){
             var cats = (c.getAttribute('data-cats')||'').split(/\s+/);
-            c.style.display = (cat==='all' || cats.indexOf(cat)>-1) ? '' : 'none';
+            var match = (cat==='all') || cats.indexOf(cat)>-1;
+            if(match && cat==='all' && limit && shown>=limit){ match=false; } // 「すべて」は先頭limit件のみ
+            if(match){ shown++; }
+            c.style.display = match ? '' : 'none';
           });
           btns.forEach(function(b){ b.classList.toggle('is-active', b.getAttribute('data-cat')===cat); });
         }
@@ -1507,8 +1551,8 @@
         apply('all');
       }
       function boot(){
-        initFilter(document.getElementById('blog'));        // トップページ
-        initFilter(document.getElementById('blog-archive')); // 記事一覧ページ
+        initFilter(document.getElementById('blog'), 6);       // トップページ：初期6件のみ、フィルターで全件
+        initFilter(document.getElementById('blog-archive'));  // 記事一覧ページ：全件
       }
       if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', boot); } else { boot(); }
     })();

@@ -87,23 +87,22 @@
                 <option>11〜30人</option>
                 <option>31人以上</option>
             </select>
-            <label for="hours" style="margin-top:12px;">集計・転記・報告づくりなど「手作業」に使っている時間は？<span>（会社全体・週）</span></label>
-            <select id="hours">
+            <label for="freq" style="margin-top:12px;">売上・利益・広告など「経営の数字」を確認する頻度は？<span>（任意）</span></label>
+            <select id="freq">
                 <option value="">選択してください</option>
-                <option value="1-5">週1〜5時間</option>
-                <option value="5-10">週5〜10時間</option>
-                <option value="10-20">週10〜20時間</option>
-                <option value="20+">週20時間以上</option>
-                <option value="0">ほぼない</option>
+                <option>毎日</option>
+                <option>週1回くらい</option>
+                <option>月1回くらい</option>
+                <option>決算・申告のときだけ</option>
+                <option>ほぼ見ていない</option>
             </select>
-            <label for="adspend" style="margin-top:12px;">月の広告・販促費は？<span>（任意）</span></label>
-            <select id="adspend">
+            <label for="how" style="margin-top:12px;">その数字は、どうやって見ていますか？<span>（任意）</span></label>
+            <select id="how">
                 <option value="">選択してください</option>
-                <option>ほぼなし</option>
-                <option>〜5万円</option>
-                <option>5〜20万円</option>
-                <option>20〜50万円</option>
-                <option>50万円以上</option>
+                <option>自分で集計して見ている</option>
+                <option>スタッフ・税理士の資料で見ている</option>
+                <option>自動で届く仕組みがある</option>
+                <option>見る方法がそもそもない</option>
             </select>
         </div>
 
@@ -176,18 +175,15 @@
         var genreSel=document.getElementById('genre');
         var genreFree=document.getElementById('genre-free');
         var sizeSel=document.getElementById('size');
-        var hoursSel=document.getElementById('hours');
-        var adSel=document.getElementById('adspend');
+        var freqSel=document.getElementById('freq');
+        var howSel=document.getElementById('how');
         var impact=document.getElementById('impact');
         genreSel.addEventListener('change',function(){ genreFree.classList.toggle('show', genreSel.value==='other'); update(); });
         genreFree.addEventListener('input',update);
         sizeSel.addEventListener('change',update);
-        hoursSel.addEventListener('change',update);
-        adSel.addEventListener('change',update);
-        var HOURS={'1-5':{label:'週1〜5時間',yh:'年間 約52〜260時間',yen:'約10万〜52万円'},
-                   '5-10':{label:'週5〜10時間',yh:'年間 約260〜520時間',yen:'約52万〜104万円'},
-                   '10-20':{label:'週10〜20時間',yh:'年間 約520〜1,040時間',yen:'約104万〜208万円'},
-                   '20+':{label:'週20時間以上',yh:'年間 1,000時間超',yen:'200万円超'}};
+        freqSel.addEventListener('change',update);
+        howSel.addEventListener('change',update);
+        var FREQ_MULT={'週1回くらい':'判断の機会が約7倍に増えます','月1回くらい':'判断の機会が約30倍に増えます','決算・申告のときだけ':'年数回の確認が、毎朝になります','ほぼ見ていない':'「見えない経営」が、毎朝見える経営に変わります'};
         function getGenre(){ return genreSel.value==='other'?genreFree.value.trim():genreSel.value; }
         var CATS=['売上・集客','広告・販促','業務・作業','お金','判断'];
         function update(){
@@ -211,11 +207,21 @@
             else { cls='v-alert'; msg='<b>危険水域（'+n+'/20）</b>感覚経営の状態です。「'+top+'」の見える化から立て直しを。'; }
             verdict.className='verdict '+cls;
             verdict.innerHTML=msg;
-            // 金額換算（手作業時間→年間時間と人件費目安、広告費→答え合わせ対象額）
-            var hv=hoursSel.value; var ad=adSel.value;
+            // 頻度ギャップの提示（いまの確認頻度 → 毎朝・自動でできる、という期待値づくり）
+            var fq=freqSel.value; var hw=howSel.value;
             var impactLines=[];
-            if(hv && HOURS[hv]){ impactLines.push('🕐 手作業 '+HOURS[hv].label+' ＝ <b>'+HOURS[hv].yh+'</b>。人件費換算で<b>'+HOURS[hv].yen+'</b>分が「自動化の候補」です（時給2,000円で計算）。'); }
-            if(ad && ad!=='ほぼなし' && top==='広告・販促'){ impactLines.push('💰 月'+ad+'の広告・販促費が「答え合わせされないまま」流れている可能性があります。'); }
+            if(fq && fq!=='毎日'){
+                impactLines.push('📊 いま「'+fq+'」の数字確認 → この診断に出た項目は、すべて<b>毎朝・自動で届く</b>状態にできます。'+FREQ_MULT[fq]+'。');
+            } else if(fq==='毎日'){
+                if(hw==='自動で届く仕組みがある'){
+                    impactLines.push('📊 自動化の土台がすでにあります。次は「届いた数字が、次の一手につながる」仕組みづくりの段階です。');
+                } else {
+                    impactLines.push('📊 毎日見ているのは素晴らしい状態です。あとは「集計して見に行く」を<b>「自動で届く」</b>に変えれば、その作業時間がゼロになります。');
+                }
+            }
+            if(hw==='見る方法がそもそもない'){
+                impactLines.push('🔍 まず「見える状態」を作るところから。ここが一番、変化を実感できるご支援です。');
+            }
             if(impactLines.length){ impact.innerHTML=impactLines.join('<br>'); impact.style.display='block'; }
             else { impact.style.display='none'; }
             if(n>0){
@@ -224,8 +230,8 @@
                 var text='ボトルネック診断の「診断書」を受け取りたいです。\n'
                     +(g?'業種：'+g+'\n':'')
                     +(sz?'規模：'+sz+'\n':'')
-                    +(hv&&HOURS[hv]?'手作業：'+HOURS[hv].label+'\n':'')
-                    +(ad?'広告・販促費：月'+ad+'\n':'')
+                    +(fq?'数字の確認頻度：'+fq+'\n':'')
+                    +(hw?'確認方法：'+hw+'\n':'')
                     +'スコア：'+n+'/20（いちばんの詰まり：'+(top||'—')+'）\n'
                     +'内訳：'+detail;
                 lineBtn.href='https://line.me/R/oaMessage/%40756qpakc/?'+encodeURIComponent(text);

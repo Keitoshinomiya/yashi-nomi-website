@@ -170,9 +170,11 @@
 
         /* ── モバイル横スワイプカルーセル（縦長対策） ── */
         @media (max-width: 767px) {
-            .m-carousel { display: flex !important; flex-direction: row !important; overflow-x: auto; scroll-snap-type: x mandatory; gap: 14px !important; padding: 4px 2px 14px; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+            .m-carousel { display: flex !important; flex-direction: row !important; justify-content: flex-start !important; overflow-x: auto; scroll-snap-type: x proximity; scroll-padding-left: 16px; gap: 14px !important; padding: 4px 2px 14px; -webkit-overflow-scrolling: touch; scrollbar-width: none; touch-action: pan-x pan-y; }
             .m-carousel::-webkit-scrollbar { display: none; }
             .m-carousel > * { flex: 0 0 82%; max-width: 82%; scroll-snap-align: center; }
+            /* カルーセル内ではAOSを無効化（透明のまま固まる事故・スワイプ干渉の防止） */
+            .m-carousel > [data-aos] { opacity: 1 !important; transform: none !important; transition: none !important; }
             .swipe-hint { display: block; text-align: center; font-size: 0.7rem; color: var(--text-light); letter-spacing: 0.1em; margin-bottom: 8px; }
         }
         @media (min-width: 768px) { .swipe-hint { display: none; } }

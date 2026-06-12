@@ -247,7 +247,7 @@
             if(n===0){ cls='v-good'; msg='<b>タップして診断スタート</b>当てはまる項目を選んでください。'; }
             else if(n<=4){ cls='v-good'; msg='<b>良好（'+n+'/20）</b>数字で回せています。'+(top?'伸びしろは「'+top+'」。':''); }
             else if(n<=10){ cls='v-warn'; msg='<b>要注意（'+n+'/20）</b>詰まり始めています。いちばんのボトルネックは「'+top+'」。'; }
-            else { cls='v-alert'; msg='<b>危険水域（'+n+'/20）</b>感覚経営の状態です。「'+top+'」の見える化から立て直しを。'; }
+            else { cls='v-alert'; msg='<b>危険水域（'+n+'/20）</b>感覚経営の状態です。「'+top+'」の見える化から始めましょう。'; }
             verdict.className='verdict '+cls;
             verdict.innerHTML=msg;
             // カテゴリ別の「現状 → 理想」ギャップ提示

@@ -75,27 +75,27 @@
         html { scroll-behavior: smooth; }
         body {
             font-family: 'Inter', 'Noto Sans JP', sans-serif;
-            color: #1a2230;
+            color: #2B2218;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
-            background-color: #fff;
+            background-color: #FBF6EA;
             font-feature-settings: "palt" 1;
             letter-spacing: 0.01em;
             line-height: 1.85;
         }
 
         :root {
-            --primary-color: #0a3d62;
-            --primary-color-dark: #06283d;
-            --accent-orange: #FF9900;
-            --accent-gold: #FFC107;
-            --text-dark: #1a2230;
-            --text-medium: #44505f;
-            --text-light: #6b7785;
-            --bg-light: #f5f6f8;
-            --bg-ink: #06283d;
-            --border-color: #e2e5ea;
-            --border-strong: #c9ced6;
+            --primary-color: #2F7351;
+            --primary-color-dark: #1C4734;
+            --accent-orange: #C2551B;
+            --accent-gold: #E8A23D;
+            --text-dark: #2B2218;
+            --text-medium: #594A38;
+            --text-light: #8A7A63;
+            --bg-light: #F6F0E2;
+            --bg-ink: #1C4734;
+            --border-color: #E2D9C6;
+            --border-strong: #C7BBA2;
             --serif: 'Noto Serif JP', 'Hiragino Mincho ProN', serif;
             --sans: 'Inter', 'Noto Sans JP', sans-serif;
         }
@@ -113,12 +113,12 @@
         .primary-bg-hover:hover { background-color: var(--primary-color-dark); }
         .amazon-orange-text { color: var(--accent-orange); }
         .accent-gold-text { color: var(--accent-gold); }
-        .secondary-color { color: #003366; }
+        .secondary-color { color: #1C4734; }
 
         /* ── 静的ヒーロー（スライダー廃止・1メッセージ集中型） ── */
         .hero-static {
             position: relative;
-            background: linear-gradient(132deg, #06283d 0%, #0a3d62 56%, #0e4a75 100%);
+            background: linear-gradient(132deg, #1C4734 0%, #2F7351 56%, #3E8E63 100%);
             overflow: hidden;
         }
         .hero-static::before {
@@ -154,7 +154,7 @@
         .heromock-body { padding: 16px 18px 14px; }
         .heromock-row { display: flex; align-items: flex-start; gap: 10px; }
         .heromock-avatar { width: 36px; height: 36px; border-radius: 5px; background: var(--accent-orange); color: #fff; font-weight: 700; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; font-family: var(--sans); }
-        .heromock-name { font-family: var(--sans); font-size: 0.82rem; font-weight: 700; color: #1a2230; }
+        .heromock-name { font-family: var(--sans); font-size: 0.82rem; font-weight: 700; color: #2B2218; }
         .heromock-name .bot { background: #e5e7eb; color: #6b7280; font-size: 0.58rem; font-weight: 600; padding: 1px 4px; border-radius: 2px; margin-left: 4px; vertical-align: 1px; }
         .heromock-name .time { color: #9ca3af; font-weight: 400; font-size: 0.7rem; margin-left: 6px; }
         .heromock-msg { font-family: var(--sans); font-size: 0.8rem; line-height: 1.85; color: #374151; margin-top: 2px; }
@@ -172,7 +172,7 @@
         .sticky-cta { position: fixed; bottom: 0; left: 0; right: 0; z-index: 45; display: flex; box-shadow: 0 -4px 18px rgba(6,40,61,0.22) !important; }
         .sticky-cta a { flex: 1; text-align: center; padding: 0.95rem 0.5rem; font-family: var(--sans); font-weight: 700; font-size: 0.85rem; color: #fff; letter-spacing: 0.03em; }
         .sticky-cta a:first-child { background: #06C755; }
-        .sticky-cta a:last-child { background: var(--primary-color); }
+        .sticky-cta a:last-child { background: #C2551B; }
         @media (min-width: 1024px) { .sticky-cta { display: none; } }
         @media (max-width: 1023px) { body { padding-bottom: 52px; } }
 
@@ -223,25 +223,32 @@
         /* リンク下線のにじみを抑える */
         a { text-underline-offset: 3px; }
 
-        /* ── トンマナ統一：Tailwind既定の明るい青 → ブランドネイビーへ寄せる ── */
+        .bg-white { background-color: #FFFCF4 !important; }
+        .bg-gray-50 { background-color: #F6F0E2 !important; }
+        header.bg-white, .heromock { background-color: #FFFDF8 !important; }
+        /* ── ブランドのシグネチャーストライプ（レトロ縞） ── */
+        .brand-stripe { height: 7px; background: repeating-linear-gradient(90deg,
+            #2F7351 0 30px, #F3EBDD 30px 36px, #C2551B 36px 50px, #F3EBDD 50px 56px,
+            #6B4423 56px 64px, #F3EBDD 64px 70px, #9DBE8E 70px 78px, #F3EBDD 78px 84px); }
+        /* ── トンマナ統一：Tailwind既定の明るい青 → ブランドへ寄せる ── */
         .text-blue-500, .text-blue-600, .text-blue-700 { color: var(--primary-color) !important; }
         .text-blue-800 { color: var(--primary-color-dark) !important; }
-        .text-blue-300 { color: #9fc3dd !important; }
-        .bg-blue-50 { background-color: #eef3f7 !important; }
-        .bg-blue-100 { background-color: #e3edf4 !important; }
+        .text-blue-300 { color: #A9C796 !important; }
+        .bg-blue-50 { background-color: #EDF3E6 !important; }
+        .bg-blue-100 { background-color: #E4EFD9 !important; }
         .bg-blue-600 { background-color: var(--primary-color) !important; }
-        .border-blue-100 { border-color: #dbe7f0 !important; }
-        .border-blue-200 { border-color: #cdddea !important; }
-        .border-blue-300 { border-color: #b9d0e2 !important; }
+        .border-blue-100 { border-color: #DCE8CC !important; }
+        .border-blue-200 { border-color: #CFE0BE !important; }
+        .border-blue-300 { border-color: #BFD6AC !important; }
         .border-blue-500, .border-blue-600 { border-color: var(--primary-color) !important; }
-        .hover\:text-blue-300:hover { color: #cfe0ee !important; }
+        .hover\:text-blue-300:hover { color: #D6E5C6 !important; }
         .hover\:text-blue-700:hover { color: var(--primary-color-dark) !important; }
         .group:hover .group-hover\:text-blue-500,
         .group:hover .group-hover\:text-blue-600,
         .group:hover .group-hover\:text-blue-800 { color: var(--primary-color) !important; }
         /* オレンジも素のTailwindではなくブランドオレンジに統一 */
         .text-orange-500 { color: var(--accent-orange) !important; }
-        .bg-orange-100 { background-color: #fff3e0 !important; }
+        .bg-orange-100 { background-color: #F7E8D3 !important; }
         /* 旧アクセント（ピンク等）の名残を中立化 */
         .border-pink-300 { border-color: var(--border-strong) !important; }
     </style>
@@ -275,6 +282,7 @@
     </script>
 </head>
 <body class="antialiased" x-data>
+    <div class="brand-stripe"></div>
     <!-- 1. HEADER -->
     <header class="shadow-sm sticky top-0 bg-white z-50">
         <div class="container mx-auto px-6 py-3 flex justify-between items-center">
@@ -336,7 +344,7 @@
                     <div class="flex flex-col sm:flex-row gap-4 mb-4">
                         <a href="https://line.me/R/ti/p/@756qpakc" target="_blank" rel="noopener"
                            onclick="if(typeof gtag==='function'){gtag('event','click',{'event_category':'cta','event_label':'hero_line'});}"
-                           class="btn text-base px-8 py-4" style="background:#06C755;border-color:#06C755;color:#fff;">LINEで気軽に相談する（無料）</a>
+                           class="btn text-base px-8 py-4" style="background:#06C755;border:1.5px solid rgba(255,255,255,0.9);color:#fff;">LINEで気軽に相談する（無料）</a>
                         <a href="#selfcheck" class="btn btn-ghost-light text-base px-8 py-4">まずは30秒セルフ診断</a>
                     </div>
                     <p class="text-xs mb-9" style="color:rgba(255,255,255,0.65);">じっくり話したい方は <a href="https://calendar.app.google/TZrQ5YLexng2gPRV8" target="_blank" rel="noopener" class="underline" style="color:rgba(255,255,255,0.85);">30分のオンライン相談</a> も選べます。</p>
@@ -439,7 +447,7 @@
                 </a>
                 <!-- COLLEGRANCE -->
                 <a href="https://collegrance.com/" target="_blank" rel="noopener noreferrer" class="card flex flex-col group hover:no-underline" data-aos="fade-up" data-aos-delay="100">
-                    <div class="relative h-44 flex flex-col items-center justify-center text-white" style="background-color:#1a2230;border-bottom:3px solid var(--accent-orange);">
+                    <div class="relative h-44 flex flex-col items-center justify-center text-white" style="background-color:#2B2218;border-bottom:3px solid var(--accent-orange);">
                         <span class="font-serif-jp text-3xl" style="color:#fff;letter-spacing:0.18em;">COLLEGRANCE</span>
                         <span class="uppercase mt-2" style="color:rgba(255,255,255,0.6);font-size:0.7rem;letter-spacing:0.3em;">Fragrance Brand</span>
                     </div>
@@ -566,7 +574,7 @@
 
                 <!-- EARNEST -->
                 <a href="./column/case-earnest-salon-rebuild.html" class="card flex flex-col group hover:no-underline h-full" data-aos="fade-up">
-                    <div class="relative h-48 flex items-center justify-center text-center px-5" style="background-color:#1a2230;border-bottom:3px solid var(--accent-orange);">
+                    <div class="relative h-48 flex items-center justify-center text-center px-5" style="background-color:#2B2218;border-bottom:3px solid var(--accent-orange);">
                         <span class="font-serif-jp text-xl leading-snug" style="color:#fff;">予約・売上の見える化から<br>LINEリピート自動化まで</span>
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
@@ -609,7 +617,7 @@
 
                 <!-- デズラ -->
                 <a href="./column/case-dezura-genba-dx.html" class="card flex flex-col group hover:no-underline h-full" data-aos="fade-up" data-aos-delay="100">
-                    <div class="relative h-48 flex items-center justify-center text-center px-5" style="background-color:#1a2230;border-bottom:3px solid var(--accent-orange);">
+                    <div class="relative h-48 flex items-center justify-center text-center px-5" style="background-color:#2B2218;border-bottom:3px solid var(--accent-orange);">
                         <span class="font-serif-jp text-xl leading-snug" style="color:#fff;">現場管理アプリ「デズラ」を<br>共同で立ち上げ・運用</span>
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
@@ -652,7 +660,7 @@
 
                 <!-- Addiction1138 -->
                 <a href="./blog/case-addiction.html" class="card flex flex-col group hover:no-underline h-full" data-aos="fade-up" data-aos-delay="200">
-                    <div class="relative h-48 flex items-center justify-center text-center px-5" style="background-color:#1a2230;border-bottom:3px solid var(--accent-orange);">
+                    <div class="relative h-48 flex items-center justify-center text-center px-5" style="background-color:#2B2218;border-bottom:3px solid var(--accent-orange);">
                         <span class="font-serif-jp text-xl leading-snug" style="color:#fff;">LINE（Lステップ）で<br>顧客フォロー自動化</span>
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
@@ -812,7 +820,7 @@
                 <a href="./column/ai-daily-log-pipeline.html" class="card flex flex-col group hover:no-underline h-full" data-cats="auto">
                     <div class="relative h-48 overflow-hidden">
                         <img src="./images/card-ailog.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#003366;">仕組み化・自動化</div>
+                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#1C4734;">仕組み化・自動化</div>
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
                         <h3 class="text-lg font-bold text-gray-800 mb-3 group-hover:text-blue-600 transition-colors">この記事の下書きは、昨日の私の作業ログからAIが作った——日報が続かない経営者の「記録される仕組み」</h3>
@@ -848,7 +856,7 @@
                 <a href="./column/saas-subscription-audit.html" class="card flex flex-col group hover:no-underline h-full" data-cats="auto">
                     <div class="relative h-48 overflow-hidden">
                         <img src="./images/card-saas-audit.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#003366;">仕組み化・自動化</div>
+                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#1C4734;">仕組み化・自動化</div>
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
                         <h3 class="text-lg font-bold text-gray-800 mb-3 group-hover:text-blue-600 transition-colors">
@@ -939,7 +947,7 @@
                         <img src="./images/card-tiktok.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                         <div class="absolute top-0 left-0 flex">
                             <span class="text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#005A9C;">集客・見える化</span>
-                            <span class="text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#003366;">EC・新チャネル運用</span>
+                            <span class="text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#1C4734;">EC・新チャネル運用</span>
                         </div>
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
@@ -1003,7 +1011,7 @@
                 <a href="./column/keiri-automation.html" class="card flex flex-col group hover:no-underline h-full" data-cats="auto">
                     <div class="relative h-48 overflow-hidden">
                         <img src="./images/card-keiri.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#003366;">仕組み化・自動化</div>
+                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#1C4734;">仕組み化・自動化</div>
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
                         <h3 class="text-lg font-bold text-gray-800 mb-3 group-hover:text-blue-600 transition-colors">
@@ -1023,7 +1031,7 @@
                 <a href="./column/line-follow-automation.html" class="card flex flex-col group hover:no-underline h-full" data-cats="mieruka">
                     <div class="relative h-48 overflow-hidden">
                         <img src="./images/card-line-follow.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#003366;">集客・見える化</div>
+                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#1C4734;">集客・見える化</div>
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
                         <h3 class="text-lg font-bold text-gray-800 mb-3 group-hover:text-blue-600 transition-colors">
@@ -1043,7 +1051,7 @@
                 <a href="./column/blog-seo.html" class="card flex flex-col group hover:no-underline h-full" data-cats="mieruka">
                     <div class="relative h-48 overflow-hidden">
                         <img src="./images/card-blog-seo.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#003366;">集客・見える化</div>
+                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#1C4734;">集客・見える化</div>
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
                         <h3 class="text-lg font-bold text-gray-800 mb-3 group-hover:text-blue-600 transition-colors">
@@ -1063,7 +1071,7 @@
                 <a href="./column/scheduled-infra.html" class="card flex flex-col group hover:no-underline h-full" data-cats="auto">
                     <div class="relative h-48 overflow-hidden">
                         <img src="./images/card-scheduled.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#003366;">仕組み化・自動化</div>
+                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#1C4734;">仕組み化・自動化</div>
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
                         <h3 class="text-lg font-bold text-gray-800 mb-3 group-hover:text-blue-600 transition-colors">
@@ -1083,7 +1091,7 @@
                 <a href="./column/case-dezura-genba-dx.html" class="card flex flex-col group hover:no-underline h-full" data-cats="dx">
                     <div class="relative h-48 overflow-hidden">
                         <img src="./images/card-dezura.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#003366;">現場DX・業務アプリ</div>
+                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#1C4734;">現場DX・業務アプリ</div>
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
                         <h3 class="text-lg font-bold text-gray-800 mb-3 group-hover:text-blue-600 transition-colors">
@@ -1103,7 +1111,7 @@
                 <a href="./column/case-earnest-salon-rebuild.html" class="card flex flex-col group hover:no-underline h-full" data-cats="mieruka">
                     <div class="relative h-48 overflow-hidden">
                         <img src="./images/card-salon.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#003366;">集客・見える化</div>
+                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#1C4734;">集客・見える化</div>
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
                         <h3 class="text-lg font-bold text-gray-800 mb-3 group-hover:text-blue-600 transition-colors">
@@ -1123,7 +1131,7 @@
                 <a href="./column/ai-shindan-sekkei.html" class="card flex flex-col group hover:no-underline h-full" data-cats="mieruka">
                     <div class="relative h-48 overflow-hidden">
                         <img src="./images/card-ai-shindan.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#003366;">集客・見える化</div>
+                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#1C4734;">集客・見える化</div>
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
                         <h3 class="text-lg font-bold text-gray-800 mb-3 group-hover:text-blue-600 transition-colors">
@@ -1143,7 +1151,7 @@
                 <a href="./column/uriage-mieruka.html" class="card flex flex-col group hover:no-underline h-full" data-cats="mieruka">
                     <div class="relative h-48 overflow-hidden">
                         <img src="./images/card-uriage.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#003366;">集客・見える化</div>
+                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#1C4734;">集客・見える化</div>
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
                         <h3 class="text-lg font-bold text-gray-800 mb-3 group-hover:text-blue-600 transition-colors">
@@ -1163,7 +1171,7 @@
                 <a href="./column/business-automation.html" class="card flex flex-col group hover:no-underline h-full" data-cats="auto">
                     <div class="relative h-48 overflow-hidden">
                         <img src="./images/card-business-auto.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#003366;">仕組み化・自動化</div>
+                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#1C4734;">仕組み化・自動化</div>
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
                         <h3 class="text-lg font-bold text-gray-800 mb-3 group-hover:text-blue-600 transition-colors">
@@ -1183,7 +1191,7 @@
                 <a href="./column/line-claude-code.html" class="card flex flex-col group hover:no-underline h-full" data-cats="auto">
                     <div class="relative h-48 overflow-hidden">
                         <img src="./images/card-line-claude.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#003366;">仕組み化・自動化</div>
+                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#1C4734;">仕組み化・自動化</div>
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
                         <h3 class="text-lg font-bold text-gray-800 mb-3 group-hover:text-blue-600 transition-colors">
@@ -1203,7 +1211,7 @@
                 <a href="./culture/difficulty-brings-solutions.html" class="card flex flex-col group hover:no-underline h-full" data-cats="culture">
                     <div class="relative h-48 overflow-hidden">
                         <img src="./images/card-culture-difficulty.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#003366;">ヤシノミの考え方</div>
+                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#1C4734;">ヤシノミの考え方</div>
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
                         <h3 class="text-lg font-bold text-gray-800 mb-3 group-hover:text-blue-600 transition-colors">困難は必ず解決策を連れてやってくる</h3>
@@ -1216,7 +1224,7 @@
                 <a href="./culture/awareness-x100.html" class="card flex flex-col group hover:no-underline h-full" data-cats="culture">
                     <div class="relative h-48 overflow-hidden">
                         <img src="./images/card-culture-awareness.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#003366;">ヤシノミの考え方</div>
+                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#1C4734;">ヤシノミの考え方</div>
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
                         <h3 class="text-lg font-bold text-gray-800 mb-3 group-hover:text-blue-600 transition-colors">才能の差は5倍、意識の差は100倍</h3>
@@ -1229,7 +1237,7 @@
                 <a href="./culture/systemize-is-kindness.html" class="card flex flex-col group hover:no-underline h-full" data-cats="culture">
                     <div class="relative h-48 overflow-hidden">
                         <img src="./images/card-culture-systemize.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#003366;">ヤシノミの考え方</div>
+                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#1C4734;">ヤシノミの考え方</div>
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
                         <h3 class="text-lg font-bold text-gray-800 mb-3 group-hover:text-blue-600 transition-colors">仕組み化は、次の人への優しさ</h3>
@@ -1241,7 +1249,7 @@
                 <a href="./culture/habit-is-a-booster.html" class="card flex flex-col group hover:no-underline h-full" data-cats="culture">
                     <div class="relative h-48 overflow-hidden">
                         <img src="./images/card-culture-habit.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#003366;">ヤシノミの考え方</div>
+                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#1C4734;">ヤシノミの考え方</div>
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
                         <h3 class="text-lg font-bold text-gray-800 mb-3 group-hover:text-blue-600 transition-colors">習慣は、目的地を選ばないブースト装置</h3>
@@ -1384,11 +1392,11 @@
                         <p class="text-sm text-gray-600 leading-relaxed">大阪近郊は直接お伺いします。顔の見える距離で、一緒に数字を見ながら進めましょう。</p>
                         <!-- 経歴タイムライン -->
                         <div class="flex flex-wrap items-center gap-x-1.5 gap-y-2 mt-6">
-                            <span class="px-3 py-1.5 text-xs font-semibold" style="background:#eef3f7;color:var(--primary-color);border-radius:999px !important;">ニデックで現場改善</span>
+                            <span class="px-3 py-1.5 text-xs font-semibold" style="background:#EDF3E6;color:var(--primary-color);border-radius:999px !important;">ニデックで現場改善</span>
                             <span class="text-gray-300 text-sm">→</span>
-                            <span class="px-3 py-1.5 text-xs font-semibold" style="background:#eef3f7;color:var(--primary-color);border-radius:999px !important;">独立・自社ブランド立ち上げ</span>
+                            <span class="px-3 py-1.5 text-xs font-semibold" style="background:#EDF3E6;color:var(--primary-color);border-radius:999px !important;">独立・自社ブランド立ち上げ</span>
                             <span class="text-gray-300 text-sm">→</span>
-                            <span class="px-3 py-1.5 text-xs font-semibold" style="background:#eef3f7;color:var(--primary-color);border-radius:999px !important;">ECコンサル会社で実務</span>
+                            <span class="px-3 py-1.5 text-xs font-semibold" style="background:#EDF3E6;color:var(--primary-color);border-radius:999px !important;">ECコンサル会社で実務</span>
                             <span class="text-gray-300 text-sm">→</span>
                             <span class="px-3 py-1.5 text-xs font-semibold text-white" style="background:var(--primary-color);border-radius:999px !important;">2023 ヤシノミ設立</span>
                         </div>
@@ -1511,8 +1519,9 @@
     </section>
     <!-- 10. END CONTACT SECTION -->
 
+    <div class="brand-stripe"></div>
     <!-- 11. FOOTER -->
-    <footer class="py-16" style="background-color:#04121f;color:#8fa3b5;">
+    <footer class="py-16" style="background-color:#22180D;color:#8fa3b5;">
         <div class="container mx-auto px-6">
             <div class="grid md:grid-cols-4 gap-10 mb-10">
                 <div class="md:col-span-2">

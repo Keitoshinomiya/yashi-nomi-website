@@ -28,11 +28,14 @@
 - `preview/` は `.gitignore` 済み（仮価格の下書きを誤公開しないため）。
 - 大きな変更は確認用に別ブランチ or ローカルプレビューで。
 
-## デザイントークン（index.html の `<style>` と一致させること）
-- フォント: `Noto Sans JP`
-- `--primary-color:#005A9C` / `--primary-color-dark:#004170`
-- `--accent-orange:#FF9900`（Amazonオレンジ）/ `--accent-gold:#FFC107`
-- `--secondary-color:#003366` / `--border-color:#e5e7eb` / `--bg-light:#f8f9fa`
+## デザイントークン（2026-06-12 レトロパレットに刷新。index.html の `<style>` と一致させること）
+- フォント: 見出し `Noto Serif JP`／本文 `Noto Sans JP`+`Inter`
+- `--primary-color:#2F7351`（ヴィンテージグリーン）/ `--primary-color-dark:#1C4734`
+- `--accent-orange:#C2551B`（テラコッタ）/ `--accent-gold:#E8A23D`（マスタード）
+- 文字 `#2B2218`（焦げ茶）/ ページ背景 `#FBF6EA`（クリーム）/ 罫線 `#E2D9C6`
+- LINE緑 `#06C755` はLINE系CTA専用。シグネチャー＝レトロストライプ `.brand-stripe`
+- ⚠️ **コラム・カルチャー記事ページとカード画像は旧配色（紺#0a3d62×オレンジ#FF9900）のまま維持する**（オーナー判断：全部揃えない）。記事を新規作成する時も既存記事のトーンに合わせる
+- 詳細規定: `~/Desktop/yashinomi_sns/BRAND_COLORS.md`
 
 ## 流用できるコンポーネントclass（既存定義あり）
 - カード: `.card` / `.card-icon-bg`

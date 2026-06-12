@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PBN7WNCX8N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-PBN7WNCX8N');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Amazon広告の「見える化」のその先。打ち手を機械が自動実行し、結果を毎週採点して、効かない手は自動で封印される——広告運用が“自分で賢くなる仕組み”に進化するまでの実録。承認制をやめた理由、利益ブレーキ、学習ループの全体図、そして正直に言うと構築は大変だという話（API申請・ブランド登録・データ蓄積の壁）まで包み隠さず書きます。">
+    <title>人間の仕事は、毎朝1通になった——Amazon広告が“自分で賢くなる仕組み”になるまで - 合同会社ヤシノミ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0a3d62;
+            --primary-color-dark: #06283d;
+            --accent-orange: #FF9900;
+            --border-color: #e5e7eb;
+            --good: #4E7C59;
+            --alert: #B23A3A;
+        }
+        body { font-family: 'Noto Sans JP', sans-serif; color: #1f2937; background-color: #f8f9fa; }
+        .font-serif-jp { font-family: 'Noto Serif JP', serif; }
+        .primary-color { color: var(--primary-color); }
+        .btn-primary { background-image: linear-gradient(to right, #0a3d62 0%, #06283d 50%, #0a3d62 100%); background-size: 200% auto; color: white; }
+        .btn-primary:hover { background-position: right center; }
+        .marker { background: linear-gradient(transparent 60%, #cfe8ff 60%); font-weight: 700; }
+        .prose h2 { scroll-margin-top: 80px; }
+        article p, article li { font-size: 1.0625rem; line-height: 1.9; }
+        @media (min-width: 768px) { article p, article li { font-size: 1.125rem; line-height: 1.95; } }
+        .toc a:hover { color: var(--primary-color); text-decoration: underline; }
+        table.data { width:100%; border-collapse:collapse; font-size:0.85rem; }
+        table.data th, table.data td { border:1px solid var(--border-color); padding:8px 10px; text-align:center; }
+        table.data th { background:var(--primary-color); color:#fff; font-weight:700; }
+        table.data tr:nth-child(even) td { background:#fafafa; }
+        table.data td.l { text-align:left; }
+        .note-good { background:#eef5ef; border-left:4px solid var(--good); }
+        .note-alert { background:#fbeeee; border-left:4px solid var(--alert); }
+        .flowbox { background:#f1f7fd; border:1px solid var(--border-color); border-radius:10px; }
+        .slackmock { background:#fff; border:1px solid var(--border-color); border-radius:12px; padding:18px 20px; font-size:0.92rem; line-height:1.9; box-shadow:0 1px 3px rgba(0,0,0,0.06); }
+        .slackmock .bot { font-weight:700; color:#1264a3; }
+        .loopcard { border:1px solid var(--border-color); border-radius:12px; padding:18px 20px; background:#fff; }
+        .diagram-svg text { font-family:'Noto Sans JP',sans-serif; }
+    </style>
+
+    <link rel="icon" href="https://yashi-nomi.com/images/logo.png" type="image/png" sizes="192x192">
+    <link rel="apple-touch-icon" href="https://yashi-nomi.com/images/logo.png">
+</head>
+<body>
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="../index.html" class="flex items-center gap-2">
+                <img src="../images/logo.png" alt="ヤシノミ ロゴ" class="h-8 w-auto">
+                <span class="font-bold primary-color">合同会社ヤシノミ</span>
+            </a>
+            <a href="https://calendar.app.google/TZrQ5YLexng2gPRV8" target="_blank" class="btn-primary px-4 py-2 rounded text-sm font-bold transition shadow-md">無料相談を予約</a>
+        </div>
+    </header>
+
+    <article class="container mx-auto px-6 py-12 max-w-5xl bg-white mt-8 rounded-xl shadow-sm">
+        <div class="flex items-center gap-2 mb-4 flex-wrap">
+            <span class="text-white text-xs font-bold px-3 py-1 rounded" style="background:var(--accent-orange);">Amazonコラム</span>
+            <span class="text-white text-xs font-bold px-3 py-1 rounded" style="background:#005A9C;">仕組み化・自動化</span>
+            <span class="text-gray-400 text-xs">業務改善コラム</span>
+        </div>
+        <h1 class="font-serif-jp text-3xl md:text-4xl font-bold mt-2 mb-4 leading-tight text-gray-800" style="letter-spacing:0.02em;">
+            人間の仕事は、毎朝1通になった
+            <span class="text-2xl md:text-3xl mt-3 block text-gray-600 font-normal">——Amazon広告が“自分で賢くなる仕組み”になるまで</span>
+        </h1>
+        <p class="text-sm text-gray-400 mb-8">業務改善コラム ／ Amazon × 仕組み化・自動化 ／ 読了目安：約12分</p>
+
+        <div class="prose max-w-none text-gray-700 leading-relaxed space-y-8">
+            <p class="text-lg font-medium leading-8 pl-4 p-4 rounded-r" style="border-left:4px solid var(--primary-color);background:#f1f7fd;">
+                <a href="./amazon-ads-tier-monitoring.html" class="text-blue-600 underline">前回の記事</a>では、Amazon広告の悪化に毎朝気づける「見える化」の仕組みを書きました。あれから運用を重ねて、いまは<span class="marker">見えたものに機械が自動で対処し、結果から学習して、翌朝には機械の行動が変わる</span>ところまで進化しています。人間の仕事は、毎朝Slackに届く1通を30秒読むこと。今回はその進化の中身と、正直に言うと「ここまで作るのはかなり大変だった」という話を、包み隠さず書きます。
+            </p>
+
+            <nav class="toc text-sm bg-gray-50 border rounded-lg p-5" style="border-color:var(--border-color);">
+                <p class="font-bold text-gray-800 mb-3">この記事の内容</p>
+                <ol class="list-decimal pl-5 space-y-1.5 text-gray-600">
+                    <li><a href="#recap">前回のおさらい：「見える化」はできた。でも、見えた後は誰がやる？</a></li>
+                    <li><a href="#gen2">第2世代：承認制をやめた日——安全弁つきの自動実行</a></li>
+                    <li><a href="#northstar">北極星は利益額——「効率を追って縮む」を機械が防ぐ</a></li>
+                    <li><a href="#gen3">第3世代：機械が自分の手を採点する（全体図）</a></li>
+                    <li><a href="#defense">守りの完成形：セールを知る・在庫を知る・打った手を見張る</a></li>
+                    <li><a href="#offense">攻めの完成形：市場レーダーで「出稿してるつもり」を潰す</a></li>
+                    <li><a href="#oneletter">人間の仕事は、毎朝1通になった</a></li>
+                    <li><a href="#honest">正直に言うと、ここまで作るのは大変です</a></li>
+                    <li><a href="#summary">まとめ</a></li>
+                </ol>
+            </nav>
+
+            <section id="recap">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">1. 前回のおさらい：「見える化」はできた。でも、見えた後は誰がやる？</h2>
+                <p>前回作ったのは、全キーワードをTier（S/A/B/C）で仕分けし、毎朝「悪化が見える表」がSlackに届く仕組みでした。「気づいたら手遅れ」は確かになくなりました。</p>
+                <p>ところが、運用を続けて分かったことがあります。<strong>見えても、対処するのは人間のまま</strong>だったのです。毎週システムが出してくる変更案を、私たちが1件ずつ見て承認する。件数が多い週は、それだけで時間が溶ける。気づけば、仕組みの中で一番のボトルネックは私たち自身になっていました。</p>
+                <p>そこからの進化を、この記事では3段階で整理します。</p>
+                <div class="flowbox p-5 my-4 text-sm md:text-base leading-loose">
+                    <p><strong>第1世代（前回）：見える化</strong> —— 悪化に気づける。でも手を打つのは人間</p>
+                    <p><strong>第2世代：自動運転</strong> —— 気づいたら機械が直す（承認制→報告制）</p>
+                    <p><strong>第3世代（今回の本題）：自己改善</strong> —— 直した結果を機械が採点し、効かない手は封印される</p>
+                </div>
+            </section>
+
+            <section id="gen2">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">2. 第2世代：承認制をやめた日——安全弁つきの自動実行</h2>
+                <p>最初に変えたのは「人が全部見る」体制です。発想を逆にしました。<span class="marker">全部を人が見るのではなく、危ないものだけが人のところに来る</span>ようにする。</p>
+                <p>具体的には「安全弁（トリップワイヤ）」を用意しました。引っかかった提案だけが⏸保留になって人間に回り、それ以外は自動実行されて、<strong>事後に週報で報告</strong>されます。</p>
+                <ul class="list-disc pl-6 space-y-1.5">
+                    <li>変更幅が±50%を超える</li>
+                    <li>入札額が一定ラインを超える（新規キーワードはさらに低いラインで）</li>
+                    <li>1週間の変更件数が上限を超える</li>
+                    <li>過去に「効かない」と学習済みの手に該当する（後述）</li>
+                </ul>
+                <p>あわせて、機械が暴走しないための足かせも入れてあります。同じターゲットは変更後6日間さわらない（クールダウン）、1日の変更数に上限、1回の変更幅は±8%まで、データが足りないものは判断しない。<strong>派手に動かさず、小さく頻繁に動かす</strong>のが基本思想です。</p>
+                <p>この切り替えで、週次の承認作業はほぼ消えました。人間の役割は「全件の検品係」から「例外の判断係」へ。これが第2世代です。</p>
+            </section>
+
+            <section id="northstar">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">3. 北極星は利益額——「効率を追って縮む」を機械が防ぐ</h2>
+                <p>自動運転を始めると、すぐに重要な問題にぶつかります。<strong>機械に何を目指させるか</strong>です。</p>
+                <p>広告の世界ではTACOS（売上に対する広告費比率）を目標にすることが多く、私たちも目標水準へ向けて少しずつ下げていく計画（グライドパス）を機械に持たせています。ただし運用してみると、効率指標には罠があることが分かりました。広告を削れば削るほどTACOSは「良く」なりますが、やりすぎると<span class="marker">TACOSはきれいなのに売上も利益も縮んでいく「縮小均衡」</span>に入るのです。</p>
+                <p>そこで、判断の優先順位を明文化しました。<strong>TACOSと利益額が矛盾したら、利益額が勝つ</strong>。TACOSは手段、北極星は利益額です。</p>
+                <p>実装としては「利益ブレーキ」を入れました。週の利益が前週比で大きく減り続けているときは、効率化のための入札カット（黒字キーワードを削る動き）を機械が自動で停止します。赤字キーワードのカットだけは続ける。つまり「節約はするが、ダイエットのしすぎで倒れない」ように機械が自分で踏みとどまる。</p>
+                <div class="note-good rounded-r p-5">
+                    <p class="font-bold mb-1">実際にあった反転</p>
+                    <p class="text-base">利益優先の運転に切り替えた直後、日次利益の前週比ギャップが <strong>-37% → -27% → -13% → +10%</strong> と4日間で単調に改善し、プラスへ反転しました。劇的な一手ではなく、「締めすぎを機械がやめた」ことによる回復です。</p>
+                </div>
+            </section>
+
+            <section id="gen3">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">4. 第3世代：機械が自分の手を採点する（全体図）</h2>
+                <p>ここからが今回の本題です。自動で手を打てるようになると、次の疑問が生まれます。<strong>「その手、本当に効いてるの？」</strong></p>
+                <p>そこで、毎週月曜の朝に「答え合わせ」を組み込みました。先週システムが実行した全変更を、変更前7日と変更後7日の成績で機械的に採点する。結果は「教訓ノート」に✅有効／❌逆効果／➖中立として貯まっていき、❌が確定した手は<strong>ルールとして台帳に書き戻され、翌朝から機械はその手を打たなくなります</strong>。</p>
+                <p>仕組みの全体像はこうなっています。一番のキモは、右端の「賢くなって、戻る」矢印です。</p>
+
+                <svg class="diagram-svg w-full h-auto my-6" viewBox="0 0 720 700" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="自己改善ループの全体図">
+                    <defs><marker id="arw" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L9 5L1 9" fill="none" stroke="context-stroke" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+
+                    <rect x="30" y="16" width="604" height="88" rx="10" fill="none" stroke="#9ca3af" stroke-dasharray="5 4"/>
+                    <text x="44" y="38" font-size="13" font-weight="700" fill="#4b5563">毎日／毎週、自動で集まる情報</text>
+                    <g font-size="11.5" fill="#374151" text-anchor="middle">
+                        <rect x="40" y="50" width="110" height="40" rx="6" fill="#f3f4f6" stroke="#9ca3af" stroke-width="0.8"/><text x="95" y="74">売れ行き・利益</text>
+                        <rect x="158" y="50" width="110" height="40" rx="6" fill="#f3f4f6" stroke="#9ca3af" stroke-width="0.8"/><text x="213" y="74">広告の成績</text>
+                        <rect x="276" y="50" width="110" height="40" rx="6" fill="#f3f4f6" stroke="#9ca3af" stroke-width="0.8"/><text x="331" y="74">検索順位</text>
+                        <rect x="394" y="50" width="110" height="40" rx="6" fill="#f3f4f6" stroke="#9ca3af" stroke-width="0.8"/><text x="449" y="74">市場の人気度</text>
+                        <rect x="512" y="50" width="110" height="40" rx="6" fill="#f3f4f6" stroke="#9ca3af" stroke-width="0.8"/><text x="567" y="74">セール予定</text>
+                    </g>
+                    <line x1="332" y1="104" x2="332" y2="130" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arw)"/>
+
+                    <rect x="132" y="134" width="400" height="54" rx="8" fill="#e5e7eb" stroke="#6b7280"/>
+                    <text x="332" y="156" font-size="14" font-weight="700" fill="#1f2937" text-anchor="middle">共通の台帳</text>
+                    <text x="332" y="176" font-size="11.5" fill="#4b5563" text-anchor="middle">成績・セール予定・学習ルールを1か所に</text>
+                    <text x="544" y="124" font-size="12.5" font-weight="700" fill="#c2410c">賢くなって、戻る</text>
+
+                    <line x1="332" y1="188" x2="186" y2="216" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arw)"/>
+                    <line x1="332" y1="188" x2="478" y2="216" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arw)"/>
+
+                    <g>
+                        <rect x="60" y="220" width="252" height="96" rx="8" fill="#e6f2ec" stroke="#4E7C59"/>
+                        <text x="186" y="242" font-size="13.5" font-weight="700" fill="#1f5138" text-anchor="middle">毎朝｜自動の微調整</text>
+                        <text x="186" y="264" font-size="11.5" fill="#2d5b44" text-anchor="middle">入札を少しずつ上げ下げ（±8%まで）</text>
+                        <text x="186" y="282" font-size="11.5" fill="#2d5b44" text-anchor="middle">異変の見張り → 通知</text>
+                        <text x="186" y="300" font-size="11.5" fill="#2d5b44" text-anchor="middle">学習ルールを毎朝読んでから動く</text>
+                    </g>
+                    <g>
+                        <rect x="352" y="220" width="252" height="96" rx="8" fill="#e6f2ec" stroke="#4E7C59"/>
+                        <text x="478" y="242" font-size="13.5" font-weight="700" fill="#1f5138" text-anchor="middle">毎週月曜｜自動の作戦会議</text>
+                        <text x="478" y="264" font-size="11.5" fill="#2d5b44" text-anchor="middle">全キーワードの役割を決め直す</text>
+                        <text x="478" y="282" font-size="11.5" fill="#2d5b44" text-anchor="middle">提案 → 安全弁 → 自動実行</text>
+                        <text x="478" y="300" font-size="11.5" fill="#2d5b44" text-anchor="middle">先週の手の「答え合わせ」</text>
+                    </g>
+                    <line x1="186" y1="316" x2="300" y2="344" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arw)"/>
+                    <line x1="478" y1="316" x2="364" y2="344" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arw)"/>
+
+                    <rect x="132" y="348" width="400" height="74" rx="8" fill="#fff4e0" stroke="#d97706"/>
+                    <text x="332" y="370" font-size="13.5" font-weight="700" fill="#92400e" text-anchor="middle">ブレーキ（やりすぎ防止）</text>
+                    <text x="332" y="390" font-size="11.5" fill="#a16207" text-anchor="middle">利益が減り続けたら“締め”を自動停止／セール中は攻め優先</text>
+                    <text x="332" y="408" font-size="11.5" fill="#a16207" text-anchor="middle">大きな変更だけ ⏸ 人に確認が回る</text>
+                    <line x1="332" y1="422" x2="332" y2="448" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arw)"/>
+
+                    <g>
+                        <rect x="60" y="452" width="180" height="74" rx="8" fill="#e6f2ec" stroke="#4E7C59"/>
+                        <text x="150" y="478" font-size="13" font-weight="700" fill="#1f5138" text-anchor="middle">答え合わせ</text>
+                        <text x="150" y="500" font-size="11" fill="#2d5b44" text-anchor="middle">先週の全変更を</text>
+                        <text x="150" y="515" font-size="11" fill="#2d5b44" text-anchor="middle">前後7日で機械が採点</text>
+                        <line x1="240" y1="489" x2="266" y2="489" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arw)"/>
+                        <rect x="270" y="452" width="180" height="74" rx="8" fill="#e6f2ec" stroke="#4E7C59"/>
+                        <text x="360" y="478" font-size="13" font-weight="700" fill="#1f5138" text-anchor="middle">教訓ノート</text>
+                        <text x="360" y="500" font-size="11" fill="#2d5b44" text-anchor="middle">✅有効／❌逆効果を</text>
+                        <text x="360" y="515" font-size="11" fill="#2d5b44" text-anchor="middle">手の種類ごとに蓄積</text>
+                        <line x1="450" y1="489" x2="476" y2="489" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arw)"/>
+                        <rect x="480" y="452" width="180" height="74" rx="8" fill="#f1e9fb" stroke="#7c3aed"/>
+                        <text x="570" y="478" font-size="13" font-weight="700" fill="#4c1d95" text-anchor="middle">ルール化（人が確定）</text>
+                        <text x="570" y="500" font-size="11" fill="#5b21b6" text-anchor="middle">❌の手を封印ルールとして</text>
+                        <text x="570" y="515" font-size="11" fill="#5b21b6" text-anchor="middle">台帳に書き戻す</text>
+                    </g>
+                    <path d="M660 489 H694 V161 H536" fill="none" stroke="#FF9900" stroke-width="2.4" marker-end="url(#arw)"/>
+
+                    <line x1="332" y1="526" x2="332" y2="552" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arw)"/>
+                    <rect x="30" y="556" width="604" height="100" rx="10" fill="#f1e9fb" stroke="#7c3aed"/>
+                    <text x="44" y="580" font-size="13" font-weight="700" fill="#4c1d95">あなたが見る場所は、3つだけ</text>
+                    <g font-size="11.5" text-anchor="middle">
+                        <rect x="48" y="592" width="180" height="50" rx="6" fill="#fff" stroke="#7c3aed" stroke-width="0.8"/>
+                        <text x="138" y="613" fill="#4c1d95" font-weight="700">朝刊Slack</text><text x="138" y="630" fill="#5b21b6">毎朝1通・30秒</text>
+                        <rect x="242" y="592" width="180" height="50" rx="6" fill="#fff" stroke="#7c3aed" stroke-width="0.8"/>
+                        <text x="332" y="613" fill="#4c1d95" font-weight="700">ダッシュボード</text><text x="332" y="630" fill="#5b21b6">気になった時だけ</text>
+                        <rect x="436" y="592" width="180" height="50" rx="6" fill="#fff" stroke="#7c3aed" stroke-width="0.8"/>
+                        <text x="526" y="613" fill="#4c1d95" font-weight="700">週報</text><text x="526" y="630" fill="#5b21b6">月曜・作戦の説明書</text>
+                    </g>
+                </svg>
+                <p class="text-sm text-gray-500">色の意味：グレー＝集まる情報 ／ 緑＝機械が自動でやること ／ オレンジ＝ブレーキ ／ 紫＝人が関わる場所。</p>
+
+                <p>この学習ループが動き始めて最初に起きたことが、象徴的でした。</p>
+                <div class="note-alert rounded-r p-5">
+                    <p class="font-bold mb-1">学習第1号：機械が「経験則」を反証した</p>
+                    <p class="text-base">「昔よく売れていたキーワードが衰退したら、入札を大きく上げて復活させる」——直感的には正しそうな手です。私たちもそう思っていました。ところが答え合わせの結果、この手を打った8件の平均ROAS変化は<strong>-0.68で❌逆効果</strong>。一方「自動で見つかった不採算ターゲットのカット」は平均ROAS+19.7で✅有効。<strong>人間の経験則を、機械が数字で反証した</strong>のです。「復活UP」は封印ルールになり、機械はもうこの手を打ちません。</p>
+                </div>
+                <p>大事な設計判断がひとつあります。<strong>採点は機械が全自動でやりますが、ルール化の最終確定だけは人間がやる</strong>。たまたまの結果を「法則」と誤認して暴走しないための、最後の関所です。自動化を進めるほど、「どこを人間に残すか」の設計が品質を決めます。</p>
+
+                <p>なお、ループは時間軸の違う二重構造になっています。</p>
+                <div class="grid md:grid-cols-2 gap-4 my-4">
+                    <div class="loopcard">
+                        <p class="font-bold primary-color mb-2">小さい輪（毎朝）＝サーモスタット</p>
+                        <p class="text-base">直近7日の広告費比率と今週の目標を比べ、超過なら締め・余裕なら拡大を<strong>±5〜8%だけ</strong>。室温を一定に保つエアコンと同じ発想です。</p>
+                    </div>
+                    <div class="loopcard">
+                        <p class="font-bold primary-color mb-2">大きい輪（毎週月曜）＝作戦会議</p>
+                        <p class="text-base">全キーワードの役割の貼り直し→新しい手の提案→安全弁→自動実行→週報。<strong>先週の答え合わせ</strong>もここで回ります。</p>
+                    </div>
+                </div>
+
+                <p>「役割の貼り直し」は、全キーワードに毎週こんなラベルを貼り直す作業です。役割によって機械の扱いが変わります。</p>
+                <div class="overflow-x-auto">
+                    <table class="data my-4">
+                        <thead><tr><th>役割</th><th class="l">どんなキーワードか</th><th class="l">機械の扱い</th></tr></thead>
+                        <tbody>
+                            <tr><td>防衛</td><td class="l">指名語＋自然検索で上位のキーワード</td><td class="l">触らない（無条件で守る）</td></tr>
+                            <tr><td>育成</td><td class="l">自然順位が上昇中 or 投入21日以内</td><td class="l">触らない（育てる）</td></tr>
+                            <tr><td>刈取</td><td class="l">実績のある稼ぎ頭</td><td class="l">目標効率に向けて±微調整</td></tr>
+                            <tr><td>探索</td><td class="l">自動ターゲティングの発見枠</td><td class="l">予算の1割まで。不発はカット</td></tr>
+                            <tr><td>排出</td><td class="l">注文ゼロで予算だけ消化</td><td class="l">少しずつ下げて退場へ</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>ポイントは、<span class="marker">広告の判断に「自然検索の順位」が直結している</span>ことです。順位が上位のキーワードは無条件防衛、順位が上昇中のキーワードは入札を下げない（広告→自然順位の好循環を壊さない）、順位が3日下がり続けたらアラート。広告だけ見て広告を判断しない、が私たちの運用の柱です。</p>
+            </section>
+
+            <section id="defense">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">5. 守りの完成形：セールを知る・在庫を知る・打った手を見張る</h2>
+                <p>自動運転には、アクセルとハンドルのほかに「状況認識」が要ります。運用して痛感した順に3つ。</p>
+
+                <h3 class="font-serif-jp text-xl font-bold mt-6 mb-3 text-gray-800">5-1. セールを知らない機械は、事故る</h3>
+                <p>セール日程を知らない自動化は、想像以上に危険でした。実際に起こりうる事故は4つあります。</p>
+                <ul class="list-disc pl-6 space-y-1.5">
+                    <li>セール期間と重なった変更が「効いた」ように見える（<strong>効果測定の誤学習</strong>）</li>
+                    <li>セール翌週は数字が必ず沈むので、反動を悪化と誤認して利益ブレーキが誤発火する</li>
+                    <li>セール翌日の反動で失速アラートが誤報を出す</li>
+                    <li>セール中こそ攻めるべきなのに、目標超過を理由に機械が締めてしまう（<strong>攻め時に逆走</strong>）</li>
+                </ul>
+                <p>対策として、プライムデーなどのセール予定とエントリー締切を<strong>自社で管理しているセール予定カレンダー</strong>に集約し、毎週自動でシステムに取り込むようにしました。セール情報は効果測定・ブレーキ・アラート・入札方針の4箇所すべてに配管されていて、セール中は「締め」を自動停止、セール翌週はブレーキの閾値を自動で緩めます。</p>
+
+                <h3 class="font-serif-jp text-xl font-bold mt-6 mb-3 text-gray-800">5-2. 攻めて在庫切れ、が一番もったいない</h3>
+                <p>広告で攻めて売れた結果、在庫が切れる——これが最悪のシナリオです。在庫切れで販売ランキングの勢いを失うと、回復に数週間かかることがあります。</p>
+                <p>そこで、FBA在庫と直近7日の販売スピードから「在庫があと何日もつか」を毎朝計算し、<strong>残り7日を切った主力商品は、その朝から入札アップを自動停止</strong>するガードを入れました（守りの入札ダウンは継続）。初日からいきなり「残り3日」の主力商品を検知して補充アラートを出し、初仕事をしてくれました。</p>
+                <p>正直な話もしておくと、このガードは初日に誤判定もやらかしています。「FBA在庫ゼロなのに売れ続けている商品」を在庫切れと判定したのですが、実はその商品は自社発送に切り替えて運用中でした。即日ルールを直しました。<span class="marker">仕組みは初日から完璧にはなりません。運用の学びで磨くものです</span>。</p>
+
+                <h3 class="font-serif-jp text-xl font-bold mt-6 mb-3 text-gray-800">5-3. 打った手には、必ず見張りをつける</h3>
+                <p>入札を上げた対象は「上げっぱなし」が一番危ない。そこで上げた手すべてに毎朝の事後監視がつきます。表示が急増していないか、検索結果の一番目立つ場所への露出が急に増えていないか、広告費だけ消化して注文が止まっていないか、クリック単価が急騰していないか。<strong>危険な兆候が3つ同時に出たら🚨</strong>として、元の入札に戻す提案つきで通知されます。新しく投入したキーワードも、一人前と判定される14日目まで毎日見張られます。</p>
+
+                <p>毎朝の見張りを一覧にするとこうなります。</p>
+                <div class="overflow-x-auto">
+                    <table class="data my-4">
+                        <thead><tr><th>見張り</th><th class="l">何を見るか</th><th class="l">鳴る条件</th></tr></thead>
+                        <tbody>
+                            <tr><td>D1 主力失速</td><td class="l">主力商品の販売数</td><td class="l">直近2日平均が前週比-20%超（セール直後は反動の注記つき）</td></tr>
+                            <tr><td>D2 予算余り</td><td class="l">キャンペーン予算の消化率</td><td class="l">70%未満（＝伸ばす余地の発見）</td></tr>
+                            <tr><td>D3 出稿減</td><td class="l">効率の良い枠への自社出稿量</td><td class="l">直近2日が7日平均比-40%超（取りこぼし防止）</td></tr>
+                            <tr><td>D4 順位下落</td><td class="l">自然検索順位</td><td class="l">3日連続ダウン</td></tr>
+                            <tr><td>D5 在庫</td><td class="l">FBA在庫の残り日数</td><td class="l">残7日未満＝攻め停止／残14日未満＝注意</td></tr>
+                            <tr><td>早期警告</td><td class="l">入札UP・新規投入の事後</td><td class="l">表示急増／露出急騰／注文ゼロ消化／クリック単価急騰</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="offense">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">6. 攻めの完成形：市場レーダーで「出稿してるつもり」を潰す</h2>
+                <p>守りが揃ったら、次は攻めの機会損失です。ここで効いているのが「市場トレンドレーダー」。Amazonが提供する検索データ（検索クエリパフォーマンス）を使って、<strong>市場全体の検索量と、その中での自社シェア</strong>を毎週突き合わせます。</p>
+                <ul class="list-disc pl-6 space-y-1.5">
+                    <li><strong>T1 急上昇</strong>：市場の検索量が前週比+30%以上 → 攻め時の検知</li>
+                    <li><strong>T2 シェア低下</strong>：市場は安定なのに自社のクリックシェアが急落 → 競合への流出</li>
+                    <li><strong>T3 未開拓</strong>：検索量は大きいのに自社の表示シェアが5%未満 → 取りに行けていない市場</li>
+                </ul>
+                <div class="note-alert rounded-r p-5 my-4">
+                    <p class="font-bold mb-1">実際にあった「出稿してるつもり」</p>
+                    <p class="text-base">自社のある商品の関連キーワード群で、市場の検索量が前週比+34〜196%と急騰しているのに、自社の表示シェアが1〜3%しかない週がありました。調べてみると、キーワード自体はとっくに投入済み。ただ<strong>入札額が勝てるラインの6〜7割しかなく、オークションにほぼ乗れていなかった</strong>のです。おまけに主要キーワードが1つ、そもそも未投入だったことも発覚。入札の救い上げ15件＋新規投入4件を即日実行しました。</p>
+                </div>
+                <p>「出稿している」と「オークションで戦えている」はまったく別物です。そして広告の管理画面だけを見ていると、この差は一生気づけません。<span class="marker">市場のデータと突き合わせて初めて「つもり」が露呈する</span>——これが攻め側の一番の学びでした。</p>
+            </section>
+
+            <section id="oneletter">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">7. 人間の仕事は、毎朝1通になった</h2>
+                <p>ここまでの仕組みを全部入れた結果、最後に残った問題は意外なものでした。<strong>通知が多すぎて、読むのが仕事になっていた</strong>のです。日次レポート、監視アラート、自動調整の報告……Slackに情報が乱立して、どれを見ればいいか分からない。</p>
+                <p>そこで情報の動線を棚卸しして、「1つの情報には1つの住所」に整理しました。</p>
+                <div class="flowbox p-5 my-4 text-center text-sm md:text-base font-bold primary-color leading-loose">
+                    Slack ＝ 呼び鈴（毎朝の「朝刊」1通だけ）<br>
+                    ダッシュボード ＝ 判断の場（気になった時に開く）<br>
+                    スプレッドシート ＝ 監査記録（履歴を遡る時だけ）
+                </div>
+                <p>毎朝届く「朝刊」のイメージはこんな感じです（数値は伏せています）。</p>
+                <div class="slackmock my-4">
+                    <p><span class="bot">📰 広告朝刊</span>　今日 7:00</p>
+                    <p>☀️ 昨日：売上 ○○ ／ 広告費 ○○ ／ TACOS ○％ ／ 利益 ○○</p>
+                    <p>📈 7日トレンド：利益ギャップ +○％（3日連続改善）</p>
+                    <p>📅 今日のイベント：なし（次回セールまで○日）</p>
+                    <p>📦 在庫注意：1商品（残り○日）→ 攻め自動停止中</p>
+                    <p>🤖 昨日の自動調整：○件（UP ○／DOWN ○）すべて安全弁内</p>
+                    <p>🔗 詳細はダッシュボードへ</p>
+                </div>
+                <p>もうひとつ、日次と週次をつなぐ仕掛けがあります。毎朝の気づき（失速・予算余り・順位下落など）はすべて記録されていて、<strong>同じ気づきが3日以上続くと、週次の作戦会議に議題として自動昇格</strong>します（📡マークつき）。毎日アラートに人間が疲れるのではなく、「続く異変だけが会議の議題になる」わけです。</p>
+                <p>規模感でいうと、管理しているキーワード候補は約2,400件、機械の自動調整は1日十数件ペース。それに対して人間の作業は、<strong>毎朝1通を30秒読む＋月曜に週報を確認する</strong>。これだけです。</p>
+            </section>
+
+            <section id="honest">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">8. 正直に言うと、ここまで作るのは大変です</h2>
+                <p>ここまで読んで「うちもやりたい」と思った方に、先に正直なことを言います。<strong>これは週末にサクッと作れるものではありません</strong>。私たちも前回の記事の状態からここまで、運用しながら数ヶ月かけて進化させてきました。越えるべき壁は大きく3つあります。</p>
+
+                <h3 class="font-serif-jp text-xl font-bold mt-6 mb-3 text-gray-800">壁①：データの蛇口を開けるまでが長い（API・権限の壁）</h3>
+                <ul class="list-disc pl-6 space-y-1.5">
+                    <li><strong>Amazon広告APIの利用申請と承認</strong>が必要です。申請してすぐ使えるものではなく、審査待ちの期間が発生します</li>
+                    <li>売上・在庫データの自動取得には<strong>SP-APIの開発者登録と審査</strong>が必要です。申請内容によっては数週間単位かかることもあり、認証キーやトークンの管理体制も求められます</li>
+                    <li>市場の検索データ（検索クエリパフォーマンス）は<strong>ブランド登録（Amazonブランドレジストリ）が前提</strong>です。商標を持っていない場合、そこから始まります</li>
+                </ul>
+
+                <h3 class="font-serif-jp text-xl font-bold mt-6 mb-3 text-gray-800">壁②：学習には「過去」が要る（データ蓄積の壁）</h3>
+                <p>答え合わせも学習も、すべて「変更前と変更後の比較」です。つまり<strong>比較できるだけの過去データが溜まっていないと、第3世代は始められません</strong>。最低でも数週間〜数ヶ月の蓄積が先で、学習はその後。データ基盤が先、賢さは後、という順番は飛ばせません。</p>
+
+                <h3 class="font-serif-jp text-xl font-bold mt-6 mb-3 text-gray-800">壁③：毎日無人で動き続ける基盤（運用の壁）</h3>
+                <p>この仕組みは「毎日動く」ことが前提です。実行環境の用意、失敗時のリトライ、二重実行の防止、止まったことに気づく監視——地味ですが、ここが崩れると「動いているつもりの自動化」になります。作る時間より、安定して回るようにする時間の方が長いくらいです。</p>
+
+                <div class="note-good rounded-r p-5 my-4">
+                    <p class="font-bold mb-2">それでも、一段ずつなら確実に積めます</p>
+                    <p class="text-base mb-2">一足飛びに第3世代は作れませんが、進化の順番ははっきりしています。</p>
+                    <ul class="list-disc pl-6 space-y-1 text-base">
+                        <li><strong>第0段階</strong>：ブランド登録・API申請・データ取得の蛇口を開ける（ここが一番の我慢どころ）</li>
+                        <li><strong>第1段階</strong>：見える化——毎朝、悪化が見える状態を作る（<a href="./amazon-ads-tier-monitoring.html" class="text-blue-600 underline">前回の記事</a>の内容）</li>
+                        <li><strong>第2段階</strong>：安全弁つきの自動実行——人は例外だけ見る</li>
+                        <li><strong>第3段階</strong>：答え合わせと学習——機械が自分の手を採点し始める</li>
+                    </ul>
+                    <p class="text-base mt-2">各段階は、それ単体でも十分に元が取れます。第1段階の「見える化」だけでも、運用の質は別物になります。</p>
+                </div>
+                <p>もうひとつ大事なこと。途中でも書いた通り、<strong>すべてを機械任せにはしていません</strong>。学習ルールの最終確定、大きな変更の判断、そして「何を北極星にするか」という方針——ここは人間の仕事として意図的に残しています。自動化の目的は人間を消すことではなく、人間の判断を一番効く場所だけに集中させることです。</p>
+            </section>
+
+            <section id="summary">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">9. まとめ</h2>
+                <ul class="list-disc pl-6 space-y-2">
+                    <li>「見える化」の次は「見えたものへの自動対処」、その次が「結果からの自動学習」。広告運用は3世代で進化する。</li>
+                    <li>承認制はボトルネックになる。<strong>安全弁を設計して、人は例外だけ見る</strong>体制へ。</li>
+                    <li>北極星は効率指標ではなく<strong>利益額</strong>。矛盾したら利益が勝つ、を機械に教える。</li>
+                    <li>毎週の「答え合わせ→教訓→ルール化」で、効かない手は封印される。<strong>人間の経験則すら、数字で反証されることがある</strong>。</li>
+                    <li>セール・在庫・打った手の事後——機械に「状況認識」を持たせないと自動化は事故る。</li>
+                    <li>ただし構築は大変。API承認・ブランド登録・データ蓄積という壁があり、<strong>順番を飛ばすことはできない</strong>。一段ずつ。</li>
+                </ul>
+            </section>
+
+            <div class="p-8 rounded-xl border text-center mt-12" style="border-color:var(--border-color);background:#f1f7fd;">
+                <h3 class="font-serif-jp text-xl font-bold mb-4 text-gray-800">「うちの広告運用、どの段階から手を付けるべき？」という方へ</h3>
+                <p class="mb-6 text-left md:text-center">
+                    いきなり全部は作れません。御社の現状（ブランド登録・データ取得環境・蓄積状況）を見て、<br class="hidden md:inline">
+                    「いまどの段階にいて、次の一段はどこか」を一緒に整理するところからやります。まずは無料相談でどうぞ。
+                </p>
+                <a href="https://calendar.app.google/TZrQ5YLexng2gPRV8" target="_blank" class="btn-primary inline-block px-8 py-4 rounded-lg font-bold text-lg shadow-lg transform hover:-translate-y-1 transition duration-300">
+                    無料相談を予約する（30分）
+                </a>
+            </div>
+
+            <div class="mt-8 pt-6 border-t" style="border-color:var(--border-color);">
+                <p class="text-sm text-gray-500 mb-3 font-bold">あわせて読む</p>
+                <div class="flex flex-col gap-2 text-sm">
+                    <a href="./amazon-ads-tier-monitoring.html" class="text-blue-600 hover:underline">前編：広告が悪化していないか、毎朝“表”で分かる——Tierと自動通知の運用 →</a>
+                    <a href="./amazon-ads-early-warning.html" class="text-blue-600 hover:underline">広告の「打った手」を毎朝見張る早期警告の仕組み →</a>
+                    <a href="./amazon-rank-tracking.html" class="text-blue-600 hover:underline">Amazonキーワード順位を毎日自動で記録する →</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-10 text-center">
+            <a href="./index.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium transition-colors">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                業務改善コラム一覧に戻る
+            </a>
+        </div>
+    </article>
+
+    <footer class="text-gray-400 py-8 mt-12 text-center text-xs" style="background:var(--primary-color-dark);">
+        <p>© 2026 合同会社ヤシノミ All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

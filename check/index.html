@@ -64,7 +64,7 @@
     <div class="head">
         <p class="en">YASHINOMI — SELF CHECK</p>
         <h1>事業の“<span class="gold">ボトルネック</span>”診断</h1>
-        <p>当てはまるものをタップするだけ。30秒で結果が出ます。</p>
+        <p>当てはまるものをタップするだけ（約1分）。<br>あなた専用の「診断書」をLINEでお届けします。</p>
     </div>
 
     <div class="wrap" id="checklist">
@@ -79,40 +79,53 @@
                 <option value="other">その他（自由記入）</option>
             </select>
             <input id="genre-free" type="text" maxlength="30" placeholder="例：教室運営、卸売、農業 など">
+            <label for="size" style="margin-top:12px;">会社の規模は？<span>（任意）</span></label>
+            <select id="size">
+                <option value="">選択してください</option>
+                <option>ひとり（個人事業）</option>
+                <option>2〜10人</option>
+                <option>11〜30人</option>
+                <option>31人以上</option>
+            </select>
         </div>
 
         <p class="cat">売上・集客</p>
         <div class="item" data-cat="売上・集客"><span class="box"></span>どの経路（広告・SNS・紹介・検索）から売上が来ているか、即答できない</div>
         <div class="item" data-cat="売上・集客"><span class="box"></span>集客がひとつの商品・ひとつの経路に依存している</div>
         <div class="item" data-cat="売上・集客"><span class="box"></span>新規とリピートの比率を把握していない</div>
+        <div class="item" data-cat="売上・集客"><span class="box"></span>お客様の声・レビューを集める仕組みがない（来たら見るだけ）</div>
 
         <p class="cat">広告・販促</p>
         <div class="item" data-cat="広告・販促"><span class="box"></span>広告・販促が赤字になっていても、気づくのは数週間後だ</div>
         <div class="item" data-cat="広告・販促"><span class="box"></span>広告・販促費の「何にいくら使って、いくら返ってきたか」を即答できない</div>
         <div class="item" data-cat="広告・販促"><span class="box"></span>在庫切れ・予約枠の空きなど「機会損失」がよく起きている</div>
+        <div class="item" data-cat="広告・販促"><span class="box"></span>「とりあえず続けている」広告・媒体がある（やめ時が分からない）</div>
 
         <p class="cat">業務・作業</p>
         <div class="item" data-cat="業務・作業"><span class="box"></span>同じ集計・転記を、毎週（毎月）手作業でやっている</div>
         <div class="item" data-cat="業務・作業"><span class="box"></span>「あの人にしかできない仕事」がある</div>
         <div class="item" data-cat="業務・作業"><span class="box"></span>日報・報告が形だけになっている（または続かない）</div>
+        <div class="item" data-cat="業務・作業"><span class="box"></span>マニュアルがなく、引き継ぎは口頭頼みになっている</div>
 
         <p class="cat">お金</p>
         <div class="item" data-cat="お金"><span class="box"></span>今月の利益がいくらか、月が終わってからしか分からない</div>
         <div class="item" data-cat="お金"><span class="box"></span>サブスク・固定費の全リストが存在しない</div>
         <div class="item" data-cat="お金"><span class="box"></span>値付け・広告予算の根拠が「なんとなく」だ</div>
+        <div class="item" data-cat="お金"><span class="box"></span>請求・入金の確認を、毎月手作業で追いかけている</div>
 
         <p class="cat">判断</p>
         <div class="item" data-cat="判断"><span class="box"></span>数字ではなく感覚で決めることが多い</div>
         <div class="item" data-cat="判断"><span class="box"></span>会議が「報告を聞くだけ」で終わり、次の一手が決まらない</div>
         <div class="item" data-cat="判断"><span class="box"></span>「あれどうなった？」が口ぐせになっている</div>
+        <div class="item" data-cat="判断"><span class="box"></span>数字を見る定例（会議・ふりかえり）が、そもそも無い</div>
 
         <div class="bars" id="bars">
             <h3>カテゴリ別の詰まり具合</h3>
-            <div class="bar-row" data-bar="売上・集客"><span class="lbl">売上・集客</span><span class="cells"><span class="cell"></span><span class="cell"></span><span class="cell"></span></span></div>
-            <div class="bar-row" data-bar="広告・販促"><span class="lbl">広告・販促</span><span class="cells"><span class="cell"></span><span class="cell"></span><span class="cell"></span></span></div>
-            <div class="bar-row" data-bar="業務・作業"><span class="lbl">業務・作業</span><span class="cells"><span class="cell"></span><span class="cell"></span><span class="cell"></span></span></div>
-            <div class="bar-row" data-bar="お金"><span class="lbl">お金</span><span class="cells"><span class="cell"></span><span class="cell"></span><span class="cell"></span></span></div>
-            <div class="bar-row" data-bar="判断"><span class="lbl">判断</span><span class="cells"><span class="cell"></span><span class="cell"></span><span class="cell"></span></span></div>
+            <div class="bar-row" data-bar="売上・集客"><span class="lbl">売上・集客</span><span class="cells"><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span></span></div>
+            <div class="bar-row" data-bar="広告・販促"><span class="lbl">広告・販促</span><span class="cells"><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span></span></div>
+            <div class="bar-row" data-bar="業務・作業"><span class="lbl">業務・作業</span><span class="cells"><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span></span></div>
+            <div class="bar-row" data-bar="お金"><span class="lbl">お金</span><span class="cells"><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span></span></div>
+            <div class="bar-row" data-bar="判断"><span class="lbl">判断</span><span class="cells"><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span></span></div>
         </div>
 
         <div class="deep">
@@ -123,15 +136,15 @@
     <div class="result">
         <div class="inner">
             <div class="row">
-                <p class="num"><span id="cnt">0</span><small> /15</small></p>
+                <p class="num"><span id="cnt">0</span><small> /20</small></p>
                 <p class="verdict v-good" id="verdict"><b>タップして診断スタート</b>当てはまる項目を選んでください。</p>
             </div>
-            <a class="rx" id="rx" href="#" target="_blank" rel="noopener"></a>
             <div class="ctas">
                 <a class="cta-line" id="cta-line" href="https://line.me/R/ti/p/@756qpakc"
-                   onclick="if(typeof gtag==='function'){gtag('event','click',{'event_category':'cta','event_label':'check_line'});}">結果をLINEで相談する（無料・1通でOK）</a>
+                   onclick="if(typeof gtag==='function'){gtag('event','click',{'event_category':'cta','event_label':'check_line'});}">📋 あなた専用の診断書をLINEで受け取る（無料）</a>
             </div>
-            <p class="note">診断結果はどこにも送信されません。じっくり話したい方は <a href="https://calendar.app.google/TZrQ5YLexng2gPRV8" target="_blank" rel="noopener" style="color:#8A7A63;text-decoration:underline;">オンライン相談（30分）</a> も選べます。</p>
+            <p class="note" style="color:#594A38;">ボタンを押すとLINEが開き、診断結果が入力済みになります。そのまま送信いただくと、代表の四宮から<b>①取り組む優先順位 ②最初の一手 ③同じ詰まりを解消した実例</b>をお返しします。</p>
+            <p class="note">この画面の結果が自動送信されることはありません。じっくり話したい方は <a href="https://calendar.app.google/TZrQ5YLexng2gPRV8" target="_blank" rel="noopener" style="color:#8A7A63;text-decoration:underline;">オンライン相談（30分）</a> も選べます。</p>
         </div>
     </div>
 
@@ -141,65 +154,43 @@
         var cnt=document.getElementById('cnt');
         var verdict=document.getElementById('verdict');
         var lineBtn=document.getElementById('cta-line');
-        var rx=document.getElementById('rx');
         var genreSel=document.getElementById('genre');
         var genreFree=document.getElementById('genre-free');
-        genreSel.addEventListener('change',function(){
-            genreFree.classList.toggle('show', genreSel.value==='other');
-            update();
-        });
-        genreFree.addEventListener('input',function(){ update(); });
-        function getGenre(){
-            if(genreSel.value==='other'){ return genreFree.value.trim(); }
-            return genreSel.value;
-        }
-        var RX={
-            '売上・集客':{t:'赤字サロンを「経路別の見える化」で立て直した実例',u:'../column/case-earnest-salon-rebuild.html'},
-            '広告・販促':{t:'広告が“自分で賢くなる仕組み”になるまでの実録',u:'../column/amazon-ads-self-improvement-loop.html'},
-            '業務・作業':{t:'日報を書かずに毎晩自動で記録される仕組みの作り方',u:'../column/ai-daily-log-pipeline.html'},
-            'お金':{t:'見えない固定費（サブスク）を棚卸しした実例',u:'../column/saas-subscription-audit.html'},
-            '判断':{t:'「数字で次の一手が毎朝決まる」状態の作り方',u:'../column/uriage-mieruka.html'}
-        };
+        var sizeSel=document.getElementById('size');
+        genreSel.addEventListener('change',function(){ genreFree.classList.toggle('show', genreSel.value==='other'); update(); });
+        genreFree.addEventListener('input',update);
+        sizeSel.addEventListener('change',update);
+        function getGenre(){ return genreSel.value==='other'?genreFree.value.trim():genreSel.value; }
+        var CATS=['売上・集客','広告・販促','業務・作業','お金','判断'];
         function update(){
             var n=0, cats={};
             items.forEach(function(it){
-                if(it.classList.contains('on')){
-                    n++;
-                    var c=it.getAttribute('data-cat');
-                    cats[c]=(cats[c]||0)+1;
-                }
+                if(it.classList.contains('on')){ n++; var c=it.getAttribute('data-cat'); cats[c]=(cats[c]||0)+1; }
             });
             cnt.textContent=n;
             var top=null, topN=0;
-            Object.keys(cats).forEach(function(c){ if(cats[c]>topN){top=c;topN=cats[c];} });
-            // カテゴリバー更新
+            CATS.forEach(function(c){ if((cats[c]||0)>topN){ top=c; topN=cats[c]; } });
             document.querySelectorAll('.bar-row').forEach(function(row){
-                var c=row.getAttribute('data-bar');
-                var k=cats[c]||0;
+                var c=row.getAttribute('data-bar'); var k=cats[c]||0;
                 row.querySelectorAll('.cell').forEach(function(cell,i){
-                    cell.className='cell'+(i<k?(' f'+k):'');
+                    cell.className='cell'+(i<k?(' f'+Math.min(k,3)):'');
                 });
             });
-            // 判定文
             var cls,msg;
             if(n===0){ cls='v-good'; msg='<b>タップして診断スタート</b>当てはまる項目を選んでください。'; }
-            else if(n<=3){ cls='v-good'; msg='<b>良好（'+n+'個）</b>数字で回せています。'+(top?'「'+top+'」だけ仕組み化の余地あり。':''); }
-            else if(n<=8){ cls='v-warn'; msg='<b>要注意（'+n+'個）</b>詰まり始めています。'+(top?'いちばんのボトルネックは「'+top+'」。ここから着手を。':''); }
-            else { cls='v-alert'; msg='<b>危険水域（'+n+'個）</b>感覚経営の状態です。'+(top?'まず「'+top+'」の見える化から。':'')+'数字が見えるだけで打ち手が変わります。'; }
+            else if(n<=4){ cls='v-good'; msg='<b>良好（'+n+'/20）</b>数字で回せています。'+(top?'伸びしろは「'+top+'」。':''); }
+            else if(n<=10){ cls='v-warn'; msg='<b>要注意（'+n+'/20）</b>詰まり始めています。いちばんのボトルネックは「'+top+'」。'; }
+            else { cls='v-alert'; msg='<b>危険水域（'+n+'/20）</b>感覚経営の状態です。「'+top+'」の見える化から立て直しを。'; }
             verdict.className='verdict '+cls;
             verdict.innerHTML=msg;
-            // 処方箋（最多カテゴリの実例記事）
-            if(n>0 && top && RX[top]){
-                rx.href=RX[top].u;
-                rx.innerHTML='📖 <b>「'+top+'」の処方箋：</b>'+RX[top].t+' →';
-                rx.classList.add('show');
-            } else {
-                rx.classList.remove('show');
-            }
-            // LINEボタン：診断結果つきメッセージを自動セット
             if(n>0){
-                var g=getGenre();
-                var text='ボトルネック診断をやってみました。'+(g?'\n業種：'+g:'')+'\n結果：'+n+'/15'+(top?'（いちばんの詰まり：'+top+'）':'')+'\nこの結果について相談したいです。';
+                var g=getGenre(); var sz=sizeSel.value;
+                var detail=CATS.map(function(c){ return c.split('・')[0]+(cats[c]||0); }).join('・');
+                var text='ボトルネック診断の「診断書」を受け取りたいです。\n'
+                    +(g?'業種：'+g+'\n':'')
+                    +(sz?'規模：'+sz+'\n':'')
+                    +'スコア：'+n+'/20（いちばんの詰まり：'+(top||'—')+'）\n'
+                    +'内訳：'+detail;
                 lineBtn.href='https://line.me/R/oaMessage/%40756qpakc/?'+encodeURIComponent(text);
             } else {
                 lineBtn.href='https://line.me/R/ti/p/@756qpakc';

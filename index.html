@@ -23,7 +23,7 @@
                 
                 if (target.closest('header')) location = 'header';
                 else if (target.closest('footer')) location = 'footer';
-                else if (target.closest('.hero-section-swiper')) location = 'hero';
+                else if (target.closest('.hero-static')) location = 'hero';
                 else if (target.closest('#contact')) location = 'contact_section';
                 else if (target.closest('#flow')) location = 'flow_section';
                 else if (target.closest('#blog')) location = 'blog_section';
@@ -42,8 +42,8 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="大阪府池田市のAmazon/EC支援企業。複数の自社ブランドを運営する現役セラーが、EC事業の自走を徹底サポート。大阪府内中心に対面支援。初期費用不要。">
-    <title>合同会社ヤシノミ【公式】| Amazon運用支援・ECコンサルティング（大阪）</title>
+    <meta name="description" content="大阪・池田市の合同会社ヤシノミ。Amazon・EC・経理・集客——事業の伸びを止める“ボトルネック”を数字で見つけ、自動で回る仕組みにして解消します。自社ブランドを運営する現役セラーが直接支援。初期費用ゼロ・月額固定。">
+    <title>合同会社ヤシノミ【公式】｜事業のボトルネックを数字で見つけて解消する（大阪｜Amazon・EC・業務DX）</title>
     
     <!-- Recommended Setting for Google Search -->
     <link rel="icon" href="https://yashi-nomi.com/images/logo.png" type="image/png" sizes="192x192">
@@ -55,20 +55,21 @@
     
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <link href="https://calendar.google.com/calendar/scheduling-button-script.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <!-- OGP Tags -->
-    <meta property="og:title" content="合同会社ヤシノミ【公式】| Amazon運用支援・ECコンサルティング（大阪）">
-    <meta property="og:description" content="大阪府池田市のAmazon/EC支援企業。複数の自社ブランドを運営する現役セラーが、EC事業の自走を徹底サポート。大阪府内中心に対面支援。初期費用不要。">
+    <meta property="og:title" content="合同会社ヤシノミ【公式】｜事業のボトルネックを数字で見つけて解消する">
+    <meta property="og:description" content="大阪・池田市の合同会社ヤシノミ。Amazon・EC・経理・集客——事業の伸びを止める“ボトルネック”を数字で見つけ、自動で回る仕組みにして解消します。自社ブランドを運営する現役セラーが直接支援。初期費用ゼロ・月額固定。">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://www.yashi-nomi.com/">
-    <meta property="og:image" content="https://www.yashi-nomi.com/images/logo.png">
+    <meta property="og:image" content="https://www.yashi-nomi.com/images/ogp.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     <meta property="og:site_name" content="合同会社ヤシノミ">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="合同会社ヤシノミ【公式】| Amazon運用支援・ECコンサルティング（大阪）">
-    <meta name="twitter:description" content="大阪府池田市のAmazon/EC支援企業。複数の自社ブランドを運営する現役セラーが、EC事業の自走を徹底サポート。大阪府内中心に対面支援。初期費用不要。">
-    <meta name="twitter:image" content="https://www.yashi-nomi.com/images/logo.png">
+    <meta name="twitter:title" content="合同会社ヤシノミ【公式】｜事業のボトルネックを数字で見つけて解消する">
+    <meta name="twitter:description" content="大阪・池田市の合同会社ヤシノミ。Amazon・EC・経理・集客——事業の伸びを止める“ボトルネック”を数字で見つけ、自動で回る仕組みにして解消します。自社ブランドを運営する現役セラーが直接支援。初期費用ゼロ・月額固定。">
+    <meta name="twitter:image" content="https://www.yashi-nomi.com/images/ogp.jpg">
 
     <style>
         html { scroll-behavior: smooth; }
@@ -114,94 +115,66 @@
         .accent-gold-text { color: var(--accent-gold); }
         .secondary-color { color: #003366; }
 
-        .hero-section-swiper {
-            width: 100%;
-            height: 75vh; 
-            min-height: 500px; 
-            max-height: 700px; 
-            background-color: #fff; 
-            position: relative; 
+        /* ── 静的ヒーロー（スライダー廃止・1メッセージ集中型） ── */
+        .hero-static {
+            position: relative;
+            background: linear-gradient(132deg, #06283d 0%, #0a3d62 56%, #0e4a75 100%);
             overflow: hidden;
         }
-        .swiper-slide {
-            background-size: cover;
-            background-position: center;
-            position: relative;
+        .hero-static::before {
+            content: "";
+            position: absolute; inset: 0;
+            background-image: radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px);
+            background-size: 24px 24px;
+            pointer-events: none;
         }
-        .hero-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to right, rgba(2,22,45,0.82) 0%, rgba(2,22,45,0.6) 55%, rgba(2,22,45,0.25) 100%);
-            z-index: 1;
+        .hero-static::after {
+            content: "";
+            position: absolute; right: -180px; top: -180px;
+            width: 520px; height: 520px; border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,153,0,0.13) 0%, rgba(255,153,0,0) 65%);
+            pointer-events: none;
         }
-        .hero-content-wrapper {
-            position: relative;
-            z-index: 2;
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: flex;
-            align-items: center;
-            height: 100%;
-        }
-        .hero-text-col {
-            width: 100%;
-            text-align: center;
-        }
-        @media (min-width: 768px) {
-            .hero-text-col {
-                width: 60%;
-                text-align: left;
-            }
-            .hero-overlay {
-                background: linear-gradient(to right, rgba(2,22,45,0.88) 28%, rgba(2,22,45,0.12) 70%, rgba(2,22,45,0) 100%);
-            }
-        }
-        .hero-slide-title {
-            font-family: var(--serif);
-            font-size: 2rem;
-            line-height: 1.45;
-            font-weight: 600;
-            letter-spacing: 0.03em;
-            color: #ffffff;
-            margin-bottom: 1.5rem;
-            text-shadow: 0 2px 12px rgba(0,0,0,0.25);
-        }
-        .hero-slide-title .primary-color,
-        .hero-slide-subtitle .primary-color { color: #FFC107; }
-        @media (min-width: 768px) {
-            .hero-slide-title {
-                font-size: 2.75rem;
-                line-height: 1.4;
-            }
-        }
-        .hero-slide-subtitle {
-            font-family: var(--sans);
-            font-size: 1rem;
-            color: rgba(255,255,255,0.92);
-            margin-bottom: 2.5rem;
-            line-height: 1.95;
-            text-shadow: 0 1px 8px rgba(0,0,0,0.3);
-        }
-        @media (min-width: 768px) {
-            .hero-slide-subtitle {
-                font-size: 1.25rem;
-            }
-        }
-        .swiper-pagination-bullet-active {
-            background-color: var(--primary-color) !important;
-        }
-        .swiper-button-next, .swiper-button-prev {
-            color: var(--primary-color) !important;
-            --swiper-navigation-size: 28px; 
-        }
-        .swiper-button-next:after, .swiper-button-prev:after {
-             font-size: var(--swiper-navigation-size) !important; 
-        }
+        .hero-eyebrow { font-family: var(--sans); font-size: 0.72rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--accent-gold); font-weight: 600; }
+        .hero-title { font-family: var(--serif); font-size: 2rem; line-height: 1.48; font-weight: 600; letter-spacing: 0.03em; color: #fff; }
+        @media (min-width: 768px) { .hero-title { font-size: 2.8rem; line-height: 1.38; } }
+        .hero-title .gold { color: var(--accent-gold); }
+        .hero-sub { font-family: var(--sans); font-size: 0.98rem; color: rgba(255,255,255,0.88); line-height: 2; }
+        @media (min-width: 768px) { .hero-sub { font-size: 1.125rem; } }
+        .hero-chip { font-family: var(--sans); font-size: 0.8rem; color: rgba(255,255,255,0.85); display: inline-flex; align-items: center; gap: 0.4rem; letter-spacing: 0.02em; }
+        .hero-chip .tick { color: var(--accent-gold); font-weight: 700; }
+        .btn-ghost-light { background: rgba(255,255,255,0.06); color: #fff; border: 1px solid rgba(255,255,255,0.65); }
+        .btn-ghost-light:hover { background: rgba(255,255,255,0.12); color: #fff; border-color: rgba(255,255,255,0.85); }
+
+        /* ── ヒーロー右：毎朝届くSlackレポートの実物風モック ── */
+        .heromock { background: #fff; border-radius: 6px !important; box-shadow: 0 22px 60px rgba(2,14,26,0.5) !important; overflow: hidden; position: relative; }
+        .heromock-bar { background: #f4f4f5; border-bottom: 1px solid #e4e4e7; padding: 9px 14px; display: flex; align-items: center; gap: 6px; }
+        .heromock-bar .dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+        .heromock-bar .ch { font-family: var(--sans); font-size: 0.72rem; color: #6b7280; margin-left: 8px; letter-spacing: 0.04em; }
+        .heromock-body { padding: 16px 18px 14px; }
+        .heromock-row { display: flex; align-items: flex-start; gap: 10px; }
+        .heromock-avatar { width: 36px; height: 36px; border-radius: 5px; background: var(--accent-orange); color: #fff; font-weight: 700; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; font-family: var(--sans); }
+        .heromock-name { font-family: var(--sans); font-size: 0.82rem; font-weight: 700; color: #1a2230; }
+        .heromock-name .bot { background: #e5e7eb; color: #6b7280; font-size: 0.58rem; font-weight: 600; padding: 1px 4px; border-radius: 2px; margin-left: 4px; vertical-align: 1px; }
+        .heromock-name .time { color: #9ca3af; font-weight: 400; font-size: 0.7rem; margin-left: 6px; }
+        .heromock-msg { font-family: var(--sans); font-size: 0.8rem; line-height: 1.85; color: #374151; margin-top: 2px; }
+        .heromock-msg .up { color: #15803d; font-weight: 700; }
+        .heromock-msg .warn { color: #b45309; font-weight: 700; }
+        .heromock-note { font-family: var(--sans); font-size: 0.68rem; color: #9ca3af; border-top: 1px dashed #e5e7eb; margin-top: 12px; padding-top: 9px; }
+        .heromock-badge { position: absolute; top: 0; right: 14px; background: var(--accent-orange); color: #fff; font-family: var(--sans); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; padding: 5px 12px; border-radius: 999px !important; box-shadow: 0 4px 12px rgba(0,0,0,0.25) !important; z-index: 2; }
+
+        .heromock-tabs { display: flex; justify-content: center; gap: 8px; margin-top: 14px; }
+        .mock-tab { font-family: var(--sans); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.05em; color: rgba(255,255,255,0.75); background: transparent; border: 1px solid rgba(255,255,255,0.35); border-radius: 999px; padding: 5px 14px; cursor: pointer; transition: all 0.2s ease; }
+        .mock-tab:hover { border-color: rgba(255,255,255,0.7); color: #fff; }
+        .mock-tab.is-on { background: var(--accent-orange); border-color: var(--accent-orange); color: #fff; }
+
+        /* ── モバイル固定CTAバー ── */
+        .sticky-cta { position: fixed; bottom: 0; left: 0; right: 0; z-index: 45; display: flex; box-shadow: 0 -4px 18px rgba(6,40,61,0.22) !important; }
+        .sticky-cta a { flex: 1; text-align: center; padding: 0.95rem 0.5rem; font-family: var(--sans); font-weight: 700; font-size: 0.85rem; color: #fff; letter-spacing: 0.03em; }
+        .sticky-cta a:first-child { background: #06C755; }
+        .sticky-cta a:last-child { background: var(--primary-color); }
+        @media (min-width: 1024px) { .sticky-cta { display: none; } }
+        @media (max-width: 1023px) { body { padding-bottom: 52px; } }
 
         .btn { font-family: var(--sans); padding: 0.95rem 2rem; border-radius: 2px; font-weight: 600; font-size: 0.95rem; letter-spacing: 0.04em; transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; border: 1px solid transparent; box-shadow: none; cursor: pointer; }
         .btn-primary { background-color: var(--primary-color); color: #fff; border-color: var(--primary-color); }
@@ -315,9 +288,9 @@
                 <a href="#case-study" class="text-gray-600 hover:text-blue-700 transition duration-200 font-medium text-sm">事例</a>
                 <a href="#flow" class="text-gray-600 hover:text-blue-700 transition duration-200 font-medium text-sm">ご相談の流れ</a>
                 <a href="amazon.html" class="text-gray-600 hover:text-blue-700 transition duration-200 font-medium text-sm"><span class="amazon-orange-text">Amazon</span>支援</a>
-                <a href="#blog" class="text-gray-600 hover:text-blue-700 transition duration-200 font-medium text-sm">ブログ</a>
+                <a href="#blog" class="text-gray-600 hover:text-blue-700 transition duration-200 font-medium text-sm">コラム</a>
                 <a href="#client" class="text-gray-500 hover:text-blue-700 transition duration-200 font-medium text-sm border-l border-gray-200 pl-5">既存のお客様</a>
-                <a href="#contact" class="btn btn-primary text-xs px-5 py-2 shadow-lg transform hover:scale-105">無料相談</a>
+                <a href="https://line.me/R/ti/p/@756qpakc" target="_blank" rel="noopener" class="btn text-xs px-5 py-2 shadow-lg transform hover:scale-105" style="background:#06C755;border-color:#06C755;color:#fff;">LINEで相談</a>
             </nav>
             <button id="mobile-menu-button" class="lg:hidden focus:outline-none z-50 p-2">
                 <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
@@ -337,84 +310,77 @@
                 <a href="#case-study" class="text-gray-600 hover:text-blue-700 hover:bg-blue-50 transition duration-300 py-2.5 px-3 rounded-md font-medium text-sm">事例</a>
                 <a href="#flow" class="text-gray-600 hover:text-blue-700 hover:bg-blue-50 transition duration-300 py-2.5 px-3 rounded-md font-medium text-sm">ご相談の流れ</a>
                 <a href="amazon.html" class="text-gray-600 hover:text-blue-700 hover:bg-blue-50 transition duration-300 py-2.5 px-3 rounded-md font-medium text-sm"><span class="amazon-orange-text">Amazon</span>支援</a>
-                <a href="#blog" class="text-gray-600 hover:text-blue-700 hover:bg-blue-50 transition duration-300 py-2.5 px-3 rounded-md font-medium text-sm">ブログ</a>
+                <a href="#blog" class="text-gray-600 hover:text-blue-700 hover:bg-blue-50 transition duration-300 py-2.5 px-3 rounded-md font-medium text-sm">コラム</a>
                 <a href="#client" class="text-gray-500 hover:text-blue-700 hover:bg-blue-50 transition duration-300 py-2.5 px-3 rounded-md font-medium text-sm">既存のお客様窓口</a>
-                <a href="#contact" class="mt-6 block text-center btn btn-primary w-full">無料相談</a>
+                <a href="https://line.me/R/ti/p/@756qpakc" target="_blank" rel="noopener" class="mt-6 block text-center btn w-full" style="background:#06C755;border-color:#06C755;color:#fff;">LINEで相談</a>
             </nav>
         </div>
     </header>
     <!-- 1. END HEADER -->
 
-    <!-- 2. HERO SECTION -->
-    <section class="hero-section-swiper"> 
-        <div class="swiper-wrapper">
-            <!-- Slide 1: メインメッセージ -->
-            <div class="swiper-slide" style="background-image: url('./images/hero-1.jpg');">
-                <div class="hero-overlay"></div>
-                <div class="hero-content-wrapper">
-                    <div class="hero-text-col" data-aos="fade-up">
-                        <h2 class="hero-slide-title">
-                            事業の伸びを止める<br>
-                            “<span class="primary-color">ボトルネック</span>”を、<br>
-                            数字で見つけて解消する。
-                        </h2>
-                        <p class="hero-slide-subtitle">
-                            <span class="amazon-orange-text">Amazon</span>運用・EC・経理・集客——どこが詰まっているか。<br class="hidden md:block">自社ブランドで稼ぐ<strong class="primary-color">現役プレイヤー</strong>が、いちばん効く一点を見極め、<br class="hidden md:block"><strong class="primary-color">仕組みにして解消</strong>します。
-                        </p>
-                        <div>
-                            <script src="https://calendar.google.com/calendar/scheduling-button-script.js" async></script>
-                            <script>
-                            (function() {var target = document.currentScript; window.addEventListener('load', function() {calendar.schedulingButton.load({ url: 'https://calendar.app.google/TZrQ5YLexng2gPRV8', color: '#005A9C', label: '無料オンライン相談を予約する', target, });});})();
-                            </script>
+    <!-- 2. HERO SECTION（静的・1メッセージ集中型） -->
+    <section id="hero" class="hero-static">
+        <div class="container mx-auto px-6 relative" style="z-index:2;">
+            <div class="grid lg:grid-cols-12 gap-12 lg:gap-10 items-center py-16 md:py-24 lg:py-28">
+                <!-- 左：コピー＋CTA -->
+                <div class="lg:col-span-7">
+                    <p class="hero-eyebrow mb-5">Amazon / EC / 業務DX — Osaka</p>
+                    <h2 class="hero-title mb-6">
+                        事業の伸びを止める<br>
+                        “<span class="gold">ボトルネック</span>”を、<br>
+                        数字で見つけて解消する。
+                    </h2>
+                    <p class="hero-sub mb-9">
+                        <span class="amazon-orange-text font-semibold">Amazon</span>運用・EC・経理・集客——どこが詰まっているか。<br class="hidden md:block">自社ブランドで稼ぐ<strong style="color:#fff;">現役プレイヤー</strong>が、いちばん効く一点を見極め、<br class="hidden md:block"><strong style="color:#fff;">仕組みにして解消</strong>します。
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 mb-4">
+                        <a href="https://line.me/R/ti/p/@756qpakc" target="_blank" rel="noopener"
+                           onclick="if(typeof gtag==='function'){gtag('event','click',{'event_category':'cta','event_label':'hero_line'});}"
+                           class="btn text-base px-8 py-4" style="background:#06C755;border-color:#06C755;color:#fff;">LINEで気軽に相談する（無料）</a>
+                        <a href="#selfcheck" class="btn btn-ghost-light text-base px-8 py-4">まずは30秒セルフ診断</a>
+                    </div>
+                    <p class="text-xs mb-9" style="color:rgba(255,255,255,0.65);">じっくり話したい方は <a href="https://calendar.app.google/TZrQ5YLexng2gPRV8" target="_blank" rel="noopener" class="underline" style="color:rgba(255,255,255,0.85);">30分のオンライン相談</a> も選べます。</p>
+                    <div class="flex flex-wrap gap-x-7 gap-y-2 pt-6" style="border-top:1px solid rgba(255,255,255,0.18);">
+                        <span class="hero-chip"><span class="tick">✓</span>初期費用ゼロ・月額固定</span>
+                        <span class="hero-chip"><span class="tick">✓</span>大阪拠点・全国オンライン対応</span>
+                        <span class="hero-chip"><span class="tick">✓</span>現役Amazonセラーが直接担当</span>
+                    </div>
+                </div>
+                <!-- 右：毎朝届く自動レポートの実物風モック（＝証拠） -->
+                <div class="lg:col-span-5">
+                    <div class="max-w-md mx-auto lg:max-w-none relative" style="padding-top:14px;">
+                        <span class="heromock-badge">毎朝 7:00 自動配信</span>
+                        <div class="heromock">
+                            <div class="heromock-bar">
+                                <span class="dot" style="background:#f87171;"></span><span class="dot" style="background:#fbbf24;"></span><span class="dot" style="background:#34d399;"></span>
+                                <span class="ch" id="mock-ch"># 経営ダッシュボード</span>
+                            </div>
+                            <div class="heromock-body">
+                                <div class="heromock-row">
+                                    <div class="heromock-avatar">ヤ</div>
+                                    <div>
+                                        <p class="heromock-name">朝刊レポート<span class="bot">APP</span><span class="time">7:00</span></p>
+                                        <p class="heromock-msg" id="mock-msg" style="transition:opacity 0.35s ease;">
+                                            ☀️ 昨日：売上 ○○○ ／ 広告費 ○○ ／ 利益 ○○<br>
+                                            📈 7日トレンド：<span class="up">3日連続で改善 ↑</span><br>
+                                            📦 在庫注意：<span class="warn">1商品（残り○日）→ 攻め自動停止</span><br>
+                                            🤖 昨日の自動調整：12件（すべて安全弁の範囲内）<br>
+                                            ✅ 異常なし。判断が必要な項目は今日はありません。
+                                        </p>
+                                        <p class="heromock-note">※ 自社・支援先で実際に毎朝動いている自動レポートです（数値はマスク）。</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="heromock-tabs">
+                            <button type="button" class="mock-tab is-on" data-mock="0">EC・広告</button>
+                            <button type="button" class="mock-tab" data-mock="1">美容サロン</button>
+                            <button type="button" class="mock-tab" data-mock="2">経理・在庫</button>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- Slide 2: 提供価値1 - 再現性の高い運用基盤 -->
-            <div class="swiper-slide" style="background-image: url('./images/hero-2.jpg');">
-                <div class="hero-overlay"></div>
-                <div class="hero-content-wrapper">
-                    <div class="hero-text-col" data-aos="fade-up">
-                        <h3 class="hero-slide-title">再現性の高い<br><span class="primary-color">運用基盤</span>を構築</h3>
-                        <p class="hero-slide-subtitle">
-                            データに基づいた分析と改善サイクル。<br>
-                            確実に成果の出るところから着実に。<br>持続可能な成長戦略をご提案します。
-                        </p>
-                        <a href="#services" class="btn" style="background:#fff;color:var(--primary-color-dark);box-shadow:0 4px 14px rgba(0,0,0,0.18);">サービス詳細へ</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Slide 3: 提供価値2 - 大阪中心の対面サポート -->
-            <div class="swiper-slide" style="background-image: url('./images/hero-3.jpg');">
-                <div class="hero-overlay"></div>
-                <div class="hero-content-wrapper">
-                    <div class="hero-text-col" data-aos="fade-up">
-                        <h3 class="hero-slide-title"><span class="primary-color">大阪</span>を中心に<br>訪問での手厚い支援</h3>
-                        <p class="hero-slide-subtitle">
-                            Zoomだけでは伝わらない熱量も共有。<br>
-                            担当者様との密な連携で、チームの自走を徹底サポートします。
-                        </p>
-                        <a href="#features" class="btn btn-primary">ヤシノミの強み</a>
-                    </div>
-                </div>
-            </div>
-             <!-- Slide 4: 実績ハイライト -->
-            <div class="swiper-slide" style="background-image: url('./images/hero-4.jpg');">
-                <div class="hero-overlay"></div>
-                <div class="hero-content-wrapper">
-                    <div class="hero-text-col" data-aos="fade-up">
-                        <h3 class="hero-slide-title">赤字のサロンを、<br><span class="primary-color">黒字へ</span>。数字で立て直す。</h3>
-                        <p class="hero-slide-subtitle">
-                            自社ブランドで磨いた「数字で原因を絞る」型を、<br class="hidden md:block">他業種の立て直しにも。実際の事例をご覧ください。
-                        </p>
-                        <a href="#case-study" class="btn btn-accent-gold">立て直し事例を見る</a>
-                    </div>
-                </div>
-            </div>
         </div>
-        <div class="swiper-pagination"></div>
-        <div class="swiper-button-prev"></div>
-        <div class="swiper-button-next"></div>
     </section>
     <!-- 2. END HERO SECTION -->
 
@@ -423,15 +389,15 @@
         <div class="container mx-auto px-6 py-8 md:py-9">
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-5xl mx-auto text-center divide-y sm:divide-y-0 sm:divide-x divide-gray-200">
                 <div class="pt-4 sm:pt-0">
-                    <p class="text-2xl font-bold leading-tight" style="color:var(--primary-color);">赤字 → <span class="amazon-orange-text">黒字へ</span></p>
+                    <p class="text-2xl font-bold leading-tight font-serif-jp" style="color:var(--primary-color);letter-spacing:0.03em;">赤字 → <span class="amazon-orange-text">黒字へ</span></p>
                     <p class="text-xs text-gray-500 mt-1.5">美容サロンの立て直し／売上 約4倍<br>（相対値・進行中）</p>
                 </div>
                 <div class="pt-4 sm:pt-0">
-                    <p class="text-2xl font-bold leading-tight" style="color:var(--primary-color);">3商品で<span class="amazon-orange-text">主力事業</span>化</p>
+                    <p class="text-2xl font-bold leading-tight font-serif-jp" style="color:var(--primary-color);letter-spacing:0.03em;">3商品で<span class="amazon-orange-text">主力事業</span>化</p>
                     <p class="text-xs text-gray-500 mt-1.5">自社ブランドを複数運営する<br>“売っている側”の当事者</p>
                 </div>
                 <div class="pt-4 sm:pt-0">
-                    <p class="text-2xl font-bold leading-tight" style="color:var(--primary-color);">EC・店舗・<span class="amazon-orange-text">現場DX</span></p>
+                    <p class="text-2xl font-bold leading-tight font-serif-jp" style="color:var(--primary-color);letter-spacing:0.03em;">EC・店舗・<span class="amazon-orange-text">現場DX</span></p>
                     <p class="text-xs text-gray-500 mt-1.5">業種を問わない<br>仕組み化・見える化の実績</p>
                 </div>
             </div>
@@ -444,7 +410,15 @@
             <div class="text-center mb-16" data-aos="fade-up">
                 <p class="section-title-en mb-2">Our Own Brands</p>
                 <h2 class="section-title-jp">私たちは、いまも"売っている側"です</h2>
-                <p class="section-subtitle mt-3">外から指示を出すだけのコンサルではありません。商品を企画し、画像を作り、広告を回し、在庫を抱え、レビューに一喜一憂する——<strong class="primary-color">その全部を、自分たちのブランドで毎日やっています</strong>。だから提案は机上論になりません。自分たちで試して効いた"型"を土台に、お客様の状況に合わせて一緒に組み立てます。</p>
+                <p class="section-subtitle mt-3">外から指示するだけのコンサルではなく、<strong class="primary-color">毎日、自分のブランドを売っている当事者</strong>です。</p>
+                <div class="flex flex-wrap justify-center items-center gap-2 mt-6">
+                    <span class="px-3 py-1.5 text-xs font-semibold border" style="border-color:var(--border-strong);color:var(--text-medium);border-radius:999px !important;">商品企画</span>
+                    <span class="px-3 py-1.5 text-xs font-semibold border" style="border-color:var(--border-strong);color:var(--text-medium);border-radius:999px !important;">画像制作</span>
+                    <span class="px-3 py-1.5 text-xs font-semibold border" style="border-color:var(--border-strong);color:var(--text-medium);border-radius:999px !important;">広告運用</span>
+                    <span class="px-3 py-1.5 text-xs font-semibold border" style="border-color:var(--border-strong);color:var(--text-medium);border-radius:999px !important;">在庫管理</span>
+                    <span class="px-3 py-1.5 text-xs font-semibold border" style="border-color:var(--border-strong);color:var(--text-medium);border-radius:999px !important;">レビュー対応</span>
+                    <span class="text-sm font-bold primary-color ml-1">→ 全部、自分たちの手で。</span>
+                </div>
             </div>
             <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
                 <!-- CHO-JU -->
@@ -480,7 +454,7 @@
                     </div>
                 </a>
             </div>
-            <p class="text-center text-gray-600 mt-10 text-base" data-aos="fade-up">現場の数字も、売れない時の痛みも、自分ごととして知っている。この<strong class="primary-color">当事者の経験</strong>こそ、ヤシノミの提案が机上論にならない理由です。</p>
+            <p class="text-center text-gray-600 mt-10 text-base" data-aos="fade-up">売れない時の痛みを自分ごとで知っている——<strong class="primary-color">提案が机上論にならない理由</strong>です。</p>
         </div>
     </section>
     <!-- 2.5 END BRANDS SECTION -->
@@ -491,7 +465,7 @@
             <div class="text-center mb-16" data-aos="fade-up">
                 <p class="section-title-en mb-2">Our Services</p>
                 <h2 class="section-title-jp">提供サービス</h2>
-                <p class="section-subtitle mt-3">やることは一つ。<strong class="primary-color">事業の伸びを止めている“ボトルネック”を、数字で見つけて解消する</strong>こと。<span class="amazon-orange-text">Amazon</span>運用も、店舗・中小企業の業務改善も、<strong class="primary-color">「いちばん詰まっている一点」</strong>から手をつけます。</p>
+                <p class="section-subtitle mt-3"><span class="amazon-orange-text">Amazon</span>も、店舗も、バックオフィスも——<strong class="primary-color">「いちばん詰まっている一点」</strong>から手をつけます。</p>
             </div>
             <div class="grid md:grid-cols-3 gap-8">
                 <div class="card p-6 sm:p-8 flex flex-col items-center text-center" data-aos="fade-up" data-aos-delay="100">
@@ -508,6 +482,7 @@
                     </div>
                     <h3 class="text-lg sm:text-xl font-semibold mb-3 secondary-color">業務DX改善・運用支援</h3>
                     <p class="text-gray-500 text-xs sm:text-sm leading-relaxed">店舗・中小企業向けに<strong class="primary-color">数字の見える化・集客HP・公式LINE・日次レポート自動化</strong>を代行。「毎日の集計に追われる」状態から、<strong class="primary-color">毎朝 数字が勝手に届く</strong>状態へ。</p>
+                    <a href="#case-study" class="inline-flex items-center mt-5 text-sm font-semibold primary-color hover:underline" style="letter-spacing:0.02em;">店舗・現場の支援事例を見る<span class="ml-1">→</span></a>
                 </div>
                 <div class="card p-6 sm:p-8 flex flex-col items-center text-center" data-aos="fade-up" data-aos-delay="300">
                     <div class="p-3 sm:p-4 card-icon-bg mb-6 inline-block">
@@ -515,6 +490,7 @@
                     </div>
                     <h3 class="text-lg sm:text-xl font-semibold mb-3 secondary-color">商品画像作成・構成支援</h3>
                     <p class="text-gray-500 text-xs sm:text-sm leading-relaxed">こだわり商品を<strong class="primary-color">「まず売れる魅力」</strong>に引き上げる商品画像を提案。AI活用から物撮りまで、お客様に希望をお伺いした上で、クリエイティブ制作を支援いたします。</p>
+                    <a href="#contact" class="inline-flex items-center mt-5 text-sm font-semibold primary-color hover:underline" style="letter-spacing:0.02em;">制作のご相談はこちら<span class="ml-1">→</span></a>
                 </div>
             </div>
         </div>
@@ -527,7 +503,7 @@
             <div class="text-center mb-16" data-aos="fade-up">
                 <p class="section-title-en mb-2">Our Strengths</p>
                 <h2 class="section-title-jp">ヤシノミの強み</h2>
-                <p class="section-subtitle mt-3">「自社で実際にやっている会社」だからこそ、お渡しできるものがあります。<br class="hidden md:block">私たちが大事にしていることを、正直にお伝えします。</p>
+                <p class="section-subtitle mt-3">「自社で実際にやっている会社」だから、お渡しできるものがあります。</p>
             </div>
             <div class="grid md:grid-cols-2 gap-x-8 gap-y-10">
                 <div class="card p-6 sm:p-8 flex" data-aos="fade-up">
@@ -577,7 +553,7 @@
             <div class="text-center mb-16" data-aos="fade-up">
                 <p class="section-title-en mb-2">Client Work</p>
                 <h2 class="section-title-jp">自社で試した"型"を、他業種の現場でも</h2>
-                <p class="section-subtitle mt-3">自社ブランドで磨いた<strong class="primary-color">「仕組み化・見える化」</strong>の考え方を、店舗・現場の業務改善にも応用しています。うまくいったことも、まだ途中のことも含め、実際に取り組んだ事例をご紹介します。</p>
+                <p class="section-subtitle mt-3">自社で磨いた<strong class="primary-color">「仕組み化・見える化」の型</strong>を、店舗・現場でも。実例でご紹介します。</p>
             </div>
             <!-- Group B: Store / Field DX -->
             <div class="max-w-6xl mx-auto" data-aos="fade-up">
@@ -724,7 +700,7 @@
                 <div class="text-center mb-12">
                     <p class="section-title-en mb-2">How We Work</p>
                     <h3 class="section-title-jp" style="font-size:1.6rem;">ご相談を、"仕組み"に変える。</h3>
-                    <p class="section-subtitle mt-3">私たちの仕事の本質は<strong class="primary-color">「仕組み化」と「見える化」</strong>です。まずお話を伺い、属人的な手作業を仕組みに置き換える。数字が見えて<strong class="primary-color">次の方針が決まる</strong>状態をつくり、<strong class="primary-color">お客様の工数を増やさず</strong>に回るようにします。これを自社ブランドでも、他社のご支援でも、同じ徹底度でやっています。</p>
+                    <p class="section-subtitle mt-3">属人的な手作業を、<strong class="primary-color">“数字が見えて、毎朝勝手に回る仕組み”</strong>に。</p>
                 </div>
                 <div class="flex flex-col md:flex-row items-stretch justify-center gap-3">
                     <!-- INPUT -->
@@ -771,11 +747,45 @@
                         <p class="text-xs text-gray-400 mt-4">お客様の手間は増えず、判断に集中できる</p>
                     </div>
                 </div>
-                <p class="text-center text-sm text-gray-500 mt-8">この<strong class="primary-color">"仕組みにする"工程</strong>を、自社ブランドでも、EARNESTでも、デズラでも、同じ徹底度で。だからお客様は<strong class="primary-color">人を増やさずに</strong>、「毎日見て、すぐ動く」状態になります。</p>
+                <div class="flex flex-wrap justify-center items-center gap-2 mt-8">
+                    <span class="px-3 py-1.5 text-xs font-semibold border" style="border-color:var(--border-strong);color:var(--text-medium);border-radius:999px !important;">自社ブランド</span>
+                    <span class="px-3 py-1.5 text-xs font-semibold border" style="border-color:var(--border-strong);color:var(--text-medium);border-radius:999px !important;">美容サロン</span>
+                    <span class="px-3 py-1.5 text-xs font-semibold border" style="border-color:var(--border-strong);color:var(--text-medium);border-radius:999px !important;">建設現場</span>
+                    <span class="text-sm font-bold primary-color ml-1">—— 同じ“型”で回しています</span>
+                </div>
             </div>
         </div>
     </section>
     <!-- 5. END MERGED SECTION -->
+
+    <!-- 5.3 軽い入口（ボトルネック・セルフ診断 → LINE） -->
+    <section id="selfcheck" class="py-16 md:py-20 bg-blue-50 border-t border-blue-100">
+        <div class="container mx-auto px-6 max-w-4xl" data-aos="fade-up">
+            <div class="text-center mb-8">
+                <p class="section-title-en mb-2">Free Self-Check</p>
+                <h2 class="text-2xl md:text-3xl font-bold secondary-color">「相談はまだ早いかな」という方へ</h2>
+                <p class="text-gray-600 mt-3">いきなり相談はハードルが高いですよね。まずは30秒、<strong class="primary-color">自社の“ボトルネック”がどこか</strong>をセルフチェック。<br class="hidden md:block">ひとつでも当てはまったら、解消できる余地があります。</p>
+            </div>
+            <div class="bg-white rounded-xl border p-6 md:p-8 mb-8 shadow-sm" style="border-color:var(--border-color);">
+                <ul class="space-y-3 text-gray-700 text-sm md:text-base">
+                    <li class="flex items-start gap-3"><span class="text-xl leading-none" style="color:var(--accent-orange);">☐</span><span><span class="amazon-orange-text font-bold">Amazon</span>広告が、気づいたら赤字になっている／何に効いているか分からない</span></li>
+                    <li class="flex items-start gap-3"><span class="text-xl leading-none" style="color:var(--accent-orange);">☐</span><span>在庫・数値・経理の管理が<strong>手作業</strong>で、毎月そこに時間を取られている</span></li>
+                    <li class="flex items-start gap-3"><span class="text-xl leading-none" style="color:var(--accent-orange);">☐</span><span>どこから売上・予約・問い合わせが来ているか、<strong>はっきり分からない</strong></span></li>
+                    <li class="flex items-start gap-3"><span class="text-xl leading-none" style="color:var(--accent-orange);">☐</span><span>集客が<strong>一つの商品・経路に依存</strong>していて、いつ落ちるか不安</span></li>
+                    <li class="flex items-start gap-3"><span class="text-xl leading-none" style="color:var(--accent-orange);">☐</span><span>数字を見て判断したいのに、そもそも<strong>見える状態になっていない</strong></span></li>
+                </ul>
+            </div>
+            <div class="text-center">
+                <a href="https://line.me/R/ti/p/@756qpakc" target="_blank" rel="noopener"
+                   onclick="if(typeof gtag==='function'){gtag('event','click',{'event_category':'cta','event_label':'line_selfcheck'});}"
+                   class="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-bold text-white shadow-lg hover:opacity-90 transition" style="background:#06C755;">
+                    <svg viewBox="0 0 448 512" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M272.1 204.2v71.1c0 1.8-1.4 3.2-3.2 3.2h-11.4c-1.1 0-2.1-.6-2.6-1.3l-32.6-44v42.2c0 1.8-1.4 3.2-3.2 3.2h-11.4c-1.8 0-3.2-1.4-3.2-3.2v-71.1c0-1.8 1.4-3.2 3.2-3.2H219c1 0 2.1.5 2.6 1.4l32.6 44v-42.2c0-1.8 1.4-3.2 3.2-3.2h11.4c1.8-.1 3.3 1.4 3.3 3.1zm-82-3.2h-11.4c-1.8 0-3.2 1.4-3.2 3.2v71.1c0 1.8 1.4 3.2 3.2 3.2h11.4c1.8 0 3.2-1.4 3.2-3.2v-71.1c0-1.7-1.4-3.2-3.2-3.2zm-27.5 59.6h-31.1v-56.4c0-1.8-1.4-3.2-3.2-3.2H105.6c-1.8 0-3.2 1.4-3.2 3.2v71.1c0 .9.3 1.6.9 2.2.6.5 1.3.9 2.2.9h45.7c1.8 0 3.2-1.4 3.2-3.2v-11.4c0-1.7-1.4-3.2-3.2-3.2zm193.7-59.6h-45.7c-1.7 0-3.2 1.4-3.2 3.2v71.1c0 1.7 1.4 3.2 3.2 3.2h45.7c1.8 0 3.2-1.4 3.2-3.2v-11.4c0-1.8-1.4-3.2-3.2-3.2h-31.1v-12h31.1c1.8 0 3.2-1.4 3.2-3.2V234c0-1.8-1.4-3.2-3.2-3.2h-31.1v-12h31.1c1.8 0 3.2-1.4 3.2-3.2v-11.4c-.1-1.7-1.5-3.2-3.2-3.2zM448 113.7V399c-.1 44.8-36.8 81.1-81.7 81H81c-44.8-.1-81.1-36.9-81-81.7V113c.1-44.8 36.9-81.1 81.7-81H367c44.8.1 81.1 36.8 81 81.7zm-61.6 122.6c0-73.1-73.3-132.6-163.4-132.6-90.1 0-163.4 59.5-163.4 132.6 0 65.5 58.1 120.3 136.6 130.7 5.3 1.1 12.5 3.5 14.4 8.1 1.6 4.1 1.1 10.5.5 14.7l-2.3 14c-.7 4.1-3.3 16.1 14.1 8.8 17.4-7.3 93.9-55.3 128.2-94.7h-.1c23.7-26 35-52.3 35-81.5z"/></svg>
+                    無料チェックリスト＆事例集をLINEで受け取る
+                </a>
+                <p class="text-xs text-gray-500 mt-3">登録するだけ・しつこい営業はしません。「ここが詰まってそう」を一緒に見つけます。</p>
+            </div>
+        </div>
+    </section>
 
     <!-- 5.5 BLOG SECTION -->
     <section id="blog" class="py-20 md:py-28 bg-white border-b border-gray-200">
@@ -783,7 +793,7 @@
             <div class="text-center mb-10">
                 <p class="section-title-en mb-2">Business Improvement Insights</p>
                 <h2 class="section-title-jp">業務改善コラム</h2>
-                <p class="section-subtitle mt-3">弊社が実際に取り組んだ業務改善を徹底的に深掘りし、他社でも応用できる「型」として公開していきます。</p>
+                <p class="section-subtitle mt-3">実際にやった業務改善を、他社でも使える<strong class="primary-color">「型」</strong>として公開しています。</p>
             </div>
 
             <!-- タグフィルター（バニラJS / Alpine非依存） -->
@@ -1227,6 +1237,18 @@
                         <span class="mt-auto text-blue-600 font-semibold text-sm flex items-center">読む<svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></span>
                     </div>
                 </a>
+
+                <a href="./culture/habit-is-a-booster.html" class="card flex flex-col group hover:no-underline h-full" data-cats="culture">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="./images/card-culture-habit.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#003366;">ヤシノミの考え方</div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-lg font-bold text-gray-800 mb-3 group-hover:text-blue-600 transition-colors">習慣は、目的地を選ばないブースト装置</h3>
+                        <p class="text-sm text-gray-600 mb-4" style="display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;">良い習慣は目標まで連れて行き、ズレた習慣は毎日加速しながら別の場所へ。だから時々“向き”を棚卸しする。週2回の筋トレと朝10分の掃除の話。</p>
+                        <span class="mt-auto text-blue-600 font-semibold text-sm flex items-center">読む<svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></span>
+                    </div>
+                </a>
             </div>
 
             <div class="mt-12 text-center">
@@ -1244,13 +1266,13 @@
             <div class="text-center mb-16" data-aos="fade-up">
                 <p class="section-title-en mb-2">How to Start</p>
                 <h2 class="section-title-jp">ご相談の流れ</h2>
-                <p class="section-subtitle mt-3">まずは<strong class="primary-color">無料相談</strong>から。お客様の状況を伺い、<strong class="primary-color">仕組みに落とせる部分</strong>を一緒に見つけるところから始めます。いきなり契約や費用が発生することはありません。</p>
+                <p class="section-subtitle mt-3">まずは<strong class="primary-color">LINEのメッセージひとつ</strong>から。いきなり契約や費用が発生することはありません。</p>
             </div>
             <div class="max-w-5xl mx-auto grid md:grid-cols-3 gap-6 md:gap-8">
                 <div class="card p-7 sm:p-8 flex flex-col" data-aos="fade-up" data-aos-delay="100">
                     <span class="font-serif-jp text-3xl primary-color mb-4" style="letter-spacing:0.04em;">01</span>
                     <h3 class="text-lg font-semibold mb-3 secondary-color">無料相談で課題を伺う</h3>
-                    <p class="text-gray-500 text-sm leading-relaxed">「何が手間か」「どの数字が見えていないか」をお聞きします。<strong class="primary-color">まだ整理できていない状態でOK</strong>。オンライン30分から。</p>
+                    <p class="text-gray-500 text-sm leading-relaxed">「何が手間か」「どの数字が見えていないか」をお聞きします。<strong class="primary-color">まだ整理できていない状態でOK</strong>。LINEのメッセージでも、30分のオンライン相談でも。</p>
                 </div>
                 <div class="card p-7 sm:p-8 flex flex-col" data-aos="fade-up" data-aos-delay="200">
                     <span class="font-serif-jp text-3xl primary-color mb-4" style="letter-spacing:0.04em;">02</span>
@@ -1264,8 +1286,10 @@
                 </div>
             </div>
             <div class="text-center mt-14" data-aos="fade-up">
-                <a href="https://calendar.app.google/TZrQ5YLexng2gPRV8" target="_blank" rel="noopener" class="btn btn-primary text-base px-8 py-4">無料相談を予約する（30分）</a>
-                <p class="text-xs text-gray-400 mt-4">オンライン対応。費用・契約は提案にご納得いただいてからで構いません。</p>
+                <a href="https://line.me/R/ti/p/@756qpakc" target="_blank" rel="noopener"
+                   onclick="if(typeof gtag==='function'){gtag('event','click',{'event_category':'cta','event_label':'flow_line'});}"
+                   class="btn text-base px-8 py-4" style="background:#06C755;border-color:#06C755;color:#fff;">LINEで気軽に相談する（無料）</a>
+                <p class="text-xs text-gray-400 mt-4">じっくり話したい方は <a href="https://calendar.app.google/TZrQ5YLexng2gPRV8" target="_blank" rel="noopener" class="underline">30分のオンライン相談</a> へ。費用・契約は提案にご納得いただいてからで構いません。</p>
             </div>
         </div>
     </section>
@@ -1341,47 +1365,63 @@
     <!-- 9. COMPANY SECTION -->
     <section id="company" class="py-20 md:py-28 bg-white">
          <div class="container mx-auto px-6">
-            <div class="text-center mb-16" data-aos="fade-up">
-                <p class="section-title-en mb-2">Company Profile</p>
+            <div class="text-center mb-14" data-aos="fade-up">
+                <p class="section-title-en mb-2">Company / Founder</p>
                 <h2 class="section-title-jp">会社情報</h2>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-10 md:gap-12 max-w-5xl mx-auto items-start">
-                <div data-aos="fade-right">
-                    <div class="card p-8 mb-10">
-                        <table class="w-full text-gray-700 text-sm">
-                            <tbody>
-                                <tr class="border-b border-gray-200"><th class="py-3 px-2 text-left font-medium">会社名</th><td class="py-3 px-2">合同会社ヤシノミ</td></tr>
-                                <tr class="border-b border-gray-200"><th class="py-3 px-2 text-left font-medium">代表</th><td class="py-3 px-2">四宮 慶人</td></tr>
-                                <tr class="border-b border-gray-200"><th class="py-3 px-2 text-left font-medium align-top">事業内容</th><td class="py-3 px-2">Amazon・EC運用支援／業務改善・DX支援（仕組み化・自動化）／Webサイト・公式LINE構築／商品ページ・画像制作／自社ブランド運営</td></tr>
-                            </tbody>
-                        </table>
+            <!-- 代表（人）を主役にしたプロフィール -->
+            <div class="max-w-5xl mx-auto card p-8 md:p-10 mb-8" data-aos="fade-up">
+                <div class="grid md:grid-cols-3 gap-8 md:gap-10 items-center">
+                    <div class="text-center">
+                        <img src="./images/shinomiya.jpg" alt="代表社員 四宮 慶人" class="w-40 h-40 rounded-full shadow-lg border-4 border-white object-cover mx-auto">
+                        <p class="mt-4 text-lg font-bold text-gray-800">四宮 慶人</p>
+                        <p class="text-xs text-gray-500 mt-0.5">代表社員／現役Amazonセラー</p>
                     </div>
-                    <div class="card p-8 bg-blue-50 border-blue-200"> 
-                        <h3 class="text-xl font-semibold mb-6 primary-color text-center">代表メッセージ</h3>
-                        <div class="flex flex-col items-center mb-6">
-                            <img src="./images/shinomiya.jpg" alt="代表社員 四宮 慶人" class="w-36 h-36 rounded-full shadow-lg border-4 border-white object-cover mb-4">
-                            <p class="text-lg font-bold text-gray-800">「困難は必ず解決策をつれてやってくる」</p>
+                    <div class="md:col-span-2">
+                        <p class="font-serif-jp text-xl md:text-2xl primary-color mb-4 leading-snug">「困難は必ず解決策を<br class="sm:hidden">つれてやってくる」</p>
+                        <p class="text-sm text-gray-600 leading-relaxed mb-2">いまも自分のブランドを売り続けている<strong class="primary-color">“現役の当事者”</strong>です。作業を代行して終わりではなく、<strong class="primary-color">私たちがいなくなっても回る仕組み</strong>を残すことをゴールにしています。</p>
+                        <p class="text-sm text-gray-600 leading-relaxed">大阪近郊は直接お伺いします。顔の見える距離で、一緒に数字を見ながら進めましょう。</p>
+                        <!-- 経歴タイムライン -->
+                        <div class="flex flex-wrap items-center gap-x-1.5 gap-y-2 mt-6">
+                            <span class="px-3 py-1.5 text-xs font-semibold" style="background:#eef3f7;color:var(--primary-color);border-radius:999px !important;">ニデックで現場改善</span>
+                            <span class="text-gray-300 text-sm">→</span>
+                            <span class="px-3 py-1.5 text-xs font-semibold" style="background:#eef3f7;color:var(--primary-color);border-radius:999px !important;">独立・自社ブランド立ち上げ</span>
+                            <span class="text-gray-300 text-sm">→</span>
+                            <span class="px-3 py-1.5 text-xs font-semibold" style="background:#eef3f7;color:var(--primary-color);border-radius:999px !important;">ECコンサル会社で実務</span>
+                            <span class="text-gray-300 text-sm">→</span>
+                            <span class="px-3 py-1.5 text-xs font-semibold text-white" style="background:var(--primary-color);border-radius:999px !important;">2023 ヤシノミ設立</span>
                         </div>
-                        
-                        <div class="space-y-4 text-gray-700 text-sm leading-relaxed text-justify">
-                            <p>
-                                この言葉を信条に、お客様のECビジネスが直面する課題に、共に真摯に向き合います。
-                            </p>
-                            <p>
-                                ヤシノミの土台は、私自身が<strong class="font-medium primary-color">現役のAmazonセラー</strong>であること。<a href="https://cho-ju-jp.myshopify.com/" target="_blank" rel="noopener noreferrer" class="primary-color hover:underline font-semibold">自社ブランド「CHO-JU」</a>を3商品で主力事業に育て、いまは<a href="https://collegrance.com/" target="_blank" rel="noopener noreferrer" class="primary-color hover:underline font-semibold">「COLLEGRANCE」</a>など複数ブランドを運営しています。ニデックでの現場改善、独立後のブランド立ち上げ、コンサル会社での実務――その全部を、お客様の支援に持ち込みます。
-                            </p>
-                            <p>
-                                大切にしているのは、<strong class="font-medium primary-color">顔の見える関係で直接お話しすること</strong>。作業を代行するだけでなく、お客様自身が運用・改善を続けられる力をつけることをゴールにしています。（大阪近郊は積極訪問／現在は3名体制）
-                            </p>
-                        </div>
-                        <p class="text-right mt-8 font-bold primary-color text-base">代表社員 四宮 慶人</p>
                     </div>
                 </div>
-                <div class="md:sticky md:top-28" data-aos="fade-left"> 
-                    <h3 class="text-xl font-semibold mb-4 primary-color text-center md:text-left">アクセス</h3>
-                    <div class="map-container rounded-lg shadow-md overflow-hidden">
-                        <iframe width="100%" height="300" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?q=大阪府池田市石橋1-15-33&t=&z=15&ie=UTF8&iwloc=&output=embed"></iframe>
+            </div>
+
+            <!-- 会社概要＋アクセス -->
+            <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto items-stretch">
+                <div class="card p-8" data-aos="fade-up">
+                    <p class="section-title-en mb-5">Overview</p>
+                    <table class="w-full text-gray-700 text-sm">
+                        <tbody>
+                            <tr class="border-b border-gray-200"><th class="py-3 pr-3 text-left font-medium whitespace-nowrap align-top" style="color:var(--text-light);">会社名</th><td class="py-3">合同会社ヤシノミ</td></tr>
+                            <tr class="border-b border-gray-200"><th class="py-3 pr-3 text-left font-medium whitespace-nowrap align-top" style="color:var(--text-light);">代表</th><td class="py-3">四宮 慶人</td></tr>
+                            <tr class="border-b border-gray-200"><th class="py-3 pr-3 text-left font-medium whitespace-nowrap align-top" style="color:var(--text-light);">設立</th><td class="py-3">2023年4月</td></tr>
+                            <tr class="border-b border-gray-200"><th class="py-3 pr-3 text-left font-medium whitespace-nowrap align-top" style="color:var(--text-light);">体制</th><td class="py-3">3名（大阪近郊は訪問対応／全国オンライン）</td></tr>
+                            <tr><th class="py-3 pr-3 text-left font-medium whitespace-nowrap align-top" style="color:var(--text-light);">事業内容</th><td class="py-3">
+                                <div class="flex flex-wrap gap-1.5">
+                                    <span class="px-2.5 py-1 text-xs font-semibold border" style="border-color:var(--border-strong);color:var(--text-medium);border-radius:999px !important;">Amazon・EC運用支援</span>
+                                    <span class="px-2.5 py-1 text-xs font-semibold border" style="border-color:var(--border-strong);color:var(--text-medium);border-radius:999px !important;">業務改善・DX（仕組み化・自動化）</span>
+                                    <span class="px-2.5 py-1 text-xs font-semibold border" style="border-color:var(--border-strong);color:var(--text-medium);border-radius:999px !important;">Web・公式LINE構築</span>
+                                    <span class="px-2.5 py-1 text-xs font-semibold border" style="border-color:var(--border-strong);color:var(--text-medium);border-radius:999px !important;">商品ページ・画像制作</span>
+                                    <span class="px-2.5 py-1 text-xs font-semibold border" style="border-color:var(--border-strong);color:var(--text-medium);border-radius:999px !important;">自社ブランド運営</span>
+                                </div>
+                            </td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="flex flex-col" data-aos="fade-up" data-aos-delay="100">
+                    <p class="section-title-en mb-5">Access</p>
+                    <div class="map-container rounded-lg shadow-md overflow-hidden flex-grow" style="padding-top:0;min-height:260px;">
+                        <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?q=大阪府池田市石橋1-15-33&t=&z=15&ie=UTF8&iwloc=&output=embed" style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
                     </div>
                     <p class="mt-4 text-sm text-gray-600">〒563-0032 大阪府池田市石橋1-15-33</p>
                 </div>
@@ -1417,44 +1457,19 @@
     </section>
     <!-- 9.5 END CLIENT PORTAL SECTION -->
 
-    <!-- 9.7 軽い入口（ボトルネック・セルフ診断 → LINE） -->
-    <section id="selfcheck" class="py-16 md:py-20 bg-blue-50 border-t border-blue-100">
-        <div class="container mx-auto px-6 max-w-4xl" data-aos="fade-up">
-            <div class="text-center mb-8">
-                <p class="section-title-en mb-2">Free Self-Check</p>
-                <h2 class="text-2xl md:text-3xl font-bold secondary-color">「相談はまだ早いかな」という方へ</h2>
-                <p class="text-gray-600 mt-3">いきなり相談はハードルが高いですよね。まずは30秒、<strong class="primary-color">自社の“ボトルネック”がどこか</strong>をセルフチェック。<br class="hidden md:block">ひとつでも当てはまったら、解消できる余地があります。</p>
-            </div>
-            <div class="bg-white rounded-xl border p-6 md:p-8 mb-8 shadow-sm" style="border-color:var(--border-color);">
-                <ul class="space-y-3 text-gray-700 text-sm md:text-base">
-                    <li class="flex items-start gap-3"><span class="text-xl leading-none" style="color:var(--accent-orange);">☐</span><span><span class="amazon-orange-text font-bold">Amazon</span>広告が、気づいたら赤字になっている／何に効いているか分からない</span></li>
-                    <li class="flex items-start gap-3"><span class="text-xl leading-none" style="color:var(--accent-orange);">☐</span><span>在庫・数値・経理の管理が<strong>手作業</strong>で、毎月そこに時間を取られている</span></li>
-                    <li class="flex items-start gap-3"><span class="text-xl leading-none" style="color:var(--accent-orange);">☐</span><span>どこから売上・予約・問い合わせが来ているか、<strong>はっきり分からない</strong></span></li>
-                    <li class="flex items-start gap-3"><span class="text-xl leading-none" style="color:var(--accent-orange);">☐</span><span>集客が<strong>一つの商品・経路に依存</strong>していて、いつ落ちるか不安</span></li>
-                    <li class="flex items-start gap-3"><span class="text-xl leading-none" style="color:var(--accent-orange);">☐</span><span>数字を見て判断したいのに、そもそも<strong>見える状態になっていない</strong></span></li>
-                </ul>
-            </div>
-            <div class="text-center">
-                <a href="https://line.me/R/ti/p/@756qpakc" target="_blank" rel="noopener"
-                   onclick="if(typeof gtag==='function'){gtag('event','click',{'event_category':'cta','event_label':'line_selfcheck'});}"
-                   class="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-bold text-white shadow-lg hover:opacity-90 transition" style="background:#06C755;">
-                    <svg viewBox="0 0 448 512" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M272.1 204.2v71.1c0 1.8-1.4 3.2-3.2 3.2h-11.4c-1.1 0-2.1-.6-2.6-1.3l-32.6-44v42.2c0 1.8-1.4 3.2-3.2 3.2h-11.4c-1.8 0-3.2-1.4-3.2-3.2v-71.1c0-1.8 1.4-3.2 3.2-3.2H219c1 0 2.1.5 2.6 1.4l32.6 44v-42.2c0-1.8 1.4-3.2 3.2-3.2h11.4c1.8-.1 3.3 1.4 3.3 3.1zm-82-3.2h-11.4c-1.8 0-3.2 1.4-3.2 3.2v71.1c0 1.8 1.4 3.2 3.2 3.2h11.4c1.8 0 3.2-1.4 3.2-3.2v-71.1c0-1.7-1.4-3.2-3.2-3.2zm-27.5 59.6h-31.1v-56.4c0-1.8-1.4-3.2-3.2-3.2H105.6c-1.8 0-3.2 1.4-3.2 3.2v71.1c0 .9.3 1.6.9 2.2.6.5 1.3.9 2.2.9h45.7c1.8 0 3.2-1.4 3.2-3.2v-11.4c0-1.7-1.4-3.2-3.2-3.2zm193.7-59.6h-45.7c-1.7 0-3.2 1.4-3.2 3.2v71.1c0 1.7 1.4 3.2 3.2 3.2h45.7c1.8 0 3.2-1.4 3.2-3.2v-11.4c0-1.8-1.4-3.2-3.2-3.2h-31.1v-12h31.1c1.8 0 3.2-1.4 3.2-3.2V234c0-1.8-1.4-3.2-3.2-3.2h-31.1v-12h31.1c1.8 0 3.2-1.4 3.2-3.2v-11.4c-.1-1.7-1.5-3.2-3.2-3.2zM448 113.7V399c-.1 44.8-36.8 81.1-81.7 81H81c-44.8-.1-81.1-36.9-81-81.7V113c.1-44.8 36.9-81.1 81.7-81H367c44.8.1 81.1 36.8 81 81.7zm-61.6 122.6c0-73.1-73.3-132.6-163.4-132.6-90.1 0-163.4 59.5-163.4 132.6 0 65.5 58.1 120.3 136.6 130.7 5.3 1.1 12.5 3.5 14.4 8.1 1.6 4.1 1.1 10.5.5 14.7l-2.3 14c-.7 4.1-3.3 16.1 14.1 8.8 17.4-7.3 93.9-55.3 128.2-94.7h-.1c23.7-26 35-52.3 35-81.5z"/></svg>
-                    無料チェックリスト＆事例集をLINEで受け取る
-                </a>
-                <p class="text-xs text-gray-500 mt-3">登録するだけ・しつこい営業はしません。「ここが詰まってそう」を一緒に見つけます。</p>
-            </div>
-        </div>
-    </section>
-
     <!-- 10. CONTACT SECTION -->
-    <section id="contact" class="py-20 md:py-28 bg-gray-800 text-white">
+    <section id="contact" class="py-20 md:py-28 text-white" style="background-color:var(--bg-ink);border-top:3px solid var(--accent-orange);">
         <div class="container mx-auto px-6">
             <div class="text-center mb-12" data-aos="fade-up">
-                <h2 class="text-3xl md:text-4xl font-bold">お問い合わせ・無料相談</h2>
-                <p class="text-gray-300 mt-4 text-lg max-w-3xl mx-auto">オンラインでの無料相談も以下のボタンから簡単に予約いただけます。</p>
+                <p class="section-title-en mb-2" style="color:var(--accent-gold);">Contact</p>
+                <h2 class="text-3xl md:text-4xl font-bold" style="color:#fff;">お問い合わせ・無料相談</h2>
+                <p class="mt-4 text-lg max-w-3xl mx-auto" style="color:rgba(255,255,255,0.78);">「何が詰まっているか分からない」段階で大丈夫です。<br class="hidden md:block">LINEのメッセージひとつでも、30分のオンライン相談でも。仕組みに落とせる部分を一緒に見つけます。</p>
+                <a href="https://line.me/R/ti/p/@756qpakc" target="_blank" rel="noopener"
+                   onclick="if(typeof gtag==='function'){gtag('event','click',{'event_category':'cta','event_label':'contact_line'});}"
+                   class="btn text-base px-8 py-4 mt-6" style="background:#06C755;border-color:#06C755;color:#fff;">LINEで気軽に相談する（無料）</a>
             </div>
             <div class="grid md:grid-cols-2 gap-10 md:gap-12 items-start">
-                <div class="bg-gray-700 p-8 rounded-lg" data-aos="fade-right">
+                <div class="p-8 rounded-lg" style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.14);" data-aos="fade-right">
                     <h3 class="text-2xl font-semibold mb-6 text-white">オンライン相談を予約する</h3>
                     <div class="mb-6">
                         <script src="https://calendar.google.com/calendar/scheduling-button-script.js" async></script>
@@ -1497,45 +1512,59 @@
     <!-- 10. END CONTACT SECTION -->
 
     <!-- 11. FOOTER -->
-    <footer class="bg-gray-900 text-gray-400 py-16">
+    <footer class="py-16" style="background-color:#04121f;color:#8fa3b5;">
         <div class="container mx-auto px-6">
-            <div class="grid md:grid-cols-3 gap-10 mb-10">
-                <div>
-                    <h2 class="text-xl font-bold mb-3 text-white">合同会社ヤシノミ</h2>
-                    <p class="text-sm mb-1">大阪・池田市／自社ブランド運営×<span class="amazon-orange-text">Amazon</span>運用支援×業務DX改善</p>
-                    <p class="text-sm">少数精鋭で、お客様の"裏側"をまるごと。</p>
+            <div class="grid md:grid-cols-4 gap-10 mb-10">
+                <div class="md:col-span-2">
+                    <div class="flex items-center gap-3 mb-4">
+                        <img src="./images/logo.png" alt="ヤシノミ ロゴ" class="h-8 w-auto">
+                        <p class="text-xl font-bold text-white">合同会社ヤシノミ</p>
+                    </div>
+                    <p class="text-sm mb-1">事業の伸びを止める“ボトルネック”を、数字で見つけて解消する。</p>
+                    <p class="text-sm mb-4">自社ブランド運営 × <span class="amazon-orange-text">Amazon</span>運用支援 × 業務DX・自動化</p>
+                    <p class="text-xs" style="color:#5f7488;">〒563-0032 大阪府池田市石橋1-15-33</p>
                 </div>
                 <div>
-                    <h3 class="text-lg font-semibold mb-4 text-gray-200">QUICK LINKS</h3>
+                    <h3 class="text-sm font-semibold mb-4 text-gray-200" style="letter-spacing:0.18em;">MENU</h3>
                     <ul class="space-y-2.5 text-sm">
-                        <li><a href="#brands" class="hover:text-blue-300">自社ブランド</a></li>
                         <li><a href="#services" class="hover:text-blue-300">サービス</a></li>
+                        <li><a href="#brands" class="hover:text-blue-300">自社ブランド</a></li>
                         <li><a href="#case-study" class="hover:text-blue-300">導入事例</a></li>
+                        <li><a href="#selfcheck" class="hover:text-blue-300">30秒セルフ診断</a></li>
                         <li><a href="#flow" class="hover:text-blue-300">ご相談の流れ</a></li>
+                        <li><a href="#company" class="hover:text-blue-300">会社情報</a></li>
                         <li><a href="amazon.html" class="hover:text-blue-300">Amazon支援</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h3 class="text-lg font-semibold mb-4 text-gray-200">BRANDS / LINKS</h3>
+                    <h3 class="text-sm font-semibold mb-4 text-gray-200" style="letter-spacing:0.18em;">CONTENTS / BRANDS</h3>
                      <ul class="space-y-2.5 text-sm">
+                        <li><a href="./column/index.html" class="hover:text-blue-300">業務改善コラム（一覧）</a></li>
+                        <li><a href="https://line.me/R/ti/p/@756qpakc" target="_blank" rel="noopener" class="hover:text-blue-300">公式LINE（チェックリスト配布）</a></li>
                         <li><a href="https://cho-ju-jp.myshopify.com/" target="_blank" rel="noopener" class="hover:text-blue-300">CHO-JU 公式ストア</a></li>
                         <li><a href="https://collegrance.com/" target="_blank" rel="noopener" class="hover:text-blue-300">COLLEGRANCE 公式サイト</a></li>
-                        <li><a href="#blog" class="hover:text-blue-300">ブログ</a></li>
                         <li><a href="#client" class="hover:text-blue-300">既存のお客様窓口</a></li>
                         <li><a href="#contact" class="hover:text-blue-300">お問い合わせ</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="mt-12 pt-10 border-t border-gray-700 text-center text-xs">
+            <div class="mt-12 pt-10 text-center text-xs" style="border-top:1px solid rgba(255,255,255,0.1);">
                 <p>© 2023-<span id="current-year"></span> 合同会社ヤシノミ All Rights Reserved.</p>
             </div>
         </div>
     </footer>
     <!-- 11. END FOOTER -->
+
+    <!-- 11.5 モバイル固定CTAバー -->
+    <div class="sticky-cta lg:hidden">
+        <a href="https://line.me/R/ti/p/@756qpakc" target="_blank" rel="noopener"
+           onclick="if(typeof gtag==='function'){gtag('event','click',{'event_category':'cta','event_label':'sticky_line'});}">LINEで気軽に相談</a>
+        <a href="./check/"
+           onclick="if(typeof gtag==='function'){gtag('event','click',{'event_category':'cta','event_label':'sticky_check'});}">30秒ボトルネック診断</a>
+    </div>
     
     <!-- 12. SCRIPTS -->
     <script defer src="https://unpkg.com/alpinejs@3.13.x/dist/cdn.min.js"></script>
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -1544,18 +1573,7 @@
                 once: true,
             });
 
-            // --- Swiper Hero Carousel ---
-            const heroSwiper = new Swiper('.hero-section-swiper', { 
-                loop: true,
-                autoplay: { delay: 6000, disableOnInteraction: false },
-                pagination: { el: '.swiper-pagination', clickable: true },
-                navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
-                effect: 'fade', 
-                fadeEffect: { crossFade: true },
-                speed: 800, 
-            });
-
-            // --- Mobile Menu ---
+            // --- Mobile Menu -->
             const menuButton = document.getElementById('mobile-menu-button');
             const closeMenuButton = document.getElementById('close-mobile-menu-button');
             const mobileMenuBody = document.getElementById('mobile-menu-body');
@@ -1584,10 +1602,45 @@
        aria-label="公式LINEで無料相談する"
        onclick="if(typeof gtag==='function'){gtag('event','click',{'event_category':'cta','event_label':'line_float'});}"
        style="position:fixed;bottom:1.25rem;right:1.25rem;z-index:30;background:#06C755;color:#fff;border-radius:9999px;box-shadow:0 6px 20px rgba(0,0,0,.25);"
-       class="flex items-center gap-2 pl-4 pr-5 py-3 font-semibold text-sm hover:opacity-90 transition">
+       class="hidden lg:flex items-center gap-2 pl-4 pr-5 py-3 font-semibold text-sm hover:opacity-90 transition">
         <svg viewBox="0 0 448 512" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M272.1 204.2v71.1c0 1.8-1.4 3.2-3.2 3.2h-11.4c-1.1 0-2.1-.6-2.6-1.3l-32.6-44v42.2c0 1.8-1.4 3.2-3.2 3.2h-11.4c-1.8 0-3.2-1.4-3.2-3.2v-71.1c0-1.8 1.4-3.2 3.2-3.2H219c1 0 2.1.5 2.6 1.4l32.6 44v-42.2c0-1.8 1.4-3.2 3.2-3.2h11.4c1.8-.1 3.3 1.4 3.3 3.1zm-82-3.2h-11.4c-1.8 0-3.2 1.4-3.2 3.2v71.1c0 1.8 1.4 3.2 3.2 3.2h11.4c1.8 0 3.2-1.4 3.2-3.2v-71.1c0-1.7-1.4-3.2-3.2-3.2zm-27.5 59.6h-31.1v-56.4c0-1.8-1.4-3.2-3.2-3.2H105.6c-1.8 0-3.2 1.4-3.2 3.2v71.1c0 .9.3 1.6.9 2.2.6.5 1.3.9 2.2.9h45.7c1.8 0 3.2-1.4 3.2-3.2v-11.4c0-1.7-1.4-3.2-3.2-3.2zm193.7-59.6h-45.7c-1.7 0-3.2 1.4-3.2 3.2v71.1c0 1.7 1.4 3.2 3.2 3.2h45.7c1.8 0 3.2-1.4 3.2-3.2v-11.4c0-1.8-1.4-3.2-3.2-3.2h-31.1v-12h31.1c1.8 0 3.2-1.4 3.2-3.2V234c0-1.8-1.4-3.2-3.2-3.2h-31.1v-12h31.1c1.8 0 3.2-1.4 3.2-3.2v-11.4c-.1-1.7-1.5-3.2-3.2-3.2zM448 113.7V399c-.1 44.8-36.8 81.1-81.7 81H81c-44.8-.1-81.1-36.9-81-81.7V113c.1-44.8 36.9-81.1 81.7-81H367c44.8.1 81.1 36.8 81 81.7zm-61.6 122.6c0-73.1-73.3-132.6-163.4-132.6-90.1 0-163.4 59.5-163.4 132.6 0 65.5 58.1 120.3 136.6 130.7 5.3 1.1 12.5 3.5 14.4 8.1 1.6 4.1 1.1 10.5.5 14.7l-2.3 14c-.7 4.1-3.3 16.1 14.1 8.8 17.4-7.3 93.9-55.3 128.2-94.7h-.1c23.7-26 35-52.3 35-81.5z"/></svg>
         <span>LINEで相談</span>
     </a>
+
+    <!-- ヒーロー朝刊モック：実例切り替え -->
+    <script>
+    (function(){
+      var data = [
+        { ch: '# 経営ダッシュボード',
+          msg: '☀️ 昨日：売上 ○○○ ／ 広告費 ○○ ／ 利益 ○○<br>📈 7日トレンド：<span class="up">3日連続で改善 ↑</span><br>📦 在庫注意：<span class="warn">1商品（残り○日）→ 攻め自動停止</span><br>🤖 昨日の自動調整：12件（すべて安全弁の範囲内）<br>✅ 異常なし。判断が必要な項目は今日はありません。' },
+        { ch: '# サロン日報',
+          msg: '☀️ 昨日：売上 ○○ ／ 予約 ○件 ／ 稼働率 ○％<br>📊 集客経路：<span class="up">LINE経由が今週 +○件 ↑</span><br>🔁 リピート率：先月比で改善<br>⚠️ <span class="warn">木曜午後に空き枠多め</span> → 配信のご提案あり<br>✅ 集計はすべて自動。出社後30秒で把握できます。' },
+        { ch: '# バックオフィス',
+          msg: '🧾 今月の仕訳：自動投入 ○件（手作業ゼロ）<br>📦 FBA在庫：<span class="up">残り日数に問題なし</span><br>💳 サブスク固定費：<span class="up">先月比 −○○円（解約2件）</span><br>🤖 月次レポート：自動生成済み<br>✅ 月初の経理作業：半日 → 数分になりました。' }
+      ];
+      var idx = 0, timer = null;
+      var msgEl = document.getElementById('mock-msg');
+      var chEl = document.getElementById('mock-ch');
+      var tabs = document.querySelectorAll('.mock-tab');
+      if(!msgEl || !chEl || !tabs.length) return;
+      function show(i){
+        idx = i;
+        msgEl.style.opacity = '0';
+        setTimeout(function(){
+          msgEl.innerHTML = data[i].msg;
+          chEl.textContent = data[i].ch;
+          msgEl.style.opacity = '1';
+        }, 350);
+        tabs.forEach(function(t,j){ t.classList.toggle('is-on', j===i); });
+      }
+      function next(){ show((idx+1)%data.length); }
+      function startTimer(){ if(timer) clearInterval(timer); timer = setInterval(next, 6000); }
+      tabs.forEach(function(t,i){
+        t.addEventListener('click', function(){ show(i); startTimer(); });
+      });
+      startTimer();
+    })();
+    </script>
 
     <!-- ブログ タグフィルター（Alpine非依存・バニラJS） -->
     <script>

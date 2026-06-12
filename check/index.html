@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PBN7WNCX8N"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-PBN7WNCX8N');</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="3分でできる「事業のボトルネック」セルフ診断。15項目をタップするだけで、あなたの会社のどこが詰まっているかが分かります。合同会社ヤシノミ。">
+    <meta name="robots" content="noindex">
+    <title>30秒ボトルネック診断｜合同会社ヤシノミ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --navy:#0a3d62; --navy2:#06283d; --orange:#FF9900; --gold:#FFC107; --line:#e2e5ea; --good:#4E7C59; --warn:#d97706; --alert:#B23A3A; }
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:'Noto Sans JP',sans-serif;background:#f5f6f8;color:#1a2230;line-height:1.8;-webkit-font-smoothing:antialiased;padding-bottom:120px;}
+        .head{background:linear-gradient(132deg,#06283d,#0a3d62);color:#fff;padding:28px 20px 24px;text-align:center;}
+        .head .en{font-size:0.65rem;letter-spacing:0.3em;color:var(--gold);font-weight:600;}
+        .head h1{font-family:'Noto Serif JP',serif;font-size:1.35rem;margin-top:8px;line-height:1.5;}
+        .head h1 .gold{color:var(--gold);}
+        .head p{font-size:0.78rem;color:rgba(255,255,255,0.8);margin-top:6px;}
+        .wrap{max-width:560px;margin:0 auto;padding:18px 16px;}
+        .cat{font-size:0.8rem;font-weight:700;color:var(--navy);border-left:4px solid var(--orange);padding-left:8px;margin:20px 0 8px;}
+        .genre{background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-top:6px;}
+        .genre label{display:block;font-size:0.8rem;font-weight:700;color:var(--navy);margin-bottom:8px;}
+        .genre label span{font-weight:400;color:#9ca3af;font-size:0.68rem;}
+        .genre select,.genre input{width:100%;font-family:inherit;font-size:0.88rem;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:#f9fafb;color:#1a2230;-webkit-appearance:none;appearance:none;}
+        .genre select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%230a3d62' stroke-width='2' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;}
+        .genre input{display:none;margin-top:8px;}
+        .genre input.show{display:block;}
+        .item{display:flex;align-items:flex-start;gap:10px;background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin-bottom:8px;font-size:0.88rem;line-height:1.6;cursor:pointer;transition:all 0.15s ease;user-select:none;}
+        .item .box{width:20px;height:20px;border:2px solid var(--orange);border-radius:5px;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:0.8rem;font-weight:700;transition:all 0.15s ease;}
+        .item.on{background:#fff8ef;border-color:var(--orange);}
+        .item.on .box{background:var(--orange);}
+        .item.on .box::after{content:"✓";}
+        .result{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:2px solid var(--navy);box-shadow:0 -6px 24px rgba(6,40,61,0.15);padding:12px 16px 14px;z-index:10;}
+        .result .inner{max-width:560px;margin:0 auto;}
+        .result .row{display:flex;align-items:center;justify-content:space-between;gap:12px;}
+        .result .num{font-family:'Noto Serif JP',serif;font-size:1.7rem;font-weight:700;color:var(--navy);line-height:1;white-space:nowrap;}
+        .result .num small{font-size:0.75rem;font-family:'Noto Sans JP',sans-serif;font-weight:500;color:#6b7785;}
+        .result .verdict{font-size:0.78rem;line-height:1.55;flex-grow:1;}
+        .result .verdict b{display:block;font-size:0.88rem;}
+        .v-good b{color:var(--good);} .v-warn b{color:var(--warn);} .v-alert b{color:var(--alert);}
+        .ctas{display:flex;gap:8px;margin-top:10px;}
+        .ctas a{flex:1;text-align:center;padding:11px 6px;border-radius:8px;font-weight:700;font-size:0.82rem;text-decoration:none;letter-spacing:0.02em;}
+        .cta-line{background:#06C755;color:#fff;}
+        .cta-consult{background:var(--navy);color:#fff;}
+        .note{font-size:0.7rem;color:#9ca3af;text-align:center;margin-top:8px;}
+        .deep{background:#fff;border:1px solid var(--line);border-radius:10px;padding:16px;margin-top:24px;font-size:0.82rem;color:#44505f;}
+        .bars{background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-top:20px;}
+        .bars h3{font-size:0.78rem;font-weight:700;color:var(--navy);margin-bottom:8px;}
+        .bar-row{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+        .bar-row .lbl{font-size:0.72rem;color:#44505f;width:90px;flex-shrink:0;}
+        .bar-row .cells{display:flex;gap:4px;flex-grow:1;}
+        .bar-row .cell{height:10px;flex:1;border-radius:3px;background:#eef0f3;transition:background 0.25s ease;}
+        .bar-row .cell.f1{background:#FFC107;} .bar-row .cell.f2{background:#FF9900;} .bar-row .cell.f3{background:#B23A3A;}
+        .rx{display:none;margin-top:8px;font-size:0.76rem;background:#f1f7fd;border:1px solid #cdddea;border-radius:7px;padding:7px 10px;line-height:1.5;color:#1a2230;text-decoration:none;}
+        .rx b{color:var(--navy);}
+        .rx.show{display:block;}
+        .deep b{color:var(--navy);}
+    </style>
+    <link rel="icon" href="https://yashi-nomi.com/images/logo.png" type="image/png" sizes="192x192">
+</head>
+<body>
+    <div class="head">
+        <p class="en">YASHINOMI — SELF CHECK</p>
+        <h1>事業の“<span class="gold">ボトルネック</span>”診断</h1>
+        <p>当てはまるものをタップするだけ。30秒で結果が出ます。</p>
+    </div>
+
+    <div class="wrap" id="checklist">
+        <div class="genre">
+            <label for="genre">あなたの事業に近いものは？<span>（任意・相談時に伝わりやすくなります）</span></label>
+            <select id="genre">
+                <option value="">選択してください</option>
+                <option>EC・ネット販売（Amazon・楽天など）</option>
+                <option>実店舗（美容・飲食・小売など）</option>
+                <option>製造・建設・現場仕事</option>
+                <option>士業・サービス業</option>
+                <option value="other">その他（自由記入）</option>
+            </select>
+            <input id="genre-free" type="text" maxlength="30" placeholder="例：教室運営、卸売、農業 など">
+        </div>
+
+        <p class="cat">売上・集客</p>
+        <div class="item" data-cat="売上・集客"><span class="box"></span>どの経路（広告・SNS・紹介・検索）から売上が来ているか、即答できない</div>
+        <div class="item" data-cat="売上・集客"><span class="box"></span>集客がひとつの商品・ひとつの経路に依存している</div>
+        <div class="item" data-cat="売上・集客"><span class="box"></span>新規とリピートの比率を把握していない</div>
+
+        <p class="cat">広告・販促</p>
+        <div class="item" data-cat="広告・販促"><span class="box"></span>広告・販促が赤字になっていても、気づくのは数週間後だ</div>
+        <div class="item" data-cat="広告・販促"><span class="box"></span>広告・販促費の「何にいくら使って、いくら返ってきたか」を即答できない</div>
+        <div class="item" data-cat="広告・販促"><span class="box"></span>在庫切れ・予約枠の空きなど「機会損失」がよく起きている</div>
+
+        <p class="cat">業務・作業</p>
+        <div class="item" data-cat="業務・作業"><span class="box"></span>同じ集計・転記を、毎週（毎月）手作業でやっている</div>
+        <div class="item" data-cat="業務・作業"><span class="box"></span>「あの人にしかできない仕事」がある</div>
+        <div class="item" data-cat="業務・作業"><span class="box"></span>日報・報告が形だけになっている（または続かない）</div>
+
+        <p class="cat">お金</p>
+        <div class="item" data-cat="お金"><span class="box"></span>今月の利益がいくらか、月が終わってからしか分からない</div>
+        <div class="item" data-cat="お金"><span class="box"></span>サブスク・固定費の全リストが存在しない</div>
+        <div class="item" data-cat="お金"><span class="box"></span>値付け・広告予算の根拠が「なんとなく」だ</div>
+
+        <p class="cat">判断</p>
+        <div class="item" data-cat="判断"><span class="box"></span>数字ではなく感覚で決めることが多い</div>
+        <div class="item" data-cat="判断"><span class="box"></span>会議が「報告を聞くだけ」で終わり、次の一手が決まらない</div>
+        <div class="item" data-cat="判断"><span class="box"></span>「あれどうなった？」が口ぐせになっている</div>
+
+        <div class="bars" id="bars">
+            <h3>カテゴリ別の詰まり具合</h3>
+            <div class="bar-row" data-bar="売上・集客"><span class="lbl">売上・集客</span><span class="cells"><span class="cell"></span><span class="cell"></span><span class="cell"></span></span></div>
+            <div class="bar-row" data-bar="広告・販促"><span class="lbl">広告・販促</span><span class="cells"><span class="cell"></span><span class="cell"></span><span class="cell"></span></span></div>
+            <div class="bar-row" data-bar="業務・作業"><span class="lbl">業務・作業</span><span class="cells"><span class="cell"></span><span class="cell"></span><span class="cell"></span></span></div>
+            <div class="bar-row" data-bar="お金"><span class="lbl">お金</span><span class="cells"><span class="cell"></span><span class="cell"></span><span class="cell"></span></span></div>
+            <div class="bar-row" data-bar="判断"><span class="lbl">判断</span><span class="cells"><span class="cell"></span><span class="cell"></span><span class="cell"></span></span></div>
+        </div>
+
+        <div class="deep">
+            <b>診断のヒント：</b>個数と同じくらい大事なのが「どのカテゴリに固まっているか」。チェックが集中しているカテゴリが、あなたの会社のボトルネックです。結果画面に出る「いちばん詰まっているカテゴリ」をご確認ください。
+        </div>
+    </div>
+
+    <div class="result">
+        <div class="inner">
+            <div class="row">
+                <p class="num"><span id="cnt">0</span><small> /15</small></p>
+                <p class="verdict v-good" id="verdict"><b>タップして診断スタート</b>当てはまる項目を選んでください。</p>
+            </div>
+            <a class="rx" id="rx" href="#" target="_blank" rel="noopener"></a>
+            <div class="ctas">
+                <a class="cta-line" id="cta-line" href="https://line.me/R/ti/p/@756qpakc"
+                   onclick="if(typeof gtag==='function'){gtag('event','click',{'event_category':'cta','event_label':'check_line'});}">結果をLINEで相談する（無料・1通でOK）</a>
+            </div>
+            <p class="note">診断結果はどこにも送信されません。じっくり話したい方は <a href="https://calendar.app.google/TZrQ5YLexng2gPRV8" target="_blank" rel="noopener" style="color:#6b7785;text-decoration:underline;">オンライン相談（30分）</a> も選べます。</p>
+        </div>
+    </div>
+
+    <script>
+    (function(){
+        var items=document.querySelectorAll('.item');
+        var cnt=document.getElementById('cnt');
+        var verdict=document.getElementById('verdict');
+        var lineBtn=document.getElementById('cta-line');
+        var rx=document.getElementById('rx');
+        var genreSel=document.getElementById('genre');
+        var genreFree=document.getElementById('genre-free');
+        genreSel.addEventListener('change',function(){
+            genreFree.classList.toggle('show', genreSel.value==='other');
+            update();
+        });
+        genreFree.addEventListener('input',function(){ update(); });
+        function getGenre(){
+            if(genreSel.value==='other'){ return genreFree.value.trim(); }
+            return genreSel.value;
+        }
+        var RX={
+            '売上・集客':{t:'赤字サロンを「経路別の見える化」で立て直した実例',u:'../column/case-earnest-salon-rebuild.html'},
+            '広告・販促':{t:'広告が“自分で賢くなる仕組み”になるまでの実録',u:'../column/amazon-ads-self-improvement-loop.html'},
+            '業務・作業':{t:'日報を書かずに毎晩自動で記録される仕組みの作り方',u:'../column/ai-daily-log-pipeline.html'},
+            'お金':{t:'見えない固定費（サブスク）を棚卸しした実例',u:'../column/saas-subscription-audit.html'},
+            '判断':{t:'「数字で次の一手が毎朝決まる」状態の作り方',u:'../column/uriage-mieruka.html'}
+        };
+        function update(){
+            var n=0, cats={};
+            items.forEach(function(it){
+                if(it.classList.contains('on')){
+                    n++;
+                    var c=it.getAttribute('data-cat');
+                    cats[c]=(cats[c]||0)+1;
+                }
+            });
+            cnt.textContent=n;
+            var top=null, topN=0;
+            Object.keys(cats).forEach(function(c){ if(cats[c]>topN){top=c;topN=cats[c];} });
+            // カテゴリバー更新
+            document.querySelectorAll('.bar-row').forEach(function(row){
+                var c=row.getAttribute('data-bar');
+                var k=cats[c]||0;
+                row.querySelectorAll('.cell').forEach(function(cell,i){
+                    cell.className='cell'+(i<k?(' f'+k):'');
+                });
+            });
+            // 判定文
+            var cls,msg;
+            if(n===0){ cls='v-good'; msg='<b>タップして診断スタート</b>当てはまる項目を選んでください。'; }
+            else if(n<=3){ cls='v-good'; msg='<b>良好（'+n+'個）</b>数字で回せています。'+(top?'「'+top+'」だけ仕組み化の余地あり。':''); }
+            else if(n<=8){ cls='v-warn'; msg='<b>要注意（'+n+'個）</b>詰まり始めています。'+(top?'いちばんのボトルネックは「'+top+'」。ここから着手を。':''); }
+            else { cls='v-alert'; msg='<b>危険水域（'+n+'個）</b>感覚経営の状態です。'+(top?'まず「'+top+'」の見える化から。':'')+'数字が見えるだけで打ち手が変わります。'; }
+            verdict.className='verdict '+cls;
+            verdict.innerHTML=msg;
+            // 処方箋（最多カテゴリの実例記事）
+            if(n>0 && top && RX[top]){
+                rx.href=RX[top].u;
+                rx.innerHTML='📖 <b>「'+top+'」の処方箋：</b>'+RX[top].t+' →';
+                rx.classList.add('show');
+            } else {
+                rx.classList.remove('show');
+            }
+            // LINEボタン：診断結果つきメッセージを自動セット
+            if(n>0){
+                var g=getGenre();
+                var text='ボトルネック診断をやってみました。'+(g?'\n業種：'+g:'')+'\n結果：'+n+'/15'+(top?'（いちばんの詰まり：'+top+'）':'')+'\nこの結果について相談したいです。';
+                lineBtn.href='https://line.me/R/oaMessage/%40756qpakc/?'+encodeURIComponent(text);
+            } else {
+                lineBtn.href='https://line.me/R/ti/p/@756qpakc';
+            }
+            if(typeof gtag==='function'){ gtag('event','check_progress',{'event_category':'diagnosis','value':n}); }
+        }
+        items.forEach(function(it){
+            it.addEventListener('click',function(){ it.classList.toggle('on'); update(); });
+        });
+    })();
+    </script>
+</body>
+</html>

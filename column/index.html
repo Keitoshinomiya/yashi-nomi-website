@@ -19,31 +19,39 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <style>
         :root {
-            --primary-color: #0a3d62;
-            --primary-color-dark: #06283d;
-            --accent-orange: #FF9900;
-            --border-color: #e5e7eb;
+            --primary-color: #2F7351;
+            --primary-color-dark: #1C4734;
+            --accent-orange: #C2551B;
+            --border-color: #E2D9C6;
         }
-        body { font-family: 'Noto Sans JP', sans-serif; color: #1f2937; background-color: #f8f9fa; }
+        body { font-family: 'Noto Sans JP', sans-serif; color: #2B2218; background-color: #FBF6EA; }
+        .bg-white { background-color: #FFFCF4 !important; }
+        .bg-gray-50 { background-color: #F6F0E2 !important; }
+        header.bg-white { background-color: #FFFDF8 !important; }
+        .card { background: #fff !important; }
+        .brand-stripe { height: 7px; background: repeating-linear-gradient(90deg,
+            #2F7351 0 30px, #F3EBDD 30px 36px, #C2551B 36px 50px, #F3EBDD 50px 56px,
+            #6B4423 56px 64px, #F3EBDD 64px 70px, #9DBE8E 70px 78px, #F3EBDD 78px 84px); }
         .font-serif-jp { font-family: 'Noto Serif JP', serif; }
         .primary-color { color: var(--primary-color); }
-        .btn-primary { background-image: linear-gradient(to right, #0a3d62 0%, #06283d 50%, #0a3d62 100%); background-size: 200% auto; color: white; }
+        .btn-primary { background-image: linear-gradient(to right, #2F7351 0%, #1C4734 50%, #2F7351 100%); background-size: 200% auto; color: white; }
         .btn-primary:hover { background-position: right center; }
         .card { background:#fff; border:1px solid var(--border-color); border-radius:0.75rem; overflow:hidden; transition:transform .3s, box-shadow .3s; }
-        .card:hover { transform:translateY(-4px); box-shadow:0 12px 30px rgba(10,61,98,0.12); }
+        .card:hover { transform:translateY(-4px); box-shadow:0 12px 30px rgba(28,71,52,0.14); }
         .btn-outline-primary { border:1px solid var(--primary-color); color:var(--primary-color); border-radius:0.5rem; transition:.2s; }
         .btn-outline-primary:hover { background:var(--primary-color); color:#fff; }
         .filter-btn { background:#fff; color:#4b5563; border-color:var(--border-color); }
         .filter-btn:hover { border-color:var(--primary-color); color:var(--primary-color); }
         .filter-btn.is-active { background:var(--primary-color); color:#fff; border-color:var(--primary-color); }
         .filter-btn.is-active[data-cat="amazon"] { background:var(--accent-orange); border-color:var(--accent-orange); }
-        .filter-btn.is-active[data-cat="culture"] { background:#06283d; border-color:#06283d; }
+        .filter-btn.is-active[data-cat="culture"] { background:#1C4734; border-color:#1C4734; }
     </style>
 
     <link rel="icon" href="https://yashi-nomi.com/images/logo.png" type="image/png" sizes="192x192">
     <link rel="apple-touch-icon" href="https://yashi-nomi.com/images/logo.png">
 </head>
 <body>
+    <div class="brand-stripe"></div>
     <header class="bg-white shadow-sm sticky top-0 z-50">
         <div class="container mx-auto px-6 py-3 flex justify-between items-center">
             <a href="../index.html" class="flex items-center gap-2">

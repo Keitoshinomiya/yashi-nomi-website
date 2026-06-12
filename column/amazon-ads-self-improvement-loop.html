@@ -12,7 +12,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Amazon広告の「見える化」のその先。打ち手を機械が自動実行し、結果を毎週採点して、効かない手は自動で封印される——広告運用が“自分で賢くなる仕組み”に進化するまでの実録。承認制をやめた理由、利益ブレーキ、学習ループの全体図、そして正直に言うと構築は大変だという話（API申請・ブランド登録・データ蓄積の壁）まで包み隠さず書きます。">
+    <meta name="description" content="Amazon広告の「見える化」のその先。打ち手を機械が自動実行し、結果を毎週採点して、効かない手は自動実行から外れていく——広告運用が“自分で賢くなる仕組み”に進化するまでの実録。承認制をやめた理由、利益ブレーキ、学習ループの全体図、そして正直に言うと構築は大変だという話（API申請・ブランド登録・データ蓄積の壁）まで包み隠さず書きます。">
     <title>人間の仕事は、毎朝1通になった——Amazon広告が“自分で賢くなる仕組み”になるまで - 合同会社ヤシノミ</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
@@ -103,7 +103,7 @@
                 <div class="flowbox p-5 my-4 text-sm md:text-base leading-loose">
                     <p><strong>第1世代（前回）：見える化</strong> —— 悪化に気づける。でも手を打つのは人間</p>
                     <p><strong>第2世代：自動運転</strong> —— 気づいたら機械が直す（承認制→報告制）</p>
-                    <p><strong>第3世代（今回の本題）：自己改善</strong> —— 直した結果を機械が採点し、効かない手は封印される</p>
+                    <p><strong>第3世代（今回の本題）：自己改善</strong> —— 直した結果を機械が採点し、効かない手は自動実行から外される</p>
                 </div>
             </section>
 
@@ -136,7 +136,7 @@
             <section id="gen3">
                 <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">4. 第3世代：機械が自分の手を採点する（全体図）</h2>
                 <p>ここからが今回の本題です。自動で手を打てるようになると、次の疑問が生まれます。<strong>「その手、本当に効いてるの？」</strong></p>
-                <p>そこで、毎週月曜の朝に「答え合わせ」を組み込みました。先週システムが実行した全変更を、変更前7日と変更後7日の成績で機械的に採点する。結果は「教訓ノート」に✅有効／❌逆効果／➖中立として貯まっていき、❌が確定した手は<strong>ルールとして台帳に書き戻され、翌朝から機械はその手を打たなくなります</strong>。</p>
+                <p>そこで、毎週月曜の朝に「答え合わせ」を組み込みました。先週システムが実行した全変更を、変更前7日と変更後7日の成績で機械的に採点する。結果は「教訓ノート」に✅有効／❌逆効果／➖中立として貯まっていき、❌が確定した手は<strong>ルールとして台帳に書き戻され、翌朝からその手は自動実行の対象から外れます</strong>（打つ場合は人間の判断を通す形に変わります）。</p>
                 <p>仕組みの全体像はこうなっています。一番のキモは、右端の「賢くなって、戻る」矢印です。</p>
 
                 <svg class="diagram-svg w-full h-auto my-6" viewBox="0 0 720 700" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="自己改善ループの全体図">
@@ -197,7 +197,7 @@
                         <line x1="450" y1="489" x2="476" y2="489" stroke="#6b7280" stroke-width="1.4" marker-end="url(#arw)"/>
                         <rect x="480" y="452" width="180" height="74" rx="8" fill="#f1e9fb" stroke="#7c3aed"/>
                         <text x="570" y="478" font-size="13" font-weight="700" fill="#4c1d95" text-anchor="middle">ルール化（人が確定）</text>
-                        <text x="570" y="500" font-size="11" fill="#5b21b6" text-anchor="middle">❌の手を封印ルールとして</text>
+                        <text x="570" y="500" font-size="11" fill="#5b21b6" text-anchor="middle">❌の手は“自動実行禁止”に</text>
                         <text x="570" y="515" font-size="11" fill="#5b21b6" text-anchor="middle">台帳に書き戻す</text>
                     </g>
                     <path d="M660 489 H694 V161 H536" fill="none" stroke="#FF9900" stroke-width="2.4" marker-end="url(#arw)"/>
@@ -226,7 +226,7 @@
                         <li>「復活させる」手を打った8件 → 費用対効果は<strong>平均で悪化（❌逆効果）</strong></li>
                         <li>機械が見つけた「売れていない広告のカット」 → 費用対効果は<strong>平均で大きく改善（✅有効）</strong></li>
                     </ul>
-                    <p class="text-base"><strong>人間の思い込みを、機械が数字で否定した瞬間</strong>です。以来「復活させる」は禁じ手のルールに登録され、機械は二度とこの手を打ちません。</p>
+                    <p class="text-base"><strong>人間の思い込みを、機械が数字で否定した瞬間</strong>です。以来この手は「自動実行禁止」のルールに登録されました。ただし、永久追放ではありません。<strong>機械が勝手に打つことはなくなり、打つなら人間の判断を通す</strong>。そして今後の検証で効果が実証されれば、ルールは解除されます。たった8件の結果で永遠に決めつけない——これも学習の設計のうちです。</p>
                     <p class="text-sm mt-2" style="color:#8a5a5a;">※費用対効果＝使った広告費に対して、いくら売上が返ってきたかの倍率で採点しています。</p>
                 </div>
                 <p>大事な設計判断がひとつあります。<strong>採点は機械が全自動でやりますが、ルール化の最終確定だけは人間がやる</strong>。たまたまの結果を「法則」と誤認して暴走しないための、最後の関所です。自動化を進めるほど、「どこを人間に残すか」の設計が品質を決めます。</p>
@@ -372,7 +372,7 @@
                     <li>「見える化」の次は「見えたものへの自動対処」、その次が「結果からの自動学習」。広告運用は3世代で進化する。</li>
                     <li>承認制はボトルネックになる。<strong>安全弁を設計して、人は例外だけ見る</strong>体制へ。</li>
                     <li>北極星は効率指標ではなく<strong>利益額</strong>。矛盾したら利益が勝つ、を機械に教える。</li>
-                    <li>毎週の「答え合わせ→教訓→ルール化」で、効かない手は封印される。<strong>人間の経験則すら、数字で反証されることがある</strong>。</li>
+                    <li>毎週の「答え合わせ→教訓→ルール化」で、効かない手は自動実行から外れる（最終判断は人に残す）。<strong>人間の経験則すら、数字で反証されることがある</strong>。</li>
                     <li>セール・在庫・打った手の事後——機械に「状況認識」を持たせないと自動化は事故る。</li>
                     <li>ただし構築は大変。API承認・ブランド登録・データ蓄積という壁があり、<strong>順番を飛ばすことはできない</strong>。一段ずつ。</li>
                 </ul>

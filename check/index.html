@@ -30,6 +30,13 @@
         .item{display:flex;align-items:flex-start;gap:10px;background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin-bottom:8px;font-size:0.88rem;line-height:1.6;cursor:pointer;transition:all 0.15s ease;user-select:none;}
         .item .box{width:20px;height:20px;border:2px solid var(--orange);border-radius:5px;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:0.8rem;font-weight:700;transition:all 0.15s ease;}
         .item.on{background:#fff8ef;border-color:var(--orange);}
+        .freqbox{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:2px 0 14px;}
+        .freqlab{font-size:0.78rem;font-weight:700;color:var(--navy);margin-bottom:7px;}
+        .freqlab span{font-weight:400;color:#9ca3af;font-size:0.66rem;}
+        .seg{display:flex;flex-wrap:wrap;gap:6px;}
+        .seg button{font-family:inherit;font-size:0.8rem;font-weight:600;padding:7px 14px;border:1px solid var(--line);border-radius:999px;background:#FBF8F0;color:#594A38;cursor:pointer;transition:all .15s ease;}
+        .seg button.on{background:var(--navy);border-color:var(--navy);color:#fff;}
+        .seg.ideal button.on{background:var(--orange);border-color:var(--orange);color:#fff;}
         .item.goal .box{border-color:var(--navy);}
         .item.goal.on{background:#EDF3E6;border-color:var(--navy);}
         .item.goal.on .box{background:var(--navy);}
@@ -105,15 +112,15 @@
         <div class="item" data-cat="売上・集客"><span class="box"></span>集客がひとつの商品・ひとつの経路に依存している</div>
         <div class="item" data-cat="売上・集客"><span class="box"></span>新規とリピートの比率を把握していない</div>
         <div class="item" data-cat="売上・集客"><span class="box"></span>お客様の声・レビューを集める仕組みがない（来たら見るだけ）</div>
-        <div class="genre" style="padding:10px 14px;margin-top:2px;">
-            <label for="freq-sales" style="margin-bottom:6px;">↳ どの経路から売上が来ているか、確認する頻度は？<span>（任意）</span></label>
-            <select id="freq-sales">
-                <option value="">選択してください</option>
-                <option>毎日</option>
-                <option>週1回くらい</option>
-                <option>月1回くらい</option>
-                <option>ほぼ見ていない</option>
-            </select>
+        <div class="freqbox">
+            <p class="freqlab">↳ どの経路から売上が来ているか、いまの確認頻度は？<span>（タップ）</span></p>
+            <div class="seg" data-seg="sales-now">
+                <button type="button">毎日</button><button type="button">週1</button><button type="button">月1</button><button type="button">ほぼ見ない</button>
+            </div>
+            <p class="freqlab" style="margin-top:10px;">理想は？</p>
+            <div class="seg ideal" data-seg="sales-ideal">
+                <button type="button">毎日・自動で届く</button><button type="button">週1くらい</button><button type="button">今のままでいい</button>
+            </div>
         </div>
 
         <p class="cat">広告・販促</p>
@@ -121,16 +128,15 @@
         <div class="item" data-cat="広告・販促"><span class="box"></span>広告・販促費の「何にいくら使って、いくら返ってきたか」を即答できない</div>
         <div class="item" data-cat="広告・販促"><span class="box"></span>在庫切れ・予約枠の空きなど「機会損失」がよく起きている</div>
         <div class="item" data-cat="広告・販促"><span class="box"></span>「とりあえず続けている」広告・媒体がある（やめ時が分からない）</div>
-        <div class="genre" style="padding:10px 14px;margin-top:2px;">
-            <label for="freq-ads" style="margin-bottom:6px;">↳ 広告・販促の費用対効果を確認する頻度は？<span>（任意）</span></label>
-            <select id="freq-ads">
-                <option value="">選択してください</option>
-                <option>毎日</option>
-                <option>週1回くらい</option>
-                <option>月1回くらい</option>
-                <option>ほぼ見ていない</option>
-                <option>広告はしていない</option>
-            </select>
+        <div class="freqbox">
+            <p class="freqlab">↳ 広告・販促の費用対効果、いまの確認頻度は？<span>（タップ）</span></p>
+            <div class="seg" data-seg="ads-now">
+                <button type="button">毎日</button><button type="button">週1</button><button type="button">月1</button><button type="button">ほぼ見ない</button><button type="button">広告なし</button>
+            </div>
+            <p class="freqlab" style="margin-top:10px;">理想は？</p>
+            <div class="seg ideal" data-seg="ads-ideal">
+                <button type="button">毎日・自動で届く</button><button type="button">週1くらい</button><button type="button">今のままでいい</button>
+            </div>
         </div>
 
         <p class="cat">業務・作業</p>
@@ -138,15 +144,15 @@
         <div class="item" data-cat="業務・作業"><span class="box"></span>「あの人にしかできない仕事」がある</div>
         <div class="item" data-cat="業務・作業"><span class="box"></span>日報・報告が形だけになっている（または続かない）</div>
         <div class="item" data-cat="業務・作業"><span class="box"></span>マニュアルがなく、引き継ぎは口頭頼みになっている</div>
-        <div class="genre" style="padding:10px 14px;margin-top:2px;">
-            <label for="freq-ops" style="margin-bottom:6px;">↳ 現場・業務の状況（進捗・日報・在庫）を数字で確認する頻度は？<span>（任意）</span></label>
-            <select id="freq-ops">
-                <option value="">選択してください</option>
-                <option>毎日</option>
-                <option>週1回くらい</option>
-                <option>月1回くらい</option>
-                <option>ほぼ見ていない</option>
-            </select>
+        <div class="freqbox">
+            <p class="freqlab">↳ 現場・業務の状況（進捗・日報・在庫）、いまの確認頻度は？<span>（タップ）</span></p>
+            <div class="seg" data-seg="ops-now">
+                <button type="button">毎日</button><button type="button">週1</button><button type="button">月1</button><button type="button">ほぼ見ない</button>
+            </div>
+            <p class="freqlab" style="margin-top:10px;">理想は？</p>
+            <div class="seg ideal" data-seg="ops-ideal">
+                <button type="button">毎日・自動で届く</button><button type="button">週1くらい</button><button type="button">今のままでいい</button>
+            </div>
         </div>
 
         <p class="cat">お金</p>
@@ -161,12 +167,6 @@
         <div class="item" data-cat="判断"><span class="box"></span>「あれどうなった？」が口ぐせになっている</div>
         <div class="item" data-cat="判断"><span class="box"></span>数字を見る定例（会議・ふりかえり）が、そもそも無い</div>
 
-        <p class="cat" style="border-left-color:var(--navy);color:var(--navy);">最後に：理想の状態は？（複数OK・スコアには入りません）</p>
-        <div class="item goal"><span class="box"></span>毎朝、数字が自動で届く状態にしたい</div>
-        <div class="item goal"><span class="box"></span>手作業・集計をなくして、時間をつくりたい</div>
-        <div class="item goal"><span class="box"></span>売上・集客の「伸ばしどころ」を明確にしたい</div>
-        <div class="item goal"><span class="box"></span>自分がいなくても回る状態にしたい</div>
-        <div class="item goal"><span class="box"></span>まだ漠然としている（一緒に整理してほしい）</div>
 
         <div class="bars" id="bars">
             <h3>カテゴリ別の詰まり具合</h3>
@@ -207,17 +207,26 @@
         var genreSel=document.getElementById('genre');
         var genreFree=document.getElementById('genre-free');
         var sizeSel=document.getElementById('size');
-        var fqSales=document.getElementById('freq-sales');
-        var fqAds=document.getElementById('freq-ads');
-        var fqOps=document.getElementById('freq-ops');
         var howSel=document.getElementById('how');
+        var segState={};
+        document.querySelectorAll('.seg').forEach(function(seg){
+            seg.querySelectorAll('button').forEach(function(b){
+                b.addEventListener('click',function(){
+                    var was=b.classList.contains('on');
+                    seg.querySelectorAll('button').forEach(function(x){ x.classList.remove('on'); });
+                    if(was){ delete segState[seg.getAttribute('data-seg')]; }
+                    else { b.classList.add('on'); segState[seg.getAttribute('data-seg')]=b.textContent.trim(); }
+                    update();
+                });
+            });
+        });
         var impact=document.getElementById('impact');
         genreSel.addEventListener('change',function(){ genreFree.classList.toggle('show', genreSel.value==='other'); update(); });
         genreFree.addEventListener('input',update);
         sizeSel.addEventListener('change',update);
-        [fqSales,fqAds,fqOps,howSel].forEach(function(el){ el.addEventListener('change',update); });
-        var FREQ_MULT={'週1回くらい':'判断の機会が約7倍に','月1回くらい':'判断の機会が約30倍に','ほぼ見ていない':'「見えない」が毎朝見える状態に'};
-        var FREQ_SHORT={'毎日':'毎日','週1回くらい':'週1','月1回くらい':'月1','ほぼ見ていない':'ほぼ見ない','広告はしていない':'広告なし'};
+        howSel.addEventListener('change',update);
+        var AREAS=[{key:'sales',label:'売上の経路'},{key:'ads',label:'広告の費用対効果'},{key:'ops',label:'業務・現場の数字'}];
+        var MULT={'週1':'判断の機会が約7倍に','月1':'判断の機会が約30倍に','ほぼ見ない':'「見えない」が毎朝見える状態に'};
         function getGenre(){ return genreSel.value==='other'?genreFree.value.trim():genreSel.value; }
         var CATS=['売上・集客','広告・販促','業務・作業','お金','判断'];
         function update(){
@@ -241,30 +250,22 @@
             else { cls='v-alert'; msg='<b>危険水域（'+n+'/20）</b>感覚経営の状態です。「'+top+'」の見える化から立て直しを。'; }
             verdict.className='verdict '+cls;
             verdict.innerHTML=msg;
-            // カテゴリ別の頻度ギャップ提示（現状の頻度 → 毎朝・自動、の期待値づくり）
+            // カテゴリ別の「現状 → 理想」ギャップ提示
             var hw=howSel.value;
-            var FREQS=[{el:fqSales,label:'売上の経路'},{el:fqAds,label:'広告の費用対効果'},{el:fqOps,label:'業務・現場の数字'}];
             var impactLines=[];
-            FREQS.forEach(function(f){
-                var v=f.el.value;
-                if(v && v!=='毎日' && v!=='広告はしていない' && impactLines.length<2){
-                    impactLines.push('📊 「'+f.label+'」の確認が'+v+' → <b>毎朝・自動で届く</b>状態にできます（'+FREQ_MULT[v]+'）。');
+            AREAS.forEach(function(a){
+                if(impactLines.length>=3) return;
+                var now=segState[a.key+'-now'], ideal=segState[a.key+'-ideal'];
+                if(ideal==='毎日・自動で届く'){
+                    if(now && now!=='毎日'){ impactLines.push('📊 '+a.label+'：いま「'+now+'」→ 理想は<b>毎日・自動</b>。その状態、作れます（'+(MULT[now]||'見える経営に')+'）。'); }
+                    else if(now==='毎日'){ impactLines.push('📊 '+a.label+'：すでに毎日。あとは<b>自動で届く</b>形にすれば、見に行く手間がゼロになります。'); }
+                    else { impactLines.push('🎯 '+a.label+'：理想は<b>毎日・自動</b> — 作れます。診断書で道筋をお返しします。'); }
+                } else if(now && now!=='毎日' && now!=='広告なし' && ideal!=='今のままでいい'){
+                    impactLines.push('📊 '+a.label+'：いまの確認は「'+now+'」→ <b>毎朝・自動で届く</b>状態にできます（'+(MULT[now]||'')+'）。');
                 }
             });
-            if(!impactLines.length){
-                var daily=FREQS.filter(function(f){return f.el.value==='毎日';}).length;
-                if(daily>0){
-                    impactLines.push(hw==='自動で届く仕組みがある'
-                        ?'📊 自動化の土台がすでにあります。次は「届いた数字が、次の一手につながる」仕組みづくりの段階です。'
-                        :'📊 毎日見ているのは素晴らしい状態です。あとは「集計して見に行く」を<b>「自動で届く」</b>に変えれば、その作業時間がゼロになります。');
-                }
-            }
             if(hw==='見る方法がそもそもない' && impactLines.length<3){
                 impactLines.push('🔍 まず「見える状態」を作るところから。ここが一番、変化を実感できるご支援です。');
-            }
-            var goals=[...document.querySelectorAll('.item.goal.on')].map(function(g){return g.innerText.trim();});
-            if(goals.length && impactLines.length<3){
-                impactLines.push('🎯 理想「'+goals[0]+(goals.length>1?'」ほか':'」')+' — 診断書で、そこまでの道筋をお返しします。');
             }
             if(impactLines.length){ impact.innerHTML=impactLines.join('<br>'); impact.style.display='block'; }
             else { impact.style.display='none'; }
@@ -274,9 +275,8 @@
                 var text='ボトルネック診断の「診断書」を受け取りたいです。\n'
                     +(g?'業種：'+g+'\n':'')
                     +(sz?'規模：'+sz+'\n':'')
-                    +(function(){var fs=[];FREQS.forEach(function(f){if(f.el.value){fs.push(f.label+'='+FREQ_SHORT[f.el.value]);}});return fs.length?'確認頻度：'+fs.join('・')+'\n':'';})()
+                    +(function(){var fs=[];AREAS.forEach(function(a){var now=segState[a.key+'-now'],id=segState[a.key+'-ideal'];if(now||id){var idS=id==='毎日・自動で届く'?'毎日自動':(id==='週1くらい'?'週1':(id?'現状維持':''));fs.push(a.label+'='+(now||'未回答')+(idS?'→理想:'+idS:''));}});return fs.length?'確認頻度：'+fs.join('・')+'\n':'';})()
                     +(hw?'確認方法：'+hw+'\n':'')
-                    +(goals.length?'理想の状態：'+goals.join('／')+'\n':'')
                     +'スコア：'+n+'/20（いちばんの詰まり：'+(top||'—')+'）\n'
                     +'内訳：'+detail;
                 lineBtn.href='https://line.me/R/oaMessage/%40756qpakc/?'+encodeURIComponent(text);

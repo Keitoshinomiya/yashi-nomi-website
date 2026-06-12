@@ -12,7 +12,7 @@
     <style>
         :root { --navy:#2F7351; --navy2:#1C4734; --orange:#C2551B; --gold:#E8A23D; --line:#E2D9C6; --good:#4E7C59; --warn:#d97706; --alert:#B23A3A; }
         *{margin:0;padding:0;box-sizing:border-box;}
-        body{font-family:'Noto Sans JP',sans-serif;background:#F6F0E2;color:#2B2218;line-height:1.8;-webkit-font-smoothing:antialiased;padding-bottom:320px;}
+        body{font-family:'Noto Sans JP',sans-serif;background:#F6F0E2;color:#2B2218;line-height:1.8;-webkit-font-smoothing:antialiased;padding-bottom:360px;}
         .head{background:linear-gradient(132deg,#1C4734,#2F7351);color:#fff;padding:28px 20px 24px;text-align:center;}
         .head .en{font-size:0.65rem;letter-spacing:0.3em;color:var(--gold);font-weight:600;}
         .head h1{font-family:'Noto Serif JP',serif;font-size:1.35rem;margin-top:8px;line-height:1.5;}
@@ -30,6 +30,9 @@
         .item{display:flex;align-items:flex-start;gap:10px;background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin-bottom:8px;font-size:0.88rem;line-height:1.6;cursor:pointer;transition:all 0.15s ease;user-select:none;}
         .item .box{width:20px;height:20px;border:2px solid var(--orange);border-radius:5px;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:0.8rem;font-weight:700;transition:all 0.15s ease;}
         .item.on{background:#fff8ef;border-color:var(--orange);}
+        .item.goal .box{border-color:var(--navy);}
+        .item.goal.on{background:#EDF3E6;border-color:var(--navy);}
+        .item.goal.on .box{background:var(--navy);}
         .item.on .box{background:var(--orange);}
         .item.on .box::after{content:"✓";}
         .result{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:2px solid var(--navy);box-shadow:0 -6px 24px rgba(6,40,61,0.15);padding:12px 16px 14px;z-index:10;}
@@ -87,16 +90,7 @@
                 <option>11〜30人</option>
                 <option>31人以上</option>
             </select>
-            <label for="freq" style="margin-top:12px;">売上・利益・広告など「経営の数字」を確認する頻度は？<span>（任意）</span></label>
-            <select id="freq">
-                <option value="">選択してください</option>
-                <option>毎日</option>
-                <option>週1回くらい</option>
-                <option>月1回くらい</option>
-                <option>決算・申告のときだけ</option>
-                <option>ほぼ見ていない</option>
-            </select>
-            <label for="how" style="margin-top:12px;">その数字は、どうやって見ていますか？<span>（任意）</span></label>
+            <label for="how" style="margin-top:12px;">経営の数字は、ふだんどうやって見ていますか？<span>（任意）</span></label>
             <select id="how">
                 <option value="">選択してください</option>
                 <option>自分で集計して見ている</option>
@@ -111,18 +105,49 @@
         <div class="item" data-cat="売上・集客"><span class="box"></span>集客がひとつの商品・ひとつの経路に依存している</div>
         <div class="item" data-cat="売上・集客"><span class="box"></span>新規とリピートの比率を把握していない</div>
         <div class="item" data-cat="売上・集客"><span class="box"></span>お客様の声・レビューを集める仕組みがない（来たら見るだけ）</div>
+        <div class="genre" style="padding:10px 14px;margin-top:2px;">
+            <label for="freq-sales" style="margin-bottom:6px;">↳ どの経路から売上が来ているか、確認する頻度は？<span>（任意）</span></label>
+            <select id="freq-sales">
+                <option value="">選択してください</option>
+                <option>毎日</option>
+                <option>週1回くらい</option>
+                <option>月1回くらい</option>
+                <option>ほぼ見ていない</option>
+            </select>
+        </div>
 
         <p class="cat">広告・販促</p>
         <div class="item" data-cat="広告・販促"><span class="box"></span>広告・販促が赤字になっていても、気づくのは数週間後だ</div>
         <div class="item" data-cat="広告・販促"><span class="box"></span>広告・販促費の「何にいくら使って、いくら返ってきたか」を即答できない</div>
         <div class="item" data-cat="広告・販促"><span class="box"></span>在庫切れ・予約枠の空きなど「機会損失」がよく起きている</div>
         <div class="item" data-cat="広告・販促"><span class="box"></span>「とりあえず続けている」広告・媒体がある（やめ時が分からない）</div>
+        <div class="genre" style="padding:10px 14px;margin-top:2px;">
+            <label for="freq-ads" style="margin-bottom:6px;">↳ 広告・販促の費用対効果を確認する頻度は？<span>（任意）</span></label>
+            <select id="freq-ads">
+                <option value="">選択してください</option>
+                <option>毎日</option>
+                <option>週1回くらい</option>
+                <option>月1回くらい</option>
+                <option>ほぼ見ていない</option>
+                <option>広告はしていない</option>
+            </select>
+        </div>
 
         <p class="cat">業務・作業</p>
         <div class="item" data-cat="業務・作業"><span class="box"></span>同じ集計・転記を、毎週（毎月）手作業でやっている</div>
         <div class="item" data-cat="業務・作業"><span class="box"></span>「あの人にしかできない仕事」がある</div>
         <div class="item" data-cat="業務・作業"><span class="box"></span>日報・報告が形だけになっている（または続かない）</div>
         <div class="item" data-cat="業務・作業"><span class="box"></span>マニュアルがなく、引き継ぎは口頭頼みになっている</div>
+        <div class="genre" style="padding:10px 14px;margin-top:2px;">
+            <label for="freq-ops" style="margin-bottom:6px;">↳ 現場・業務の状況（進捗・日報・在庫）を数字で確認する頻度は？<span>（任意）</span></label>
+            <select id="freq-ops">
+                <option value="">選択してください</option>
+                <option>毎日</option>
+                <option>週1回くらい</option>
+                <option>月1回くらい</option>
+                <option>ほぼ見ていない</option>
+            </select>
+        </div>
 
         <p class="cat">お金</p>
         <div class="item" data-cat="お金"><span class="box"></span>今月の利益がいくらか、月が終わってからしか分からない</div>
@@ -135,6 +160,13 @@
         <div class="item" data-cat="判断"><span class="box"></span>会議が「報告を聞くだけ」で終わり、次の一手が決まらない</div>
         <div class="item" data-cat="判断"><span class="box"></span>「あれどうなった？」が口ぐせになっている</div>
         <div class="item" data-cat="判断"><span class="box"></span>数字を見る定例（会議・ふりかえり）が、そもそも無い</div>
+
+        <p class="cat" style="border-left-color:var(--navy);color:var(--navy);">最後に：理想の状態は？（複数OK・スコアには入りません）</p>
+        <div class="item goal"><span class="box"></span>毎朝、数字が自動で届く状態にしたい</div>
+        <div class="item goal"><span class="box"></span>手作業・集計をなくして、時間をつくりたい</div>
+        <div class="item goal"><span class="box"></span>売上・集客の「伸ばしどころ」を明確にしたい</div>
+        <div class="item goal"><span class="box"></span>自分がいなくても回る状態にしたい</div>
+        <div class="item goal"><span class="box"></span>まだ漠然としている（一緒に整理してほしい）</div>
 
         <div class="bars" id="bars">
             <h3>カテゴリ別の詰まり具合</h3>
@@ -175,21 +207,23 @@
         var genreSel=document.getElementById('genre');
         var genreFree=document.getElementById('genre-free');
         var sizeSel=document.getElementById('size');
-        var freqSel=document.getElementById('freq');
+        var fqSales=document.getElementById('freq-sales');
+        var fqAds=document.getElementById('freq-ads');
+        var fqOps=document.getElementById('freq-ops');
         var howSel=document.getElementById('how');
         var impact=document.getElementById('impact');
         genreSel.addEventListener('change',function(){ genreFree.classList.toggle('show', genreSel.value==='other'); update(); });
         genreFree.addEventListener('input',update);
         sizeSel.addEventListener('change',update);
-        freqSel.addEventListener('change',update);
-        howSel.addEventListener('change',update);
-        var FREQ_MULT={'週1回くらい':'判断の機会が約7倍に増えます','月1回くらい':'判断の機会が約30倍に増えます','決算・申告のときだけ':'年数回の確認が、毎朝になります','ほぼ見ていない':'「見えない経営」が、毎朝見える経営に変わります'};
+        [fqSales,fqAds,fqOps,howSel].forEach(function(el){ el.addEventListener('change',update); });
+        var FREQ_MULT={'週1回くらい':'判断の機会が約7倍に','月1回くらい':'判断の機会が約30倍に','ほぼ見ていない':'「見えない」が毎朝見える状態に'};
+        var FREQ_SHORT={'毎日':'毎日','週1回くらい':'週1','月1回くらい':'月1','ほぼ見ていない':'ほぼ見ない','広告はしていない':'広告なし'};
         function getGenre(){ return genreSel.value==='other'?genreFree.value.trim():genreSel.value; }
         var CATS=['売上・集客','広告・販促','業務・作業','お金','判断'];
         function update(){
             var n=0, cats={};
             items.forEach(function(it){
-                if(it.classList.contains('on')){ n++; var c=it.getAttribute('data-cat'); cats[c]=(cats[c]||0)+1; }
+                if(it.classList.contains('on')){ var c=it.getAttribute('data-cat'); if(c){ n++; cats[c]=(cats[c]||0)+1; } }
             });
             cnt.textContent=n;
             var top=null, topN=0;
@@ -207,20 +241,30 @@
             else { cls='v-alert'; msg='<b>危険水域（'+n+'/20）</b>感覚経営の状態です。「'+top+'」の見える化から立て直しを。'; }
             verdict.className='verdict '+cls;
             verdict.innerHTML=msg;
-            // 頻度ギャップの提示（いまの確認頻度 → 毎朝・自動でできる、という期待値づくり）
-            var fq=freqSel.value; var hw=howSel.value;
+            // カテゴリ別の頻度ギャップ提示（現状の頻度 → 毎朝・自動、の期待値づくり）
+            var hw=howSel.value;
+            var FREQS=[{el:fqSales,label:'売上の経路'},{el:fqAds,label:'広告の費用対効果'},{el:fqOps,label:'業務・現場の数字'}];
             var impactLines=[];
-            if(fq && fq!=='毎日'){
-                impactLines.push('📊 いま「'+fq+'」の数字確認 → この診断に出た項目は、すべて<b>毎朝・自動で届く</b>状態にできます。'+FREQ_MULT[fq]+'。');
-            } else if(fq==='毎日'){
-                if(hw==='自動で届く仕組みがある'){
-                    impactLines.push('📊 自動化の土台がすでにあります。次は「届いた数字が、次の一手につながる」仕組みづくりの段階です。');
-                } else {
-                    impactLines.push('📊 毎日見ているのは素晴らしい状態です。あとは「集計して見に行く」を<b>「自動で届く」</b>に変えれば、その作業時間がゼロになります。');
+            FREQS.forEach(function(f){
+                var v=f.el.value;
+                if(v && v!=='毎日' && v!=='広告はしていない' && impactLines.length<2){
+                    impactLines.push('📊 「'+f.label+'」の確認が'+v+' → <b>毎朝・自動で届く</b>状態にできます（'+FREQ_MULT[v]+'）。');
+                }
+            });
+            if(!impactLines.length){
+                var daily=FREQS.filter(function(f){return f.el.value==='毎日';}).length;
+                if(daily>0){
+                    impactLines.push(hw==='自動で届く仕組みがある'
+                        ?'📊 自動化の土台がすでにあります。次は「届いた数字が、次の一手につながる」仕組みづくりの段階です。'
+                        :'📊 毎日見ているのは素晴らしい状態です。あとは「集計して見に行く」を<b>「自動で届く」</b>に変えれば、その作業時間がゼロになります。');
                 }
             }
-            if(hw==='見る方法がそもそもない'){
+            if(hw==='見る方法がそもそもない' && impactLines.length<3){
                 impactLines.push('🔍 まず「見える状態」を作るところから。ここが一番、変化を実感できるご支援です。');
+            }
+            var goals=[...document.querySelectorAll('.item.goal.on')].map(function(g){return g.innerText.trim();});
+            if(goals.length && impactLines.length<3){
+                impactLines.push('🎯 理想「'+goals[0]+(goals.length>1?'」ほか':'」')+' — 診断書で、そこまでの道筋をお返しします。');
             }
             if(impactLines.length){ impact.innerHTML=impactLines.join('<br>'); impact.style.display='block'; }
             else { impact.style.display='none'; }
@@ -230,8 +274,9 @@
                 var text='ボトルネック診断の「診断書」を受け取りたいです。\n'
                     +(g?'業種：'+g+'\n':'')
                     +(sz?'規模：'+sz+'\n':'')
-                    +(fq?'数字の確認頻度：'+fq+'\n':'')
+                    +(function(){var fs=[];FREQS.forEach(function(f){if(f.el.value){fs.push(f.label+'='+FREQ_SHORT[f.el.value]);}});return fs.length?'確認頻度：'+fs.join('・')+'\n':'';})()
                     +(hw?'確認方法：'+hw+'\n':'')
+                    +(goals.length?'理想の状態：'+goals.join('／')+'\n':'')
                     +'スコア：'+n+'/20（いちばんの詰まり：'+(top||'—')+'）\n'
                     +'内訳：'+detail;
                 lineBtn.href='https://line.me/R/oaMessage/%40756qpakc/?'+encodeURIComponent(text);

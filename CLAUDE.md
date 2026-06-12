@@ -42,7 +42,7 @@
 - カード: `.card` / `.card-icon-bg`
 - 見出し: `.section-title-en`（英・小）/ `.section-title-jp`（和・大）/ `.section-subtitle`
 - ボタン: `.btn` / `.btn-primary`（青グラデ）/ `.btn-accent-gold`（金）/ `.btn-outline-primary`
-- アニメーション: AOS（`data-aos="fade-up"` 等）、Swiper（ヒーロー）
+- アニメーション: AOS（`data-aos="fade-up"` 等）。※Swiperは2026-06-12に廃止済み（ヒーローは静的）
 
 ## セクション構成（index.html の id 順）
 `#services`（事業内容）→ `#features` → `#diagnosis`（Amazon運用タイプ診断）→ `#case-study` → `#blog` → `#plans`（料金）→ `#kpi-goal` → `#faq` → `#company` → `#contact`

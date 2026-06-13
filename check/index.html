@@ -314,8 +314,15 @@
         }
         function diagDone(){
             try{ localStorage.removeItem('diagState'); }catch(e){}
-            lineBtn.textContent='✅ 診断書をLINEにお届けしました（トークを開く）';
+            lineBtn.textContent='✅ 診断書を送りました！LINEのトークを開いてください';
             lineBtn.href='https://line.me/R/ti/p/%40756qpakc';
+            // モバイルは自動でLINEトークへ（診断書がすぐ見える）。PCはline.meトップに飛ぶためボタン手動。
+            try{
+                var os=(window.liff&&liff.getOS)?liff.getOS():'web';
+                if(os==='ios'||os==='android'){
+                    setTimeout(function(){ location.href='https://line.me/R/ti/p/%40756qpakc'; }, 1400);
+                }
+            }catch(e){}
         }
         function diagFallback(){
             try{ localStorage.removeItem('diagState'); }catch(e){}

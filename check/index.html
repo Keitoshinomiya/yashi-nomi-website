@@ -63,6 +63,10 @@
         .bar-row .cells{display:flex;gap:4px;flex-grow:1;}
         .bar-row .cell{height:10px;flex:1;border-radius:3px;background:#eef0f3;transition:background 0.25s ease;}
         .bar-row .cell.f1{background:#E8A23D;} .bar-row .cell.f2{background:#C2551B;} .bar-row .cell.f3{background:#B23A3A;}
+        /* 回答後は内訳を伏せる：全カテゴリ同じ「ロック」柄にして弱点を見せない */
+        .bars.locked .bar-row .cell{background:repeating-linear-gradient(45deg,#E2D9C6 0 5px,#EFE9DC 5px 10px)!important;}
+        .bars-lock{display:none;font-size:0.72rem;color:#8A7A63;margin-top:10px;line-height:1.55;background:#FBF6EA;border:1px dashed #D8CBB0;border-radius:7px;padding:8px 10px;}
+        .bars.locked .bars-lock{display:block;}
         .rx{display:none;margin-top:8px;font-size:0.76rem;background:#EDF3E6;border:1px solid #CFE0BE;border-radius:7px;padding:7px 10px;line-height:1.5;color:#2B2218;text-decoration:none;}
         .rx b{color:var(--navy);}
         .rx.show{display:block;}
@@ -175,10 +179,11 @@
             <div class="bar-row" data-bar="業務・作業"><span class="lbl">業務・作業</span><span class="cells"><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span></span></div>
             <div class="bar-row" data-bar="お金"><span class="lbl">お金</span><span class="cells"><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span></span></div>
             <div class="bar-row" data-bar="判断"><span class="lbl">判断</span><span class="cells"><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span></span></div>
+            <p class="bars-lock">🔒 どのカテゴリが詰まっているか＝あなたの弱点と直し方は、<b>LINEの診断書</b>で公開します。</p>
         </div>
 
         <div class="deep">
-            <b>診断のヒント：</b>個数と同じくらい大事なのが「どのカテゴリに固まっているか」。下のバーで偏りが見えてきます。その詰まりを“どう直すか”（優先順位・最初の一手・実例）は、LINEの診断書でお届けします。
+            <b>診断のヒント：</b>個数と同じくらい大事なのが「どのカテゴリに固まっているか」。診断するとカテゴリ別に“鍵”がかかります。あなたの弱点と直し方（優先順位・最初の一手・実例）は、LINEの診断書で開きます。
         </div>
     </div>
 
@@ -238,11 +243,13 @@
             cnt.textContent=n;
             var top=null, topN=0;
             CATS.forEach(function(c){ if((cats[c]||0)>topN){ top=c; topN=cats[c]; } });
+            // 回答が始まったらカテゴリ内訳は伏せる（全バーをロック柄に）。
+            // どこが詰まっているか＝答えは見せず、LINE診断書で開く。
+            var barsEl=document.getElementById('bars');
+            if(n>0){ barsEl.classList.add('locked'); }
+            else { barsEl.classList.remove('locked'); }
             document.querySelectorAll('.bar-row').forEach(function(row){
-                var c=row.getAttribute('data-bar'); var k=cats[c]||0;
-                row.querySelectorAll('.cell').forEach(function(cell,i){
-                    cell.className='cell'+(i<k?(' f'+Math.min(k,3)):'');
-                });
+                row.querySelectorAll('.cell').forEach(function(cell){ cell.className='cell'; });
             });
             var cls,msg;
             if(n===0){

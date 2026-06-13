@@ -334,19 +334,27 @@
             .then(function(r){ if(r.ok){ diagDone(); if(typeof gtag==='function'){gtag('event','diagnosis_sent',{'event_category':'diagnosis','event_label':'liff_push'});} } else { diagFallback(); } })
             .catch(function(){ diagFallback(); });
         }
+        var REDIRECT_URI='https://yashi-nomi.com/check/';
+        var liffInit=null;
         if(window.liff){
-            liff.init({liffId:LIFF_ID}).then(function(){
+            liffInit=liff.init({liffId:LIFF_ID}).then(function(){
                 liffReady=true;
                 if(liff.isLoggedIn() && localStorage.getItem('diagState')){
                     if(restoreDiagState()){ submitDiag(); }
                 }
-            }).catch(function(e){ console.warn('liff init failed', e); });
+            }).catch(function(e){ console.warn('liff init failed', e); liffInit=null; });
         }
         lineBtn.addEventListener('click',function(ev){
-            if(!liffReady || !window.__diagText) return; // LIFF不可なら従来のoaMessage遷移
+            // SDK未読込 or 診断未完了なら従来のoaMessageリンクに任せる
+            if(!window.liff || !liffInit || !window.__diagText) return;
             ev.preventDefault();
-            if(!liff.isLoggedIn()){ saveDiagState(); liff.login({redirectUri:location.href}); return; }
-            submitDiag();
+            lineBtn.textContent='📨 準備中…';
+            // init完了を待ってから判定（初期化レースで従来リンクに流れるのを防ぐ）
+            liffInit.then(function(){
+                if(!liffReady){ diagFallback(); return; }
+                if(!liff.isLoggedIn()){ saveDiagState(); liff.login({redirectUri:REDIRECT_URI}); return; }
+                submitDiag();
+            }).catch(function(){ diagFallback(); });
         });
     })();
     </script>

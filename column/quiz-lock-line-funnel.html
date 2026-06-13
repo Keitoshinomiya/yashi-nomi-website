@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PBN7WNCX8N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-PBN7WNCX8N');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="診断ツールで「全結果を見せる」のをやめ、弱点カテゴリをロック柄で伏せて「答えはLINEで受け取る」設計にしました。LIFF連携でモバイルからゼロタップでLINEが開く仕組みとともに、「部分開示→行動促進→完全開示」設計の考え方を記録します。">
+    <title>診断の答えを「あえて隠す」設計にしたら、LINE登録の導線がシンプルになった話 - 合同会社ヤシノミ</title>
+    <meta property="og:title" content="診断の答えを「あえて隠す」と、ユーザーが自分から動く">
+    <meta property="og:description" content="診断ツールで「全結果を見せる」のをやめ、弱点カテゴリをロック柄で伏せて「答えはLINEで受け取る」設計にしました。LIFF連携でモバイルからゼロタップでLINEが開く仕組みとともに、「部分開示→行動促進→完全開示」設計の考え方を記録します。">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://yashi-nomi.com/column/quiz-lock-line-funnel.html">
+    <meta property="og:image" content="https://yashi-nomi.com/images/ogp.jpg">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0a3d62;
+            --primary-color-dark: #06283d;
+            --accent-orange: #FF9900;
+            --border-color: #e5e7eb;
+            --good: #4E7C59;
+            --alert: #B23A3A;
+        }
+        body { font-family: 'Noto Sans JP', sans-serif; color: #1f2937; background-color: #f8f9fa; }
+        .font-serif-jp { font-family: 'Noto Serif JP', serif; }
+        .primary-color { color: var(--primary-color); }
+        .text-accent { color: var(--accent-orange); }
+        .btn-primary { background-image: linear-gradient(to right, #0a3d62 0%, #06283d 50%, #0a3d62 100%); background-size: 200% auto; color: white; }
+        .btn-primary:hover { background-position: right center; }
+        .marker { background: linear-gradient(transparent 60%, #cfe8ff 60%); font-weight: 700; }
+        .prose h2 { scroll-margin-top: 80px; font-family:'Noto Serif JP',serif; font-size:1.5rem; font-weight:700; color:var(--primary-color); border-left:5px solid var(--accent-orange); padding-left:14px; margin-top:2.5rem; }
+        .prose h3 { font-weight:700; font-size:1.15rem; color:#1f2937; margin-top:1.6rem; }
+        article p, article li { font-size: 1.0625rem; line-height: 1.9; }
+        @media (min-width: 768px) { article p, article li { font-size: 1.125rem; line-height: 1.95; } }
+        .prose ul { list-style:disc; padding-left:1.5rem; } .prose ol { list-style:decimal; padding-left:1.5rem; }
+        .toc a:hover { color: var(--primary-color); text-decoration: underline; }
+        table.data { width:100%; border-collapse:collapse; font-size:0.85rem; }
+        table.data th, table.data td { border:1px solid var(--border-color); padding:8px 10px; text-align:center; }
+        table.data th { background:var(--primary-color); color:#fff; font-weight:700; }
+        table.data tr:nth-child(even) td { background:#fafafa; }
+        table.data td.l { text-align:left; }
+        .note-good { background:#eef5ef; border-left:4px solid var(--good); border-radius:0 8px 8px 0; padding:16px 18px; }
+        .note-alert { background:#fbeeee; border-left:4px solid var(--alert); border-radius:0 8px 8px 0; padding:16px 18px; }
+    </style>
+
+    <link rel="icon" href="https://yashi-nomi.com/images/logo.png" type="image/png" sizes="192x192">
+    <link rel="apple-touch-icon" href="https://yashi-nomi.com/images/logo.png">
+</head>
+<body>
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="../index.html" class="flex items-center gap-2">
+                <img src="../images/logo.png" alt="ヤシノミ ロゴ" class="h-8 w-auto">
+                <span class="font-bold primary-color">合同会社ヤシノミ</span>
+            </a>
+            <a href="https://calendar.app.google/TZrQ5YLexng2gPRV8" target="_blank" class="btn-primary px-4 py-2 rounded text-sm font-bold transition shadow-md">無料相談を予約</a>
+        </div>
+    </header>
+
+    <article class="container mx-auto px-6 py-12 max-w-5xl bg-white mt-8 rounded-xl shadow-sm">
+        <div class="flex items-center gap-2 mb-4 flex-wrap">
+            <span class="text-white text-xs font-bold px-3 py-1 rounded" style="background:var(--primary-color);">集客・見える化</span>
+            <span class="text-gray-400 text-xs">業務改善コラム</span>
+        </div>
+        <h1 class="font-serif-jp text-3xl md:text-4xl font-bold mt-2 mb-4 leading-tight text-gray-800" style="letter-spacing:0.02em;">
+            診断の答えを「あえて隠す」と、ユーザーが自分から動く
+            <span class="text-2xl md:text-3xl mt-3 block text-gray-600 font-normal">——ロック柄×LIFF連携で、ゼロタップLINE登録フローを作るまで</span>
+        </h1>
+        <p class="text-sm text-gray-400 mb-8">業務改善コラム ／ 集客・見える化 ／ 読了目安：約8分</p>
+
+        <div class="prose max-w-none text-gray-700 leading-relaxed space-y-8">
+            <p class="text-lg font-medium leading-8 pl-4 p-4 rounded-r" style="border-left:4px solid var(--primary-color);background:#f1f7fd;">
+                <p>診断ツールを作るとき、「結果をすべて見せる」のが当たり前だと思っていました。ところが、<span class="marker">弱点カテゴリをロック柄で伏せて「答えはLINEで受け取る」設計にした途端</span>、ユーザーが自分から動く流れができました。LIFFという仕組みを使ってモバイルで自動的にLINEトークが開くゼロタップフローを作るまでの設計記録です。</p>
+            </p>
+
+            <nav class="toc text-sm bg-gray-50 border rounded-lg p-5" style="border-color:var(--border-color);">
+                <p class="font-bold text-gray-800 mb-3">この記事の内容</p>
+                <ol class="list-decimal pl-5 space-y-1.5 text-gray-600">
+                    <li><a href="#s1">「全部見せる診断」が招く問題</a></li>
+<li><a href="#s2">弱点を「ロック柄で伏せる」設計の発想</a></li>
+<li><a href="#s3">LIFFでゼロタップ化した理由</a></li>
+<li><a href="#s4">PCとモバイルで挙動を分けた実装</a></li>
+<li><a href="#s5">「部分開示→行動→完全開示」パターンの応用範囲</a></li>
+                </ol>
+            </nav>
+
+            <section id="s1"><h2>「全部見せる診断」が招く問題</h2><p>診断系コンテンツを設計するとき、最初に考えるのは「どれだけ詳しい結果を出すか」です。点数が出て、カテゴリ別の評価が出て、コメントがつく——それだけ丁寧に作れば価値は高いはず、というのが最初の発想でした。</p><p>ところが、結果をすべて開示すると「情報提供で終わる」という問題が起きます。ユーザーは診断結果を読んで満足し、次に何をすべきかが曖昧なままページを離れます。「あなたの弱点は広告管理と在庫確認です」と伝えても、「で、どうすれば?」と思われておしまいになりがちです。相談の入口になるはずが、無料コンテンツを読まれただけで終わる流れです。</p><p>情報を全開示すると、ユーザーは「学んだ」状態になります。学びが完結した人は、次のアクションを起こしにくくなります。診断ツールを集客の入口として使うなら、この「完結感」は設計上の問題です。</p></section><section id="s2"><h2>弱点を「ロック柄で伏せる」設計の発想</h2><p>この問題を解決するために採用したのが「部分開示」の設計です。</p><p>診断完了後に表示するのは、カテゴリごとのバー（売上管理・広告・業務効率など）です。バーの色や長さで、どのカテゴリが強みでどれが課題になっているかは視覚的に伝わります。しかし、弱点と判定されたカテゴリのバーにはロック柄のオーバーレイをかけ、詳細が読めないようにします。</p><p>「答えはLINE診断書で受け取る」——このCTAを1つだけ置きます。</p><p>この設計で起きることは二つあります。まず、ユーザーはすでに20問を答えた後なので「ここまで来たのだから答えを見たい」という気持ちが自然に高まっています。次に、CTAが「LINE登録してください」という依頼ではなく「診断書を受け取る」という行動として提示されるため、ユーザーは自分の利益のために動く感覚を持てます。</p><div class="note-good"><strong>設計の核心</strong>：登録を促すのではなく、ユーザーが自分で「見たい」と感じる状態を先に作ること。この順序が動線の自然さを決めます。</div></section><section id="s3"><h2>LIFFでゼロタップ化した理由</h2><p>「弱点の答えを知りたい」と思ってもらえたとしても、LINE登録の手順が面倒だと離脱が起きます。QRコードをカメラで読み取り、友だち追加し、トーク画面を探して——このステップを踏ませると、途中でやめる人が出てきます。</p><p>そこでLIFF（LINE Front-end Framework）を使いました。LIFFはLINEが提供するSDKで、WebページからLINEアプリの機能を呼び出せる仕組みです。</p><p>実装した流れはシンプルです。診断完了後、モバイルではLIFF SDKがLINEアプリへの切り替えを命令し、同時に診断書のテキストをそのトーク画面に送ります。ユーザーは何もしなくても、スマホがLINEトークを開いて診断書が届いた状態になります。LINEがまだ未登録の場合は、その時点で友だち追加画面が出ます。それも含めてLIFF側が処理するため、ユーザー体験としては「診断が終わったらLINEに届いた」という一本の流れになります。</p><p>QRコード→カメラ→友だち追加→トーク確認、という手順がゼロになる。この差は想像以上に大きいと感じています。</p></section><section id="s4"><h2>PCとモバイルで挙動を分けた実装</h2><p>LIFFの自動起動はスマートフォン（LINEアプリあり）を前提とした設計です。PCブラウザでも動作はしますが体験が異なるため、ユーザーエージェントでデバイスを判定し、モバイルでは自動遷移・PCでは手動ボタンを表示する出し分けを行いました。</p><p>実装で注意が必要だったのはLIFFの初期化タイミングです。<code>liff.init()</code>は非同期で完了するため、初期化が終わる前にユーザーがボタンをタップするとLINE公式サイトのトップページに飛んでしまう不具合が起きます。</p><ul><li>対処①：<code>init()</code>のPromiseが解決されるまでボタンをdisabled状態にし、完了後に有効化する</li><li>対処②：<code>redirectUri</code>を明示的に指定し、認証後の戻り先が意図しないページになるケースを防ぐ</li></ul><p>どちらも「動かしてみるまで気づきにくい」種類の落とし穴です。LIFFを初めて組み込む場合は、モバイル実機での確認を早めに行うことをお勧めします。シミュレーターやPCのブラウザでは再現しないケースがあります。</p><div class="note-alert"><strong>注意点</strong>：LIFF URLをSNSや広告で共有する場合、LINE以外のアプリ内ブラウザからアクセスされるケースも考慮する必要があります。フォールバック（通常のLINE登録リンク）を用意しておくと安全です。</div></section><section id="s5"><h2>「部分開示→行動→完全開示」パターンの応用範囲</h2><p>今回の設計をまとめると、「部分開示→ユーザーの自発的行動→完全開示」という構造です。この流れは診断ツール以外にも応用できます。</p><ul><li><strong>コスト試算ツール</strong>：概算コストは見せる・詳細内訳はメール登録後に送る</li><li><strong>SEO簡易チェック</strong>：サイトの点数は見せる・改善提案リストは相談フォームから</li><li><strong>在庫健全性チェック</strong>：カテゴリ別の評価は見せる・推奨アクションはLINEで</li><li><strong>補助金適合確認ツール</strong>：適合カテゴリ数は見せる・対象補助金リストはメール登録後</li></ul><p>共通しているのは「ユーザーが価値を確認してから、次の一歩を自分で選ぶ」という順序です。押し付けないことで、アクションを起こした人の温度が高くなります。</p><p>「コンテンツで完結させない」という設計の意図は、ユーザーにとって不利益ではありません。部分開示の段階でも十分な情報価値を渡すことが前提で、その上で「続きはLINEで」という動線を用意する形です。強引に情報を出し惜しみするのではなく、関係を始める入口として機能させる——この視点で診断ツールを設計すると、集客とユーザー体験が両立しやすくなります。</p></section>
+
+            <div class="p-8 rounded-xl border text-center mt-12" style="border-color:var(--border-color);background:#f1f7fd;">
+                <h3 class="font-serif-jp text-xl font-bold mb-4 text-gray-800">サイトに診断ツールを設けてLINE登録の流れを作りたい方へ</h3>
+                <p class="mb-6 text-left md:text-center">診断の設計からLIFF連携の実装まで、現状と目的に合わせた形でご提案します。まずは無料相談でご状況をお聞かせください。</p>
+                <a href="https://calendar.app.google/TZrQ5YLexng2gPRV8" target="_blank" class="btn-primary inline-block px-8 py-4 rounded-lg font-bold text-lg shadow-lg transform hover:-translate-y-1 transition duration-300">
+                    無料相談を予約する（30分）
+                </a>
+            </div>
+        </div>
+
+        <div class="mt-10 text-center">
+            <a href="./index.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium transition-colors">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                業務改善コラム一覧に戻る
+            </a>
+        </div>
+    </article>
+
+    <footer class="text-gray-400 py-8 mt-12 text-center text-xs" style="background:var(--primary-color-dark);">
+        <p>© 2026 合同会社ヤシノミ All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

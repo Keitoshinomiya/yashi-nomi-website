@@ -193,11 +193,12 @@
                 <a class="cta-line" id="cta-line" href="https://line.me/R/ti/p/@756qpakc"
                    onclick="if(typeof gtag==='function'){gtag('event','click',{'event_category':'cta','event_label':'check_line'});}">📋 あなた専用の診断書をLINEで受け取る（無料）</a>
             </div>
-            <p class="note" style="color:#594A38;">ボタンを押すとLINEが開き、診断結果が入力済みになります。そのまま送信いただくと、代表の四宮から<b>①取り組む優先順位 ②最初の一手 ③同じ詰まりを解消した実例</b>をお返しします。</p>
-            <p class="note">この画面の結果が自動送信されることはありません。じっくり話したい方は <a href="https://calendar.app.google/TZrQ5YLexng2gPRV8" target="_blank" rel="noopener" style="color:#8A7A63;text-decoration:underline;">オンライン相談（30分）</a> も選べます。</p>
+            <p class="note" style="color:#594A38;">ボタンを押すと（初回のみLINEの同意画面のあと）<b>診断書がLINEに自動で届きます</b>。内容は <b>①取り組む優先順位 ②最初の一手 ③同じ詰まりを解消した実例</b> です。</p>
+            <p class="note">診断書の送付以外に結果が使われることはありません。じっくり話したい方は <a href="https://calendar.app.google/TZrQ5YLexng2gPRV8" target="_blank" rel="noopener" style="color:#8A7A63;text-decoration:underline;">オンライン相談（30分）</a> も選べます。</p>
         </div>
     </div>
 
+    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <script>
     (function(){
         var items=document.querySelectorAll('.item');
@@ -280,13 +281,72 @@
                     +'スコア：'+n+'/20（いちばんの詰まり：'+(top||'—')+'）\n'
                     +'内訳：'+detail;
                 lineBtn.href='https://line.me/R/oaMessage/%40756qpakc/?'+encodeURIComponent(text);
+                window.__diagText=text;
             } else {
                 lineBtn.href='https://line.me/R/ti/p/@756qpakc';
+                window.__diagText=null;
             }
             if(typeof gtag==='function'){ gtag('event','check_progress',{'event_category':'diagnosis','value':n}); }
         }
         items.forEach(function(it){
             it.addEventListener('click',function(){ it.classList.toggle('on'); update(); });
+        });
+
+        // ===== LIFF：診断書のワンタップ自動送付（失敗時は従来のoaMessageにフォールバック） =====
+        var LIFF_ID='2010384011-mJXAa3p7';
+        var DIAG_API='https://line-crm-worker-yashinomi.shinomiya-keito.workers.dev/api/liff/diagnosis-submit';
+        var liffReady=false;
+        function saveDiagState(){
+            var on=[]; items.forEach(function(it,i){ if(it.classList.contains('on')) on.push(i); });
+            try{ localStorage.setItem('diagState', JSON.stringify({on:on,seg:segState,genre:genreSel.value,gfree:genreFree.value,size:sizeSel.value,how:howSel.value,pending:1})); }catch(e){}
+        }
+        function restoreDiagState(){
+            try{
+                var s=JSON.parse(localStorage.getItem('diagState')||'null');
+                if(!s||!s.pending) return false;
+                (s.on||[]).forEach(function(i){ if(items[i]) items[i].classList.add('on'); });
+                segState=s.seg||{};
+                document.querySelectorAll('.seg').forEach(function(seg){
+                    var k=seg.getAttribute('data-seg');
+                    if(segState[k]){ seg.querySelectorAll('button').forEach(function(b){ b.classList.toggle('on', b.textContent.trim()===segState[k]); }); }
+                });
+                genreSel.value=s.genre||''; genreFree.value=s.gfree||'';
+                genreFree.classList.toggle('show', genreSel.value==='other');
+                sizeSel.value=s.size||''; howSel.value=s.how||'';
+                update();
+                return true;
+            }catch(e){ return false; }
+        }
+        function diagDone(){
+            try{ localStorage.removeItem('diagState'); }catch(e){}
+            lineBtn.textContent='✅ 診断書をLINEにお届けしました（トークを開く）';
+            lineBtn.href='https://line.me/R/ti/p/%40756qpakc';
+        }
+        function diagFallback(){
+            try{ localStorage.removeItem('diagState'); }catch(e){}
+            // 従来動線：oaMessageプリフィル（lineBtn.hrefは設定済み）
+            window.location.href=lineBtn.href;
+        }
+        function submitDiag(){
+            var text=window.__diagText; if(!text) return;
+            lineBtn.textContent='📨 診断書を送付中…';
+            fetch(DIAG_API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({idToken:liff.getIDToken(),text:text})})
+            .then(function(r){ if(r.ok){ diagDone(); if(typeof gtag==='function'){gtag('event','diagnosis_sent',{'event_category':'diagnosis','event_label':'liff_push'});} } else { diagFallback(); } })
+            .catch(function(){ diagFallback(); });
+        }
+        if(window.liff){
+            liff.init({liffId:LIFF_ID}).then(function(){
+                liffReady=true;
+                if(liff.isLoggedIn() && localStorage.getItem('diagState')){
+                    if(restoreDiagState()){ submitDiag(); }
+                }
+            }).catch(function(e){ console.warn('liff init failed', e); });
+        }
+        lineBtn.addEventListener('click',function(ev){
+            if(!liffReady || !window.__diagText) return; // LIFF不可なら従来のoaMessage遷移
+            ev.preventDefault();
+            if(!liff.isLoggedIn()){ saveDiagState(); liff.login({redirectUri:location.href}); return; }
+            submitDiag();
         });
     })();
     </script>

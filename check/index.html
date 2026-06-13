@@ -49,7 +49,7 @@
         .result .num small{font-size:0.75rem;font-family:'Noto Sans JP',sans-serif;font-weight:500;color:#8A7A63;}
         .result .verdict{font-size:0.78rem;line-height:1.55;flex-grow:1;}
         .result .verdict b{display:block;font-size:0.88rem;}
-        .v-good b{color:var(--good);} .v-warn b{color:var(--warn);} .v-alert b{color:var(--alert);}
+        .v-good b{color:var(--good);} .v-warn b{color:var(--warn);} .v-alert b{color:var(--alert);} .v-teaser b{color:#2F7351;}
         .ctas{display:flex;gap:8px;margin-top:10px;}
         .ctas a{flex:1;text-align:center;padding:11px 6px;border-radius:8px;font-weight:700;font-size:0.82rem;text-decoration:none;letter-spacing:0.02em;}
         .cta-line{background:#06C755;color:#fff;}
@@ -178,7 +178,7 @@
         </div>
 
         <div class="deep">
-            <b>診断のヒント：</b>個数と同じくらい大事なのが「どのカテゴリに固まっているか」。チェックが集中しているカテゴリが、あなたの会社のボトルネックです。結果画面に出る「いちばん詰まっているカテゴリ」をご確認ください。
+            <b>診断のヒント：</b>個数と同じくらい大事なのが「どのカテゴリに固まっているか」。下のバーで偏りが見えてきます。その詰まりを“どう直すか”（優先順位・最初の一手・実例）は、LINEの診断書でお届けします。
         </div>
     </div>
 
@@ -245,31 +245,19 @@
                 });
             });
             var cls,msg;
-            if(n===0){ cls='v-good'; msg='<b>タップして診断スタート</b>当てはまる項目を選んでください。'; }
-            else if(n<=4){ cls='v-good'; msg='<b>良好（'+n+'/20）</b>数字で回せています。'+(top?'伸びしろは「'+top+'」。':''); }
-            else if(n<=10){ cls='v-warn'; msg='<b>要注意（'+n+'/20）</b>詰まり始めています。いちばんのボトルネックは「'+top+'」。'; }
-            else { cls='v-alert'; msg='<b>危険水域（'+n+'/20）</b>感覚経営の状態です。「'+top+'」の見える化から始めましょう。'; }
+            if(n===0){
+                cls='v-good';
+                msg='<b>タップして診断スタート</b>当てはまる項目を選んでください。';
+            } else {
+                // 判定（良好/要注意/危険水域）と処方箋はページに出さない。
+                // ＝結果をLINE診断書だけに集約し、受け取る動機を残す。
+                cls='v-teaser';
+                msg='<b>✅ 診断できました</b>あなたの「詰まり度」の意味と、<b>最優先で直すべき1カテゴリ</b>・具体的な処方箋（優先順位／最初の一手／同じ詰まりを解消した実例）は、<b>LINEの診断書</b>でお届けします📋';
+            }
             verdict.className='verdict '+cls;
             verdict.innerHTML=msg;
-            // カテゴリ別の「現状 → 理想」ギャップ提示
             var hw=howSel.value;
-            var impactLines=[];
-            AREAS.forEach(function(a){
-                if(impactLines.length>=3) return;
-                var now=segState[a.key+'-now'], ideal=segState[a.key+'-ideal'];
-                if(ideal==='毎日・自動で届く'){
-                    if(now && now!=='毎日'){ impactLines.push('📊 '+a.label+'：いま「'+now+'」→ 理想は<b>毎日・自動</b>。その状態、作れます（'+(MULT[now]||'見える経営に')+'）。'); }
-                    else if(now==='毎日'){ impactLines.push('📊 '+a.label+'：すでに毎日。あとは<b>自動で届く</b>形にすれば、見に行く手間がゼロになります。'); }
-                    else { impactLines.push('🎯 '+a.label+'：理想は<b>毎日・自動</b> — 作れます。診断書で道筋をお返しします。'); }
-                } else if(now && now!=='毎日' && now!=='広告なし' && ideal!=='今のままでいい'){
-                    impactLines.push('📊 '+a.label+'：いまの確認は「'+now+'」→ <b>毎朝・自動で届く</b>状態にできます（'+(MULT[now]||'')+'）。');
-                }
-            });
-            if(hw==='見る方法がそもそもない' && impactLines.length<3){
-                impactLines.push('🔍 まず「見える状態」を作るところから。ここが一番、変化を実感できるご支援です。');
-            }
-            if(impactLines.length){ impact.innerHTML=impactLines.join('<br>'); impact.style.display='block'; }
-            else { impact.style.display='none'; }
+            impact.style.display='none'; // 処方箋はページに表示しない（診断書に集約）
             if(n>0){
                 var g=getGenre(); var sz=sizeSel.value;
                 var detail=CATS.map(function(c){ return c.split('・')[0]+(cats[c]||0); }).join('・');

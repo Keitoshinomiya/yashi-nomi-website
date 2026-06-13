@@ -190,8 +190,8 @@
     <div class="result">
         <div class="inner">
             <div class="row">
-                <p class="num"><span id="cnt">0</span><small> /20</small></p>
-                <p class="verdict v-good" id="verdict"><b>タップして診断スタート</b>当てはまる項目を選んでください。</p>
+                <span id="cnt" hidden></span>
+                <p class="verdict v-good" id="verdict"><b>当てはまる項目をタップ</b>気になるものを選んでください。</p>
             </div>
             <p id="impact" style="display:none;font-size:0.74rem;line-height:1.6;background:#FFF6E8;border:1px solid #E8C9A0;border-radius:7px;padding:7px 10px;margin-top:8px;color:#2B2218;"></p>
             <div class="ctas">
@@ -259,7 +259,7 @@
                 // 判定（良好/要注意/危険水域）と処方箋はページに出さない。
                 // ＝結果をLINE診断書だけに集約し、受け取る動機を残す。
                 cls='v-teaser';
-                msg='<b>✅ 診断できました</b>あなたの「詰まり度」の意味と、<b>最優先で直すべき1カテゴリ</b>・具体的な処方箋（優先順位／最初の一手／同じ詰まりを解消した実例）は、<b>LINEの診断書</b>でお届けします📋';
+                msg='<b>📋 あなた専用の診断書をLINEで</b>弱点のカテゴリと、その直し方（取り組む優先順位・最初の一手・同じ詰まりを解消した実例）をお届けします。';
             }
             verdict.className='verdict '+cls;
             verdict.innerHTML=msg;

@@ -30,7 +30,7 @@
 
 ## デザイントークン（2026-06-12 レトロパレットに刷新。index.html の `<style>` と一致させること）
 - フォント: 見出し `Noto Serif JP`／本文 `Noto Sans JP`+`Inter`
-- `--primary-color:#2F7351`（ヴィンテージグリーン）/ `--primary-color-dark:#1C4734`
+- `--primary-color:#23AC38`（ヤシノミ・ロゴグリーン。2026-06-16にロゴと統一）/ `--primary-color-dark:#166A24`（グラデ明端 `#4FC25F`）
 - `--accent-orange:#C2551B`（テラコッタ）/ `--accent-gold:#E8A23D`（マスタード）
 - 文字 `#2B2218`（焦げ茶）/ ページ背景 `#FBF6EA`（クリーム）/ 罫線 `#E2D9C6`
 - LINE緑 `#06C755` はLINE系CTA専用。シグネチャー＝レトロストライプ `.brand-stripe`

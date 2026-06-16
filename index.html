@@ -180,6 +180,21 @@
         }
         @media (min-width: 768px) { .swipe-hint { display: none; } }
 
+        /* ── スマホ最適化：余白圧縮・ヒーロー短縮・カード文クランプ（PC据え置き・2026-06-16） ── */
+        @media (max-width: 767px) {
+            /* 1. セクション余白・見出し余白を圧縮 */
+            section.py-20 { padding-top: 2.75rem !important; padding-bottom: 2.75rem !important; }
+            .text-center.mb-16 { margin-bottom: 2rem !important; }
+            .section-title-jp { font-size: 1.6rem !important; line-height: 1.4 !important; margin-bottom: 0.4rem !important; }
+            /* 2. ヒーロー短縮 */
+            #hero .grid { padding-top: 1.75rem !important; padding-bottom: 1.5rem !important; gap: 1.75rem !important; }
+            .hero-title { font-size: 1.95rem !important; line-height: 1.42 !important; margin-bottom: 0.85rem !important; }
+            .hero-sub { font-size: 0.92rem !important; line-height: 1.7 !important; margin-bottom: 1rem !important; }
+            .sp-hide { display: none !important; }
+            /* 3. カード説明文を3行でクランプ（…で省略） */
+            .m-carousel p.leading-relaxed { display: -webkit-box !important; -webkit-line-clamp: 3 !important; -webkit-box-orient: vertical !important; overflow: hidden !important; }
+        }
+
         /* ── モバイル固定CTAバー ── */
         .sticky-cta { position: fixed; bottom: 0; left: 0; right: 0; z-index: 45; display: flex; box-shadow: 0 -4px 18px rgba(6,40,61,0.22) !important; }
         .sticky-cta a { flex: 1; text-align: center; padding: 0.95rem 0.5rem; font-family: var(--sans); font-weight: 700; font-size: 0.85rem; color: #fff; letter-spacing: 0.03em; }
@@ -362,7 +377,7 @@
                            class="btn text-base px-8 py-4" style="background:#06C755;border:1.5px solid rgba(255,255,255,0.9);color:#fff;">LINEで気軽に相談する（無料）</a>
                         <a href="#selfcheck" class="btn btn-ghost-light text-base px-8 py-4">まずは30秒セルフ診断</a>
                     </div>
-                    <p class="text-xs mb-9" style="color:rgba(255,255,255,0.65);">じっくり話したい方は <a href="https://line.me/R/ti/p/@756qpakc" target="_blank" rel="noopener" class="underline" style="color:rgba(255,255,255,0.85);">30分のオンライン相談</a> も選べます。</p>
+                    <p class="text-xs mb-9 sp-hide" style="color:rgba(255,255,255,0.65);">じっくり話したい方は <a href="https://line.me/R/ti/p/@756qpakc" target="_blank" rel="noopener" class="underline" style="color:rgba(255,255,255,0.85);">30分のオンライン相談</a> も選べます。</p>
                     <div class="flex flex-wrap gap-x-7 gap-y-2 pt-6" style="border-top:1px solid rgba(255,255,255,0.18);">
                         <span class="hero-chip"><span class="tick">✓</span>初期費用ゼロ・月額固定</span>
                         <span class="hero-chip"><span class="tick">✓</span>大阪拠点・全国オンライン対応</span>
@@ -493,7 +508,7 @@
     <!-- 2.5 END BRANDS SECTION -->
 
     <!-- 3. SERVICES SECTION -->
-    <section id="services" class="py-20 md:py-28 bg-white">
+    <section id="services" class="py-20 md:py-28 bg-white hidden md:block">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16" data-aos="fade-up">
                 <p class="section-title-en mb-2">Our Services</p>
@@ -583,7 +598,7 @@
     <!-- 4. END FEATURES SECTION -->
 
     <!-- 5. MERGED CASE STUDY & VOICE SECTION -->
-    <section id="case-study" class="py-20 md:py-28 bg-gray-50 border-b border-gray-200">
+    <section id="case-study" class="py-20 md:py-28 bg-gray-50 border-b border-gray-200 hidden md:block">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16" data-aos="fade-up">
                 <p class="section-title-en mb-2">Client Work</p>
@@ -1310,7 +1325,7 @@
     <!-- 5.5 END BLOG SECTION -->
 
     <!-- 7. FLOW SECTION（ご相談の流れ3ステップ） -->
-    <section id="flow" class="py-20 md:py-28 bg-white">
+    <section id="flow" class="py-20 md:py-28 bg-white hidden md:block">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16" data-aos="fade-up">
                 <p class="section-title-en mb-2">How to Start</p>

@@ -1,0 +1,205 @@
+html { scroll-behavior: smooth; }
+body {
+    font-family: 'Inter', 'Noto Sans JP', sans-serif;
+    color: #2B2218;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #FBF6EA;
+    font-feature-settings: "palt" 1;
+    letter-spacing: 0.01em;
+    line-height: 1.85;
+}
+
+:root {
+    --primary-color: #23AC38;
+    --primary-color-dark: #166A24;
+    --accent-orange: #C2551B;
+    --accent-gold: #E8A23D;
+    --text-dark: #2B2218;
+    --text-medium: #594A38;
+    --text-light: #8A7A63;
+    --bg-light: #F6F0E2;
+    --bg-ink: #166A24;
+    --border-color: #E2D9C6;
+    --border-strong: #C7BBA2;
+    --serif: 'Noto Serif JP', 'Hiragino Mincho ProN', serif;
+    --sans: 'Inter', 'Noto Sans JP', sans-serif;
+}
+
+/* 見出しは明朝でエディトリアルな硬派さを出す */
+h1, h2, h3, .font-serif-jp {
+    font-family: var(--serif);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    line-height: 1.5;
+}
+
+.primary-color { color: var(--primary-color); }
+.primary-bg { background-color: var(--primary-color); }
+.primary-bg-hover:hover { background-color: var(--primary-color-dark); }
+.amazon-orange-text { color: var(--accent-orange); }
+.accent-gold-text { color: var(--accent-gold); }
+.secondary-color { color: #166A24; }
+
+/* ── 静的ヒーロー（スライダー廃止・1メッセージ集中型） ── */
+.hero-static {
+    position: relative;
+    background: linear-gradient(132deg, #166A24 0%, #23AC38 56%, #4FC25F 100%);
+    overflow: hidden;
+}
+.hero-static::before {
+    content: "";
+    position: absolute; inset: 0;
+    background-image: radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px);
+    background-size: 24px 24px;
+    pointer-events: none;
+}
+.hero-static::after {
+    content: "";
+    position: absolute; right: -180px; top: -180px;
+    width: 520px; height: 520px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,153,0,0.13) 0%, rgba(255,153,0,0) 65%);
+    pointer-events: none;
+}
+.hero-eyebrow { font-family: var(--sans); font-size: 0.72rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--accent-gold); font-weight: 600; }
+.hero-title { font-family: var(--serif); font-size: 2rem; line-height: 1.48; font-weight: 600; letter-spacing: 0.03em; color: #fff; }
+@media (min-width: 768px) { .hero-title { font-size: 2.8rem; line-height: 1.38; } }
+.hero-title .gold { color: var(--accent-gold); }
+.hero-sub { font-family: var(--sans); font-size: 0.98rem; color: rgba(255,255,255,0.88); line-height: 2; }
+@media (min-width: 768px) { .hero-sub { font-size: 1.125rem; } }
+.hero-chip { font-family: var(--sans); font-size: 0.8rem; color: rgba(255,255,255,0.85); display: inline-flex; align-items: center; gap: 0.4rem; letter-spacing: 0.02em; }
+.hero-chip .tick { color: var(--accent-gold); font-weight: 700; }
+.btn-ghost-light { background: rgba(255,255,255,0.06); color: #fff; border: 1px solid rgba(255,255,255,0.65); }
+.btn-ghost-light:hover { background: rgba(255,255,255,0.12); color: #fff; border-color: rgba(255,255,255,0.85); }
+
+/* ── ヒーロー右：毎朝届くSlackレポートの実物風モック ── */
+.heromock { background: #fff; border-radius: 6px !important; box-shadow: 0 22px 60px rgba(2,14,26,0.5) !important; overflow: hidden; position: relative; }
+.heromock-bar { background: #f4f4f5; border-bottom: 1px solid #e4e4e7; padding: 9px 14px; display: flex; align-items: center; gap: 6px; }
+.heromock-bar .dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+.heromock-bar .ch { font-family: var(--sans); font-size: 0.72rem; color: #6b7280; margin-left: 8px; letter-spacing: 0.04em; }
+.heromock-body { padding: 16px 18px 14px; }
+.heromock-row { display: flex; align-items: flex-start; gap: 10px; }
+.heromock-avatar { width: 36px; height: 36px; border-radius: 5px; background: var(--accent-orange); color: #fff; font-weight: 700; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; font-family: var(--sans); }
+.heromock-name { font-family: var(--sans); font-size: 0.82rem; font-weight: 700; color: #2B2218; }
+.heromock-name .bot { background: #e5e7eb; color: #6b7280; font-size: 0.58rem; font-weight: 600; padding: 1px 4px; border-radius: 2px; margin-left: 4px; vertical-align: 1px; }
+.heromock-name .time { color: #9ca3af; font-weight: 400; font-size: 0.7rem; margin-left: 6px; }
+.heromock-msg { font-family: var(--sans); font-size: 0.8rem; line-height: 1.85; color: #374151; margin-top: 2px; }
+.heromock-msg .up { color: #15803d; font-weight: 700; }
+.heromock-msg .warn { color: #b45309; font-weight: 700; }
+.heromock-note { font-family: var(--sans); font-size: 0.68rem; color: #9ca3af; border-top: 1px dashed #e5e7eb; margin-top: 12px; padding-top: 9px; }
+.heromock-badge { position: absolute; top: 0; right: 14px; background: var(--accent-orange); color: #fff; font-family: var(--sans); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; padding: 5px 12px; border-radius: 999px !important; box-shadow: 0 4px 12px rgba(0,0,0,0.25) !important; z-index: 2; }
+
+.heromock-tabs { display: flex; justify-content: center; gap: 8px; margin-top: 14px; }
+.mock-tab { font-family: var(--sans); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.05em; color: rgba(255,255,255,0.75); background: transparent; border: 1px solid rgba(255,255,255,0.35); border-radius: 999px; padding: 5px 14px; cursor: pointer; transition: all 0.2s ease; }
+.mock-tab:hover { border-color: rgba(255,255,255,0.7); color: #fff; }
+.mock-tab.is-on { background: var(--accent-orange); border-color: var(--accent-orange); color: #fff; }
+
+/* ── モバイル横スワイプカルーセル（縦長対策） ── */
+@media (max-width: 767px) {
+    .m-carousel { display: flex !important; flex-direction: row !important; justify-content: flex-start !important; overflow-x: auto; scroll-snap-type: x proximity; scroll-padding-left: 16px; gap: 14px !important; padding: 4px 2px 14px; -webkit-overflow-scrolling: touch; scrollbar-width: none; touch-action: pan-x; overscroll-behavior-x: contain; }
+    .m-carousel::-webkit-scrollbar { display: none; }
+    .m-carousel > * { flex: 0 0 82%; max-width: 82%; scroll-snap-align: center; }
+    /* カルーセル内ではAOSを無効化（透明のまま固まる事故・スワイプ干渉の防止） */
+    .m-carousel > [data-aos] { opacity: 1 !important; transform: none !important; transition: none !important; }
+    .swipe-hint { display: block; text-align: center; font-size: 0.7rem; color: var(--text-light); letter-spacing: 0.1em; margin-bottom: 8px; }
+}
+@media (min-width: 768px) { .swipe-hint { display: none; } }
+
+/* ── スマホ最適化：余白圧縮・ヒーロー短縮・カード文クランプ（PC据え置き・2026-06-16） ── */
+@media (max-width: 767px) {
+    /* 1. セクション余白・見出し余白を圧縮 */
+    section.py-20 { padding-top: 2.75rem !important; padding-bottom: 2.75rem !important; }
+    .text-center.mb-16 { margin-bottom: 2rem !important; }
+    .section-title-jp { font-size: 1.6rem !important; line-height: 1.4 !important; margin-bottom: 0.4rem !important; }
+    /* 2. ヒーロー短縮 */
+    #hero .grid { padding-top: 1.75rem !important; padding-bottom: 1.5rem !important; gap: 1.75rem !important; }
+    .hero-title { font-size: 1.95rem !important; line-height: 1.42 !important; margin-bottom: 0.85rem !important; }
+    .hero-sub { font-size: 0.92rem !important; line-height: 1.7 !important; margin-bottom: 1rem !important; }
+    .sp-hide { display: none !important; }
+    /* 3. カード説明文を3行でクランプ（…で省略） */
+    .m-carousel p.leading-relaxed { display: -webkit-box !important; -webkit-line-clamp: 3 !important; -webkit-box-orient: vertical !important; overflow: hidden !important; }
+}
+
+/* ── モバイル固定CTAバー ── */
+.sticky-cta { position: fixed; bottom: 0; left: 0; right: 0; z-index: 45; display: flex; box-shadow: 0 -4px 18px rgba(6,40,61,0.22) !important; }
+.sticky-cta a { flex: 1; text-align: center; padding: 0.95rem 0.5rem; font-family: var(--sans); font-weight: 700; font-size: 0.85rem; color: #fff; letter-spacing: 0.03em; }
+.sticky-cta a:first-child { background: #06C755; }
+.sticky-cta a:last-child { background: #C2551B; }
+@media (min-width: 1024px) { .sticky-cta { display: none; } }
+@media (max-width: 1023px) { body { padding-bottom: 52px; } }
+
+.btn { font-family: var(--sans); padding: 0.95rem 2rem; border-radius: 2px; font-weight: 600; font-size: 0.95rem; letter-spacing: 0.04em; transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; border: 1px solid transparent; box-shadow: none; cursor: pointer; }
+.btn-primary { background-color: var(--primary-color); color: #fff; border-color: var(--primary-color); }
+.btn-primary:hover { background-color: var(--primary-color-dark); border-color: var(--primary-color-dark); color: #fff; }
+.btn-outline-primary { background-color: transparent; color: var(--primary-color); border: 1px solid var(--border-strong); }
+.btn-outline-primary:hover { background-color: var(--primary-color); border-color: var(--primary-color); color: #fff; }
+.btn-accent-gold { background-color: var(--accent-orange); color: #fff; border-color: var(--accent-orange); }
+.btn-accent-gold:hover { background-color: #e88a00; border-color: #e88a00; color: #fff; }
+
+.section-title-en { font-family: var(--sans); font-size: 0.72rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--accent-orange); font-weight: 600; }
+.section-title-jp { font-family: var(--serif); font-size: 2rem; font-weight: 600; color: var(--primary-color-dark); margin-bottom: 0.75rem; letter-spacing: 0.04em; line-height: 1.45; }
+.section-subtitle { font-family: var(--sans); font-size: 1.0625rem; color: var(--text-medium); max-width: 46rem; margin-left: auto; margin-right: auto; line-height: 2; }
+.card { background-color: #fff; border: 1px solid var(--border-color); border-radius: 3px; transition: border-color 0.25s ease, box-shadow 0.25s ease; overflow: hidden; }
+.card:hover { border-color: var(--border-strong); box-shadow: 0 1px 0 0 var(--primary-color) inset; }
+.card-icon-bg { background-color: transparent; color: var(--primary-color); border-radius: 0; border: none; }
+
+.mobile-menu-body { transform: translateX(100%); transition: transform 0.3s ease-in-out; }
+.mobile-menu-body.open { transform: translateX(0); }
+.mobile-menu-overlay { transition: opacity 0.3s ease-in-out; }
+[x-cloak] { display: none !important; }
+.filter-btn { background:#fff; color:#4b5563; border-color:var(--border-color); }
+.filter-btn:hover { border-color:var(--primary-color); color:var(--primary-color); }
+.filter-btn.is-active { background:var(--primary-color); color:#fff; border-color:var(--primary-color); }
+.filter-btn.is-active[data-cat="amazon"] { background:var(--accent-orange); border-color:var(--accent-orange); }
+.filter-btn.is-active[data-cat="culture"] { background:var(--secondary-color); border-color:var(--secondary-color); }
+
+/* AOS custom override if needed */
+.map-container { position: relative; overflow: hidden; padding-top: 56.25%; }
+.map-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+
+/* Diagnosis Styles */
+.diagnosis-option { width: 100%; padding: 1rem; text-align: left; border: 1px solid var(--border-color); transition: background-color 0.2s, border-color 0.2s; margin-bottom: 0.75rem; display: flex; align-items: center; border-radius: 2px; }
+.diagnosis-option:hover { border-color: var(--primary-color); background-color: #EDF3E6; }
+.diagnosis-step { display: none; }
+.diagnosis-step.active { display: block; animation: fadeIn 0.5s ease-out; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ── 硬派トーンへのグローバル上書き（角丸を立て、影を薄く） ── */
+.rounded, .rounded-md, .rounded-lg, .rounded-xl, .rounded-2xl, .rounded-3xl { border-radius: 3px !important; }
+.shadow-sm, .shadow, .shadow-md, .shadow-lg, .shadow-xl, .shadow-2xl { box-shadow: 0 1px 2px rgba(6,40,61,0.05), 0 1px 1px rgba(6,40,61,0.04) !important; }
+/* セクション間に細い罫線を入れて'編集された'区切りを出す */
+section { border-top: 1px solid var(--border-color); }
+section:first-of-type { border-top: none; }
+/* 強調太字は明朝のままだと細く見えるのでサンセリフで締める */
+strong { font-family: var(--sans); font-weight: 600; }
+/* リンク下線のにじみを抑える */
+a { text-underline-offset: 3px; }
+
+.bg-white { background-color: #FFFCF4 !important; }
+.bg-gray-50 { background-color: #F6F0E2 !important; }
+header.bg-white, .heromock { background-color: #FFFDF8 !important; }
+/* ── ブランドのシグネチャーストライプ（レトロ縞） ── */
+.brand-stripe { height: 7px; background: repeating-linear-gradient(90deg,
+    #23AC38 0 30px, #F3EBDD 30px 36px, #C2551B 36px 50px, #F3EBDD 50px 56px,
+    #6B4423 56px 64px, #F3EBDD 64px 70px, #9DBE8E 70px 78px, #F3EBDD 78px 84px); }
+/* ── トンマナ統一：Tailwind既定の明るい青 → ブランドへ寄せる ── */
+.text-blue-500, .text-blue-600, .text-blue-700 { color: var(--primary-color) !important; }
+.text-blue-800 { color: var(--primary-color-dark) !important; }
+.text-blue-300 { color: #A9C796 !important; }
+.bg-blue-50 { background-color: #EDF3E6 !important; }
+.bg-blue-100 { background-color: #E4EFD9 !important; }
+.bg-blue-600 { background-color: var(--primary-color) !important; }
+.border-blue-100 { border-color: #DCE8CC !important; }
+.border-blue-200 { border-color: #CFE0BE !important; }
+.border-blue-300 { border-color: #BFD6AC !important; }
+.border-blue-500, .border-blue-600 { border-color: var(--primary-color) !important; }
+.hover\:text-blue-300:hover { color: #D6E5C6 !important; }
+.hover\:text-blue-700:hover { color: var(--primary-color-dark) !important; }
+.group:hover .group-hover\:text-blue-500,
+.group:hover .group-hover\:text-blue-600,
+.group:hover .group-hover\:text-blue-800 { color: var(--primary-color) !important; }
+/* オレンジも素のTailwindではなくブランドオレンジに統一 */
+.text-orange-500 { color: var(--accent-orange) !important; }
+.bg-orange-100 { background-color: #F7E8D3 !important; }
+/* 旧アクセント（ピンク等）の名残を中立化 */
+.border-pink-300 { border-color: var(--border-strong) !important; }

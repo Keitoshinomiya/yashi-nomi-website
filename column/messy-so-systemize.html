@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PBN7WNCX8N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-PBN7WNCX8N');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="仕組み化や自動化は「几帳面な人」のものだと思われがちですが、実は逆です。私は整理整頓が苦手で、片付けや管理を人に任せるのも下手でした。その弱さを根性で直すのをやめ、『仕組みに逃がす』と決めてから回り始めた——苦手だからこそ仕組み化する、という考え方を書きました。">
+    <title>「整理整頓が苦手」だからこそ、仕組みに逃がす - 合同会社ヤシノミ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0a3d62;
+            --primary-color-dark: #06283d;
+            --accent-orange: #FF9900;
+            --border-color: #e5e7eb;
+        }
+        body { font-family: 'Noto Sans JP', sans-serif; color: #1f2937; background-color: #f8f9fa; }
+        .font-serif-jp { font-family: 'Noto Serif JP', serif; }
+        .primary-color { color: var(--primary-color); }
+        .text-accent { color: var(--accent-orange); }
+        .btn-primary { background-image: linear-gradient(to right, #0a3d62 0%, #06283d 50%, #0a3d62 100%); background-size: 200% auto; color: white; }
+        .btn-primary:hover { background-position: right center; }
+        .marker { background: linear-gradient(transparent 60%, #ffe7c2 60%); font-weight: 700; }
+        .prose h2 { scroll-margin-top: 80px; }
+        article p, article li { font-size: 1.0625rem; line-height: 1.9; }
+        @media (min-width: 768px) { article p, article li { font-size: 1.125rem; line-height: 1.95; } }
+        .toc a:hover { color: var(--primary-color); text-decoration: underline; }
+        .flow { background:#f1f7fd; border:1px solid var(--border-color); border-radius:10px; }
+    </style>
+
+    <link rel="icon" href="https://yashi-nomi.com/images/logo.png" type="image/png" sizes="192x192">
+    <link rel="apple-touch-icon" href="https://yashi-nomi.com/images/logo.png">
+</head>
+<body>
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="../index.html" class="flex items-center gap-2">
+                <img src="../images/logo.png" alt="ヤシノミ ロゴ" class="h-8 w-auto">
+                <span class="font-bold primary-color">合同会社ヤシノミ</span>
+            </a>
+            <a href="https://line.me/R/ti/p/@756qpakc" target="_blank" class="btn-primary px-4 py-2 rounded text-sm font-bold transition shadow-md">LINEで相談</a>
+        </div>
+    </header>
+
+    <article class="container mx-auto px-6 py-12 max-w-5xl bg-white mt-8 rounded-xl shadow-sm">
+        <div class="flex items-center gap-2 mb-4">
+            <span class="text-white text-xs font-bold px-3 py-1 rounded" style="background:#003366;">仕組み化・自動化</span>
+            <span class="text-gray-400 text-xs">業務改善コラム</span>
+        </div>
+        <h1 class="font-serif-jp text-3xl md:text-4xl font-bold mt-2 mb-4 leading-tight text-gray-800" style="letter-spacing:0.02em;">
+            「整理整頓が苦手」だからこそ、<br>
+            <span class="text-2xl md:text-3xl mt-3 block text-gray-600 font-normal">仕組みに逃がす</span>
+        </h1>
+        <p class="text-sm text-gray-400 mb-8">業務改善コラム ／ 仕組み化・自動化 ／ 読了目安：約8分</p>
+
+        <div class="prose max-w-none text-gray-700 leading-relaxed space-y-8">
+            <p class="text-lg font-medium leading-8 pl-4 p-4 rounded-r" style="border-left:4px solid var(--accent-orange);background:#fff8ef;">
+                仕組み化や自動化は「几帳面で、きっちりした人」のものだと思われがちです。でも、私はその逆です。
+                正直に言うと、<span class="marker">整理整頓が、ずっと苦手</span>でした。フォルダはぐちゃぐちゃ、片付けも管理も得意じゃない。
+                その弱さを根性で直すのをやめて、<strong>「仕組みに逃がす」</strong>と決めてから、ようやく回り始めました。
+                この記事は、「苦手だからこそ仕組み化する」という、ちょっと逆説的な考え方の話です。
+            </p>
+
+            <!-- 目次 -->
+            <nav class="toc text-sm bg-gray-50 border rounded-lg p-5" style="border-color:var(--border-color);">
+                <p class="font-bold text-gray-800 mb-3">この記事の内容</p>
+                <ol class="list-decimal pl-5 space-y-1.5 text-gray-600">
+                    <li><a href="#confess">仕組み化が得意なのではなく、苦手から逃げた</a></li>
+                    <li><a href="#willpower">「気をつける」で直らないものは、直さない</a></li>
+                    <li><a href="#when">何を仕組みに逃がすか（昇格の合図）</a></li>
+                    <li><a href="#how">小さく逃がす：チェックリストから始める</a></li>
+                    <li><a href="#summary">まとめ：弱さは、仕組みの設計図になる</a></li>
+                </ol>
+            </nav>
+
+            <section id="confess">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">1. 仕組み化が得意なのではなく、苦手から逃げた</h2>
+                <p>
+                    「いろいろ自動化していてすごいですね」と言っていただくことがあります。でも本当のところは、すごいから仕組みにしているのではありません。
+                    <span class="marker">放っておくと自分が必ず抜け漏らす、忘れる、散らかす</span>——それが分かっているから、先に仕組みに預けているだけです。
+                </p>
+                <p>
+                    几帳面な人は、ある程度は気合いと記憶で回せてしまいます。だから逆に、仕組みにする動機が弱い。
+                    苦手な人間のほうが「このままだと事故る」という危機感が強いぶん、本気で仕組みを作ります。
+                    <strong>苦手は、仕組み化のいちばんの燃料になる</strong>のです。
+                </p>
+            </section>
+
+            <section id="willpower">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">2. 「気をつける」で直らないものは、直さない</h2>
+                <p>
+                    ミスをすると、つい「次から気をつけよう」と思います。でも、<span class="marker">「気をつける」で直るなら、とっくに直っている</span>はずなんですよね。
+                    何度も同じところでつまずくなら、それは性格や根性の問題ではなく、<strong>仕組みが無いだけ</strong>です。
+                </p>
+                <p>
+                    だから私は、自分を直すのをやめました。代わりに、「自分がどうせやらかす前提」で、抜けを受け止めてくれる仕組みを作る。
+                    人を責めず、自分も責めず、<strong>仕組みに肩代わりさせる</strong>。これは会社でも同じで、誰かの注意力に頼っている作業は、いつか必ず落ちます。
+                </p>
+                <div class="rounded-xl p-6 my-2 text-center" style="background:linear-gradient(135deg,var(--primary-color),var(--primary-color-dark));">
+                    <p class="font-serif-jp text-lg md:text-2xl text-white font-bold">「気をつける」をやめて、<br class="hidden md:block">「気をつけなくてもいい形」に変える。</p>
+                </div>
+            </section>
+
+            <section id="when">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">3. 何を仕組みに逃がすか（昇格の合図）</h2>
+                <p>
+                    とはいえ、何でもかんでも自動化すればいい、とは思っていません。仕組みにするにも手間がかかるので、<span class="marker">「逃がすべきもの」だけを選ぶ</span>必要があります。私の合図はシンプルです。
+                </p>
+                <ul class="list-disc pl-6 space-y-2 mt-4 text-sm">
+                    <li><strong>同じ面倒が2回起きた：</strong>たまたまじゃない。これは繰り返す、と判断します。</li>
+                    <li><strong>「もう一回やりたくない」と思った：</strong>その感情が出た瞬間が、仕組み化のタイミングです。</li>
+                    <li><strong>自分の注意力だけが品質を支えている：</strong>自分が忘れたら破綻する作業は、危険信号です。</li>
+                </ul>
+                <p class="mt-4">
+                    逆に、めったに起きないことや、一回きりのことは、無理に仕組みにしません。<strong>苦手で・繰り返す・落ちると痛い</strong>。この3つが重なったものから順に、仕組みへ逃がしていきます。
+                </p>
+            </section>
+
+            <section id="how">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">4. 小さく逃がす：チェックリストから始める</h2>
+                <p>
+                    「仕組み化」というと、いきなり立派なマニュアルやシステムを思い浮かべがちですが、最初からそれを作ると重くて続きません。
+                    私たちは、<span class="marker">いちばん小さい形から始めて、効いたら昇格させる</span>やり方をとっています。
+                </p>
+                <div class="flow p-4 text-center text-sm font-bold primary-color my-3">
+                    チェックリスト → テンプレ文章 → フォーム → 自動化 → マニュアル
+                </div>
+                <p>
+                    まずは紙やメモのチェックリスト1枚で十分です。それで抜けが減れば、よく使う文章はテンプレにする、入力はフォームにする、と少しずつ形を上げていく。
+                    最終的に「自分がいなくても回る」「新しく入った人が迷わない」状態になれば、それが完成形です。
+                    完璧なマニュアルを最初に目指さないことが、続けるコツです。
+                </p>
+                <p class="text-sm text-gray-600 bg-gray-50 border-l-4 pl-4 py-3" style="border-color:var(--primary-color);">
+                    補足：計算・検索・集計のような「速さと正確さ」で勝てる作業は、どんどんツールやAIに渡します。一方で、世界観をつくるデザインや、責任と価値観が乗る判断は、人が持つ。
+                    この線引きについては<a href="../culture/systemize-is-kindness.html" class="text-blue-600 hover:underline">「仕組み化は、次の人への優しさ」</a>に書いています。
+                </p>
+            </section>
+
+            <section id="summary">
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">5. まとめ：弱さは、仕組みの設計図になる</h2>
+                <p>
+                    仕組み化は、きっちりした人の特権ではありません。むしろ<strong>「自分はどうせ抜ける」と知っている人ほど、強い仕組みを作れます。</strong>
+                    自分の苦手な場所こそが、「ここに仕組みが要る」という設計図そのものだからです。
+                </p>
+                <p>
+                    直らない弱さを根性で直そうとして消耗するより、<span class="marker">弱さを認めて、仕組みに逃がす。</span>
+                    そのほうがずっと楽で、ずっと続きます。もし「自分は管理が苦手で…」と感じているなら、それは仕組み化に向いていない理由ではなく、向いている理由かもしれません。
+                </p>
+            </section>
+
+            <div class="p-8 rounded-xl border text-center mt-12" style="border-color:var(--border-color);background:#f1f6fb;">
+                <h3 class="font-serif-jp text-xl font-bold mb-4 text-gray-800">「いつも自分が抜ける作業」を、仕組みに逃がしませんか</h3>
+                <p class="mb-6 text-left md:text-center">
+                    管理が苦手でいつも同じところでつまずく。人に任せたいけど、任せ方が分からない。<br>
+                    そんなときは、まず「どの作業を仕組みに逃がすか」を一緒に洗い出すところからお手伝いします。
+                </p>
+                <a href="https://line.me/R/ti/p/@756qpakc" target="_blank" class="btn-primary inline-block px-8 py-4 rounded-lg font-bold text-lg shadow-lg transform hover:-translate-y-1 transition duration-300">
+                    LINEで相談する
+                </a>
+            </div>
+        </div>
+
+        <div class="mt-10 text-center">
+            <a href="./index.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium transition-colors">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                業務改善コラム一覧に戻る
+            </a>
+        </div>
+    </article>
+
+    <footer class="text-gray-400 py-8 mt-12 text-center text-xs" style="background:var(--primary-color-dark);">
+        <p>© 2026 合同会社ヤシノミ All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

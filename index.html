@@ -171,7 +171,7 @@
 
         /* ── モバイル横スワイプカルーセル（縦長対策） ── */
         @media (max-width: 767px) {
-            .m-carousel { display: flex !important; flex-direction: row !important; justify-content: flex-start !important; overflow-x: auto; scroll-snap-type: x proximity; scroll-padding-left: 16px; gap: 14px !important; padding: 4px 2px 14px; -webkit-overflow-scrolling: touch; scrollbar-width: none; touch-action: pan-x; overscroll-behavior-x: contain; }
+            .m-carousel { display: flex !important; flex-direction: row !important; justify-content: flex-start !important; overflow-x: auto; scroll-snap-type: x proximity; scroll-padding-left: 16px; gap: 14px !important; padding: 4px 2px 14px; -webkit-overflow-scrolling: touch; scrollbar-width: none; overscroll-behavior-x: contain; }
             .m-carousel::-webkit-scrollbar { display: none; }
             .m-carousel > * { flex: 0 0 82%; max-width: 82%; scroll-snap-align: center; }
             /* カルーセル内ではAOSを無効化（透明のまま固まる事故・スワイプ干渉の防止） */
@@ -444,7 +444,7 @@
 
     <!-- スマホ専用クイックナビ（一番見てほしいコラム・会社情報・診断へ即移動） -->
     <nav class="sm:hidden bg-white border-b sticky z-40" style="border-color:#E2D9C6;top:64px;">
-        <div class="px-4 py-2.5 flex gap-2 overflow-x-auto" style="scrollbar-width:none;-ms-overflow-style:none;touch-action:pan-x;">
+        <div class="px-4 py-2.5 flex gap-2 overflow-x-auto" style="scrollbar-width:none;-ms-overflow-style:none;overscroll-behavior-x:contain;">
             <a href="#blog" class="flex-shrink-0 px-4 py-2 rounded-full text-sm font-bold text-white whitespace-nowrap" style="background:var(--primary-color);">📝 業務改善コラム</a>
             <a href="#selfcheck" class="flex-shrink-0 px-4 py-2 rounded-full text-sm font-bold whitespace-nowrap" style="background:#EDF3E6;color:var(--primary-color);">⚡ 30秒診断</a>
             <a href="#company" class="flex-shrink-0 px-4 py-2 rounded-full text-sm font-bold whitespace-nowrap" style="background:#EDF3E6;color:var(--primary-color);">🏢 会社情報</a>

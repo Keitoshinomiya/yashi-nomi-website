@@ -45,6 +45,21 @@
         .filter-btn.is-active { background:var(--primary-color); color:#fff; border-color:var(--primary-color); }
         .filter-btn.is-active[data-cat="amazon"] { background:var(--accent-orange); border-color:var(--accent-orange); }
         .filter-btn.is-active[data-cat="culture"] { background:#166A24; border-color:#166A24; }
+
+        /* ===== スマホ最適化：note/NewsPicks風の縦リスト＋ヘッダー整え ===== */
+        @media (max-width: 767px) {
+            header a span { display: none !important; }              /* 社名テキストはロゴで足りる（折れ崩れ防止） */
+            .blog-filter .filter-btn { font-size: 0.76rem !important; padding: 0.4rem 0.7rem !important; }
+            #blog-archive .grid { gap: 12px !important; }
+            #blog-archive a.card { flex-direction: row !important; height: auto !important; }
+            #blog-archive a.card > .relative { flex: 0 0 116px !important; width: 116px !important; height: auto !important; min-height: 104px; align-self: stretch; }
+            #blog-archive a.card > .relative img { height: 100% !important; }
+            #blog-archive a.card > .relative .absolute { display: none !important; }
+            #blog-archive a.card > .p-6 { padding: 11px 13px !important; }
+            #blog-archive a.card h3 { font-size: 0.92rem !important; line-height: 1.45 !important; margin-bottom: 4px !important; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; }
+            #blog-archive a.card .p-6 > p { display: none !important; }
+            #blog-archive a.card .p-6 > span { font-size: 0.74rem !important; }
+        }
     </style>
 
     <link rel="icon" href="https://yashi-nomi.com/images/logo.png" type="image/png" sizes="192x192">

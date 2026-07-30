@@ -171,7 +171,7 @@
 
         /* ── モバイル横スワイプカルーセル（縦長対策） ── */
         @media (max-width: 767px) {
-            .m-carousel { display: flex !important; flex-direction: row !important; justify-content: flex-start !important; overflow-x: auto; scroll-snap-type: x proximity; scroll-padding-left: 16px; gap: 14px !important; padding: 4px 2px 14px; -webkit-overflow-scrolling: touch; scrollbar-width: none; overscroll-behavior-x: contain; }
+            .m-carousel { display: flex !important; flex-direction: row !important; justify-content: flex-start !important; overflow-x: auto; scroll-snap-type: x proximity; scroll-padding-left: 16px; gap: 14px !important; padding: 4px 2px 14px; -webkit-overflow-scrolling: touch; scrollbar-width: none; overscroll-behavior-x: contain; touch-action: pan-x; }
             .m-carousel::-webkit-scrollbar { display: none; }
             .m-carousel > * { flex: 0 0 82%; max-width: 82%; scroll-snap-align: center; }
             /* カルーセル内ではAOSを無効化（透明のまま固まる事故・スワイプ干渉の防止） */
@@ -192,7 +192,7 @@
             .blog-filter .filter-btn { font-size: 0.76rem !important; padding: 0.4rem 0.75rem !important; }
             /* ブログ：スマホは note/NewsPicks 風の縦リスト（サムネ左＋タイトル右） */
             #blog .swipe-hint { display: none !important; }
-            #blog .m-carousel { display: block !important; overflow: visible !important; padding: 0 !important; }
+            #blog .m-carousel { display: block !important; overflow: visible !important; padding: 0 !important; touch-action: auto !important; }
             #blog .m-carousel > a.card { flex: none !important; width: 100% !important; max-width: 100% !important; flex-direction: row !important; height: auto !important; margin-bottom: 12px; scroll-snap-align: none; }
             #blog .m-carousel > a.card > .relative { flex: 0 0 116px !important; width: 116px !important; height: auto !important; min-height: 104px; align-self: stretch; }
             #blog .m-carousel > a.card > .relative img { height: 100% !important; }
@@ -464,7 +464,7 @@
 
     <!-- スマホ専用クイックナビ（一番見てほしいコラム・会社情報・診断へ即移動） -->
     <nav class="sm:hidden bg-white border-b sticky z-40" style="border-color:#E2D9C6;top:64px;">
-        <div class="px-4 py-2.5 flex gap-2 overflow-x-auto" style="scrollbar-width:none;-ms-overflow-style:none;overscroll-behavior-x:contain;">
+        <div class="px-4 py-2.5 flex gap-2 overflow-x-auto" style="scrollbar-width:none;-ms-overflow-style:none;overscroll-behavior-x:contain;touch-action:pan-x;">
             <a href="#blog" class="flex-shrink-0 px-4 py-2 rounded-full text-sm font-bold text-white whitespace-nowrap" style="background:var(--primary-color);">📝 業務改善コラム</a>
             <a href="#selfcheck" class="flex-shrink-0 px-4 py-2 rounded-full text-sm font-bold whitespace-nowrap" style="background:#EDF3E6;color:var(--primary-color);">⚡ 30秒診断</a>
             <a href="#company" class="flex-shrink-0 px-4 py-2 rounded-full text-sm font-bold whitespace-nowrap" style="background:#EDF3E6;color:var(--primary-color);">🏢 会社情報</a>
@@ -651,6 +651,20 @@
 
             <p class="swipe-hint">← 横にスワイプ →</p>
             <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto m-carousel">
+
+                <!-- AUTO ec-coupon-price-formula -->
+                <a href="./column/ec-coupon-price-formula.html" class="card flex flex-col group hover:no-underline h-full" data-cats="auto" data-date="2026-07-30">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="./images/card-ec-coupon-price-formula.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#2F7351;">仕組み化・自動化</div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-lg font-bold text-gray-800 mb-3 group-hover:text-blue-600 transition-colors">「クーポンを出したら赤字だった」を防ぐ価格設計の考え方</h3>
+                        <p class="text-sm text-gray-600 mb-4" style="display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;">クーポン常設で利益率が想定を下回る原因と、受取金額から逆算して表示価格を決める設計方式、100件超を一括更新した自動化フローを解説します。</p>
+                        <span class="mt-auto text-blue-600 font-semibold text-sm flex items-center">記事を読む<svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></span>
+                    </div>
+                </a>
+
                 <!-- 紹介でしか取れない会社がなぜSNSをやるのか（ヤシノミの考え方） -->
                 <a href="./culture/referral-and-broadcast.html" class="card flex flex-col group hover:no-underline h-full" data-cats="culture" data-date="2026-06-17">
                     <div class="relative h-48 overflow-hidden">

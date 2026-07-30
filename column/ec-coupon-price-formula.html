@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PBN7WNCX8N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-PBN7WNCX8N');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ECサイトでクーポンを常設すると、設定次第で利益率が想定を大きく下回ります。この記事では「クーポン適用後の受取金額」から逆算する価格設計の考え方と、スクリプトで大量SKUを一括更新する手順を実例をもとに解説します。">
+    <title>クーポン後の利益率を守る逆算価格設計と大量SKU一括自動更新の進め方 - 合同会社ヤシノミ</title>
+    <meta property="og:title" content="「クーポンを出したら赤字だった」を防ぐ価格設計の考え方">
+    <meta property="og:description" content="ECサイトでクーポンを常設すると、設定次第で利益率が想定を大きく下回ります。この記事では「クーポン適用後の受取金額」から逆算する価格設計の考え方と、スクリプトで大量SKUを一括更新する手順を実例をもとに解説します。">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://yashi-nomi.com/column/ec-coupon-price-formula.html">
+    <meta property="og:image" content="https://yashi-nomi.com/images/ogp.jpg">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0a3d62;
+            --primary-color-dark: #06283d;
+            --accent-orange: #FF9900;
+            --border-color: #e5e7eb;
+            --good: #4E7C59;
+            --alert: #B23A3A;
+        }
+        body { font-family: 'Noto Sans JP', sans-serif; color: #1f2937; background-color: #f8f9fa; }
+        .font-serif-jp { font-family: 'Noto Serif JP', serif; }
+        .primary-color { color: var(--primary-color); }
+        .text-accent { color: var(--accent-orange); }
+        .btn-primary { background-image: linear-gradient(to right, #0a3d62 0%, #06283d 50%, #0a3d62 100%); background-size: 200% auto; color: white; }
+        .btn-primary:hover { background-position: right center; }
+        .marker { background: linear-gradient(transparent 60%, #cfe8ff 60%); font-weight: 700; }
+        .prose h2 { scroll-margin-top: 80px; font-family:'Noto Serif JP',serif; font-size:1.5rem; font-weight:700; color:var(--primary-color); border-left:5px solid var(--accent-orange); padding-left:14px; margin-top:2.5rem; }
+        .prose h3 { font-weight:700; font-size:1.15rem; color:#1f2937; margin-top:1.6rem; }
+        article p, article li { font-size: 1.0625rem; line-height: 1.9; }
+        @media (min-width: 768px) { article p, article li { font-size: 1.125rem; line-height: 1.95; } }
+        .prose ul { list-style:disc; padding-left:1.5rem; } .prose ol { list-style:decimal; padding-left:1.5rem; }
+        .toc a:hover { color: var(--primary-color); text-decoration: underline; }
+        table.data { width:100%; border-collapse:collapse; font-size:0.85rem; }
+        table.data th, table.data td { border:1px solid var(--border-color); padding:8px 10px; text-align:center; }
+        table.data th { background:var(--primary-color); color:#fff; font-weight:700; }
+        table.data tr:nth-child(even) td { background:#fafafa; }
+        table.data td.l { text-align:left; }
+        .note-good { background:#eef5ef; border-left:4px solid var(--good); border-radius:0 8px 8px 0; padding:16px 18px; }
+        .note-alert { background:#fbeeee; border-left:4px solid var(--alert); border-radius:0 8px 8px 0; padding:16px 18px; }
+    </style>
+
+    <link rel="icon" href="/images/icon.png" type="image/png" sizes="192x192">
+    <link rel="shortcut icon" href="/images/icon.png" type="image/png">
+    <link rel="apple-touch-icon" href="/images/icon.png">
+</head>
+<body>
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="../index.html" class="flex items-center gap-2">
+                <img src="../images/logo.png" alt="合同会社ヤシノミ ロゴ" class="h-8 w-auto">
+            </a>
+            <a href="https://line.me/R/ti/p/@756qpakc" target="_blank" class="btn-primary px-4 py-2 rounded text-sm font-bold transition shadow-md">LINEで相談</a>
+        </div>
+    </header>
+
+    <article class="container mx-auto px-6 py-12 max-w-5xl bg-white mt-8 rounded-xl shadow-sm">
+        <div class="flex items-center gap-2 mb-4 flex-wrap">
+            <span class="text-white text-xs font-bold px-3 py-1 rounded" style="background:var(--primary-color);">仕組み化・自動化</span>
+            <span class="text-gray-400 text-xs">業務改善コラム</span>
+        </div>
+        <h1 class="font-serif-jp text-3xl md:text-4xl font-bold mt-2 mb-4 leading-tight text-gray-800" style="letter-spacing:0.02em;">
+            「クーポンを出したら赤字だった」を防ぐ価格設計の考え方
+            <span class="text-2xl md:text-3xl mt-3 block text-gray-600 font-normal">——受取金額から逆算する方式で利益率を担保し、100件超を一括更新した話</span>
+        </h1>
+        <p class="text-sm text-gray-400 mb-8">業務改善コラム ／ 仕組み化・自動化 ／ 読了目安：約8分</p>
+
+        <div class="prose max-w-none text-gray-700 leading-relaxed space-y-8">
+            <p class="text-lg font-medium leading-8 pl-4 p-4 rounded-r" style="border-left:4px solid var(--primary-color);background:#f1f7fd;">
+                ECサイトでクーポンを発行する際、「表示価格を決めてからクーポン額を引く」という順番で設計している事業者は少なくありません。しかしその方法では、<span class="marker">プラットフォーム手数料・送料・原価をすべて差し引いた後の利益が想定より大幅に縮む</span>ことがあります。今回は「受取金額から逆算して表示価格を決める」方式の考え方と、100件超のSKUを自動で一括更新した実作業の流れを紹介します。
+            </p>
+
+            <nav class="toc text-sm bg-gray-50 border rounded-lg p-5" style="border-color:var(--border-color);">
+                <p class="font-bold text-gray-800 mb-3">この記事の内容</p>
+                <ol class="list-decimal pl-5 space-y-1.5 text-gray-600">
+                    <li><a href="#s1">クーポンが利益を食いつぶす仕組み</a></li>
+<li><a href="#s2">逆算価格設計とは何か</a></li>
+<li><a href="#s3">計算式の考え方（ステップ別）</a></li>
+<li><a href="#s4">大量SKUを一括自動更新した作業フロー</a></li>
+<li><a href="#s5">クーポン自動適用との組み合わせ効果</a></li>
+<li><a href="#s6">自社に適用するためのチェックリスト</a></li>
+                </ol>
+            </nav>
+
+            <section id="s1"><h2>クーポンが利益を食いつぶす仕組み</h2><p>ECサイトにおけるクーポン施策は、CVR（購入転換率）を高める有効な手段です。しかし多くの場合、「まず表示価格を決め、その後でクーポン額を乗せる」という順序で設計されます。</p><p>この順序には落とし穴があります。たとえば表示価格から一定額を割り引くクーポンを常設する場合、<strong>割引後の受取金額にプラットフォーム手数料がかかる</strong>ため、実際の手取りは「表示価格－クーポン額－手数料」ではなく「（表示価格－クーポン額）×（1－手数料率）」になります。さらにそこから原価・送料・梱包費を引いた残りが利益です。</p><p>クーポン額が大きいほど、この誤差は拡大します。「クーポン前の利益率は問題なかったのに、クーポン後は赤字ギリギリだった」という事態が起きるのはこのためです。</p><div class="note-alert"><strong>よくある誤解</strong>：「利益率15%あるから¥1,500引きのクーポンを出しても大丈夫」と計算すると、実際にはプラットフォーム手数料の計算基準が変わることで、利益率が想定の半分以下になることがあります。</div></section><section id="s2"><h2>逆算価格設計とは何か</h2><p>逆算価格設計は、設計の順番を入れ替えるシンプルな発想です。「表示価格を決めてからクーポンを引く」のではなく、<strong>「クーポン適用後にいくら受け取りたいかを先に決め、そこから表示価格を算出する」</strong>という順番にします。</p><p>具体的には次の3つを先に固定します。</p><ul><li>最低限確保したい利益率（例：10%）</li><li>発行するクーポンの割引額</li><li>プラットフォーム手数料率・送料・原価</li></ul><p>この3つが決まれば、「クーポン後の受取金額が利益率10%を満たすための表示価格」を一意に計算できます。価格を先に決めてクーポンを後付けするのではなく、クーポンを「コスト」として最初から計算式に組み込むのです。</p></section><section id="s3"><h2>計算式の考え方（ステップ別）</h2><p>実際の計算は以下のステップで進めます。なお具体的な料率や金額は商材・プラットフォームによって異なるため、自社の数値に置き換えてください。</p><ul><li><strong>ステップ1</strong>：クーポン適用後に必要な最低受取額を算出する。<br>最低受取額 ＝（原価 ＋ 送料 ＋ 梱包費）÷（1 － 目標利益率）</li><li><strong>ステップ2</strong>：プラットフォーム手数料を逆算して加算する。<br>クーポン後表示価格 ＝ 最低受取額 ÷（1 － 手数料率）</li><li><strong>ステップ3</strong>：クーポン額を上乗せして最終的な表示価格を出す。<br>表示価格 ＝ クーポン後表示価格 ＋ クーポン額</li><li><strong>ステップ4</strong>：心理的価格（〇〇〇円、〇万円台など）へ丸め、再度利益率を検証する。</li></ul><div class="note-good"><strong>ポイント</strong>：ステップ4の丸め処理で切り上げると利益率は改善し、切り捨てると悪化します。目標利益率ギリギリの場合は必ず切り上げ方向で丸めてください。</div><p>この式をスプレッドシートやスクリプトに実装しておくと、クーポン額や目標利益率を変えるだけで全SKUの適正価格が自動で再計算されます。</p></section><section id="s4"><h2>大量SKUを一括自動更新した作業フロー</h2><p>今回の実作業では、100件を超えるSKUの価格をこの方式で一斉に見直しました。手作業では数日かかる作業量ですが、スクリプト化によって以下のフローで処理しています。</p><ul><li><strong>入力</strong>：商品マスターCSV（原価・手数料率・旧価格・クーポン額）</li><li><strong>処理</strong>：上記のステップ1〜4を各行に適用し、新表示価格を計算</li><li><strong>差分確認</strong>：旧価格と新価格の差・利益率変化を一覧で出力し、目視レビュー</li><li><strong>更新</strong>：差分が確認できたらAPIまたはCSVアップロードで一括反映</li></ul><p>特に重要なのは「差分確認」のステップです。全件を盲目的に更新するのではなく、<strong>値上げ幅が極端に大きいSKUや、逆に利益率が目標を超えすぎているSKU</strong>を抽出して個別に判断します。今回は値上げとなった品目が大半でしたが、一部は旧価格のままが適切と判断し除外しています。</p><p>スクリプト自体はPythonで100行程度。計算ロジックを関数化しておくと、クーポン額や目標利益率が変わった際も1行の修正で全件再計算できます。価格改定の頻度が高い事業者ほど、この仕組みの恩恵は大きくなります。</p></section><section id="s5"><h2>クーポン自動適用との組み合わせ効果</h2><p>価格設計を整えた後、あわせて取り組んだのが「クーポン自動適用」の導線整備です。クーポンコードをユーザーが手入力する形式では、入力を忘れた・面倒と感じた顧客が離脱するリスクがあります。</p><p>対策として、クーポンが自動適用された状態でカートへ誘導するURLを整備しました。SNSや診断コンテンツからの流入に対してこの導線を使うと、<strong>クーポンの発行コストを価格設計で吸収しつつ、ユーザー体験のハードルも下げる</strong>という両立が図れます。</p><div class="note-good"><strong>補足</strong>：クーポン自動適用の実装方法はプラットフォームによって異なります。自社ECの場合はURLパラメータ、モール系の場合はプラットフォームの機能を確認してください。</div></section><section id="s6"><h2>自社に適用するためのチェックリスト</h2><p>同様の仕組みを検討している方向けに、始める前に確認しておきたい項目をまとめます。</p><ul><li>SKUごとに原価・手数料率・送料が正確に把握できているか</li><li>クーポン額は固定か変動か（固定額なら計算式に組み込める）</li><li>価格改定の頻度はどのくらいか（月1回以上なら自動化の効果が高い）</li><li>価格変更をAPIで行えるか、CSVアップロードで行うか（プラットフォームの仕様を確認）</li><li>更新前の差分レビュープロセスを誰が担当するか（完全自動化ではなく人の目を必ず入れる）</li></ul><p>価格設計は「一度決めたら終わり」ではなく、クーポン施策や原価変動に合わせて定期的に見直すものです。計算式とスクリプトをセットで整備しておくと、次回以降の改定コストが大幅に下がります。まずは主要SKU数件だけ試しに計算してみることから始めてみてください。</p></section>
+
+            <div class="p-8 rounded-xl border text-center mt-12" style="border-color:var(--border-color);background:#f1f7fd;">
+                <h3 class="font-serif-jp text-xl font-bold mb-4 text-gray-800">自社の価格設計、一度見直してみませんか？</h3>
+                <p class="mb-6 text-left md:text-center">「クーポンを出すと利益率がどう変わるか計算したい」「大量SKUの一括更新を仕組み化したい」など、LINEでメッセージをいただければ一緒に考えます。予約不要・電話なしで、テキストのやり取りだけで相談できます。</p>
+                <a href="https://line.me/R/ti/p/@756qpakc" target="_blank" class="btn-primary inline-block px-8 py-4 rounded-lg font-bold text-lg shadow-lg transform hover:-translate-y-1 transition duration-300">
+                    LINEで相談する
+                </a>
+            </div>
+        </div>
+
+        <div class="mt-10 text-center">
+            <a href="./index.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium transition-colors">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                業務改善コラム一覧に戻る
+            </a>
+        </div>
+    </article>
+
+    <footer class="text-gray-400 py-8 mt-12 text-center text-xs" style="background:var(--primary-color-dark);">
+        <p>© 2026 合同会社ヤシノミ All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

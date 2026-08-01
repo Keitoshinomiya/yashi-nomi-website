@@ -18,7 +18,7 @@ body {
     --text-dark: #1A1A1A;
     --text-medium: #4B4B4B;
     --text-light: #7C7C7C;
-    --bg-light: #F3F9F3;
+    --bg-light: #FAFBFA;
     --bg-ink: #166A24;
     --border-color: #E6E6E6;
     --border-strong: #C9C9C9;
@@ -176,7 +176,7 @@ strong { font-family: var(--sans); font-weight: 600; }
 a { text-underline-offset: 3px; }
 
 .bg-white { background-color: #FFFFFF !important; }
-.bg-gray-50 { background-color: #F3F9F3 !important; }
+.bg-gray-50 { background-color: #FAFBFA !important; }
 header.bg-white, .heromock { background-color: #FFFFFF !important; }
 /* ── ブランドのシグネチャーストライプ（レトロ縞） ── */
 .brand-stripe { height: 7px; background: repeating-linear-gradient(90deg,
@@ -186,8 +186,8 @@ header.bg-white, .heromock { background-color: #FFFFFF !important; }
 .text-blue-500, .text-blue-600, .text-blue-700 { color: var(--primary-color) !important; }
 .text-blue-800 { color: var(--primary-color-dark) !important; }
 .text-blue-300 { color: #A9C796 !important; }
-.bg-blue-50 { background-color: #EDF3E6 !important; }
-.bg-blue-100 { background-color: #E4EFD9 !important; }
+.bg-blue-50 { background-color: #F2F8F2 !important; }
+.bg-blue-100 { background-color: #E7F2E7 !important; }
 .bg-blue-600 { background-color: var(--primary-color) !important; }
 .border-blue-100 { border-color: #DCE8CC !important; }
 .border-blue-200 { border-color: #CFE0BE !important; }

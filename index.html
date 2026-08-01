@@ -93,7 +93,7 @@
             --text-dark: #1A1A1A;
             --text-medium: #4B4B4B;
             --text-light: #7C7C7C;
-            --bg-light: #F3F9F3;
+            --bg-light: #FAFBFA;
             --bg-ink: #166A24;
             --border-color: #E6E6E6;
             --border-strong: #C9C9C9;
@@ -274,7 +274,7 @@
         a { text-underline-offset: 3px; }
 
         .bg-white { background-color: #FFFFFF !important; }
-        .bg-gray-50 { background-color: #F3F9F3 !important; }
+        .bg-gray-50 { background-color: #FAFBFA !important; }
         header.bg-white, .heromock { background-color: #FFFFFF !important; }
         /* ── ブランドのシグネチャーストライプ（白×緑） ── */
         .brand-stripe { height: 7px; background: repeating-linear-gradient(90deg,
@@ -284,8 +284,8 @@
         .text-blue-500, .text-blue-600, .text-blue-700 { color: var(--primary-color) !important; }
         .text-blue-800 { color: var(--primary-color-dark) !important; }
         .text-blue-300 { color: #A9C796 !important; }
-        .bg-blue-50 { background-color: #EDF3E6 !important; }
-        .bg-blue-100 { background-color: #E4EFD9 !important; }
+        .bg-blue-50 { background-color: #F2F8F2 !important; }
+        .bg-blue-100 { background-color: #E7F2E7 !important; }
         .bg-blue-600 { background-color: var(--primary-color) !important; }
         .border-blue-100 { border-color: #DCE8CC !important; }
         .border-blue-200 { border-color: #CFE0BE !important; }
@@ -1352,19 +1352,19 @@
     <!-- 9.5 END CLIENT PORTAL SECTION -->
 
     <!-- 10. CONTACT SECTION -->
-    <section id="contact" class="py-20 md:py-28 text-white" style="background-color:var(--bg-ink);border-top:3px solid var(--accent-orange);">
+    <section id="contact" class="py-20 md:py-28" style="background-color:#FFFFFF;border-top:3px solid var(--primary-color);">
         <div class="container mx-auto px-6">
             <div class="text-center mb-12" data-aos="fade-up">
-                <p class="section-title-en mb-2" style="color:var(--accent-gold);">Contact</p>
-                <h2 class="text-3xl md:text-4xl font-bold" style="color:#fff;">お問い合わせ・無料相談</h2>
-                <p class="mt-4 text-lg max-w-3xl mx-auto" style="color:rgba(255,255,255,0.78);">「何が詰まっているか分からない」段階で大丈夫です。<br class="hidden md:block">LINEのメッセージひとつでも、30分のオンライン相談でも。仕組みに落とせる部分を一緒に見つけます。</p>
+                <p class="section-title-en mb-2">Contact</p>
+                <h2 class="text-3xl md:text-4xl font-bold" style="color:var(--primary-color-dark);">お問い合わせ・無料相談</h2>
+                <p class="mt-4 text-lg max-w-3xl mx-auto" style="color:var(--text-medium);">「何が詰まっているか分からない」段階で大丈夫です。<br class="hidden md:block">LINEのメッセージひとつでも、30分のオンライン相談でも。仕組みに落とせる部分を一緒に見つけます。</p>
                 <a href="https://line.me/R/ti/p/@756qpakc" target="_blank" rel="noopener"
                    onclick="if(typeof gtag==='function'){gtag('event','click',{'event_category':'cta','event_label':'contact_line'});}"
                    class="btn text-base px-8 py-4 mt-6" style="background:#06C755;border-color:#06C755;color:#fff;">LINEで気軽に相談する（無料）</a>
             </div>
             <div class="grid md:grid-cols-2 gap-10 md:gap-12 items-start">
-                <div class="p-8 rounded-lg" style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.14);" data-aos="fade-right">
-                    <h3 class="text-2xl font-semibold mb-6 text-white">オンライン相談を予約する</h3>
+                <div class="p-8 rounded-lg" style="background:#F7FAF7;border:1px solid var(--border-color);" data-aos="fade-right">
+                    <h3 class="text-2xl font-semibold mb-6" style="color:var(--primary-color-dark);">オンライン相談を予約する</h3>
                     <div class="mb-6">
                         <script src="https://calendar.google.com/calendar/scheduling-button-script.js" async></script>
                         <script>
@@ -1382,7 +1382,7 @@
                         </script>
                     </div>
                 </div>
-                <div class="bg-white rounded-lg shadow-xl p-8 text-gray-800" data-aos="fade-left">
+                <div class="bg-white rounded-lg p-8 text-gray-800" style="border:1px solid var(--border-color);" data-aos="fade-left">
                     <h3 class="text-2xl font-semibold mb-6 text-gray-700">フォームでお問い合わせ</h3>
                     <form name="contact" method="POST" data-netlify="true">
                         <div class="mb-5">

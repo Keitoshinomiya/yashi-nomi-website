@@ -4,7 +4,7 @@
 
 ## ⚡ トークン効率ルール（重要・必ず守る）
 
-このリポジトリは1ファイルが巨大（index.html は約132KB）。読み方を誤ると
+このリポジトリは1ファイルが巨大（index.html は約150KB）。読み方を誤ると
 トークンを大量消費するため、以下を厳守すること。
 
 - **HTMLファイルを全文 Read しない。** 必ず Grep で該当箇所を特定し、
@@ -19,7 +19,7 @@
 
 ## このサイトの正体
 - 合同会社ヤシノミ（大阪府池田市）の公式コーポレートサイト。本業は **Amazon運用支援・ECコンサル**。
-- **静的HTML**。ビルド工程なし。`index.html`（1枚・約85KB）＋ `blog/*.html`。
+- **静的HTML**。ビルド工程なし。`index.html`（1枚・約150KB）＋ `blog/*.html`。
 - ホスティング: **Netlify（GitHub連携で自動デプロイ）**。`origin = github.com/Keitoshinomiya/yashi-nomi-website`。
 - `netlify.toml` は `functions = "netlify/functions"` のみ。**publishはリポジトリ直下** → `main` にpushしたものは即公開。
 
@@ -28,15 +28,20 @@
 - `preview/` は `.gitignore` 済み（仮価格の下書きを誤公開しないため）。
 - 大きな変更は確認用に別ブランチ or ローカルプレビューで。
 
-## デザイントークン（2026-06-12 レトロパレットに刷新。index.html の `<style>` と一致させること）
+## デザイントークン（2026-08-01「白と緑だけ」に刷新＝オーナー指示。旧レトロ配色には戻さないこと）
+定義元は **`assets/site.css` の `:root`** と **index.html の `<style>`**。両方を必ず一致させる。
 - フォント: 見出し `Noto Serif JP`／本文 `Noto Sans JP`+`Inter`
-- `--primary-color:#23AC38`（ヤシノミ・ロゴグリーン。2026-06-16にロゴと統一）/ `--primary-color-dark:#166A24`（グラデ明端 `#4FC25F`）
-- `--accent-orange:#C2551B`（テラコッタ）/ `--accent-gold:#E8A23D`（マスタード）
-- 文字 `#2B2218`（焦げ茶）/ ページ背景 `#FBF6EA`（クリーム）/ 罫線 `#E2D9C6`
-- LINE緑 `#06C755` はLINE系CTA専用。シグネチャー＝レトロストライプ `.brand-stripe`
-- ⚠️ **コラム・カルチャー記事の本文ページとカード画像は旧配色（紺#0a3d62×オレンジ#FF9900）のまま維持する**（オーナー判断：全部揃えない）。記事を新規作成する時も既存記事のトーンに合わせる。一覧ページ（column/index.html）の枠・フィルターはレトロ適用済み
-- モバイルではトップの各カードグリッドを `.m-carousel`（CSSスクロールスナップ）で横スワイプ化している。新セクション追加時もカードが3枚以上並ぶ場合は同クラスを付与
-- 詳細規定: `~/Desktop/yashinomi_sns/BRAND_COLORS.md`
+- `--primary-color:#23AC38`（ヤシノミ・ロゴグリーン）/ `--primary-color-dark:#166A24`（グラデ明端 `#4FC25F`／最暗 `#0F5119`）
+- `--accent-orange:#166A24`（深緑）・`--accent-gold:#BFEFC7`（淡緑）※**変数名は既存互換で据え置き。中身は緑**。橙・金は入れない
+- 文字 `#1A1A1A`／`--text-medium:#4B4B4B`／`--text-light:#7C7C7C`（茶系グレーは使わない）
+- ページ背景 **`#FFFFFF`** / `--bg-light:#F3F9F3` / 罫線 `--border-color:#E6E6E6`
+- 濃色ブロック（ヒーロー・フッター・カード見出し帯）＝ `#123D1B`。濃緑の上では `--accent-orange`（深緑）が沈むので `--accent-gold`（淡緑）に逃がす（`.hero-static .amazon-orange-text` / `footer .amazon-orange-text` に指定済み）
+- LINE緑 `#06C755` はLINE系CTA専用。シグネチャーストライプ `.brand-stripe` は緑3階調×白
+- ⚠️ **記事本文ページ（column/*.html・culture/*.html・blog/*.html）とブログカード画像は旧配色（紺#0a3d62×オレンジ#FF9900）のまま**（オーナー判断：全部揃えない）。一覧ページ `column/index.html` の枠・フィルターは白×緑適用済み
+- ⚠️ `check/index.html`（30秒診断）のバーは「良い→注意→警告」の意味を持つ3色スケールなので緑一色にしない
+- モバイルではトップの各カードグリッドを `.m-carousel` で横スワイプ化。新セクション追加時もカードが3枚以上並ぶ場合は同クラスを付与
+- ⚠️ **`.m-carousel` の `touch-action` を `pan-x` 単独に戻さないこと**（縦スクロールが死ぬ）。斜め流れと縦スクロール不可は両立しないため、JSの方向ロック `lockCarouselAxis()`（index.html末尾）で解決している
+- 詳細規定: `~/Desktop/50_yashinomi_sns/BRAND_COLORS.md`
 
 ## 流用できるコンポーネントclass（既存定義あり）
 - カード: `.card` / `.card-icon-bg`

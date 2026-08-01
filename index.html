@@ -76,10 +76,10 @@
         html { scroll-behavior: smooth; }
         body {
             font-family: 'Inter', 'Noto Sans JP', sans-serif;
-            color: #2B2218;
+            color: #1A1A1A;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
-            background-color: #FBF6EA;
+            background-color: #FFFFFF;
             font-feature-settings: "palt" 1;
             letter-spacing: 0.01em;
             line-height: 1.85;
@@ -88,15 +88,15 @@
         :root {
             --primary-color: #23AC38;
             --primary-color-dark: #166A24;
-            --accent-orange: #C2551B;
-            --accent-gold: #E8A23D;
-            --text-dark: #2B2218;
-            --text-medium: #594A38;
-            --text-light: #8A7A63;
-            --bg-light: #F6F0E2;
+            --accent-orange: #166A24;   /* 旧テラコッタ → 深緑（変数名は既存互換のため据え置き） */
+            --accent-gold: #BFEFC7;    /* 旧マスタード → 淡緑（濃緑ヒーロー上の可読性用） */
+            --text-dark: #1A1A1A;
+            --text-medium: #4B4B4B;
+            --text-light: #7C7C7C;
+            --bg-light: #F3F9F3;
             --bg-ink: #166A24;
-            --border-color: #E2D9C6;
-            --border-strong: #C7BBA2;
+            --border-color: #E6E6E6;
+            --border-strong: #C9C9C9;
             --serif: 'Noto Serif JP', 'Hiragino Mincho ProN', serif;
             --sans: 'Inter', 'Noto Sans JP', sans-serif;
         }
@@ -133,7 +133,7 @@
             content: "";
             position: absolute; right: -180px; top: -180px;
             width: 520px; height: 520px; border-radius: 50%;
-            background: radial-gradient(circle, rgba(255,153,0,0.13) 0%, rgba(255,153,0,0) 65%);
+            background: radial-gradient(circle, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0) 65%);
             pointer-events: none;
         }
         .hero-eyebrow { font-family: var(--sans); font-size: 0.72rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--accent-gold); font-weight: 600; }
@@ -141,6 +141,9 @@
         @media (min-width: 768px) { .hero-title { font-size: 2.8rem; line-height: 1.38; } }
         .hero-title .gold { color: var(--accent-gold); }
         .hero-sub { font-family: var(--sans); font-size: 0.98rem; color: rgba(255,255,255,0.88); line-height: 2; }
+        /* 濃緑背景（ヒーロー・フッター）では深緑アクセントが沈むので淡緑に差し替え */
+        .hero-static .amazon-orange-text,
+        footer .amazon-orange-text { color: var(--accent-gold); }
         @media (min-width: 768px) { .hero-sub { font-size: 1.125rem; } }
         .hero-chip { font-family: var(--sans); font-size: 0.8rem; color: rgba(255,255,255,0.85); display: inline-flex; align-items: center; gap: 0.4rem; letter-spacing: 0.02em; }
         .hero-chip .tick { color: var(--accent-gold); font-weight: 700; }
@@ -155,23 +158,30 @@
         .heromock-body { padding: 16px 18px 14px; }
         .heromock-row { display: flex; align-items: flex-start; gap: 10px; }
         .heromock-avatar { width: 36px; height: 36px; border-radius: 5px; background: var(--accent-orange); color: #fff; font-weight: 700; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; font-family: var(--sans); }
-        .heromock-name { font-family: var(--sans); font-size: 0.82rem; font-weight: 700; color: #2B2218; }
+        .heromock-name { font-family: var(--sans); font-size: 0.82rem; font-weight: 700; color: #1A1A1A; }
         .heromock-name .bot { background: #e5e7eb; color: #6b7280; font-size: 0.58rem; font-weight: 600; padding: 1px 4px; border-radius: 2px; margin-left: 4px; vertical-align: 1px; }
         .heromock-name .time { color: #9ca3af; font-weight: 400; font-size: 0.7rem; margin-left: 6px; }
         .heromock-msg { font-family: var(--sans); font-size: 0.8rem; line-height: 1.85; color: #374151; margin-top: 2px; }
         .heromock-msg .up { color: #15803d; font-weight: 700; }
-        .heromock-msg .warn { color: #b45309; font-weight: 700; }
+        .heromock-msg .warn { color: #166A24; font-weight: 700; }
         .heromock-note { font-family: var(--sans); font-size: 0.68rem; color: #9ca3af; border-top: 1px dashed #e5e7eb; margin-top: 12px; padding-top: 9px; }
         .heromock-badge { position: absolute; top: 0; right: 14px; background: var(--accent-orange); color: #fff; font-family: var(--sans); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; padding: 5px 12px; border-radius: 999px !important; box-shadow: 0 4px 12px rgba(0,0,0,0.25) !important; z-index: 2; }
 
         .heromock-tabs { display: flex; justify-content: center; gap: 8px; margin-top: 14px; }
         .mock-tab { font-family: var(--sans); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.05em; color: rgba(255,255,255,0.75); background: transparent; border: 1px solid rgba(255,255,255,0.35); border-radius: 999px; padding: 5px 14px; cursor: pointer; transition: all 0.2s ease; }
         .mock-tab:hover { border-color: rgba(255,255,255,0.7); color: #fff; }
-        .mock-tab.is-on { background: var(--accent-orange); border-color: var(--accent-orange); color: #fff; }
+        .mock-tab.is-on { background: #fff; border-color: #fff; color: var(--primary-color-dark); }
 
         /* ── モバイル横スワイプカルーセル（縦長対策） ── */
         @media (max-width: 767px) {
-            .m-carousel { display: flex !important; flex-direction: row !important; justify-content: flex-start !important; overflow-x: auto; scroll-snap-type: x proximity; scroll-padding-left: 16px; gap: 14px !important; padding: 4px 2px 14px; -webkit-overflow-scrolling: touch; scrollbar-width: none; overscroll-behavior-x: contain; touch-action: pan-x; }
+            /* ページ自体が横にはみ出すと画面全体が斜めに流れるので、横方向だけ切る。
+               overflow-x:hidden ではなく clip を使う（hiddenはスクロールコンテナを作り、
+               ヘッダーの position:sticky を壊すため） */
+            html, body { overflow-x: clip; max-width: 100%; }
+            /* touch-action は pan-x だけにすると、カード上から始めた縦スワイプで
+               ページが動かなくなる（＝スクロールできない）。両軸を許可し、
+               どちらに動かすかはブラウザ標準の方向ロックに任せる */
+            .m-carousel { display: flex !important; flex-direction: row !important; justify-content: flex-start !important; overflow-x: auto; scroll-snap-type: x proximity; scroll-padding-left: 16px; gap: 14px !important; padding: 4px 2px 14px; -webkit-overflow-scrolling: touch; scrollbar-width: none; overscroll-behavior-x: contain; touch-action: pan-x pan-y; }
             .m-carousel::-webkit-scrollbar { display: none; }
             .m-carousel > * { flex: 0 0 82%; max-width: 82%; scroll-snap-align: center; }
             /* カルーセル内ではAOSを無効化（透明のまま固まる事故・スワイプ干渉の防止） */
@@ -212,7 +222,7 @@
         .sticky-cta { position: fixed; bottom: 0; left: 0; right: 0; z-index: 45; display: flex; box-shadow: 0 -4px 18px rgba(6,40,61,0.22) !important; }
         .sticky-cta a { flex: 1; text-align: center; padding: 0.95rem 0.5rem; font-family: var(--sans); font-weight: 700; font-size: 0.85rem; color: #fff; letter-spacing: 0.03em; }
         .sticky-cta a:first-child { background: #06C755; }
-        .sticky-cta a:last-child { background: #C2551B; }
+        .sticky-cta a:last-child { background: #166A24; }
         @media (min-width: 1024px) { .sticky-cta { display: none; } }
         @media (max-width: 1023px) { body { padding-bottom: 52px; } }
 
@@ -222,7 +232,7 @@
         .btn-outline-primary { background-color: transparent; color: var(--primary-color); border: 1px solid var(--border-strong); }
         .btn-outline-primary:hover { background-color: var(--primary-color); border-color: var(--primary-color); color: #fff; }
         .btn-accent-gold { background-color: var(--accent-orange); color: #fff; border-color: var(--accent-orange); }
-        .btn-accent-gold:hover { background-color: #e88a00; border-color: #e88a00; color: #fff; }
+        .btn-accent-gold:hover { background-color: #0F5119; border-color: #0F5119; color: #fff; }
 
         .section-title-en { font-family: var(--sans); font-size: 0.72rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--accent-orange); font-weight: 600; }
         .section-title-jp { font-family: var(--serif); font-size: 2rem; font-weight: 600; color: var(--primary-color-dark); margin-bottom: 0.75rem; letter-spacing: 0.04em; line-height: 1.45; }
@@ -263,13 +273,13 @@
         /* リンク下線のにじみを抑える */
         a { text-underline-offset: 3px; }
 
-        .bg-white { background-color: #FFFCF4 !important; }
-        .bg-gray-50 { background-color: #F6F0E2 !important; }
-        header.bg-white, .heromock { background-color: #FFFDF8 !important; }
-        /* ── ブランドのシグネチャーストライプ（レトロ縞） ── */
+        .bg-white { background-color: #FFFFFF !important; }
+        .bg-gray-50 { background-color: #F3F9F3 !important; }
+        header.bg-white, .heromock { background-color: #FFFFFF !important; }
+        /* ── ブランドのシグネチャーストライプ（白×緑） ── */
         .brand-stripe { height: 7px; background: repeating-linear-gradient(90deg,
-            #23AC38 0 30px, #F3EBDD 30px 36px, #C2551B 36px 50px, #F3EBDD 50px 56px,
-            #6B4423 56px 64px, #F3EBDD 64px 70px, #9DBE8E 70px 78px, #F3EBDD 78px 84px); }
+            #23AC38 0 30px, #FFFFFF 30px 36px, #166A24 36px 50px, #FFFFFF 50px 56px,
+            #0F5119 56px 64px, #FFFFFF 64px 70px, #7FCB8C 70px 78px, #FFFFFF 78px 84px); }
         /* ── トンマナ統一：Tailwind既定の明るい青 → ブランドへ寄せる ── */
         .text-blue-500, .text-blue-600, .text-blue-700 { color: var(--primary-color) !important; }
         .text-blue-800 { color: var(--primary-color-dark) !important; }
@@ -288,14 +298,14 @@
         .group:hover .group-hover\:text-blue-800 { color: var(--primary-color) !important; }
         /* オレンジも素のTailwindではなくブランドオレンジに統一 */
         .text-orange-500 { color: var(--accent-orange) !important; }
-        .bg-orange-100 { background-color: #F7E8D3 !important; }
+        .bg-orange-100 { background-color: #E7F4E9 !important; }
         /* 旧アクセント（ピンク等）の名残を中立化 */
         .border-pink-300 { border-color: var(--border-strong) !important; }
         /* カルーセルの位置/枚数を示すドット（スマホのみ） */
         .carousel-dots { display: none; }
         @media (max-width: 767px) {
             .carousel-dots { display: flex; justify-content: center; align-items: center; gap: 7px; margin-top: 12px; }
-            .carousel-dots .cdot { width: 7px; height: 7px; border-radius: 50%; border: 0; padding: 0; background: #d8cdb5; transition: all .2s; cursor: pointer; }
+            .carousel-dots .cdot { width: 7px; height: 7px; border-radius: 50%; border: 0; padding: 0; background: #D5E5D7; transition: all .2s; cursor: pointer; }
             .carousel-dots .cdot.on { background: var(--primary-color); width: 18px; border-radius: 4px; }
         }
     </style>
@@ -395,7 +405,7 @@
                         <a href="https://line.me/R/ti/p/@756qpakc" target="_blank" rel="noopener"
                            onclick="if(typeof gtag==='function'){gtag('event','click',{'event_category':'cta','event_label':'hero_line'});}"
                            class="btn text-base px-8 py-4" style="background:#06C755;border:1.5px solid rgba(255,255,255,0.9);color:#fff;">LINEで気軽に相談する（無料）</a>
-                        <a href="#selfcheck" class="btn text-base px-8 py-4" style="background:var(--accent-gold);border:none;color:#2B2218;font-weight:700;box-shadow:0 4px 14px rgba(0,0,0,0.18);">⚡ まずは30秒セルフ診断</a>
+                        <a href="#selfcheck" class="btn text-base px-8 py-4" style="background:var(--accent-gold);border:none;color:#123D1B;font-weight:700;box-shadow:0 4px 14px rgba(0,0,0,0.18);">⚡ まずは30秒セルフ診断</a>
                     </div>
                     <p class="text-xs mb-9 sp-hide" style="color:rgba(255,255,255,0.65);">じっくり話したい方は <a href="https://line.me/R/ti/p/@756qpakc" target="_blank" rel="noopener" class="underline" style="color:rgba(255,255,255,0.85);">30分のオンライン相談</a> も選べます。</p>
                     <div class="flex flex-wrap gap-x-7 gap-y-2 pt-6" style="border-top:1px solid rgba(255,255,255,0.18);">
@@ -410,7 +420,7 @@
                         <span class="heromock-badge">毎朝 7:00 自動配信</span>
                         <div class="heromock">
                             <div class="heromock-bar">
-                                <span class="dot" style="background:#f87171;"></span><span class="dot" style="background:#fbbf24;"></span><span class="dot" style="background:#34d399;"></span>
+                                <span class="dot" style="background:#D9D9D9;"></span><span class="dot" style="background:#D9D9D9;"></span><span class="dot" style="background:#23AC38;"></span>
                                 <span class="ch" id="mock-ch"># 経営ダッシュボード</span>
                             </div>
                             <div class="heromock-body">
@@ -463,8 +473,8 @@
     </section>
 
     <!-- スマホ専用クイックナビ（一番見てほしいコラム・会社情報・診断へ即移動） -->
-    <nav class="sm:hidden bg-white border-b sticky z-40" style="border-color:#E2D9C6;top:64px;">
-        <div class="px-4 py-2.5 flex gap-2 overflow-x-auto" style="scrollbar-width:none;-ms-overflow-style:none;overscroll-behavior-x:contain;touch-action:pan-x;">
+    <nav class="sm:hidden bg-white border-b sticky z-40" style="border-color:#E6E6E6;top:64px;">
+        <div class="px-4 py-2.5 flex gap-2 overflow-x-auto" style="scrollbar-width:none;-ms-overflow-style:none;overscroll-behavior-x:contain;touch-action:pan-x pan-y;">
             <a href="#blog" class="flex-shrink-0 px-4 py-2 rounded-full text-sm font-bold text-white whitespace-nowrap" style="background:var(--primary-color);">📝 業務改善コラム</a>
             <a href="#selfcheck" class="flex-shrink-0 px-4 py-2 rounded-full text-sm font-bold whitespace-nowrap" style="background:#EDF3E6;color:var(--primary-color);">⚡ 30秒診断</a>
             <a href="#company" class="flex-shrink-0 px-4 py-2 rounded-full text-sm font-bold whitespace-nowrap" style="background:#EDF3E6;color:var(--primary-color);">🏢 会社情報</a>
@@ -489,25 +499,9 @@
             </div>
             <p class="swipe-hint">← 横にスワイプ →</p>
             <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto m-carousel">
-                <!-- CHO-JU -->
-                <a href="https://cho-ju.com/" target="_blank" rel="noopener noreferrer" class="card flex flex-col group hover:no-underline" data-aos="fade-up">
-                    <div class="relative h-44 flex flex-col items-center justify-center text-white" style="background-color:var(--primary-color-dark);border-bottom:3px solid var(--accent-orange);">
-                        <span class="font-serif-jp text-3xl" style="color:#fff;letter-spacing:0.18em;">CHO-JU</span>
-                        <span class="uppercase mt-2" style="color:rgba(255,255,255,0.6);font-size:0.7rem;letter-spacing:0.3em;">Amazon / D2C Brand</span>
-                    </div>
-                    <div class="p-7 flex flex-col flex-grow">
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="bg-blue-100 text-blue-800 text-xs px-2 py-0.5 rounded">自社ブランド</span>
-                            <span class="amazon-orange-text text-xs font-bold">Amazon / D2C</span>
-                        </div>
-                        <h3 class="text-xl font-bold text-gray-800 mb-2 group-hover:text-blue-600 transition-colors">CHO-JU（チョージュ）</h3>
-                        <p class="text-sm text-gray-600 leading-relaxed flex-grow">わずか<strong class="primary-color">3商品で会社の主力事業</strong>に育てた自社ブランド。商品企画も、画像も、広告も、在庫も、外注せず自分たちの手で。ここで実際に効いた施策を、お客様の事業に合う形にして持ち込みます。</p>
-                        <span class="mt-4 text-blue-600 font-semibold text-sm flex items-center">公式ストアを見る <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></span>
-                    </div>
-                </a>
-                <!-- COLLEGRANCE -->
-                <a href="https://collegrance.com/" target="_blank" rel="noopener noreferrer" class="card flex flex-col group hover:no-underline" data-aos="fade-up" data-aos-delay="100">
-                    <div class="relative h-44 flex flex-col items-center justify-center text-white" style="background-color:#2B2218;border-bottom:3px solid var(--accent-orange);">
+                <!-- COLLEGRANCE（現在のメイン事業） -->
+                <a href="https://collegrance.com/" target="_blank" rel="noopener noreferrer" class="card flex flex-col group hover:no-underline" data-aos="fade-up">
+                    <div class="relative h-44 flex flex-col items-center justify-center text-white" style="background-color:var(--primary-color-dark);border-bottom:3px solid var(--primary-color);">
                         <span class="font-serif-jp text-3xl" style="color:#fff;letter-spacing:0.18em;">COLLEGRANCE</span>
                         <span class="uppercase mt-2" style="color:rgba(255,255,255,0.6);font-size:0.7rem;letter-spacing:0.3em;">Fragrance Brand</span>
                     </div>
@@ -519,6 +513,22 @@
                         <h3 class="text-xl font-bold text-gray-800 mb-2 group-hover:text-blue-600 transition-colors">COLLEGRANCE（コレグランス）</h3>
                         <p class="text-sm text-gray-600 leading-relaxed flex-grow">「どう知ってもらうか」に挑戦中の自社フレグランスブランド。公式サイト・SNS発信・コンテンツSEO・ECまで内製で運用し、認知の作り方そのものを自分たちで検証しています。</p>
                         <span class="mt-4 text-blue-600 font-semibold text-sm flex items-center">公式サイトを見る <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></span>
+                    </div>
+                </a>
+                <!-- CHO-JU -->
+                <a href="https://cho-ju.com/" target="_blank" rel="noopener noreferrer" class="card flex flex-col group hover:no-underline" data-aos="fade-up" data-aos-delay="100">
+                    <div class="relative h-44 flex flex-col items-center justify-center text-white" style="background-color:#123D1B;border-bottom:3px solid var(--primary-color);">
+                        <span class="font-serif-jp text-3xl" style="color:#fff;letter-spacing:0.18em;">CHO-JU</span>
+                        <span class="uppercase mt-2" style="color:rgba(255,255,255,0.6);font-size:0.7rem;letter-spacing:0.3em;">Amazon / D2C Brand</span>
+                    </div>
+                    <div class="p-7 flex flex-col flex-grow">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="bg-blue-100 text-blue-800 text-xs px-2 py-0.5 rounded">自社ブランド</span>
+                            <span class="amazon-orange-text text-xs font-bold">Amazon / D2C</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2 group-hover:text-blue-600 transition-colors">CHO-JU（チョージュ）</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed flex-grow">わずか<strong class="primary-color">3商品で会社の主力事業</strong>に育てた自社ブランド。商品企画も、画像も、広告も、在庫も、外注せず自分たちの手で。ここで実際に効いた施策を、お客様の事業に合う形にして持ち込みます。</p>
+                        <span class="mt-4 text-blue-600 font-semibold text-sm flex items-center">公式ストアを見る <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></span>
                     </div>
                 </a>
             </div>
@@ -656,7 +666,7 @@
                 <a href="./column/ec-coupon-price-formula.html" class="card flex flex-col group hover:no-underline h-full" data-cats="auto" data-date="2026-07-30">
                     <div class="relative h-48 overflow-hidden">
                         <img src="./images/card-ec-coupon-price-formula.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#2F7351;">仕組み化・自動化</div>
+                        <div class="absolute top-0 left-0 text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#166A24;">仕組み化・自動化</div>
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
                         <h3 class="text-lg font-bold text-gray-800 mb-3 group-hover:text-blue-600 transition-colors">「クーポンを出したら赤字だった」を防ぐ価格設計の考え方</h3>
@@ -684,7 +694,7 @@
                         <img src="./images/card-awareness-value.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                         <div class="absolute top-0 left-0 flex">
                             <span class="text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#166A24;">ヤシノミの考え方</span>
-                            <span class="text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#005A9C;">仕組み化・自動化</span>
+                            <span class="text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#166A24;">仕組み化・自動化</span>
                         </div>
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
@@ -699,7 +709,7 @@
                         <img src="./images/card-niche-market.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                         <div class="absolute top-0 left-0 flex">
                             <span class="text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:var(--accent-orange);">Amazonコラム</span>
-                            <span class="text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#005A9C;">商品開発・市場参入</span>
+                            <span class="text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#166A24;">商品開発・市場参入</span>
                         </div>
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
@@ -755,7 +765,7 @@
                         <img src="./images/card-ads-tier.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                         <div class="absolute top-0 left-0 flex">
                             <span class="text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:var(--accent-orange);">Amazonコラム</span>
-                            <span class="text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#005A9C;">仕組み化・自動化</span>
+                            <span class="text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#166A24;">仕組み化・自動化</span>
                         </div>
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
@@ -798,7 +808,7 @@
                         <img src="./images/card-fba-inventory.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                         <div class="absolute top-0 left-0 flex">
                             <span class="text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:var(--accent-orange);">Amazonコラム</span>
-                            <span class="text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#005A9C;">仕組み化・自動化</span>
+                            <span class="text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#166A24;">仕組み化・自動化</span>
                         </div>
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
@@ -821,7 +831,7 @@
                         <img src="./images/card-cockring.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                         <div class="absolute top-0 left-0 flex">
                             <span class="text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:var(--accent-orange);">Amazonコラム</span>
-                            <span class="text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#005A9C;">商品開発・市場参入</span>
+                            <span class="text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#166A24;">商品開発・市場参入</span>
                         </div>
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
@@ -844,7 +854,7 @@
                         <img src="./images/card-rank.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                         <div class="absolute top-0 left-0 flex">
                             <span class="text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:var(--accent-orange);">Amazonコラム</span>
-                            <span class="text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#005A9C;">仕組み化・自動化</span>
+                            <span class="text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#166A24;">仕組み化・自動化</span>
                         </div>
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
@@ -866,7 +876,7 @@
                     <div class="relative h-48 overflow-hidden">
                         <img src="./images/card-tiktok.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                         <div class="absolute top-0 left-0 flex">
-                            <span class="text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#005A9C;">集客・見える化</span>
+                            <span class="text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#166A24;">集客・見える化</span>
                             <span class="text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#166A24;">EC・新チャネル運用</span>
                         </div>
                     </div>
@@ -910,7 +920,7 @@
                         <img src="./images/card-ads-warning.jpg" alt="" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                         <div class="absolute top-0 left-0 flex">
                             <span class="text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:var(--accent-orange);">Amazonコラム</span>
-                            <span class="text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#005A9C;">仕組み化・自動化</span>
+                            <span class="text-white text-xs font-bold px-3 py-1 rounded-br-lg" style="background:#166A24;">仕組み化・自動化</span>
                         </div>
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
@@ -1410,7 +1420,7 @@
                           window.addEventListener('load', function() {
                             calendar.schedulingButton.load({
                               url: 'https://line.me/R/ti/p/@756qpakc', 
-                              color: '#005A9C', 
+                              color: '#166A24', 
                               label: 'オンライン相談を予約する', 
                               target,
                             });
@@ -1444,7 +1454,7 @@
 
     <div class="brand-stripe"></div>
     <!-- 11. FOOTER -->
-    <footer class="py-16" style="background-color:#22180D;color:#8fa3b5;">
+    <footer class="py-16" style="background-color:#123D1B;color:#BFD6C2;">
         <div class="container mx-auto px-6">
             <div class="grid md:grid-cols-4 gap-10 mb-10">
                 <div class="md:col-span-2">
@@ -1454,7 +1464,7 @@
                     </div>
                     <p class="text-sm mb-1">事業の伸びを止める“ボトルネック”を、数字で見つけて解消する。</p>
                     <p class="text-sm mb-4">自社ブランド運営 × <span class="amazon-orange-text">Amazon</span>運用支援 × 業務DX・自動化</p>
-                    <p class="text-xs" style="color:#5f7488;">〒563-0032 大阪府池田市石橋1-15-33</p>
+                    <p class="text-xs" style="color:#BFD6C2;">〒563-0032 大阪府池田市石橋1-15-33</p>
                     <div class="flex items-center gap-4 mt-5">
                         <a href="https://www.instagram.com/yashinomi_shinomiya/" target="_blank" rel="noopener" aria-label="Instagram" class="text-gray-300 hover:text-white transition-colors">
                             <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.06 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.43.35 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.06 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.43.16-1.06.35-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.06-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.43-.35-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.06-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.43-.16 1.06-.35 2.23-.41 1.27-.06 1.65-.07 4.85-.07M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.3-1.46.72-2.13 1.38C1.35 2.68.94 3.35.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.3.79.72 1.46 1.38 2.13.67.67 1.34 1.08 2.13 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.79-.3 1.46-.72 2.13-1.38.67-.67 1.08-1.34 1.38-2.13.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91-.3-.79-.72-1.46-1.38-2.13C21.32 1.35 20.65.94 19.86.63 19.1.33 18.22.13 16.95.07 15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zM12 16a4 4 0 1 1 4-4 4 4 0 0 1-4 4zm6.41-10.85a1.44 1.44 0 1 0 1.44 1.44 1.44 1.44 0 0 0-1.44-1.44z"/></svg>
@@ -1484,8 +1494,8 @@
                      <ul class="space-y-2.5 text-sm">
                         <li><a href="./column/index.html" class="hover:text-blue-300">業務改善コラム（一覧）</a></li>
                         <li><a href="https://line.me/R/ti/p/@756qpakc" target="_blank" rel="noopener" class="hover:text-blue-300">公式LINE（チェックリスト配布）</a></li>
-                        <li><a href="https://cho-ju.com/" target="_blank" rel="noopener" class="hover:text-blue-300">CHO-JU 公式ストア</a></li>
                         <li><a href="https://collegrance.com/" target="_blank" rel="noopener" class="hover:text-blue-300">COLLEGRANCE 公式サイト</a></li>
+                        <li><a href="https://cho-ju.com/" target="_blank" rel="noopener" class="hover:text-blue-300">CHO-JU 公式ストア</a></li>
                         <li><a href="#client" class="hover:text-blue-300">既存のお客様窓口</a></li>
                         <li><a href="#contact" class="hover:text-blue-300">お問い合わせ</a></li>
                     </ul>
@@ -1604,8 +1614,8 @@
           var meta = document.createElement('div');
           meta.className='card-meta';
           meta.style.cssText='display:flex;align-items:center;gap:8px;margin-bottom:8px;';
-          meta.innerHTML='<time style="font-size:12px;color:#9c8f78;font-weight:600;letter-spacing:.03em;">'+ds.replace(/-/g,'.')+'</time>'+
-            (fresh?'<span style="font-size:10px;font-weight:800;color:#fff;background:#C2551B;border-radius:4px;padding:1px 6px;letter-spacing:.05em;">NEW</span>':'');
+          meta.innerHTML='<time style="font-size:12px;color:#7C7C7C;font-weight:600;letter-spacing:.03em;">'+ds.replace(/-/g,'.')+'</time>'+
+            (fresh?'<span style="font-size:10px;font-weight:800;color:#fff;background:#23AC38;border-radius:4px;padding:1px 6px;letter-spacing:.05em;">NEW</span>':'');
           body.insertBefore(meta, body.firstChild);
         });
         // 新着順に並べ替え → limitは「最新limit件」になる
@@ -1638,6 +1648,42 @@
         if(window.AOS && typeof AOS.refreshHard==='function'){ AOS.refreshHard(); }
         setTimeout(function(){ if(window.AOS && typeof AOS.refresh==='function'){ AOS.refresh(); } }, 600);
         buildDots();
+        lockCarouselAxis();
+      }
+
+      // 横カルーセル上での「斜めスクロール」と「縦に動かせない」を同時に解決する方向ロック。
+      // CSSだけでは両立しない（touch-action:pan-x=縦が死ぬ／auto=斜めに流れる）ため、
+      // 指を置いた最初の数pxで縦横どちらの操作かを判定し、
+      //   縦と判定 → その指が離れるまでカルーセルの横スクロールを止める（＝ページが素直に縦へ動く）
+      //   横と判定 → 何もしない（カルーセルが普通に横スクロールする）
+      function lockCarouselAxis(){
+        document.querySelectorAll('.m-carousel').forEach(function(car){
+          if(car.dataset.axisLock) return;
+          car.dataset.axisLock = '1';
+          var sx = 0, sy = 0, axis = null, savedLeft = 0;
+          car.addEventListener('touchstart', function(e){
+            if(e.touches.length !== 1) return;
+            sx = e.touches[0].clientX; sy = e.touches[0].clientY;
+            axis = null; savedLeft = car.scrollLeft;
+          }, {passive:true});
+          car.addEventListener('touchmove', function(e){
+            if(axis || e.touches.length !== 1) return;
+            var dx = Math.abs(e.touches[0].clientX - sx);
+            var dy = Math.abs(e.touches[0].clientY - sy);
+            if(dx + dy < 8) return;                      // まだ方向が決まらない
+            axis = (dx > dy) ? 'x' : 'y';
+            if(axis === 'y'){                            // 縦操作 → 横スクロールを一時停止
+              car.style.overflowX = 'hidden';
+              car.scrollLeft = savedLeft;                // 位置が飛ばないよう復元
+            }
+          }, {passive:true});
+          ['touchend','touchcancel'].forEach(function(ev){
+            car.addEventListener(ev, function(){
+              if(axis === 'y'){ car.style.overflowX = ''; car.scrollLeft = savedLeft; }
+              axis = null;
+            }, {passive:true});
+          });
+        });
       }
       // 横カルーセルに「位置/枚数」を示すドットを付ける（スマホで横スクロールしている要素のみ）
       function buildDots(){

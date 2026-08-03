@@ -173,6 +173,19 @@
         .mock-tab.is-on { background: #fff; border-color: #fff; color: var(--primary-color-dark); }
 
 
+
+        /* ── つくったもの（works.json 駆動・0件なら非表示） ── */
+        #works[hidden] { display:none; }
+        .works-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+        .work { background:#fff; border:1px solid var(--border-color); border-radius:3px; overflow:hidden; }
+        .work img { width:100%; aspect-ratio:4/3; object-fit:cover; display:block; background:var(--bg-light); }
+        .work figcaption { padding:12px 14px; font-family:var(--sans); font-size:0.8rem; color:var(--text-medium); line-height:1.7; }
+        .work-step { display:inline-block; font-size:0.64rem; font-weight:700; letter-spacing:0.08em; color:var(--primary-color); border:1px solid var(--border-color); border-radius:999px; padding:2px 8px; margin-bottom:6px; }
+        @media (max-width:767px) {
+            .works-grid { grid-template-columns:1fr 1fr; gap:12px; }
+            .work figcaption { padding:9px 10px; font-size:0.74rem; }
+        }
+
         /* ── 自社の物販の工程と、そのうち支援もしている段 ── */
         .proc-grid { display:grid; grid-template-columns:repeat(4,1fr); border:1px solid var(--border-color); border-radius:3px; overflow:hidden; background:#fff; }
         .proc { padding:22px 18px; border-right:1px solid var(--border-color); text-align:left; }
@@ -573,6 +586,20 @@
         </div>
     </section>
     <!-- 2.5 END BRANDS SECTION -->
+
+    <!-- 2.6 WORKS SECTION（つくったもの／works.json 駆動・0件のときは表示されない） -->
+    <section id="works" class="py-20 md:py-28 bg-gray-50" hidden>
+        <div class="container mx-auto px-6 max-w-5xl">
+            <div class="text-center mb-10" data-aos="fade-up">
+                <p class="section-title-en mb-2">Works</p>
+                <h2 class="section-title-jp">つくったもの</h2>
+            </div>
+            <div class="text-center mb-8" id="works-filter" hidden></div>
+            <div class="works-grid" id="works-grid"></div>
+        </div>
+    </section>
+    <!-- 2.6 END WORKS SECTION -->
+
 
 <!-- 5.5 BLOG SECTION -->
     <section id="blog" class="py-20 md:py-28 bg-gray-50 border-b border-gray-200">
@@ -1316,7 +1343,7 @@
                             <tr class="border-b border-gray-200"><th class="py-3 pr-3 text-left font-medium whitespace-nowrap align-top" style="color:var(--text-light);">代表</th><td class="py-3">四宮 慶人</td></tr>
                             <tr class="border-b border-gray-200"><th class="py-3 pr-3 text-left font-medium whitespace-nowrap align-top" style="color:var(--text-light);">設立</th><td class="py-3">2023年4月</td></tr>
                             <tr class="border-b border-gray-200"><th class="py-3 pr-3 text-left font-medium whitespace-nowrap align-top" style="color:var(--text-light);">体制</th><td class="py-3">3名（大阪近郊は訪問対応／全国オンライン）</td></tr>
-                            <tr><th class="py-3 pr-3 text-left font-medium whitespace-nowrap align-top" style="color:var(--text-light);">事業内容</th><td class="py-3">
+                            <tr class="border-b border-gray-200"><th class="py-3 pr-3 text-left font-medium whitespace-nowrap align-top" style="color:var(--text-light);">事業内容</th><td class="py-3">
                                 <div class="flex flex-wrap gap-1.5">
                                     <span class="px-2.5 py-1 text-xs font-semibold border" style="border-color:var(--border-strong);color:var(--text-medium);border-radius:999px !important;">Amazon・EC運用支援</span>
                                     <span class="px-2.5 py-1 text-xs font-semibold border" style="border-color:var(--border-strong);color:var(--text-medium);border-radius:999px !important;">業務改善・DX（仕組み化・自動化）</span>
@@ -1325,6 +1352,7 @@
                                     <span class="px-2.5 py-1 text-xs font-semibold border" style="border-color:var(--border-strong);color:var(--text-medium);border-radius:999px !important;">自社ブランド運営</span>
                                 </div>
                             </td></tr>
+                            <tr><th class="py-3 pr-3 text-left font-medium whitespace-nowrap align-top" style="color:var(--text-light);">登録番号</th><td class="py-3">T7120903004525<span class="block text-xs mt-1" style="color:var(--text-light);">適格請求書発行事業者</span></td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -1679,6 +1707,45 @@
         });
       }
       if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', boot); } else { boot(); }
+    })();
+    </script>
+
+    <!-- つくったもの：works.json を読んで並べる。空なら何も出さない -->
+    <script>
+    (function(){
+      var SEC=document.getElementById('works'); if(!SEC) return;
+      var GRID=document.getElementById('works-grid'), FIL=document.getElementById('works-filter');
+      fetch('works.json',{cache:'no-cache'}).then(function(r){ return r.ok?r.json():[]; }).then(function(items){
+        if(!Array.isArray(items)||!items.length) return;              // 0件＝セクションごと非表示のまま
+        items.sort(function(a,b){ return String(b.date||'').localeCompare(String(a.date||'')); });
+        items.forEach(function(w){
+          var f=document.createElement('figure'); f.className='work'; f.dataset.step=w.step||'';
+          var img=document.createElement('img'); img.src=w.img; img.alt=w.cap||''; img.loading='lazy';
+          var c=document.createElement('figcaption');
+          if(w.step){ var s=document.createElement('span'); s.className='work-step'; s.textContent=w.step; c.appendChild(s); c.appendChild(document.createElement('br')); }
+          c.appendChild(document.createTextNode(w.cap||''));
+          f.appendChild(img); f.appendChild(c); GRID.appendChild(f);
+        });
+        var steps=[]; items.forEach(function(w){ if(w.step && steps.indexOf(w.step)<0) steps.push(w.step); });
+        if(steps.length>1){                                            // 種類が2つ以上になったら絞り込みを出す
+          FIL.hidden=false;
+          ['すべて'].concat(steps).forEach(function(label,i){
+            var b=document.createElement('button');
+            b.type='button'; b.textContent=label;
+            b.className='filter-btn text-sm px-4 py-1.5 border rounded-full mx-1 mb-2'+(i===0?' is-active':'');
+            b.addEventListener('click',function(){
+              FIL.querySelectorAll('button').forEach(function(x){ x.classList.remove('is-active'); });
+              b.classList.add('is-active');
+              GRID.querySelectorAll('.work').forEach(function(w){
+                w.style.display=(i===0||w.dataset.step===label)?'':'none';
+              });
+            });
+            FIL.appendChild(b);
+          });
+        }
+        SEC.hidden=false;
+        if(window.AOS && typeof AOS.refresh==='function'){ AOS.refresh(); }
+      }).catch(function(){});
     })();
     </script>
 </body>

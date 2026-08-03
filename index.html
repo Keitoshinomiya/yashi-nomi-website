@@ -172,6 +172,24 @@
         .mock-tab:hover { border-color: rgba(255,255,255,0.7); color: #fff; }
         .mock-tab.is-on { background: #fff; border-color: #fff; color: var(--primary-color-dark); }
 
+
+        /* ── 自社の物販の工程と、そのうち支援もしている段 ── */
+        .proc-grid { display:grid; grid-template-columns:repeat(4,1fr); border:1px solid var(--border-color); border-radius:3px; overflow:hidden; background:#fff; }
+        .proc { padding:22px 18px; border-right:1px solid var(--border-color); text-align:left; }
+        .proc:last-child { border-right:0; }
+        .proc-num { font-family:var(--sans); font-size:0.64rem; letter-spacing:0.2em; color:var(--text-light); }
+        .proc-title { font-family:var(--serif); font-size:1.15rem; font-weight:600; color:var(--primary-color-dark); margin:6px 0 10px; }
+        .proc-self { font-family:var(--sans); font-size:0.8rem; color:var(--text-medium); line-height:1.8; }
+        .proc-help { margin-top:14px; padding-top:11px; border-top:1px dashed var(--border-color); font-family:var(--sans); font-size:0.78rem; font-weight:700; color:var(--primary-color); }
+        .proc-help small { display:block; font-weight:500; color:var(--text-light); font-size:0.64rem; letter-spacing:0.08em; margin-bottom:3px; }
+        @media (max-width:767px) {
+            .proc-grid { grid-template-columns:1fr 1fr; }
+            .proc { padding:16px 14px; border-bottom:1px solid var(--border-color); }
+            .proc:nth-child(2n) { border-right:0; }
+            .proc:nth-last-child(-n+2) { border-bottom:0; }
+            .proc-title { font-size:1.02rem; }
+        }
+
         /* ── モバイル横スワイプカルーセル（縦長対策） ── */
         @media (max-width: 767px) {
             /* ページ自体が横にはみ出すと画面全体が斜めに流れるので、横方向だけ切る。
@@ -487,14 +505,6 @@
             <div class="text-center mb-16" data-aos="fade-up">
                 <p class="section-title-en mb-2">Our Own Brands</p>
                 <h2 class="section-title-jp">自社ブランドを2つ、運営しています</h2>
-                <div class="flex flex-wrap justify-center items-center gap-2 mt-6">
-                    <span class="px-3 py-1.5 text-xs font-semibold border" style="border-color:var(--border-strong);color:var(--text-medium);border-radius:999px !important;">商品企画</span>
-                    <span class="px-3 py-1.5 text-xs font-semibold border" style="border-color:var(--border-strong);color:var(--text-medium);border-radius:999px !important;">画像制作</span>
-                    <span class="px-3 py-1.5 text-xs font-semibold border" style="border-color:var(--border-strong);color:var(--text-medium);border-radius:999px !important;">広告運用</span>
-                    <span class="px-3 py-1.5 text-xs font-semibold border" style="border-color:var(--border-strong);color:var(--text-medium);border-radius:999px !important;">在庫管理</span>
-                    <span class="px-3 py-1.5 text-xs font-semibold border" style="border-color:var(--border-strong);color:var(--text-medium);border-radius:999px !important;">レビュー対応</span>
-                    <span class="text-sm font-bold primary-color ml-1">→ 全部、自分たちの手で。</span>
-                </div>
             </div>
             <p class="swipe-hint">← 横にスワイプ →</p>
             <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto m-carousel">
@@ -530,6 +540,35 @@
                         <span class="mt-4 text-blue-600 font-semibold text-sm flex items-center">公式ストアを見る <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></span>
                     </div>
                 </a>
+            </div>
+            <div class="mt-14 max-w-5xl mx-auto" data-aos="fade-up">
+                <p class="section-title-en text-center mb-5">What We Do</p>
+                <div class="proc-grid">
+                <div class="proc">
+                    <p class="proc-num">01</p>
+                    <p class="proc-title">つくる</p>
+                    <p class="proc-self">商品を企画して、形にする</p>
+                    <p class="proc-help"><small>他社でも</small>製品開発支援</p>
+                </div>
+                <div class="proc">
+                    <p class="proc-num">02</p>
+                    <p class="proc-title">見せる</p>
+                    <p class="proc-self">商品画像とページ構成をつくる</p>
+                    <p class="proc-help"><small>他社でも</small>デザイン支援</p>
+                </div>
+                <div class="proc">
+                    <p class="proc-num">03</p>
+                    <p class="proc-title">売る</p>
+                    <p class="proc-self">Amazon・自社ECで売る</p>
+                    <p class="proc-help"><small>他社でも</small>Amazon物販支援</p>
+                </div>
+                <div class="proc">
+                    <p class="proc-num">04</p>
+                    <p class="proc-title">直す</p>
+                    <p class="proc-self">数字を見て、詰まりを直す</p>
+                    <p class="proc-help"><small>他社でも</small>ボトルネック解消支援</p>
+                </div>
+                </div>
             </div>
         </div>
     </section>

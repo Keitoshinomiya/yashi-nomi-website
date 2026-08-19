@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PBN7WNCX8N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-PBN7WNCX8N');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Instagram・Threadsのコンテンツが途切れる根本原因は「毎日ゼロから考える」設計にあります。テーマ単位でAI生成→Git管理→自動投稿キューに流す仕組みに変えると、担当者が別の仕事をしている間もSNSが回り続けます。">
+    <title>SNS画像の「ネタ切れ」を仕組みで防ぐ——テーマ単位の量産とGit管理の組み合わせ - 合同会社ヤシノミ</title>
+    <meta property="og:title" content="SNS画像は「テーマ単位」で量産する">
+    <meta property="og:description" content="Instagram・Threadsのコンテンツが途切れる根本原因は「毎日ゼロから考える」設計にあります。テーマ単位でAI生成→Git管理→自動投稿キューに流す仕組みに変えると、担当者が別の仕事をしている間もSNSが回り続けます。">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://yashi-nomi.com/column/ig-asset-theme-batch.html">
+    <meta property="og:image" content="https://yashi-nomi.com/images/ogp.jpg">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0a3d62;
+            --primary-color-dark: #06283d;
+            --accent-orange: #FF9900;
+            --border-color: #e5e7eb;
+            --good: #4E7C59;
+            --alert: #B23A3A;
+        }
+        body { font-family: 'Noto Sans JP', sans-serif; color: #1f2937; background-color: #f8f9fa; }
+        .font-serif-jp { font-family: 'Noto Serif JP', serif; }
+        .primary-color { color: var(--primary-color); }
+        .text-accent { color: var(--accent-orange); }
+        .btn-primary { background-image: linear-gradient(to right, #0a3d62 0%, #06283d 50%, #0a3d62 100%); background-size: 200% auto; color: white; }
+        .btn-primary:hover { background-position: right center; }
+        .marker { background: linear-gradient(transparent 60%, #cfe8ff 60%); font-weight: 700; }
+        .prose h2 { scroll-margin-top: 80px; font-family:'Noto Serif JP',serif; font-size:1.5rem; font-weight:700; color:var(--primary-color); border-left:5px solid var(--accent-orange); padding-left:14px; margin-top:2.5rem; }
+        .prose h3 { font-weight:700; font-size:1.15rem; color:#1f2937; margin-top:1.6rem; }
+        article p, article li { font-size: 1.0625rem; line-height: 1.9; }
+        @media (min-width: 768px) { article p, article li { font-size: 1.125rem; line-height: 1.95; } }
+        .prose ul { list-style:disc; padding-left:1.5rem; } .prose ol { list-style:decimal; padding-left:1.5rem; }
+        .toc a:hover { color: var(--primary-color); text-decoration: underline; }
+        table.data { width:100%; border-collapse:collapse; font-size:0.85rem; }
+        table.data th, table.data td { border:1px solid var(--border-color); padding:8px 10px; text-align:center; }
+        table.data th { background:var(--primary-color); color:#fff; font-weight:700; }
+        table.data tr:nth-child(even) td { background:#fafafa; }
+        table.data td.l { text-align:left; }
+        .note-good { background:#eef5ef; border-left:4px solid var(--good); border-radius:0 8px 8px 0; padding:16px 18px; }
+        .note-alert { background:#fbeeee; border-left:4px solid var(--alert); border-radius:0 8px 8px 0; padding:16px 18px; }
+    </style>
+
+    <link rel="icon" href="/images/icon.png" type="image/png" sizes="192x192">
+    <link rel="shortcut icon" href="/images/icon.png" type="image/png">
+    <link rel="apple-touch-icon" href="/images/icon.png">
+</head>
+<body>
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="../index.html" class="flex items-center gap-2">
+                <img src="../images/logo.png" alt="合同会社ヤシノミ ロゴ" class="h-8 w-auto">
+            </a>
+            <a href="https://line.me/R/ti/p/@756qpakc" target="_blank" class="btn-primary px-4 py-2 rounded text-sm font-bold transition shadow-md">LINEで相談</a>
+        </div>
+    </header>
+
+    <article class="container mx-auto px-6 py-12 max-w-5xl bg-white mt-8 rounded-xl shadow-sm">
+        <div class="flex items-center gap-2 mb-4 flex-wrap">
+            <span class="text-white text-xs font-bold px-3 py-1 rounded" style="background:var(--primary-color);">仕組み化・自動化</span>
+            <span class="text-gray-400 text-xs">業務改善コラム</span>
+        </div>
+        <h1 class="font-serif-jp text-3xl md:text-4xl font-bold mt-2 mb-4 leading-tight text-gray-800" style="letter-spacing:0.02em;">
+            SNS画像は「テーマ単位」で量産する
+            <span class="text-2xl md:text-3xl mt-3 block text-gray-600 font-normal">——命名規則とGit管理で、毎日投稿が途切れない状態を作る</span>
+        </h1>
+        <p class="text-sm text-gray-400 mb-8">業務改善コラム ／ 仕組み化・自動化 ／ 読了目安：約8分</p>
+
+        <div class="prose max-w-none text-gray-700 leading-relaxed space-y-8">
+            <p class="text-lg font-medium leading-8 pl-4 p-4 rounded-r" style="border-left:4px solid var(--primary-color);background:#f1f7fd;">
+                <p>SNSを毎日更新しようとして一番疲弊するのは、画像を作ることではありません。「今日は何を投稿しよう」を毎日考え続けることです。この<span class="marker">判断コストを週1回に圧縮する</span>のが、テーマ単位の量産設計です。</p><p>AIツールとGitを組み合わせることで、「作る作業」と「投稿するタイミング」を切り離し、担当者が他の仕事をしている間もSNSが動き続ける状態を作れます。</p>
+            </p>
+
+            <nav class="toc text-sm bg-gray-50 border rounded-lg p-5" style="border-color:var(--border-color);">
+                <p class="font-bold text-gray-800 mb-3">この記事の内容</p>
+                <ol class="list-decimal pl-5 space-y-1.5 text-gray-600">
+                    <li><a href="#s1">「今日は何を投稿しよう」が一番重い問い</a></li>
+<li><a href="#s2">テーマ単位で作ると「1判断→複数枚」が成立する</a></li>
+<li><a href="#s3">命名規則がコンテンツカレンダーを自然に生む</a></li>
+<li><a href="#s4">GitをSNS資産の管理に使う3つの理由</a></li>
+<li><a href="#s5">生成→コミット→キュー→投稿の流れ</a></li>
+<li><a href="#s6">7日間・6テーマを走らせてみてわかったこと</a></li>
+                </ol>
+            </nav>
+
+            <section id="s1"><h2>「今日は何を投稿しよう」が一番重い問い</h2><p>SNSを毎日更新しようとすると、最初にぶつかる壁が「ネタ探し」です。画像を1枚作るよりも、「何を投稿するか」を決める判断のほうが実際にはコストが高い。これが毎日繰り返されると、SNS担当者は消耗します。特に、担当者が1人のスモールビジネスではその傾向が顕著です。</p><p>解決策はシンプルです。「今日の投稿を考える」という問いを、「今週のテーマを決める」という問いに置き換える。判断の粒度を変えるだけで、日々の負荷はかなり変わります。毎日ゼロから考えるのではなく、週に1回まとめて方向性を決めてしまうのです。</p></section><section id="s2"><h2>テーマ単位で作ると「1判断→複数枚」が成立する</h2><p>投稿1枚ごとにゼロから考えるのをやめ、「テーマ」を先に決めます。たとえば「残暑でも涼しく感じる香り」というテーマを設定すれば、そこから派生する画像は自然と複数枚生まれます。</p><ul><li>フィード用の縦長画像</li><li>テキストオーバーレイを変えた別バージョン</li><li>ストーリーズ向けに縦横比を調整したもの</li><li>季節感の強度を変えた別カット</li></ul><p>テーマが決まれば、あとは「何枚作れるか」という話になります。1テーマあたりまとめて生成しておけば、毎日の投稿コンテンツが数日分まとめて確保されます。「今日の1枚」を作るより、「今週分をまとめて」作るほうが、集中力の使い方として効率的です。</p></section><section id="s3"><h2>命名規則がコンテンツカレンダーを自然に生む</h2><p>このとき重要になるのが、ファイルの命名規則です。私が採用しているのは「テーマスラグ＋日付」という形式です。</p><p><strong>例：</strong><code>zansho-suzushii-2026-08-19</code>、<code>kitsukunai-koe-2026-08-13</code>、<code>shinrinyoku-tamdao-2026-08-18</code></p><p>この命名規則には3つの効果があります。</p><ul><li><strong>一覧性：</strong>フォルダを見ただけで「どのテーマがいつ作られたか」がわかる</li><li><strong>重複防止：</strong>同テーマを再利用しようとしたとき、「先週やったな」と即座に気づける</li><li><strong>スケジュール管理：</strong>日付が入っているので、投稿予定日と紐付けやすい</li></ul><p>コンテンツカレンダーをスプレッドシートで別途管理しようとすると、実態とずれが生じやすくなります。命名規則自体がカレンダーを兼ねることで、管理ツールの数を減らせます。テーマスラグは日本語でなく英小文字とハイフンで書くのがポイントで、検索・スクリプト処理・ファイル名の衝突防止すべてに効いてきます。</p></section><section id="s4"><h2>GitをSNS資産の管理に使う3つの理由</h2><p>生成した画像アセットをGitでバージョン管理しています。「画像ファイルをGitで管理する」というのは珍しく聞こえるかもしれませんが、実際には合理的な理由があります。</p><p><strong>① 変更履歴が残る：</strong>「この画像はいつ、どのテーマで作ったものか」が後から追跡できます。「あのビジュアルをまた使いたい」と思ったとき、コミットログをたどれば一発で見つかります。</p><p><strong>② 機械が読めるシグナルになる：</strong>Gitのコミット＝「このアセットは完成・投稿準備OK」というステータスとして扱えます。後段の自動投稿スクリプトは、コミット済みのファイルをキューとして拾う設計にできます。人間が「これ完成」とフラグを立てる代わりに、コミット操作がフラグになるわけです。</p><p><strong>③ 将来の協業に耐えられる：</strong>デザイナーや外注先と協業する場合、リポジトリを共有するだけで最新アセットが渡せます。「最新版どれですか」という確認コストが消えます。</p><div class="note-good">Gitは本来コード管理のツールですが、「完成物をバージョン付きで記録する」という機能は画像アセットにも有効です。重要なのはツールの本来用途より、「自分たちの運用フローに合っているか」です。</div></section><section id="s5"><h2>生成→コミット→キュー→投稿の流れ</h2><p>実際のパイプラインはこうなっています。</p><ul><li><strong>テーマ決め：</strong>「今週どんな感情・シーンを訴求するか」を週頭にリストアップ</li><li><strong>画像生成：</strong>AIツールを使い、テーマスラグ＋日付の命名で複数枚生成</li><li><strong>Gitコミット：</strong>生成完了したアセットをコミット（この時点で「在庫あり」の状態）</li><li><strong>キューへの投入：</strong>別スクリプトがコミット済みアセットを投稿キューに追加</li><li><strong>自動投稿：</strong>指定時刻にSNSへ自動送信</li></ul><p>ポイントは「生成」と「投稿」が分離していることです。画像を作るタイミングと、投稿が実行される時刻を独立させることで、夜中や休日に投稿が走っていても、生成作業が止まることはありません。</p><div class="note-good">この設計の本質は「作業者（人間）の都合」と「公開スケジュール（読者の都合）」を切り離すことです。多くのスモールビジネスのSNS運用が途切れる原因は、この2つが同期していること——つまり「担当者がいる時しか投稿できない」構造にあります。</div></section><section id="s6"><h2>7日間・6テーマを走らせてみてわかったこと</h2><p>直近7日間、このパイプラインで毎日コミットが走りました。テーマは残暑感・森林浴・憧れ感・余裕感・日曜の夕方・きつくない香りなど、季節や感情軸で設定しました。合計で42枚以上のアセットが積み上がった計算です。</p><p>実際に運用してわかったのは、<strong>テーマ命名の段階で「投稿できそうかどうか」が見える</strong>という点です。うまく言語化できないテーマは、画像にしても訴求が弱くなります。逆に、パッと2〜3語で表現できるテーマは、画像にしても「刺さる1枚」が自然と出てきます。命名が難しければ、そのテーマはまだ熟していないサインです。</p><div class="note-alert">注意点として、テーマのストックが底をつくと一気に止まります。「命名できるテーマを週10個リストアップしておく」というルーティンをセットにしないと、パイプラインだけ立派で中身が空という状態になります。仕組みを動かす「原材料」の補充も設計に含めることが重要です。</div><p>もう一点、気づいたことがあります。このパイプラインが機能している間、私はクライアント案件や経理作業を並行して進めることができました。「コンテンツを作りながら別のことをやる」ではなく、「コンテンツは仕組みが回していて、私は別のことをやる」という状態です。この違いは小さいようで、長期的な運用持続性に大きく影響します。SNS更新が「今日もやらなければ」という義務から、「今週のテーマは何にしようか」という問いに変わることが、継続の鍵です。</p></section>
+
+            <div class="p-8 rounded-xl border text-center mt-12" style="border-color:var(--border-color);background:#f1f7fd;">
+                <h3 class="font-serif-jp text-xl font-bold mb-4 text-gray-800">SNSコンテンツの量産ライン、あなたの業種でどう組むか話してみませんか</h3>
+                <p class="mb-6 text-left md:text-center">業種やリソースによって、どこを自動化するかの優先順位は変わります。LINEで概要を送っていただければ、構成の考え方をお返しします。電話やZoomの予約は不要で、まずはテキストで気軽にどうぞ。</p>
+                <a href="https://line.me/R/ti/p/@756qpakc" target="_blank" class="btn-primary inline-block px-8 py-4 rounded-lg font-bold text-lg shadow-lg transform hover:-translate-y-1 transition duration-300">
+                    LINEで相談する
+                </a>
+            </div>
+        </div>
+
+        <div class="mt-10 text-center">
+            <a href="./index.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium transition-colors">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                業務改善コラム一覧に戻る
+            </a>
+        </div>
+    </article>
+
+    <footer class="text-gray-400 py-8 mt-12 text-center text-xs" style="background:var(--primary-color-dark);">
+        <p>© 2026 合同会社ヤシノミ All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

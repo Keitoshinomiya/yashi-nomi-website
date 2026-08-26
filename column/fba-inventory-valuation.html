@@ -14,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Amazon FBAの在庫は倉庫に分散し日々動くため、月末の棚卸し（在庫評価）が手作業だと重い。私たちはAmazonのレポートAPIで在庫スナップショットを自動取得し、原価マスタと突合して評価額を自動算出→スプレッドシート記録→Slack通知する仕組みを作りました。設計の流れと、APIのレート制限でつまずいた話まで公開します。">
     <title>FBA在庫を毎月“自動で”棚卸し評価する：月末の在庫金額を手集計しない - 合同会社ヤシノミ</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700&family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <style>
         :root {
@@ -26,7 +26,7 @@
             --alert: #B23A3A;
         }
         body { font-family: 'Noto Sans JP', sans-serif; color: #1f2937; background-color: #f8f9fa; }
-        .font-serif-jp { font-family: 'Noto Serif JP', serif; }
+        .font-serif-jp { font-family: 'M PLUS Rounded 1c', 'Noto Sans JP', sans-serif; }
         .primary-color { color: var(--primary-color); }
         .text-accent { color: var(--accent-orange); }
         .btn-primary { background-image: linear-gradient(to right, #0a3d62 0%, #06283d 50%, #0a3d62 100%); background-size: 200% auto; color: white; }

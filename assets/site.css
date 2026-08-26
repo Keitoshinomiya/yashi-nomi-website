@@ -22,7 +22,7 @@ body {
     --bg-ink: #166A24;
     --border-color: #E6E6E6;
     --border-strong: #C9C9C9;
-    --serif: 'Noto Serif JP', 'Hiragino Mincho ProN', serif;
+    --serif: 'M PLUS Rounded 1c', 'Noto Sans JP', sans-serif;
     --sans: 'Inter', 'Noto Sans JP', sans-serif;
 }
 
@@ -41,16 +41,20 @@ h1, h2, h3, .font-serif-jp {
 .accent-gold-text { color: var(--accent-gold); }
 .secondary-color { color: #166A24; }
 
-/* ── 静的ヒーロー（スライダー廃止・1メッセージ集中型） ── */
+/* ── 静的ヒーロー（PPT標準様式のWeb版：白背景＋上下端に細い緑バー＋タイトル下に短い緑ライン） ── */
 .hero-static {
     position: relative;
-    background: linear-gradient(132deg, #166A24 0%, #23AC38 56%, #4FC25F 100%);
+    background: #FFFFFF;
+    border-top: 6px solid var(--primary-color);
+    border-bottom: 6px solid var(--primary-color);
     overflow: hidden;
 }
+/* section:first-of-type の border-top:none に負けないようID指定で明示 */
+#hero.hero-static { border-top: 6px solid var(--primary-color); }
 .hero-static::before {
     content: "";
     position: absolute; inset: 0;
-    background-image: radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px);
+    background-image: radial-gradient(rgba(35,172,56,0.05) 1px, transparent 1px);
     background-size: 24px 24px;
     pointer-events: none;
 }
@@ -58,22 +62,23 @@ h1, h2, h3, .font-serif-jp {
     content: "";
     position: absolute; right: -180px; top: -180px;
     width: 520px; height: 520px; border-radius: 50%;
-    background: radial-gradient(circle, rgba(255,153,0,0.13) 0%, rgba(255,153,0,0) 65%);
+    background: radial-gradient(circle, rgba(35,172,56,0.08) 0%, rgba(35,172,56,0) 65%);
     pointer-events: none;
 }
-.hero-eyebrow { font-family: var(--sans); font-size: 0.72rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--accent-gold); font-weight: 600; }
-.hero-title { font-family: var(--serif); font-size: 2rem; line-height: 1.48; font-weight: 600; letter-spacing: 0.03em; color: #fff; }
+.hero-eyebrow { font-family: var(--sans); font-size: 0.72rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--primary-color); font-weight: 700; }
+.hero-title { font-family: 'M PLUS Rounded 1c', 'Noto Sans JP', sans-serif; font-size: 2rem; line-height: 1.52; font-weight: 800; letter-spacing: 0.02em; color: #1A1A1A; }
+.hero-title::after { content: ""; display: block; width: 64px; height: 4px; background: var(--primary-color); margin-top: 20px; }
 @media (min-width: 768px) { .hero-title { font-size: 2.8rem; line-height: 1.38; } }
-.hero-title .gold { color: var(--accent-gold); }
-.hero-sub { font-family: var(--sans); font-size: 0.98rem; color: rgba(255,255,255,0.88); line-height: 2; }
+.hero-title .gold { color: var(--primary-color-dark); }
+.hero-sub { font-family: var(--sans); font-size: 0.98rem; color: var(--text-medium); line-height: 2; }
 @media (min-width: 768px) { .hero-sub { font-size: 1.125rem; } }
-.hero-chip { font-family: var(--sans); font-size: 0.8rem; color: rgba(255,255,255,0.85); display: inline-flex; align-items: center; gap: 0.4rem; letter-spacing: 0.02em; }
-.hero-chip .tick { color: var(--accent-gold); font-weight: 700; }
+.hero-chip { font-family: var(--sans); font-size: 0.8rem; color: var(--text-medium); display: inline-flex; align-items: center; gap: 0.4rem; letter-spacing: 0.02em; }
+.hero-chip .tick { color: var(--primary-color); font-weight: 700; }
 .btn-ghost-light { background: rgba(255,255,255,0.06); color: #fff; border: 1px solid rgba(255,255,255,0.65); }
 .btn-ghost-light:hover { background: rgba(255,255,255,0.12); color: #fff; border-color: rgba(255,255,255,0.85); }
 
 /* ── ヒーロー右：毎朝届くSlackレポートの実物風モック ── */
-.heromock { background: #fff; border-radius: 6px !important; box-shadow: 0 22px 60px rgba(2,14,26,0.5) !important; overflow: hidden; position: relative; }
+.heromock { background: #fff; border: 1px solid var(--border-color); border-radius: 6px !important; box-shadow: 0 18px 46px rgba(18,61,27,0.14) !important; overflow: hidden; position: relative; }
 .heromock-bar { background: #f4f4f5; border-bottom: 1px solid #e4e4e7; padding: 9px 14px; display: flex; align-items: center; gap: 6px; }
 .heromock-bar .dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
 .heromock-bar .ch { font-family: var(--sans); font-size: 0.72rem; color: #6b7280; margin-left: 8px; letter-spacing: 0.04em; }
@@ -87,12 +92,12 @@ h1, h2, h3, .font-serif-jp {
 .heromock-msg .up { color: #15803d; font-weight: 700; }
 .heromock-msg .warn { color: #166A24; font-weight: 700; }
 .heromock-note { font-family: var(--sans); font-size: 0.68rem; color: #9ca3af; border-top: 1px dashed #e5e7eb; margin-top: 12px; padding-top: 9px; }
-.heromock-badge { position: absolute; top: 0; right: 14px; background: var(--accent-orange); color: #fff; font-family: var(--sans); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; padding: 5px 12px; border-radius: 999px !important; box-shadow: 0 4px 12px rgba(0,0,0,0.25) !important; z-index: 2; }
+.heromock-badge { position: absolute; top: 0; right: 14px; background: var(--accent-orange); color: #fff; font-family: var(--sans); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; padding: 5px 12px; border-radius: 999px !important; box-shadow: 0 4px 12px rgba(18,61,27,0.18) !important; z-index: 2; }
 
 .heromock-tabs { display: flex; justify-content: center; gap: 8px; margin-top: 14px; }
-.mock-tab { font-family: var(--sans); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.05em; color: rgba(255,255,255,0.75); background: transparent; border: 1px solid rgba(255,255,255,0.35); border-radius: 999px; padding: 5px 14px; cursor: pointer; transition: all 0.2s ease; }
-.mock-tab:hover { border-color: rgba(255,255,255,0.7); color: #fff; }
-.mock-tab.is-on { background: var(--accent-orange); border-color: var(--accent-orange); color: #fff; }
+.mock-tab { font-family: var(--sans); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.05em; color: var(--text-medium); background: #fff; border: 1px solid var(--border-color); border-radius: 999px; padding: 5px 14px; cursor: pointer; transition: all 0.2s ease; }
+.mock-tab:hover { border-color: var(--primary-color); color: var(--primary-color-dark); }
+.mock-tab.is-on { background: var(--primary-color); border-color: var(--primary-color); color: #fff; }
 
 /* ── モバイル横スワイプカルーセル（縦長対策） ── */
 @media (max-width: 767px) {

@@ -30,12 +30,13 @@
 
 ## デザイントークン（2026-08-01「白と緑だけ」に刷新＝オーナー指示。旧レトロ配色には戻さないこと）
 定義元は **`assets/site.css` の `:root`** と **index.html の `<style>`**。両方を必ず一致させる。
-- フォント: 見出し `Noto Serif JP`／本文 `Noto Sans JP`+`Inter`
+- フォント: 見出し `M PLUS Rounded 1c`（ロゴ風の丸ゴシック・2026-08-27に明朝から全ページ変更。--serif変数の中身も差し替え済み）／本文 `Noto Sans JP`+`Inter`
 - `--primary-color:#23AC38`（ヤシノミ・ロゴグリーン）/ `--primary-color-dark:#166A24`（グラデ明端 `#4FC25F`／最暗 `#0F5119`）
 - `--accent-orange:#166A24`（深緑）・`--accent-gold:#BFEFC7`（淡緑）※**変数名は既存互換で据え置き。中身は緑**。橙・金は入れない
 - 文字 `#1A1A1A`／`--text-medium:#4B4B4B`／`--text-light:#7C7C7C`（茶系グレーは使わない）
 - ページ背景 **`#FFFFFF`** / `--bg-light:#F3F9F3` / 罫線 `--border-color:#E6E6E6`
-- 濃色ブロック（ヒーロー・フッター・カード見出し帯）＝ `#123D1B`。濃緑の上では `--accent-orange`（深緑）が沈むので `--accent-gold`（淡緑）に逃がす（`.hero-static .amazon-orange-text` / `footer .amazon-orange-text` に指定済み）
+- ヒーローは白背景＋上下6pxの緑バー＋タイトル下に短い緑ライン（PPT標準様式のWeb版・2026-08-27刷新。`section:first-of-type{border-top:none}`対策で `#hero.hero-static` にもborder-top指定あり）
+- 濃色ブロック（フッター・カード見出し帯）＝ `#123D1B`。濃緑の上では `--accent-orange`（深緑）が沈むので `--accent-gold`（淡緑）に逃がす（`footer .amazon-orange-text` に指定済み）
 - LINE緑 `#06C755` はLINE系CTA専用。シグネチャーストライプ `.brand-stripe` は緑3階調×白
 - ⚠️ **記事本文ページ（column/*.html・culture/*.html・blog/*.html）とブログカード画像は旧配色（紺#0a3d62×オレンジ#FF9900）のまま**（オーナー判断：全部揃えない）。一覧ページ `column/index.html` の枠・フィルターは白×緑適用済み
 - ⚠️ `check/index.html`（30秒診断）のバーは「良い→注意→警告」の意味を持つ3色スケールなので緑一色にしない

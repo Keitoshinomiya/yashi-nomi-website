@@ -16,9 +16,8 @@
   #stage { position:relative; width:min(94vw,720px); aspect-ratio:4/3;
            background:radial-gradient(circle at 50% 42%, #3a4150 0%, #15171d 70%);
            border-radius:14px; overflow:hidden; margin-top:12px; box-shadow:0 10px 34px rgba(0,0,0,.55); }
-  #video, #three { position:absolute; inset:0; width:100%; height:100%; }
-  #video { object-fit:cover; transform:scaleX(-1); }
-  #three { transform:scaleX(-1); }
+  #video { display:none; }
+  #three { position:absolute; inset:0; width:100%; height:100%; transform:scaleX(-1); }
   #msg { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; text-align:center;
          font-size:13.5px; color:#cdd5e0; padding:24px; background:rgba(0,0,0,.6); line-height:1.8; }
   .panel { width:min(94vw,720px); background:var(--panel); border:1px solid var(--line);
@@ -60,7 +59,7 @@
   <div class="row sw" id="lensCols">
     <label>レンズ色</label>
   </div>
-  <div class="row"><label>レンズ濃度</label><input id="op" type="range" min="20" max="100" value="66"><span class="val" id="opV">66%</span></div>
+  <div class="row"><label>レンズ濃度</label><input id="op" type="range" min="0" max="95" value="30"><span class="val" id="opV">30%</span></div>
   <div class="row"><label>サイズ</label><input id="sc" type="range" min="85" max="115" value="100"><span class="val" id="scV">100%</span></div>
   <div class="row"><label>上下</label><input id="oy" type="range" min="-15" max="15" value="0"><span class="val" id="oyV">0.0mm</span></div>
   <div class="row"><label>前後</label><input id="oz" type="range" min="-10" max="20" value="0"><span class="val" id="ozV">0.0mm</span></div>
@@ -70,7 +69,7 @@
   </div>
 </div>
 <footer>
-  実寸データ（フレーム幅148mm）／ 色は実製品写真から実測<br>
+  Amazon 3D要件準拠モデル（GLB / 三角形140,000 / 実寸148mm / ノード Frame・TempleR・TempleL・LensR・LensL / レンズ KHR_materials_transmission）<br>
   TORINOX × 合同会社ヤシノミ — 技術デモ（非公開・関係者限り）
 </footer>
 
@@ -90,33 +89,32 @@ import { FilesetResolver, FaceLandmarker } from 'https://unpkg.com/@mediapipe/ta
 const $ = id => document.getElementById(id);
 const msg = $('msg'), video = $('video'), canvas = $('three');
 
-/* ---------- 標準顔空間(cm)での装着位置：標準顔モデルで検証済みの値 ---------- */
-const BASE_POS = { y: 2.90, z: 5.50 };   // 鼻当て接点を鼻梁に一致させる
-
-/* ---------- レンズ色：Amazon実製品写真からピクセル実測 ---------- */
+/* 標準顔モデル(MediaPipe canonical face, cm)上で検証した装着位置 */
+const BASE_POS = { y: 2.90, z: 5.50 };
+/* Amazon実製品写真からピクセル実測したレンズ色 */
 const LENS_COLORS = [
-  { name:'スモーク',   hex:0x5e6266 },
-  { name:'オリーブ',   hex:0x7e7b6c },
-  { name:'ブルー',     hex:0x889aca },
+  { name:'スモーク', hex:0x5e6266 },
+  { name:'オリーブ', hex:0x7e7b6c },
+  { name:'ブルー',   hex:0x889aca },
 ];
 
-/* ---------- three.js ---------- */
-const renderer = new THREE.WebGLRenderer({ canvas, alpha:true, antialias:true });
+const renderer = new THREE.WebGLRenderer({ canvas, antialias:true });
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1.0;
+
 const scene = new THREE.Scene();
 const pmrem = new THREE.PMREMGenerator(renderer);
 scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
-const camera = new THREE.PerspectiveCamera(63, 4/3, 1, 5000);  // MediaPipe計量空間に合わせる
+const camera = new THREE.PerspectiveCamera(63, 4/3, 1, 5000);   // MediaPipe計量空間に合わせる
 scene.add(new THREE.AmbientLight(0xffffff, 0.35));
 const key = new THREE.DirectionalLight(0xffffff, 1.1); key.position.set(0.4, 0.8, 2); scene.add(key);
 
-const anchor = new THREE.Group();   // 顔の姿勢行列を適用
+const anchor = new THREE.Group();
 anchor.matrixAutoUpdate = false;
 anchor.visible = false;
 scene.add(anchor);
-const fit = new THREE.Group();      // 微調整
+const fit = new THREE.Group();
 anchor.add(fit);
 
 const loader = new GLTFLoader();
@@ -124,44 +122,42 @@ const draco = new DRACOLoader();
 draco.setDecoderPath('https://unpkg.com/three@0.160.0/examples/jsm/libs/draco/');
 loader.setDRACOLoader(draco);
 
-/* 顔オクルーダー：色は描かず深度だけ書く → 顔の裏に回ったテンプルが隠れる */
+/* 顔オクルーダー：色を描かず深度だけ書き、顔の裏のテンプルを隠す */
 loader.load('face_occluder.glb', g => {
   const occ = g.scene;
   occ.traverse(o => {
     if (o.isMesh) {
       o.material = new THREE.MeshBasicMaterial({ colorWrite:false });
-      o.renderOrder = -10;
-      o.frustumCulled = false;
+      o.renderOrder = -10; o.frustumCulled = false;
     }
   });
-  occ.scale.setScalar(100);   // m → cm
+  occ.scale.setScalar(100);
   anchor.add(occ);
 });
 
-let glasses = null, lensMat = null;
+let glasses = null;
+const lensMats = [];
 let curLens = LENS_COLORS[0].hex;
 
 function loadModel(file){
   msg.style.display = 'flex'; msg.textContent = 'モデル読み込み中…';
   loader.load(file, g => {
-    if (glasses) { fit.remove(glasses); }
-    glasses = g.scene; lensMat = null;
+    if (glasses) fit.remove(glasses);
+    glasses = g.scene; lensMats.length = 0;
     glasses.traverse(o => {
       if (!o.isMesh) return;
       o.frustumCulled = false;
-      o.renderOrder = 1;
       const ms = Array.isArray(o.material) ? o.material : [o.material];
       ms.forEach(m => {
-        m.envMapIntensity = 0.45;          // 反射を抑えて白飛びを防ぐ
-        if (m.name === 'Lens') {
-          lensMat = m;
-          m.transparent = true;
-          m.depthWrite = false;
-          m.roughness = 0.11;
-          m.envMapIntensity = 0.30;
+        const isLens = /Lens/i.test(o.name) || /Lens/i.test(m.name || '');
+        if (isLens) {
+          lensMats.push(m);
+          m.envMapIntensity = 0.35;
+          o.renderOrder = 2;
+        } else {
+          m.envMapIntensity = 0.55;
+          o.renderOrder = 1;
         }
-        if (m.name === 'Frame')  m.envMapIntensity = 0.55;
-        if (m.name === 'Accent') m.envMapIntensity = 0.9;
       });
     });
     glasses.scale.setScalar(100);   // m → cm
@@ -171,7 +167,6 @@ function loadModel(file){
   }, undefined, () => { msg.textContent = 'モデル読み込みに失敗しました: ' + file; });
 }
 
-/* ---------- UI ---------- */
 const swWrap = $('lensCols');
 LENS_COLORS.forEach((c, i) => {
   const b = document.createElement('button');
@@ -186,11 +181,11 @@ LENS_COLORS.forEach((c, i) => {
 });
 
 function applyLens(){
-  const v = +$('op').value; $('opV').textContent = v + '%';
-  if (lensMat) {
-    lensMat.color.setHex(curLens, THREE.SRGBColorSpace);
-    lensMat.opacity = v / 100;
-  }
+  const d = +$('op').value; $('opV').textContent = d + '%';
+  lensMats.forEach(m => {
+    m.color.setHex(curLens, THREE.SRGBColorSpace);
+    m.transmission = 1 - d / 100;      // 濃度を上げるほど透過を下げる
+  });
 }
 function applyFit(){
   const s = +$('sc').value / 100, oy = +$('oy').value, oz = +$('oz').value;
@@ -198,7 +193,7 @@ function applyFit(){
   $('oyV').textContent = oy.toFixed(1) + 'mm';
   $('ozV').textContent = oz.toFixed(1) + 'mm';
   fit.scale.setScalar(s);
-  fit.position.set(0, BASE_POS.y + oy/10, BASE_POS.z + oz/10);   // mm → cm
+  fit.position.set(0, BASE_POS.y + oy/10, BASE_POS.z + oz/10);
 }
 $('op').oninput = applyLens;
 ['sc','oy','oz'].forEach(id => $(id).oninput = applyFit);
@@ -210,15 +205,13 @@ $('models').querySelectorAll('button').forEach(b => {
   };
 });
 
-/* 写真保存：映像と3Dを合成（映像と同じく左右反転で書き出す） */
+/* 写真保存：canvasに映像も3Dも入っているので左右反転して書き出す */
 $('shot').onclick = () => {
-  const w = video.videoWidth || 960, h = video.videoHeight || 720;
+  const w = canvas.width, h = canvas.height;
   const c = document.createElement('canvas'); c.width = w; c.height = h;
   const ctx = c.getContext('2d');
-  ctx.save(); ctx.translate(w, 0); ctx.scale(-1, 1);
-  if (video.videoWidth) ctx.drawImage(video, 0, 0, w, h);
-  ctx.drawImage(canvas, 0, 0, w, h);
-  ctx.restore();
+  ctx.translate(w, 0); ctx.scale(-1, 1);
+  ctx.drawImage(canvas, 0, 0);
   const a = document.createElement('a');
   a.download = 'torinox-tryon.png';
   a.href = c.toDataURL('image/png');
@@ -228,7 +221,6 @@ $('shot').onclick = () => {
 applyFit();
 loadModel('glasses_A.glb');
 
-/* ---------- MediaPipe ---------- */
 let landmarker = null, running = false, lastT = -1;
 const faceMat = new THREE.Matrix4();
 
@@ -252,6 +244,11 @@ async function start(){
     const stream = await navigator.mediaDevices.getUserMedia({ video:{ width:{ideal:960}, height:{ideal:720}, facingMode:'user' } });
     video.srcObject = stream;
     await new Promise(r => video.onloadedmetadata = r);
+    await video.play();
+    /* 映像を3Dシーンの背景にする → レンズのtransmissionが顔を透かす */
+    const vt = new THREE.VideoTexture(video);
+    vt.colorSpace = THREE.SRGBColorSpace;
+    scene.background = vt;
     resize(); running = true; msg.style.display = 'none';
     requestAnimationFrame(loop);
   } catch(e) {
@@ -281,7 +278,6 @@ function loop(){
   requestAnimationFrame(loop);
 }
 
-/* カメラ不可時：ターンテーブル表示（顔オクルーダーは隠す） */
 function demo(){
   resize();
   anchor.visible = true;

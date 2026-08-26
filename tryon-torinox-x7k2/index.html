@@ -102,7 +102,7 @@ const $ = id => document.getElementById(id);
 const msg = $('msg'), video = $('video'), canvas = $('three');
 
 /* 標準顔モデル(MediaPipe canonical face, cm)上で検証した装着位置 */
-const BASE_POS = { y: 2.90, z: 5.50 };
+const BASE_POS = { y: 2.55, z: 5.50 };
 /* レンズ色 = 実製品写真から実測した「色相」を明るさ1.0に正規化したリニアRGB。
    実際の濃さは下のVLT（可視光線透過率）スライダーで決める。 */
 const LENS_COLORS = [
@@ -167,13 +167,16 @@ function loadModel(file){
         const n = m.name || '';
         if (n === 'LensMat') {
           if (!lensMats.includes(m)) lensMats.push(m);
-          m.envMapIntensity = 0.25;      // 反射を抑えて中が見えるように
+          // レンズ縁やブリッジに白い筋が出るのを防ぐ（環境反射を落とし裏面を描かない）
+          m.envMapIntensity = 0.05;
+          m.roughness = 0.20;
+          m.side = THREE.FrontSide;
           o.renderOrder = 2;
         } else if (n === 'AccentMat') {
-          m.envMapIntensity = 1.10;      // 金属らしく
+          m.envMapIntensity = 0.45;      // サテン仕上げ。白飛びを抑える
           o.renderOrder = 1;
         } else {
-          m.envMapIntensity = 0.50;
+          m.envMapIntensity = 0.30;
           o.renderOrder = 1;
         }
       });

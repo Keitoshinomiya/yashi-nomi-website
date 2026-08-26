@@ -102,7 +102,7 @@ const $ = id => document.getElementById(id);
 const msg = $('msg'), video = $('video'), canvas = $('three');
 
 /* 標準顔モデル(MediaPipe canonical face, cm)上で検証した装着位置 */
-const BASE_POS = { y: 2.55, z: 5.50 };
+const BASE_POS = { y: 2.05, z: 5.50 };
 /* レンズ色 = 実製品写真から実測した「色相」を明るさ1.0に正規化したリニアRGB。
    実際の濃さは下のVLT（可視光線透過率）スライダーで決める。 */
 const LENS_COLORS = [

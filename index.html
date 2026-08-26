@@ -372,6 +372,12 @@
             .carousel-dots .cdot { width: 7px; height: 7px; border-radius: 50%; border: 0; padding: 0; background: #D5E5D7; transition: all .2s; cursor: pointer; }
             .carousel-dots .cdot.on { background: var(--primary-color); width: 18px; border-radius: 4px; }
         }
+
+        /* ナビ・メニュー・CTA・フッターなどのUI文字もロゴ風丸ゴシックに統一（本文はNoto Sansのまま）
+           ※ var(--sans)指定より後に読ませるため、styleブロックの末尾に置くこと */
+        header, #mobile-menu-body, .sticky-cta a, footer, .btn, .filter-btn, .works-more button, .mock-tab {
+            font-family: 'M PLUS Rounded 1c', 'Noto Sans JP', sans-serif;
+        }
     </style>
     <!-- 構造化データ -->
     <script type="application/ld+json">

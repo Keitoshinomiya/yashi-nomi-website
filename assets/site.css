@@ -208,3 +208,9 @@ header.bg-white, .heromock { background-color: #FFFFFF !important; }
 .bg-orange-100 { background-color: #E7F4E9 !important; }
 /* 旧アクセント（ピンク等）の名残を中立化 */
 .border-pink-300 { border-color: var(--border-strong) !important; }
+
+/* ナビ・メニュー・CTA・フッターなどのUI文字もロゴ風丸ゴシックに統一（本文はNoto Sansのまま）
+   ※ var(--sans)指定より後に効かせるためファイル末尾に置くこと */
+header, #mobile-menu-body, .sticky-cta a, footer, .btn, .filter-btn, .works-more button, .mock-tab {
+    font-family: 'M PLUS Rounded 1c', 'Noto Sans JP', sans-serif;
+}

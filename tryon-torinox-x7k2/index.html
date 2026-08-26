@@ -29,6 +29,9 @@
   .chips button.active { background:var(--accent); border-color:var(--accent); color:#07131f; font-weight:700; }
   .sw button { width:34px; height:34px; border-radius:50%; border:2px solid #3a4150; cursor:pointer; padding:0; }
   .sw button.active { border-color:var(--accent); box-shadow:0 0 0 2px rgba(77,163,255,.35); }
+  .pcbtn { background:#252932; color:var(--text); border:1px solid #39404e; border-radius:7px;
+           padding:5px 12px; font-size:12px; cursor:pointer; }
+  .pcbtn.active { background:var(--accent); border-color:var(--accent); color:#07131f; font-weight:700; }
   input[type=range] { flex:1; min-width:150px; accent-color:var(--accent); }
   .val { font-size:11.5px; color:#8b94a4; width:4.2em; text-align:right; }
   .act { display:flex; gap:10px; margin-top:12px; flex-wrap:wrap; }
@@ -59,17 +62,25 @@
   <div class="row sw" id="lensCols">
     <label>レンズ色</label>
   </div>
-  <div class="row"><label>レンズ透過率</label><input id="op" type="range" min="8" max="65" value="30"><span class="val" id="opV">30%</span></div>
+  <div class="row"><label>レンズ透過率</label><input id="op" type="range" min="3" max="70" value="8"><span class="val" id="opV">8%</span></div>
+  <div class="row">
+    <label>調光レンズ</label>
+    <button id="pcOff" class="pcbtn active">なし</button>
+    <button id="pcIn" class="pcbtn">屋内</button>
+    <button id="pcOut" class="pcbtn">屋外</button>
+    <span class="val" id="pcNote"></span>
+  </div>
   <div class="row"><label>サイズ</label><input id="sc" type="range" min="85" max="115" value="100"><span class="val" id="scV">100%</span></div>
   <div class="row"><label>上下</label><input id="oy" type="range" min="-15" max="15" value="0"><span class="val" id="oyV">0.0mm</span></div>
   <div class="row"><label>前後</label><input id="oz" type="range" min="-10" max="20" value="0"><span class="val" id="ozV">0.0mm</span></div>
   <div class="act">
     <button id="shot" class="primary">写真を保存</button>
+    <button id="export">設定を書き出す</button>
     <button id="reset">位置をリセット</button>
   </div>
 </div>
 <footer>
-  Amazon 3D要件準拠（GLB / 三角形131,194 / 実寸148mm / ノード Frame・TempleR・TempleL・LensR・LensL / レンズ KHR_materials_transmission / glTF-Validator エラー0）<br>
+  Amazon 3D要件準拠（GLB / 三角形131,450 / 実寸148mm / ノード Frame・TempleR・TempleL・LensR・LensL / レンズ KHR_materials_transmission / glTF-Validator エラー0）<br>
   フレーム #262523・アクセント #a4a097 は実製品写真からの実測値<br>
   TORINOX × 合同会社ヤシノミ — 技術デモ（非公開・関係者限り）
 </footer>
@@ -95,11 +106,13 @@ const BASE_POS = { y: 2.90, z: 5.50 };
 /* レンズ色 = 実製品写真から実測した「色相」を明るさ1.0に正規化したリニアRGB。
    実際の濃さは下のVLT（可視光線透過率）スライダーで決める。 */
 const LENS_COLORS = [
-  { name:'スモーク', tint:[1.00, 1.00, 1.03], swatch:'#9e9e9f' },
-  { name:'ブラウン', tint:[1.39, 1.09, 0.52], swatch:'#b7a578' },
-  { name:'グリーン', tint:[1.13, 1.07, 0.80], swatch:'#a8a390' },
-  { name:'ブルー',   tint:[0.64, 0.84, 1.52], swatch:'#8393bf' },
+  { name:'スモーク', tint:[1.00, 1.00, 1.03], swatch:'#9e9e9f', vlt:8 },
+  { name:'ブラウン', tint:[1.39, 1.09, 0.52], swatch:'#b7a578', vlt:8 },
+  { name:'グリーン', tint:[1.13, 1.07, 0.80], swatch:'#a8a390', vlt:8 },
+  { name:'ブルー',   tint:[0.64, 0.84, 1.52], swatch:'#8393bf', vlt:8 },
 ];
+/* 調光レンズの演出用（実物は屋外で約60秒かけて濃くなる） */
+const PHOTO = { indoor:55, outdoor:10, ms:2500 };
 
 const renderer = new THREE.WebGLRenderer({ canvas, antialias:true });
 renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -180,14 +193,56 @@ LENS_COLORS.forEach((c, i) => {
   if (i === 0) b.classList.add('active');
   b.onclick = () => {
     swWrap.querySelectorAll('button').forEach(x => x.classList.remove('active'));
-    b.classList.add('active'); curLens = c; applyLens();
+    b.classList.add('active');
+    curLens = c;
+    $('op').value = c.vlt;            // その色に記憶された透過率を復元
+    applyLens();
   };
   swWrap.appendChild(b);
 });
 
-function applyLens(){
-  const vlt = +$('op').value / 100;          // 可視光線透過率
-  $('opV').textContent = Math.round(vlt*100) + '%';
+/* ---- 調光レンズの演出（実物は屋外で約60秒かけて変化） ---- */
+let photoMode = null, animId = null;
+function markPC(id){
+  ['pcOff','pcIn','pcOut'].forEach(k => $(k).classList.toggle('active', k === id));
+}
+function animateVLT(from, to){
+  if (animId) cancelAnimationFrame(animId);
+  const t0 = performance.now();
+  (function step(now){
+    const k = Math.min(1, (now - t0) / PHOTO.ms);
+    const e = k < 0.5 ? 2*k*k : 1 - Math.pow(-2*k+2, 2)/2;   // ease-in-out
+    setLensVLT(from + (to - from) * e);
+    if (k < 1) animId = requestAnimationFrame(step);
+  })(t0);
+}
+$('pcOff').onclick = () => { photoMode = null; markPC('pcOff'); $('pcNote').textContent=''; setLensVLT(curLens.vlt); };
+$('pcIn').onclick  = () => {
+  const from = photoMode === 'out' ? PHOTO.outdoor : +$('opV').textContent.replace('%','');
+  photoMode = 'in'; markPC('pcIn'); $('pcNote').textContent = PHOTO.indoor + '%';
+  animateVLT(from, PHOTO.indoor);
+};
+$('pcOut').onclick = () => {
+  const from = photoMode === 'in' ? PHOTO.indoor : +$('opV').textContent.replace('%','');
+  photoMode = 'out'; markPC('pcOut'); $('pcNote').textContent = PHOTO.outdoor + '%';
+  animateVLT(from, PHOTO.outdoor);
+};
+
+/* ---- 設定の書き出し（TORINOX側で決めた値をそのまま共有できるように） ---- */
+$('export').onclick = () => {
+  const model = $('models').querySelector('button.active').textContent.trim();
+  const lines = ['TORINOX バーチャル試着デモ — レンズ設定', '対象モデル: ' + model, ''];
+  LENS_COLORS.forEach(c => lines.push(`${c.name}　VLT ${c.vlt}%`));
+  lines.push('', `調光レンズ演出: 屋内 ${PHOTO.indoor}% / 屋外 ${PHOTO.outdoor}%`);
+  const txt = lines.join('\n');
+  navigator.clipboard.writeText(txt)
+    .then(() => alert('設定をコピーしました。\n\n' + txt))
+    .catch(() => alert(txt));
+};
+
+function setLensVLT(pct){
+  const vlt = pct / 100;
+  $('opV').textContent = Math.round(pct) + '%';
   const t = curLens.tint;
   lensMats.forEach(m => {
     // 透過光 = 背景 × color。色相はtint、明るさはVLTで決まる（リニア空間で指定）
@@ -195,6 +250,12 @@ function applyLens(){
     m.transmission = 1.0;
     m.needsUpdate = true;
   });
+}
+function applyLens(){
+  const pct = +$('op').value;
+  curLens.vlt = pct;                 // 色ごとに設定を記憶
+  photoMode = null; markPC('pcOff');
+  setLensVLT(pct);
 }
 function applyFit(){
   const s = +$('sc').value / 100, oy = +$('oy').value, oz = +$('oz').value;

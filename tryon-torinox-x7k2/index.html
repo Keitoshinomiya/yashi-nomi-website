@@ -59,7 +59,7 @@
   <div class="row sw" id="lensCols">
     <label>レンズ色</label>
   </div>
-  <div class="row"><label>レンズ濃度</label><input id="op" type="range" min="0" max="95" value="30"><span class="val" id="opV">30%</span></div>
+  <div class="row"><label>レンズ濃度</label><input id="op" type="range" min="0" max="90" value="0"><span class="val" id="opV">0%</span></div>
   <div class="row"><label>サイズ</label><input id="sc" type="range" min="85" max="115" value="100"><span class="val" id="scV">100%</span></div>
   <div class="row"><label>上下</label><input id="oy" type="range" min="-15" max="15" value="0"><span class="val" id="oyV">0.0mm</span></div>
   <div class="row"><label>前後</label><input id="oz" type="range" min="-10" max="20" value="0"><span class="val" id="ozV">0.0mm</span></div>
@@ -69,7 +69,8 @@
   </div>
 </div>
 <footer>
-  Amazon 3D要件準拠モデル（GLB / 三角形140,000 / 実寸148mm / ノード Frame・TempleR・TempleL・LensR・LensL / レンズ KHR_materials_transmission）<br>
+  Amazon 3D要件準拠（GLB / 三角形141,994 / 実寸148mm / ノード Frame・TempleR・TempleL・LensR・LensL / レンズ KHR_materials_transmission / glTF-Validator エラー0）<br>
+  フレーム #262523・アクセント #a4a097 は実製品写真からの実測値<br>
   TORINOX × 合同会社ヤシノミ — 技術デモ（非公開・関係者限り）
 </footer>
 
@@ -91,24 +92,25 @@ const msg = $('msg'), video = $('video'), canvas = $('three');
 
 /* 標準顔モデル(MediaPipe canonical face, cm)上で検証した装着位置 */
 const BASE_POS = { y: 2.90, z: 5.50 };
-/* Amazon実製品写真からピクセル実測したレンズ色 */
+/* Amazon実製品写真からピクセル実測したレンズ色（透過レンズの色味） */
 const LENS_COLORS = [
-  { name:'スモーク', hex:0x5e6266 },
-  { name:'オリーブ', hex:0x7e7b6c },
-  { name:'ブルー',   hex:0x889aca },
+  { name:'スモーク', hex:0xa8adb2 },
+  { name:'ブラウン', hex:0xbda87a },
+  { name:'グリーン', hex:0xa3a684 },
+  { name:'ブルー',   hex:0x9fb3e0 },
 ];
+const BASE_TRANSMISSION = 0.96;
 
 const renderer = new THREE.WebGLRenderer({ canvas, antialias:true });
 renderer.outputColorSpace = THREE.SRGBColorSpace;
-renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.0;
+renderer.toneMapping = THREE.NoToneMapping;   // レンズ色を忠実に出すため
 
 const scene = new THREE.Scene();
 const pmrem = new THREE.PMREMGenerator(renderer);
 scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
 const camera = new THREE.PerspectiveCamera(63, 4/3, 1, 5000);   // MediaPipe計量空間に合わせる
-scene.add(new THREE.AmbientLight(0xffffff, 0.35));
-const key = new THREE.DirectionalLight(0xffffff, 1.1); key.position.set(0.4, 0.8, 2); scene.add(key);
+scene.add(new THREE.AmbientLight(0xffffff, 0.30));
+const key = new THREE.DirectionalLight(0xffffff, 0.8); key.position.set(0.4, 0.8, 2); scene.add(key);
 
 const anchor = new THREE.Group();
 anchor.matrixAutoUpdate = false;
@@ -149,13 +151,16 @@ function loadModel(file){
       o.frustumCulled = false;
       const ms = Array.isArray(o.material) ? o.material : [o.material];
       ms.forEach(m => {
-        const isLens = /Lens/i.test(o.name) || /Lens/i.test(m.name || '');
-        if (isLens) {
-          lensMats.push(m);
-          m.envMapIntensity = 0.35;
+        const n = m.name || '';
+        if (n === 'LensMat') {
+          if (!lensMats.includes(m)) lensMats.push(m);
+          m.envMapIntensity = 0.25;      // 反射を抑えて中が見えるように
           o.renderOrder = 2;
+        } else if (n === 'AccentMat') {
+          m.envMapIntensity = 1.10;      // 金属らしく
+          o.renderOrder = 1;
         } else {
-          m.envMapIntensity = 0.55;
+          m.envMapIntensity = 0.50;
           o.renderOrder = 1;
         }
       });
@@ -184,7 +189,8 @@ function applyLens(){
   const d = +$('op').value; $('opV').textContent = d + '%';
   lensMats.forEach(m => {
     m.color.setHex(curLens, THREE.SRGBColorSpace);
-    m.transmission = 1 - d / 100;      // 濃度を上げるほど透過を下げる
+    m.transmission = BASE_TRANSMISSION * (1 - d / 100);   // 濃度を上げるほど透過を下げる
+    m.needsUpdate = true;
   });
 }
 function applyFit(){

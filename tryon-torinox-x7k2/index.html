@@ -6,31 +6,43 @@
 <meta name="robots" content="noindex,nofollow">
 <title>TORINOX バーチャル試着デモ</title>
 <style>
-  :root { --bg:#0e0f12; --panel:#1a1c22; --accent:#4da3ff; --text:#eef1f5; }
+  :root { --bg:#0d0e11; --panel:#181a20; --line:#2b2f3a; --accent:#4da3ff; --text:#eef1f5; --sub:#98a1b0; }
   * { box-sizing:border-box; margin:0; }
-  body { background:var(--bg); color:var(--text); font-family:"Hiragino Sans","Noto Sans JP",sans-serif; min-height:100vh; display:flex; flex-direction:column; align-items:center; }
-  header { padding:14px 20px 6px; text-align:center; }
-  header h1 { font-size:18px; font-weight:700; letter-spacing:.06em; }
-  header p { font-size:12px; color:#9aa3b2; margin-top:4px; }
-  #stage { position:relative; width:min(92vw,760px); aspect-ratio:4/3; background:#000; border-radius:14px; overflow:hidden; margin-top:10px; box-shadow:0 8px 30px rgba(0,0,0,.5); }
+  body { background:var(--bg); color:var(--text); font-family:"Hiragino Sans","Noto Sans JP",sans-serif;
+         min-height:100vh; display:flex; flex-direction:column; align-items:center; padding-bottom:32px; }
+  header { padding:16px 20px 4px; text-align:center; }
+  header h1 { font-size:17px; font-weight:700; letter-spacing:.08em; }
+  header p { font-size:11.5px; color:var(--sub); margin-top:5px; line-height:1.6; }
+  #stage { position:relative; width:min(94vw,720px); aspect-ratio:4/3;
+           background:radial-gradient(circle at 50% 42%, #3a4150 0%, #15171d 70%);
+           border-radius:14px; overflow:hidden; margin-top:12px; box-shadow:0 10px 34px rgba(0,0,0,.55); }
   #video, #three { position:absolute; inset:0; width:100%; height:100%; }
   #video { object-fit:cover; transform:scaleX(-1); }
   #three { transform:scaleX(-1); }
-  #msg { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; text-align:center; font-size:14px; color:#cdd5e0; padding:20px; background:rgba(0,0,0,.55); }
-  .controls { width:min(92vw,760px); background:var(--panel); border-radius:14px; margin:12px 0 30px; padding:14px 18px; }
-  .row { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:8px 0; }
-  .row label { font-size:13px; color:#aeb7c6; min-width:7em; }
-  .models button { background:#2a2e38; color:var(--text); border:1px solid #3a4050; border-radius:8px; padding:8px 16px; font-size:14px; cursor:pointer; }
-  .models button.active { background:var(--accent); border-color:var(--accent); color:#08121f; font-weight:700; }
-  input[type=range] { flex:1; accent-color:var(--accent); }
-  .val { font-size:12px; color:#8f98a8; width:3.5em; text-align:right; }
-  footer { font-size:11px; color:#6b7484; padding-bottom:20px; }
+  #msg { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; text-align:center;
+         font-size:13.5px; color:#cdd5e0; padding:24px; background:rgba(0,0,0,.6); line-height:1.8; }
+  .panel { width:min(94vw,720px); background:var(--panel); border:1px solid var(--line);
+           border-radius:14px; margin-top:12px; padding:14px 18px; }
+  .row { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:9px 0; }
+  .row > label { font-size:12.5px; color:var(--sub); min-width:6.2em; }
+  .chips button { background:#252932; color:var(--text); border:1px solid #39404e; border-radius:8px;
+                  padding:7px 14px; font-size:13px; cursor:pointer; }
+  .chips button.active { background:var(--accent); border-color:var(--accent); color:#07131f; font-weight:700; }
+  .sw button { width:34px; height:34px; border-radius:50%; border:2px solid #3a4150; cursor:pointer; padding:0; }
+  .sw button.active { border-color:var(--accent); box-shadow:0 0 0 2px rgba(77,163,255,.35); }
+  input[type=range] { flex:1; min-width:150px; accent-color:var(--accent); }
+  .val { font-size:11.5px; color:#8b94a4; width:4.2em; text-align:right; }
+  .act { display:flex; gap:10px; margin-top:12px; flex-wrap:wrap; }
+  .act button { background:#252932; color:var(--text); border:1px solid #39404e; border-radius:8px;
+                padding:9px 16px; font-size:13px; cursor:pointer; }
+  .act button.primary { background:var(--accent); border-color:var(--accent); color:#07131f; font-weight:700; }
+  footer { font-size:10.5px; color:#5d6675; margin-top:16px; text-align:center; line-height:1.7; }
 </style>
 </head>
 <body>
 <header>
   <h1>TORINOX バーチャル試着デモ</h1>
-  <p>カメラに顔を映すとサングラスが追従します（データは端末内で処理・外部送信なし）</p>
+  <p>カメラに顔を映すとサングラスが装着されます。映像は端末内だけで処理し、外部には一切送信しません。</p>
 </header>
 
 <div id="stage">
@@ -39,19 +51,28 @@
   <div id="msg">読み込み中…</div>
 </div>
 
-<div class="controls">
-  <div class="row models">
+<div class="panel">
+  <div class="row chips" id="models">
     <label>モデル</label>
-    <button data-m="model_a.glb" class="active">新型 A（166/266）</button>
-    <button data-m="model_b.glb">新型 B（166/266）</button>
-    <button data-m="arq.glb">ARQ（スキャン）</button>
+    <button data-m="glasses_A.glb" class="active">TORINOX A（スクエア）</button>
+    <button data-m="glasses_B.glb">TORINOX B（ラウンド）</button>
   </div>
-  <div class="row"><label>レンズ透過</label><input id="lensOp" type="range" min="5" max="100" value="45"><span class="val" id="lensOpV">45%</span></div>
-  <div class="row"><label>大きさ</label><input id="fitS" type="range" min="80" max="120" value="100"><span class="val" id="fitSV">100%</span></div>
-  <div class="row"><label>上下位置</label><input id="fitY" type="range" min="-30" max="60" value="18"><span class="val" id="fitYV"></span></div>
-  <div class="row"><label>前後位置</label><input id="fitZ" type="range" min="0" max="90" value="45"><span class="val" id="fitZV"></span></div>
+  <div class="row sw" id="lensCols">
+    <label>レンズ色</label>
+  </div>
+  <div class="row"><label>レンズ濃度</label><input id="op" type="range" min="20" max="100" value="82"><span class="val" id="opV">82%</span></div>
+  <div class="row"><label>サイズ</label><input id="sc" type="range" min="85" max="115" value="100"><span class="val" id="scV">100%</span></div>
+  <div class="row"><label>上下</label><input id="oy" type="range" min="-15" max="15" value="0"><span class="val" id="oyV">0.0mm</span></div>
+  <div class="row"><label>前後</label><input id="oz" type="range" min="-10" max="20" value="0"><span class="val" id="ozV">0.0mm</span></div>
+  <div class="act">
+    <button id="shot" class="primary">写真を保存</button>
+    <button id="reset">位置をリセット</button>
+  </div>
 </div>
-<footer>TORINOX × 合同会社ヤシノミ — 技術デモ（非公開・関係者限り）</footer>
+<footer>
+  実寸データ（フレーム幅148mm）／ 色は実製品写真から実測<br>
+  TORINOX × 合同会社ヤシノミ — 技術デモ（非公開・関係者限り）
+</footer>
 
 <script type="importmap">
 { "imports": {
@@ -65,104 +86,187 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import { FilesetResolver, FaceLandmarker } from 'https://unpkg.com/@mediapipe/tasks-vision@0.10.14/vision_bundle.mjs';
 
-const msg = document.getElementById('msg');
-const video = document.getElementById('video');
-const canvas = document.getElementById('three');
+const $ = id => document.getElementById(id);
+const msg = $('msg'), video = $('video'), canvas = $('three');
 
-// --- three.js セットアップ ---
+/* ---------- 標準顔空間(cm)での装着位置：標準顔モデルで検証済みの値 ---------- */
+const BASE_POS = { y: 2.90, z: 5.50 };   // 鼻当て接点を鼻梁に一致させる
+
+/* ---------- レンズ色：Amazon実製品写真からピクセル実測 ---------- */
+const LENS_COLORS = [
+  { name:'スモーク',   hex:0x5e6266 },
+  { name:'オリーブ',   hex:0x7e7b6c },
+  { name:'ブルー',     hex:0x889aca },
+];
+
+/* ---------- three.js ---------- */
 const renderer = new THREE.WebGLRenderer({ canvas, alpha:true, antialias:true });
 renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.0;
 const scene = new THREE.Scene();
 const pmrem = new THREE.PMREMGenerator(renderer);
 scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
-const camera = new THREE.PerspectiveCamera(63, 4/3, 1, 10000);
-scene.add(new THREE.AmbientLight(0xffffff, 0.4));
-const dir = new THREE.DirectionalLight(0xffffff, 1.2); dir.position.set(0.5,1,2); scene.add(dir);
+const camera = new THREE.PerspectiveCamera(63, 4/3, 1, 5000);  // MediaPipe計量空間に合わせる
+scene.add(new THREE.AmbientLight(0xffffff, 0.35));
+const key = new THREE.DirectionalLight(0xffffff, 1.1); key.position.set(0.4, 0.8, 2); scene.add(key);
 
-const anchor = new THREE.Group();      // 顔の変換行列を適用
+const anchor = new THREE.Group();   // 顔の姿勢行列を適用
 anchor.matrixAutoUpdate = false;
+anchor.visible = false;
 scene.add(anchor);
-const fit = new THREE.Group();         // 手動フィット(スケール/オフセット)
+const fit = new THREE.Group();      // 微調整
 anchor.add(fit);
 
-let glasses = null, lensMats = [];
 const loader = new GLTFLoader();
-function loadModel(file){
-  msg.style.display='flex'; msg.textContent='モデル読み込み中…';
-  loader.load(file, g => {
-    if (glasses) fit.remove(glasses);
-    glasses = g.scene; lensMats = [];
-    glasses.traverse(o => {
-      if (o.isMesh) {
-        o.frustumCulled = false;
-        const ms = Array.isArray(o.material) ? o.material : [o.material];
-        ms.forEach(m => {
-          if (/lens/i.test(m.name)) { m.transparent = true; lensMats.push(m); }
-        });
-      }
-    });
-    glasses.scale.setScalar(100); // m → cm（MediaPipe顔空間はcm）
-    fit.add(glasses);
-    applyLens(); msg.style.display='none';
-  }, undefined, e => { msg.textContent = 'モデル読み込み失敗: '+file; });
-}
 
-// --- UI ---
-const $=id=>document.getElementById(id);
-function applyLens(){ const v=+$('lensOp').value; $('lensOpV').textContent=v+'%'; lensMats.forEach(m=>m.opacity=v/100); }
-function applyFit(){
-  const s=+$('fitS').value/100, y=+$('fitY').value/10, z=+$('fitZ').value/10;
-  $('fitSV').textContent=Math.round(s*100)+'%'; $('fitYV').textContent=y.toFixed(1)+'cm'; $('fitZV').textContent=z.toFixed(1)+'cm';
-  fit.scale.setScalar(s); fit.position.set(0,y,z);
-}
-$('lensOp').oninput=applyLens;
-['fitS','fitY','fitZ'].forEach(id=>$(id).oninput=applyFit);
-document.querySelectorAll('.models button').forEach(b=>{
-  b.onclick=()=>{ document.querySelectorAll('.models button').forEach(x=>x.classList.remove('active')); b.classList.add('active'); loadModel(b.dataset.m); };
+/* 顔オクルーダー：色は描かず深度だけ書く → 顔の裏に回ったテンプルが隠れる */
+loader.load('face_occluder.glb', g => {
+  const occ = g.scene;
+  occ.traverse(o => {
+    if (o.isMesh) {
+      o.material = new THREE.MeshBasicMaterial({ colorWrite:false });
+      o.renderOrder = -10;
+      o.frustumCulled = false;
+    }
+  });
+  occ.scale.setScalar(100);   // m → cm
+  anchor.add(occ);
 });
-applyFit();
-loadModel('model_a.glb');
 
-// --- MediaPipe FaceLandmarker ---
-let landmarker=null, running=false;
-async function start(){
-  try {
-    msg.textContent='顔認識モデル読み込み中…';
-    const vision = await FilesetResolver.forVisionTasks('https://unpkg.com/@mediapipe/tasks-vision@0.10.14/wasm');
-    landmarker = await FaceLandmarker.createFromOptions(vision, {
-      baseOptions:{ modelAssetPath:'https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task', delegate:'GPU' },
-      runningMode:'VIDEO', numFaces:1, outputFacialTransformationMatrixes:true });
-    msg.textContent='カメラ起動中…';
-    const stream = await navigator.mediaDevices.getUserMedia({ video:{ width:960, height:720, facingMode:'user' } });
-    video.srcObject = stream;
-    await new Promise(r=>video.onloadedmetadata=r);
-    resize(); running=true; msg.style.display='none';
-    requestAnimationFrame(loop);
-  } catch(e) {
-    msg.innerHTML = 'カメラを利用できません（'+e.name+'）。<br>ブラウザのカメラ許可を確認してください。<br><br>参考表示モードで回転表示します。';
-    demoMode();
+let glasses = null, lensMat = null;
+let curLens = LENS_COLORS[0].hex;
+
+function loadModel(file){
+  msg.style.display = 'flex'; msg.textContent = 'モデル読み込み中…';
+  loader.load(file, g => {
+    if (glasses) { fit.remove(glasses); }
+    glasses = g.scene; lensMat = null;
+    glasses.traverse(o => {
+      if (!o.isMesh) return;
+      o.frustumCulled = false;
+      o.renderOrder = 1;
+      const ms = Array.isArray(o.material) ? o.material : [o.material];
+      ms.forEach(m => {
+        m.envMapIntensity = 0.45;          // 反射を抑えて白飛びを防ぐ
+        if (m.name === 'Lens') {
+          lensMat = m;
+          m.transparent = true;
+          m.depthWrite = false;
+          m.roughness = 0.06;
+        }
+        if (m.name === 'Frame')  m.envMapIntensity = 0.55;
+        if (m.name === 'Accent') m.envMapIntensity = 0.9;
+      });
+    });
+    glasses.scale.setScalar(100);   // m → cm
+    fit.add(glasses);
+    applyLens(); applyFit();
+    msg.style.display = 'none';
+  }, undefined, () => { msg.textContent = 'モデル読み込みに失敗しました: ' + file; });
+}
+
+/* ---------- UI ---------- */
+const swWrap = $('lensCols');
+LENS_COLORS.forEach((c, i) => {
+  const b = document.createElement('button');
+  b.style.background = '#' + c.hex.toString(16).padStart(6,'0');
+  b.title = c.name;
+  if (i === 0) b.classList.add('active');
+  b.onclick = () => {
+    swWrap.querySelectorAll('button').forEach(x => x.classList.remove('active'));
+    b.classList.add('active'); curLens = c.hex; applyLens();
+  };
+  swWrap.appendChild(b);
+});
+
+function applyLens(){
+  const v = +$('op').value; $('opV').textContent = v + '%';
+  if (lensMat) {
+    lensMat.color.setHex(curLens, THREE.SRGBColorSpace);
+    lensMat.opacity = v / 100;
   }
 }
+function applyFit(){
+  const s = +$('sc').value / 100, oy = +$('oy').value, oz = +$('oz').value;
+  $('scV').textContent = Math.round(s*100) + '%';
+  $('oyV').textContent = oy.toFixed(1) + 'mm';
+  $('ozV').textContent = oz.toFixed(1) + 'mm';
+  fit.scale.setScalar(s);
+  fit.position.set(0, BASE_POS.y + oy/10, BASE_POS.z + oz/10);   // mm → cm
+}
+$('op').oninput = applyLens;
+['sc','oy','oz'].forEach(id => $(id).oninput = applyFit);
+$('reset').onclick = () => { $('sc').value=100; $('oy').value=0; $('oz').value=0; applyFit(); };
+$('models').querySelectorAll('button').forEach(b => {
+  b.onclick = () => {
+    $('models').querySelectorAll('button').forEach(x => x.classList.remove('active'));
+    b.classList.add('active'); loadModel(b.dataset.m);
+  };
+});
+
+/* 写真保存：映像と3Dを合成（映像と同じく左右反転で書き出す） */
+$('shot').onclick = () => {
+  const w = video.videoWidth || 960, h = video.videoHeight || 720;
+  const c = document.createElement('canvas'); c.width = w; c.height = h;
+  const ctx = c.getContext('2d');
+  ctx.save(); ctx.translate(w, 0); ctx.scale(-1, 1);
+  if (video.videoWidth) ctx.drawImage(video, 0, 0, w, h);
+  ctx.drawImage(canvas, 0, 0, w, h);
+  ctx.restore();
+  const a = document.createElement('a');
+  a.download = 'torinox-tryon.png';
+  a.href = c.toDataURL('image/png');
+  a.click();
+};
+
+applyFit();
+loadModel('glasses_A.glb');
+
+/* ---------- MediaPipe ---------- */
+let landmarker = null, running = false, lastT = -1;
+const faceMat = new THREE.Matrix4();
+
 function resize(){
-  const w = video.videoWidth||960, h = video.videoHeight||720;
-  renderer.setSize(canvas.clientWidth, canvas.clientHeight, false);
-  renderer.setPixelRatio(Math.min(devicePixelRatio,2));
-  camera.aspect = canvas.clientWidth/canvas.clientHeight;
-  // MediaPipeの顔空間(cm)に合わせた擬似FOV
-  camera.fov = 63; camera.updateProjectionMatrix();
+  const w = canvas.clientWidth, h = canvas.clientHeight;
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  renderer.setSize(w, h, false);
+  camera.aspect = w / h;
+  camera.updateProjectionMatrix();
 }
 addEventListener('resize', resize);
 
-const faceMatrix = new THREE.Matrix4();
-let lastVideoTime = -1;
+async function start(){
+  try {
+    msg.textContent = '顔認識モデルを読み込み中…';
+    const vision = await FilesetResolver.forVisionTasks('https://unpkg.com/@mediapipe/tasks-vision@0.10.14/wasm');
+    landmarker = await FaceLandmarker.createFromOptions(vision, {
+      baseOptions: { modelAssetPath:'https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task', delegate:'GPU' },
+      runningMode:'VIDEO', numFaces:1, outputFacialTransformationMatrixes:true });
+    msg.textContent = 'カメラを起動中…（許可ダイアログで「許可」を選んでください）';
+    const stream = await navigator.mediaDevices.getUserMedia({ video:{ width:{ideal:960}, height:{ideal:720}, facingMode:'user' } });
+    video.srcObject = stream;
+    await new Promise(r => video.onloadedmetadata = r);
+    resize(); running = true; msg.style.display = 'none';
+    requestAnimationFrame(loop);
+  } catch(e) {
+    msg.style.display = 'flex';
+    msg.style.background = 'rgba(0,0,0,.35)';
+    msg.style.alignItems = 'flex-end';
+    msg.innerHTML = '<div style="width:100%">カメラを利用できませんでした（' + e.name + '）。ブラウザのカメラ許可をご確認ください。<br>いまは参考として3Dモデルを回転表示しています。</div>';
+    demo();
+  }
+}
+
 function loop(){
   if (!running) return;
-  if (video.currentTime !== lastVideoTime) {
-    lastVideoTime = video.currentTime;
+  if (video.currentTime !== lastT) {
+    lastT = video.currentTime;
     const res = landmarker.detectForVideo(video, performance.now());
-    if (res.facialTransformationMatrixes && res.facialTransformationMatrixes.length) {
-      faceMatrix.fromArray(res.facialTransformationMatrixes[0].data);
-      anchor.matrix.copy(faceMatrix);
+    const mats = res.facialTransformationMatrixes;
+    if (mats && mats.length) {
+      faceMat.fromArray(mats[0].data);
+      anchor.matrix.copy(faceMat);
       anchor.visible = true;
     } else {
       anchor.visible = false;
@@ -172,17 +276,20 @@ function loop(){
   requestAnimationFrame(loop);
 }
 
-// カメラ不可時: 回転ターンテーブル表示
-function demoMode(){
-  anchor.matrix.identity(); anchor.visible = true;
-  anchor.matrix.setPosition(0, 0, -25);
-  renderer.setSize(canvas.clientWidth, canvas.clientHeight, false);
-  camera.aspect = canvas.clientWidth/canvas.clientHeight; camera.updateProjectionMatrix();
-  let t=0;
-  (function spin(){ t+=0.01;
-    const m = new THREE.Matrix4().makeRotationY(t); m.setPosition(0,0,-25);
+/* カメラ不可時：ターンテーブル表示（顔オクルーダーは隠す） */
+function demo(){
+  resize();
+  anchor.visible = true;
+  anchor.children.forEach(c => { if (c !== fit) c.visible = false; });
+  let t = 0;
+  (function spin(){
+    t += 0.008;
+    const m = new THREE.Matrix4().makeRotationY(t);
+    m.setPosition(0, -2.5, -30);
     anchor.matrix.copy(m);
-    renderer.render(scene,camera); requestAnimationFrame(spin); })();
+    renderer.render(scene, camera);
+    requestAnimationFrame(spin);
+  })();
 }
 start();
 </script>

@@ -59,7 +59,7 @@
   <div class="row sw" id="lensCols">
     <label>レンズ色</label>
   </div>
-  <div class="row"><label>レンズ濃度</label><input id="op" type="range" min="0" max="90" value="25"><span class="val" id="opV">25%</span></div>
+  <div class="row"><label>レンズ透過率</label><input id="op" type="range" min="8" max="65" value="30"><span class="val" id="opV">30%</span></div>
   <div class="row"><label>サイズ</label><input id="sc" type="range" min="85" max="115" value="100"><span class="val" id="scV">100%</span></div>
   <div class="row"><label>上下</label><input id="oy" type="range" min="-15" max="15" value="0"><span class="val" id="oyV">0.0mm</span></div>
   <div class="row"><label>前後</label><input id="oz" type="range" min="-10" max="20" value="0"><span class="val" id="ozV">0.0mm</span></div>
@@ -69,7 +69,7 @@
   </div>
 </div>
 <footer>
-  Amazon 3D要件準拠（GLB / 三角形141,994 / 実寸148mm / ノード Frame・TempleR・TempleL・LensR・LensL / レンズ KHR_materials_transmission / glTF-Validator エラー0）<br>
+  Amazon 3D要件準拠（GLB / 三角形131,194 / 実寸148mm / ノード Frame・TempleR・TempleL・LensR・LensL / レンズ KHR_materials_transmission / glTF-Validator エラー0）<br>
   フレーム #262523・アクセント #a4a097 は実製品写真からの実測値<br>
   TORINOX × 合同会社ヤシノミ — 技術デモ（非公開・関係者限り）
 </footer>
@@ -92,14 +92,14 @@ const msg = $('msg'), video = $('video'), canvas = $('three');
 
 /* 標準顔モデル(MediaPipe canonical face, cm)上で検証した装着位置 */
 const BASE_POS = { y: 2.90, z: 5.50 };
-/* Amazon実製品写真からピクセル実測したレンズ色（透過レンズの色味） */
+/* レンズ色 = 実製品写真から実測した「色相」を明るさ1.0に正規化したリニアRGB。
+   実際の濃さは下のVLT（可視光線透過率）スライダーで決める。 */
 const LENS_COLORS = [
-  { name:'スモーク', hex:0xa8adb2 },
-  { name:'ブラウン', hex:0xbda87a },
-  { name:'グリーン', hex:0xa3a684 },
-  { name:'ブルー',   hex:0x9fb3e0 },
+  { name:'スモーク', tint:[1.00, 1.00, 1.03], swatch:'#9e9e9f' },
+  { name:'ブラウン', tint:[1.39, 1.09, 0.52], swatch:'#b7a578' },
+  { name:'グリーン', tint:[1.13, 1.07, 0.80], swatch:'#a8a390' },
+  { name:'ブルー',   tint:[0.64, 0.84, 1.52], swatch:'#8393bf' },
 ];
-const BASE_TRANSMISSION = 0.96;
 
 const renderer = new THREE.WebGLRenderer({ canvas, antialias:true });
 renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -139,7 +139,7 @@ loader.load('face_occluder.glb', g => {
 
 let glasses = null;
 const lensMats = [];
-let curLens = LENS_COLORS[0].hex;
+let curLens = LENS_COLORS[0];
 
 function loadModel(file){
   msg.style.display = 'flex'; msg.textContent = 'モデル読み込み中…';
@@ -175,21 +175,24 @@ function loadModel(file){
 const swWrap = $('lensCols');
 LENS_COLORS.forEach((c, i) => {
   const b = document.createElement('button');
-  b.style.background = '#' + c.hex.toString(16).padStart(6,'0');
+  b.style.background = c.swatch;
   b.title = c.name;
   if (i === 0) b.classList.add('active');
   b.onclick = () => {
     swWrap.querySelectorAll('button').forEach(x => x.classList.remove('active'));
-    b.classList.add('active'); curLens = c.hex; applyLens();
+    b.classList.add('active'); curLens = c; applyLens();
   };
   swWrap.appendChild(b);
 });
 
 function applyLens(){
-  const d = +$('op').value; $('opV').textContent = d + '%';
+  const vlt = +$('op').value / 100;          // 可視光線透過率
+  $('opV').textContent = Math.round(vlt*100) + '%';
+  const t = curLens.tint;
   lensMats.forEach(m => {
-    m.color.setHex(curLens, THREE.SRGBColorSpace);
-    m.transmission = BASE_TRANSMISSION * (1 - d / 100);   // 濃度を上げるほど透過を下げる
+    // 透過光 = 背景 × color。色相はtint、明るさはVLTで決まる（リニア空間で指定）
+    m.color.setRGB(t[0]*vlt, t[1]*vlt, t[2]*vlt);
+    m.transmission = 1.0;
     m.needsUpdate = true;
   });
 }

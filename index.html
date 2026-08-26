@@ -176,9 +176,37 @@
 
         /* ── つくったもの（works.json 駆動・0件なら非表示） ── */
         #works[hidden] { display:none; }
-        .works-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+        .works-grid { display:block; }
+        .works-group { margin-bottom:38px; }
+        .works-group:last-child { margin-bottom:0; }
+        .works-group-head { font-family:var(--sans); font-size:0.85rem; font-weight:700; color:var(--primary-color); letter-spacing:0.06em; margin-bottom:14px; display:flex; align-items:center; gap:12px; }
+        .works-group-head::after { content:""; flex:1; height:1px; background:var(--border-color); }
+        .works-group-desc { font-family:var(--sans); font-size:0.84rem; color:var(--text-medium); line-height:1.95; margin:-2px 0 16px; max-width:44em; }
+        .works-cards { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; align-items:start; }
+        .work-hidden { display:none; }
+        .works-group.is-open .work-hidden { display:block; }
+        .work img { cursor:zoom-in; }
+        .works-more { margin-top:14px; }
+        .works-more button { font-family:var(--sans); font-size:0.8rem; font-weight:700; color:var(--primary-color); background:#fff; border:1px solid var(--primary-color); border-radius:999px; padding:8px 20px; cursor:pointer; transition:background .2s; }
+        .works-more button:hover { background:var(--bg-light); }
+        #works-lb { position:fixed; inset:0; z-index:9999; display:none; align-items:center; justify-content:center; background:rgba(10,20,12,0.9); }
+        #works-lb img { max-width:min(92vw,1100px); max-height:80vh; object-fit:contain; background:#fff; border-radius:4px; }
+        #works-lb .lb-cap { position:absolute; left:0; right:0; bottom:16px; text-align:center; color:#fff; font-family:var(--sans); font-size:0.85rem; padding:0 64px; }
+        #works-lb button { position:absolute; background:none; border:0; color:#fff; cursor:pointer; font-size:2.2rem; line-height:1; padding:14px; opacity:.85; z-index:1; }
+        #works-lb button:hover { opacity:1; }
+        #works-lb .lb-x { top:8px; right:12px; }
+        #works-lb .lb-prev { left:4px; top:50%; transform:translateY(-50%); font-size:3rem; }
+        #works-lb .lb-next { right:4px; top:50%; transform:translateY(-50%); font-size:3rem; }
         .work { background:#fff; border:1px solid var(--border-color); border-radius:3px; overflow:hidden; }
-        .work img { width:100%; aspect-ratio:4/3; object-fit:cover; display:block; background:var(--bg-light); }
+        .work img { width:100%; aspect-ratio:1/1; object-fit:contain; display:block; background:#fff; }
+        .work video { width:100%; aspect-ratio:16/9; object-fit:cover; display:block; background:var(--bg-light); }
+        .wm { position:relative; }
+        .wm + .wm { border-top:1px solid var(--border-color); }
+        .wm-tag { position:absolute; top:8px; left:8px; font-family:var(--sans); font-size:0.64rem; font-weight:700; letter-spacing:0.06em; color:#fff; background:rgba(18,61,27,0.78); border-radius:999px; padding:3px 9px; pointer-events:none; }
+        .proc-media { width:100%; aspect-ratio:16/9; object-fit:cover; display:block; margin-top:14px; border-radius:3px; background:var(--bg-light); }
+        .proc-link { display:block; color:inherit; text-decoration:none; }
+        .proc-more { margin-top:8px; font-family:var(--sans); font-size:0.72rem; font-weight:700; color:var(--primary-color); }
+        .proc-link:hover .proc-more { text-decoration:underline; }
         .work figcaption { padding:12px 14px; font-family:var(--sans); font-size:0.8rem; color:var(--text-medium); line-height:1.7; }
         .work-step { display:inline-block; font-size:0.64rem; font-weight:700; letter-spacing:0.08em; color:var(--primary-color); border:1px solid var(--border-color); border-radius:999px; padding:2px 8px; margin-bottom:6px; }
         @media (max-width:767px) {
@@ -558,48 +586,50 @@
                 <p class="section-title-en text-center mb-5">What We Do</p>
                 <div class="proc-grid">
                 <div class="proc">
-                    <p class="proc-num">01</p>
-                    <p class="proc-title">つくる</p>
-                    <p class="proc-self">商品を企画して、形にする</p>
-                    <p class="proc-help"><small>他社でも</small>製品開発支援</p>
+                    <a class="proc-link" href="#works">
+                        <p class="proc-num">01</p>
+                        <p class="proc-title">つくる</p>
+                        <p class="proc-self">商品を企画して、形にする</p>
+                        <p class="proc-help"><small>他社でも</small>製品開発支援</p>
+                        <video class="proc-media" src="./images/works/works-logo-plate-timelapse.mp4" muted autoplay loop playsinline preload="metadata" aria-hidden="true"></video>
+                        <p class="proc-more">つくったものを見る ↓</p>
+                    </a>
                 </div>
                 <div class="proc">
-                    <p class="proc-num">02</p>
-                    <p class="proc-title">見せる</p>
-                    <p class="proc-self">商品画像とページ構成をつくる</p>
-                    <p class="proc-help"><small>他社でも</small>デザイン支援</p>
+                    <a class="proc-link" href="#works">
+                        <p class="proc-num">02</p>
+                        <p class="proc-title">見せる</p>
+                        <p class="proc-self">商品画像とページ構成をつくる</p>
+                        <p class="proc-help"><small>他社でも</small>デザイン支援</p>
+                        <img class="proc-media" src="./images/works/works-colle-label.jpg" alt="香り別ラベルデザインの制作例" loading="lazy">
+                        <p class="proc-more">つくった画像を見る ↓</p>
+                    </a>
                 </div>
                 <div class="proc">
-                    <p class="proc-num">03</p>
-                    <p class="proc-title">売る</p>
-                    <p class="proc-self">Amazon・自社ECで売る</p>
-                    <p class="proc-help"><small>他社でも</small>Amazon物販支援</p>
+                    <a class="proc-link" href="amazon.html">
+                        <p class="proc-num">03</p>
+                        <p class="proc-title">売る</p>
+                        <p class="proc-self">Amazon・自社ECで売る</p>
+                        <p class="proc-help"><small>他社でも</small>Amazon物販支援</p>
+                        <img class="proc-media" src="./images/proc-uru.jpg" alt="自社商品の梱包・出荷風景" loading="lazy">
+                        <p class="proc-more">Amazon支援ページを見る →</p>
+                    </a>
                 </div>
                 <div class="proc">
-                    <p class="proc-num">04</p>
-                    <p class="proc-title">直す</p>
-                    <p class="proc-self">数字を見て、詰まりを直す</p>
-                    <p class="proc-help"><small>他社でも</small>ボトルネック解消支援</p>
+                    <a class="proc-link" href="check/">
+                        <p class="proc-num">04</p>
+                        <p class="proc-title">直す</p>
+                        <p class="proc-self">数字を見て、詰まりを直す</p>
+                        <p class="proc-help"><small>他社でも</small>ボトルネック解消支援</p>
+                        <img class="proc-media" src="./images/proc-naosu.jpg" alt="数字からボトルネックを見つけるイメージ" loading="lazy">
+                        <p class="proc-more">30秒セルフ診断を試す →</p>
+                    </a>
                 </div>
                 </div>
             </div>
         </div>
     </section>
     <!-- 2.5 END BRANDS SECTION -->
-
-    <!-- 2.6 WORKS SECTION（つくったもの／works.json 駆動・0件のときは表示されない） -->
-    <section id="works" class="py-20 md:py-28 bg-gray-50" hidden>
-        <div class="container mx-auto px-6 max-w-5xl">
-            <div class="text-center mb-10" data-aos="fade-up">
-                <p class="section-title-en mb-2">Works</p>
-                <h2 class="section-title-jp">つくったもの</h2>
-            </div>
-            <div class="text-center mb-8" id="works-filter" hidden></div>
-            <div class="works-grid" id="works-grid"></div>
-        </div>
-    </section>
-    <!-- 2.6 END WORKS SECTION -->
-
 
 <!-- 5.5 BLOG SECTION -->
     <section id="blog" class="py-20 md:py-28 bg-gray-50 border-b border-gray-200">
@@ -1431,6 +1461,24 @@
                 </div>
             </div>
 
+            <!-- チーム（従業員はキャライラストで紹介） -->
+            <div class="max-w-5xl mx-auto card p-8 md:p-10 mb-8" data-aos="fade-up">
+                <p class="section-title-en mb-2 text-center">Team</p>
+                <p class="text-center text-sm text-gray-600 mb-8">現場を支えるメンバーです。</p>
+                <div class="grid grid-cols-2 gap-8 max-w-xl mx-auto">
+                    <div class="text-center">
+                        <img src="./images/team/staff-minobe.jpg" alt="美延（デザイナー兼出荷担当）のイラスト" loading="lazy" class="w-32 h-32 rounded-full shadow-md border-4 border-white object-cover mx-auto" style="object-position:top;">
+                        <p class="mt-4 text-base font-bold text-gray-800">美延</p>
+                        <p class="text-xs text-gray-500 mt-0.5">デザイナー兼出荷担当</p>
+                    </div>
+                    <div class="text-center">
+                        <img src="./images/team/staff-moridono.jpg" alt="守殿（品質管理者兼充填担当）のイラスト" loading="lazy" class="w-32 h-32 rounded-full shadow-md border-4 border-white object-cover mx-auto" style="object-position:top;">
+                        <p class="mt-4 text-base font-bold text-gray-800">守殿</p>
+                        <p class="text-xs text-gray-500 mt-0.5">品質管理者兼充填担当</p>
+                    </div>
+                </div>
+            </div>
+
             <!-- 会社概要＋アクセス -->
             <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto items-stretch">
                 <div class="card p-8" data-aos="fade-up">
@@ -1465,6 +1513,20 @@
         </div>
     </section>
     <!-- 9. END COMPANY SECTION -->
+
+    <!-- 9.2 WORKS SECTION（つくったもの／works.json 駆動・0件のときは表示されない） -->
+    <section id="works" class="py-20 md:py-28 bg-gray-50" hidden>
+        <div class="container mx-auto px-6 max-w-5xl">
+            <div class="text-center mb-10" data-aos="fade-up">
+                <p class="section-title-en mb-2">Works</p>
+                <h2 class="section-title-jp">つくったもの</h2>
+                <p class="section-subtitle mt-3">Amazonの商品画像・パッケージ・チラシから、事務所で動く3Dプリンターの作品まで。<strong class="primary-color">「まず自分たちで作ってみる」</strong>が私たちのやり方です。</p>
+            </div>
+            <div class="text-center mb-8" id="works-filter" hidden></div>
+            <div class="works-grid" id="works-grid"></div>
+        </div>
+    </section>
+    <!-- 9.2 END WORKS SECTION -->
 
     <!-- 9.5 CLIENT PORTAL SECTION（既存のお客様窓口） -->
     <section id="client" class="py-16 md:py-20 bg-blue-50 border-t border-blue-100">
@@ -1816,14 +1878,96 @@
       fetch('works.json',{cache:'no-cache'}).then(function(r){ return r.ok?r.json():[]; }).then(function(items){
         if(!Array.isArray(items)||!items.length) return;              // 0件＝セクションごと非表示のまま
         items.sort(function(a,b){ return String(b.date||'').localeCompare(String(a.date||'')); });
+        /* 商品ごとのグループにまとめて表示する */
+        var groups=[], byName={};
         items.forEach(function(w){
-          var f=document.createElement('figure'); f.className='work'; f.dataset.step=w.step||'';
-          var img=document.createElement('img'); img.src=w.img; img.alt=w.cap||''; img.loading='lazy';
-          var c=document.createElement('figcaption');
-          if(w.step){ var s=document.createElement('span'); s.className='work-step'; s.textContent=w.step; c.appendChild(s); c.appendChild(document.createElement('br')); }
-          c.appendChild(document.createTextNode(w.cap||''));
-          f.appendChild(img); f.appendChild(c); GRID.appendChild(f);
+          var key=w.group||w.step||'その他';
+          if(!byName[key]){ byName[key]={name:key, step:w.step||'', items:[]}; groups.push(byName[key]); }
+          byName[key].items.push(w);
         });
+        /* 拡大ビューア（画像クリックで全画面表示・前後送り） */
+        var LB=null, LBlist=[], LBi=0;
+        function ensureLB(){
+          if(LB) return;
+          LB=document.createElement('div'); LB.id='works-lb';
+          LB.innerHTML='<button class="lb-x" aria-label="閉じる">×</button><button class="lb-prev" aria-label="前へ">‹</button><img alt=""><button class="lb-next" aria-label="次へ">›</button><p class="lb-cap"></p>';
+          document.body.appendChild(LB);
+          LB.addEventListener('click',function(e){ if(e.target===LB||e.target.classList.contains('lb-x')) closeLB(); });
+          LB.querySelector('.lb-prev').addEventListener('click',function(e){ e.stopPropagation(); showLB(LBi-1); });
+          LB.querySelector('.lb-next').addEventListener('click',function(e){ e.stopPropagation(); showLB(LBi+1); });
+          document.addEventListener('keydown',function(e){
+            if(!LB||LB.style.display!=='flex') return;
+            if(e.key==='Escape') closeLB();
+            if(e.key==='ArrowLeft') showLB(LBi-1);
+            if(e.key==='ArrowRight') showLB(LBi+1);
+          });
+        }
+        function showLB(i){ LBi=(i+LBlist.length)%LBlist.length; LB.querySelector('img').src=LBlist[LBi].src; LB.querySelector('.lb-cap').textContent=(LBi+1)+' / '+LBlist.length+'　'+LBlist[LBi].cap; }
+        function openLB(list,i){ ensureLB(); LBlist=list; LB.style.display='flex'; showLB(i); document.body.style.overflow='hidden'; }
+        function closeLB(){ LB.style.display='none'; document.body.style.overflow=''; }
+        var LEAD=3; /* 各グループで最初に見せる枚数 */
+        groups.forEach(function(g){
+          var box=document.createElement('div'); box.className='works-group'; box.dataset.step=g.step;
+          var h=document.createElement('p'); h.className='works-group-head'; h.textContent=g.name; box.appendChild(h);
+          var descText=''; g.items.forEach(function(w){ if(!descText && w.groupDesc) descText=w.groupDesc; });
+          if(descText){ var dp=document.createElement('p'); dp.className='works-group-desc'; dp.textContent=descText; box.appendChild(dp); }
+          var cards=document.createElement('div'); cards.className='works-cards';
+          var photos=[]; /* このグループの拡大表示リスト */
+          g.items.forEach(function(w,idx){
+            var f=document.createElement('figure'); f.className='work';
+            if(idx>=LEAD) f.classList.add('work-hidden');
+            function tag(t){ var s=document.createElement('span'); s.className='wm-tag'; s.textContent=t; return s; }
+            /* 動画（できるまで）と写真（完成）は1カード内で上下ペア */
+            if(w.video){
+              var dv=document.createElement('div'); dv.className='wm';
+              var v=document.createElement('video');
+              v.src=w.video; v.muted=true; v.loop=true; v.preload='metadata';
+              v.setAttribute('muted',''); v.setAttribute('playsinline','');
+              dv.appendChild(v); dv.appendChild(tag('できるまで'));
+              f.appendChild(dv);
+            }
+            if(w.img){
+              var di=document.createElement('div'); di.className='wm';
+              var img=document.createElement('img'); img.src=w.img; img.alt=w.cap||''; img.loading='lazy';
+              var pi=photos.length; photos.push({src:w.img, cap:w.cap||''});
+              img.addEventListener('click',function(){ openLB(photos,pi); });
+              di.appendChild(img); if(w.video){ di.appendChild(tag('完成')); }
+              f.appendChild(di);
+            }
+            var c=document.createElement('figcaption');
+            c.appendChild(document.createTextNode(w.cap||''));
+            f.appendChild(c); cards.appendChild(f);
+          });
+          box.appendChild(cards);
+          if(g.items.length>LEAD){
+            var moreWrap=document.createElement('div'); moreWrap.className='works-more';
+            var btn=document.createElement('button'); btn.type='button';
+            var moreLabel='すべて見る（全'+g.items.length+'点）';
+            btn.textContent=moreLabel;
+            btn.addEventListener('click',function(){
+              var open=box.classList.toggle('is-open');
+              btn.textContent=open?'閉じる':moreLabel;
+            });
+            moreWrap.appendChild(btn); box.appendChild(moreWrap);
+          }
+          GRID.appendChild(box);
+        });
+        /* 動画は画面に入った時だけ再生（通信量とバッテリーの節約） */
+        var vids=GRID.querySelectorAll('video');
+        if(vids.length){
+          if('IntersectionObserver' in window){
+            var io=new IntersectionObserver(function(es){
+              es.forEach(function(e){
+                var v=e.target;
+                if(e.isIntersecting){ if(v.play){ var p=v.play(); if(p&&p.catch) p.catch(function(){}); } }
+                else if(v.pause){ v.pause(); }
+              });
+            },{rootMargin:'120px'});
+            vids.forEach(function(v){ io.observe(v); });
+          }else{
+            vids.forEach(function(v){ v.autoplay=true; var p=v.play(); if(p&&p.catch) p.catch(function(){}); });
+          }
+        }
         var steps=[]; items.forEach(function(w){ if(w.step && steps.indexOf(w.step)<0) steps.push(w.step); });
         if(steps.length>1){                                            // 種類が2つ以上になったら絞り込みを出す
           FIL.hidden=false;
@@ -1834,8 +1978,8 @@
             b.addEventListener('click',function(){
               FIL.querySelectorAll('button').forEach(function(x){ x.classList.remove('is-active'); });
               b.classList.add('is-active');
-              GRID.querySelectorAll('.work').forEach(function(w){
-                w.style.display=(i===0||w.dataset.step===label)?'':'none';
+              GRID.querySelectorAll('.works-group').forEach(function(g){
+                g.style.display=(i===0||g.dataset.step===label)?'':'none';
               });
             });
             FIL.appendChild(b);

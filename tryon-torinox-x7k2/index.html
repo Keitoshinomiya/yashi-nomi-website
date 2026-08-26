@@ -60,7 +60,7 @@
   <div class="row sw" id="lensCols">
     <label>レンズ色</label>
   </div>
-  <div class="row"><label>レンズ濃度</label><input id="op" type="range" min="20" max="100" value="82"><span class="val" id="opV">82%</span></div>
+  <div class="row"><label>レンズ濃度</label><input id="op" type="range" min="20" max="100" value="66"><span class="val" id="opV">66%</span></div>
   <div class="row"><label>サイズ</label><input id="sc" type="range" min="85" max="115" value="100"><span class="val" id="scV">100%</span></div>
   <div class="row"><label>上下</label><input id="oy" type="range" min="-15" max="15" value="0"><span class="val" id="oyV">0.0mm</span></div>
   <div class="row"><label>前後</label><input id="oz" type="range" min="-10" max="20" value="0"><span class="val" id="ozV">0.0mm</span></div>
@@ -83,6 +83,7 @@
 <script type="module">
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import { FilesetResolver, FaceLandmarker } from 'https://unpkg.com/@mediapipe/tasks-vision@0.10.14/vision_bundle.mjs';
 
@@ -119,6 +120,9 @@ const fit = new THREE.Group();      // 微調整
 anchor.add(fit);
 
 const loader = new GLTFLoader();
+const draco = new DRACOLoader();
+draco.setDecoderPath('https://unpkg.com/three@0.160.0/examples/jsm/libs/draco/');
+loader.setDRACOLoader(draco);
 
 /* 顔オクルーダー：色は描かず深度だけ書く → 顔の裏に回ったテンプルが隠れる */
 loader.load('face_occluder.glb', g => {
@@ -153,7 +157,8 @@ function loadModel(file){
           lensMat = m;
           m.transparent = true;
           m.depthWrite = false;
-          m.roughness = 0.06;
+          m.roughness = 0.11;
+          m.envMapIntensity = 0.30;
         }
         if (m.name === 'Frame')  m.envMapIntensity = 0.55;
         if (m.name === 'Accent') m.envMapIntensity = 0.9;

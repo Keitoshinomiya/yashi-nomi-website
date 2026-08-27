@@ -70,6 +70,7 @@
     <button id="pcOut" class="pcbtn">屋外</button>
     <span class="val" id="pcNote"></span>
   </div>
+  <div class="row"><label>傾き</label><input id="tl" type="range" min="-20" max="20" value="0"><span class="val" id="tlV">0°</span></div>
   <div class="row"><label>サイズ</label><input id="sc" type="range" min="85" max="115" value="100"><span class="val" id="scV">100%</span></div>
   <div class="row"><label>上下</label><input id="oy" type="range" min="-15" max="15" value="0"><span class="val" id="oyV">0.0mm</span></div>
   <div class="row"><label>前後</label><input id="oz" type="range" min="-10" max="20" value="0"><span class="val" id="ozV">0.0mm</span></div>
@@ -80,7 +81,7 @@
   </div>
 </div>
 <footer>
-  Amazon 3D要件準拠（GLB / 三角形131,450 / 実寸148mm / ノード Frame・TempleR・TempleL・LensR・LensL / レンズ KHR_materials_transmission / glTF-Validator エラー0）<br>
+  Amazon 3D要件準拠（GLB / 三角形187,456 / 実寸148mm / ノード Frame・TempleR・TempleL・LensR・LensL / レンズ KHR_materials_transmission / glTF-Validator エラー0）<br>
   フレーム #262523・アクセント #a4a097 は実製品写真からの実測値<br>
   TORINOX × 合同会社ヤシノミ — 技術デモ（非公開・関係者限り）
 </footer>
@@ -236,7 +237,8 @@ $('export').onclick = () => {
   const model = $('models').querySelector('button.active').textContent.trim();
   const lines = ['TORINOX バーチャル試着デモ — レンズ設定', '対象モデル: ' + model, ''];
   LENS_COLORS.forEach(c => lines.push(`${c.name}　VLT ${c.vlt}%`));
-  lines.push('', `調光レンズ演出: 屋内 ${PHOTO.indoor}% / 屋外 ${PHOTO.outdoor}%`);
+  lines.push('', `フィット調整: 傾き ${$('tl').value}° / サイズ ${$('sc').value}% / 上下 ${$('oy').value}mm / 前後 ${$('oz').value}mm`);
+  lines.push(`調光レンズ演出: 屋内 ${PHOTO.indoor}% / 屋外 ${PHOTO.outdoor}%`);
   const txt = lines.join('\n');
   navigator.clipboard.writeText(txt)
     .then(() => alert('設定をコピーしました。\n\n' + txt))
@@ -261,16 +263,18 @@ function applyLens(){
   setLensVLT(pct);
 }
 function applyFit(){
-  const s = +$('sc').value / 100, oy = +$('oy').value, oz = +$('oz').value;
+  const s = +$('sc').value / 100, oy = +$('oy').value, oz = +$('oz').value, tl = +$('tl').value;
   $('scV').textContent = Math.round(s*100) + '%';
   $('oyV').textContent = oy.toFixed(1) + 'mm';
   $('ozV').textContent = oz.toFixed(1) + 'mm';
+  $('tlV').textContent = tl + '°';
   fit.scale.setScalar(s);
   fit.position.set(0, BASE_POS.y + oy/10, BASE_POS.z + oz/10);
+  fit.rotation.x = tl * Math.PI / 180;     // 前傾角（つるの高さが変わる）
 }
 $('op').oninput = applyLens;
-['sc','oy','oz'].forEach(id => $(id).oninput = applyFit);
-$('reset').onclick = () => { $('sc').value=100; $('oy').value=0; $('oz').value=0; applyFit(); };
+['sc','oy','oz','tl'].forEach(id => $(id).oninput = applyFit);
+$('reset').onclick = () => { $('sc').value=100; $('oy').value=0; $('oz').value=0; $('tl').value=0; applyFit(); };
 $('models').querySelectorAll('button').forEach(b => {
   b.onclick = () => {
     $('models').querySelectorAll('button').forEach(x => x.classList.remove('active'));

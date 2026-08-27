@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PBN7WNCX8N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-PBN7WNCX8N');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="香水の小瓶60本の底にロットシールを貼る作業を、AI（Claude Code）と対話しながら専用の道具（治具）に落とし込み、3Dプリンタで作るまでの記録。要件整理からPythonでの形状生成、印刷設定、試作での判断変更まで、失敗も含めて書きました。">
+    <title>AIと一緒に生産治具を設計して、3Dプリンタで作るまで——香水瓶60本にロットシールを貼る道具ができた話 - 合同会社ヤシノミ</title>
+    <meta property="og:title" content="AIと一緒に生産治具を設計して、3Dプリンタで作るまで">
+    <meta property="og:description" content="香水の小瓶60本の底にロットシールを貼る作業を、AI（Claude Code）と対話しながら専用の道具（治具）に落とし込み、3Dプリンタで作るまでの記録。要件整理からPythonでの形状生成、印刷設定、試作での判断変更まで、失敗も含めて書きました。">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://yashi-nomi.com/column/ai-3dprint-jig-lot-seal.html">
+    <meta property="og:image" content="https://yashi-nomi.com/images/card-ai-3dprint-jig-lot-seal.jpg">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700&family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0a3d62;
+            --primary-color-dark: #06283d;
+            --accent-orange: #FF9900;
+            --border-color: #e5e7eb;
+            --good: #4E7C59;
+            --alert: #B23A3A;
+        }
+        body { font-family: 'Noto Sans JP', sans-serif; color: #1f2937; background-color: #f8f9fa; }
+        .font-serif-jp { font-family: 'M PLUS Rounded 1c', 'Noto Sans JP', sans-serif; }
+        .primary-color { color: var(--primary-color); }
+        .text-accent { color: var(--accent-orange); }
+        .btn-primary { background-image: linear-gradient(to right, #0a3d62 0%, #06283d 50%, #0a3d62 100%); background-size: 200% auto; color: white; }
+        .btn-primary:hover { background-position: right center; }
+        .marker { background: linear-gradient(transparent 60%, #cfe8ff 60%); font-weight: 700; }
+        .prose h2 { scroll-margin-top: 80px; font-family:'M PLUS Rounded 1c','Noto Sans JP',sans-serif; font-size:1.5rem; font-weight:700; color:var(--primary-color); border-left:5px solid var(--accent-orange); padding-left:14px; margin-top:2.5rem; }
+        .prose h3 { font-weight:700; font-size:1.15rem; color:#1f2937; margin-top:1.6rem; }
+        article p, article li { font-size: 1.0625rem; line-height: 1.9; }
+        @media (min-width: 768px) { article p, article li { font-size: 1.125rem; line-height: 1.95; } }
+        .prose ul { list-style:disc; padding-left:1.5rem; } .prose ol { list-style:decimal; padding-left:1.5rem; }
+        .toc a:hover { color: var(--primary-color); text-decoration: underline; }
+        table.data { width:100%; border-collapse:collapse; font-size:0.85rem; }
+        table.data th, table.data td { border:1px solid var(--border-color); padding:8px 10px; text-align:center; }
+        table.data th { background:var(--primary-color); color:#fff; font-weight:700; }
+        table.data tr:nth-child(even) td { background:#fafafa; }
+        table.data td.l { text-align:left; }
+        .note-good { background:#eef5ef; border-left:4px solid var(--good); border-radius:0 8px 8px 0; padding:16px 18px; }
+        .note-alert { background:#fbeeee; border-left:4px solid var(--alert); border-radius:0 8px 8px 0; padding:16px 18px; }
+        /* 設計プレビュー図・写真枠 */
+        figure.fig { margin:1.6rem 0; }
+        figure.fig img { width:100%; max-width:820px; margin:0 auto; display:block; background:#fff; border:1px solid var(--border-color); border-radius:8px; padding:8px; }
+        figure.fig figcaption { font-size:0.85rem; color:#6b7280; text-align:center; margin-top:8px; }
+        /* 写真待ちの目印。写真が入ったら figure.fig に差し替える。公開時は非表示 */
+        .photo-ph { display:none; margin:1.6rem auto; max-width:820px; border:2px dashed #c9a227; background:#fffbea; color:#7a5c00; border-radius:8px; padding:28px 18px; text-align:center; font-size:0.95rem; font-weight:700; }
+        .photo-ph small { display:block; font-weight:400; margin-top:6px; }
+    </style>
+
+    <link rel="icon" href="/images/icon.png" type="image/png" sizes="192x192">
+    <link rel="shortcut icon" href="/images/icon.png" type="image/png">
+    <link rel="apple-touch-icon" href="/images/icon.png">
+</head>
+<body>
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="../index.html" class="flex items-center gap-2">
+                <img src="../images/logo.png" alt="合同会社ヤシノミ ロゴ" class="h-8 w-auto">
+            </a>
+            <a href="https://line.me/R/ti/p/@756qpakc" target="_blank" class="btn-primary px-4 py-2 rounded text-sm font-bold transition shadow-md">LINEで相談</a>
+        </div>
+    </header>
+
+    <article class="container mx-auto px-6 py-12 max-w-5xl bg-white mt-8 rounded-xl shadow-sm">
+        <div class="flex items-center gap-2 mb-4 flex-wrap">
+            <span class="text-white text-xs font-bold px-3 py-1 rounded" style="background:var(--primary-color);">現場DX・ものづくり</span>
+            <span class="text-gray-400 text-xs">業務改善コラム</span>
+        </div>
+        <h1 class="font-serif-jp text-3xl md:text-4xl font-bold mt-2 mb-4 leading-tight text-gray-800" style="letter-spacing:0.02em;">
+            AIと一緒に生産治具を設計して、3Dプリンタで作るまで
+            <span class="text-2xl md:text-3xl mt-3 block text-gray-600 font-normal">——香水瓶60本にロットシールを貼る道具ができた話</span>
+        </h1>
+        <p class="text-sm text-gray-400 mb-8">業務改善コラム ／ 現場DX・ものづくり ／ 読了目安：約10分</p>
+
+        <div class="prose max-w-none text-gray-700 leading-relaxed space-y-8">
+            <div class="text-lg font-medium leading-8 pl-4 p-4 rounded-r" style="border-left:4px solid var(--primary-color);background:#f1f7fd;">
+                <p>弊社の香水小分けブランドでは、1.5mlの小瓶にロット番号のシールを貼っています。直径9mmの丸いシールを、直径11mmほどの瓶の底に、1本ずつ。地味ですが、数が増えるとじわじわ効いてくる作業です。</p>
+                <p class="mt-3">この作業を専用の道具（治具）でラクにしよう、という話が社内から上がり、2日間でAIと一緒に設計して3Dプリンタで作りました。<span class="marker">要件を言葉にするところから、形を作るプログラム、印刷の設定まで、ほぼ全部AIとの対話で進んでいます</span>。うまくいったことも、作ってから捨てたものも、そのまま書きます。</p>
+            </div>
+
+            <nav class="toc text-sm bg-gray-50 border rounded-lg p-5" style="border-color:var(--border-color);">
+                <p class="font-bold text-gray-800 mb-3">この記事の内容</p>
+                <ol class="list-decimal pl-5 space-y-1.5 text-gray-600">
+                    <li><a href="#s1">きっかけは従業員の提案だった</a></li>
+                    <li><a href="#s2">何を作ったか——貼る→ひっくり返す→詰める</a></li>
+                    <li><a href="#s3">AIとどう進めたか——言葉で要件、プログラムで形、印刷設定まで</a></li>
+                    <li><a href="#s4">設計の見せ場4つ</a></li>
+                    <li><a href="#s5">試作して、判断を変えたもの</a></li>
+                    <li><a href="#s6">生産技術の経験と、AIの役割分担</a></li>
+                    <li><a href="#s7">中小の現場で「AIで治具」が現実的になったと思う理由</a></li>
+                </ol>
+            </nav>
+
+            <section id="s1"><h2>きっかけは従業員の提案だった</h2>
+            <p>まず最初に書いておきたいのは、この改善の草案は私ではなく、<strong>従業員からの提案だった</strong>ということです。現場で毎回シールを貼っている人が「ここ、道具があればもっと速いのでは」と言ってくれた。私はそれを形にする役でした。</p>
+            <p>工程改善で一番うれしいのは、仕組みができた瞬間より、現場の人が「ここが面倒」と声に出してくれた瞬間だと思っています。面倒を面倒と言える空気があって、それを受け取って形にする手段が手元にある。今回はその両方が揃いました。</p>
+            <div class="photo-ph">【写真：これまで使っていた道具と、手作業でシールを貼っていた様子】<small>改善前の状態。「何が面倒だったか」が一目で伝わる写真（瓶を1本ずつ持って貼っている手元など）</small></div>
+            <p>「治具（じぐ）」という言葉に馴染みがない方のために補足すると、治具とは<strong>作業を速く・正確に・誰がやっても同じにするための、その作業専用の道具</strong>のことです。製造業の現場では、量産品そのものより治具の出来が品質を決める、と言われるくらい大事なものです。</p>
+            </section>
+
+            <section id="s2"><h2>何を作ったか——貼る→ひっくり返す→詰める</h2>
+            <p>使っているシールは市販のラベル用紙（はがきサイズに丸9mmが60面、6列×10段）です。瓶は60本単位で扱うので、「60本まとめてシールを貼って、そのまま充填とスプレーの取り付けまで流せる」ことをゴールにしました。できたのは4種類の部品です。</p>
+            <ul>
+                <li><strong>治具1「シール貼り台」</strong>：瓶を逆さまに60本挿す台。瓶の底が5mmだけ頭を出すので、そこにシールを貼る。シール用紙を切った短冊を突き当てる壁（フェンス）付き</li>
+                <li><strong>治具2「モジュール」</strong>：瓶6本を1列で受ける細長い部品を10本。隣同士を上から落とし込んで連結し、60本分の受け台になる。底が5mmの板になっていて、スプレーを押し込む力を床で受ける</li>
+                <li><strong>端板（左右）</strong>：モジュールを挟む両端の板。位置決めのピンが付いていて、治具2を治具1に被せるときのズレを防ぐ</li>
+                <li><strong>治具3「台座トレー」</strong>：ひっくり返すときに治具1と噛み合わせてロックする受け皿。両端の爪がカチッと掛かるので、反転中に手で挟み続けなくていい。反転後はそのまま充填の台座になる。長い側の壁は<strong>抜き差しできる別部品（側壁バー2本）</strong>にしてある。※トレーも側壁バーも、使ってみてから追加した部品です（後述）</li>
+            </ul>
+            <figure class="fig"><img src="../images/jig-lot-seal-jig1.png" alt="治具1 シール貼り台の設計プレビュー（斜めと真上）"><figcaption>治具1「シール貼り台」の設計プレビュー。60個の穴に瓶を逆さに挿す</figcaption></figure>
+            <figure class="fig"><img src="../images/jig-lot-seal-photo-jig1.jpg" alt="3Dプリントした治具1の実物"><figcaption>印刷した治具1の実物。設計プレビューがそのまま現物になる</figcaption></figure>
+            <figure class="fig"><img src="../images/jig-lot-seal-jig2-assembled.png" alt="治具2 モジュール10本を端板で挟んで連結した状態の設計プレビュー"><figcaption>治具2。6本用のモジュール10本（青と灰の交互）を端板（緑）で挟んで連結した状態</figcaption></figure>
+            <p>工程はこうなります。</p>
+            <ol>
+                <li>治具1に瓶を逆さまに挿す（底が5mm頭を出す）</li>
+                <li>シール用紙を6枚ずつの短冊に切り、フェンスに突き当てて載せ、手で6枚貼る</li>
+                <li>モジュールを1本ずつ治具1に被せていき、端板を付ける（瓶と隣のモジュールで位置が自動的に決まる）</li>
+                <li>台座トレーを被せて爪をカチッと掛け、全体をひっくり返す</li>
+                <li>治具1を持ち上げて外す。瓶はモジュールに正立した状態で、トレーに収まっている</li>
+                <li>トレーに入れたまま香水を充填し、スプレーを手で押し込む</li>
+                <li>トレーの側壁バー2本を真上に抜いて、長い側の壁を消す</li>
+                <li>モジュールを端の列から1本ずつ真上に抜き、6本単位で運ぶ・保管する</li>
+            </ol>
+            <div class="photo-ph">【写真：治具1に瓶60本を逆さに挿して、シールを貼っている手元】<small>実際の作業風景。シール短冊とフェンスが写っていると分かりやすい</small></div>
+            </section>
+
+            <section id="s3"><h2>AIとどう進めたか——言葉で要件、プログラムで形、印刷設定まで</h2>
+            <p>使ったのは「Claude Code（クロード・コード）」という、文章で指示を出すとプログラムを書いたりファイルを作ったりしてくれるAIの道具です。設計の進め方は、おおまかに次の流れでした。</p>
+            <ul>
+                <li><strong>要件を言葉で整理する</strong>：瓶の寸法、シールの寸法と配置、「瓶に手を触れずに反転したい」「支え材なしで印刷したい」といった条件を、AIと会話しながら書き出す</li>
+                <li><strong>形をプログラムで作る</strong>：AIがPython（パイソン）というプログラム言語で、寸法を入れると立体の形が出てくるプログラムを書く。出力は3Dプリンタに渡す「STL」という形式のファイル。専用の設計ソフトは一切使っていません</li>
+                <li><strong>画像で確認する</strong>：できた形を斜め・真上から描いた画像も同時に出してもらい、それを見て「ここをこう変えて」と返す</li>
+                <li><strong>印刷の設定まで書いてもらう</strong>：3Dプリンタ（Bambu Lab P2S）の印刷設定ファイルもAIが作成。材料、積層の厚み0.20mm、壁3周、支え材なし、といった設定が最初から入っている</li>
+                <li><strong>印刷して、現物で判断する</strong></li>
+            </ul>
+            <p>3Dプリンタで物を作るときは、立体の形（STL）を「スライサー」というソフトで薄い層に切り分けてから印刷します。今回はそのスライサーの設定まで含めて、AIとの会話の中で一式そろった、というのが自分でも少し驚いたところです。</p>
+            <figure class="fig"><img src="../images/jig-lot-seal-plate.png" alt="本番一式を1枚のプレートに並べた設計プレビュー"><figcaption>本番一式。治具1、モジュール10本、端板2枚を1枚のプレート（約230×200mm）に並べて一度に印刷</figcaption></figure>
+            <div class="photo-ph">【写真：Bambu Studio のスライス画面】<small>プレートに全部品が並んだ状態。「サポート」のレイヤーが出ていないことが分かる画面だとなお良い</small></div>
+            <div class="note-good">ここで大事なのは「AIが設計した」ではなく「<strong>寸法を入れ替えれば形が全部作り直される</strong>」状態になったことです。瓶の外径が変わっても、シールの配置が変わっても、プログラム冒頭の数字を直して実行するだけで全部品が更新されます。治具そのものより、この「作り直せる仕組み」のほうが資産だと思っています。</div>
+            </section>
+
+            <section id="s4"><h2>設計の見せ場4つ</h2>
+            <p>振り返って「これは効いた」と思う判断が4つあります。どれも、AIと会話している途中で出てきたものです。</p>
+
+            <h3>① シールの並びの間隔を、そのまま穴の間隔にした</h3>
+            <p>ラベル用紙のシールは、直径9mmのシールが約12.7mm（ちょうど1/2インチ）の間隔で並んでいます。治具1の穴の間隔も、この12.7mmにそろえました。すると、用紙を6枚ずつの短冊に切って治具の上に置くだけで、<strong>シールの中心が瓶の底の中心に自動で来ます</strong>。「どこに貼るか」を考える作業そのものを、設計で消した形です。</p>
+            <p>瓶の底は直径11.2mm、シールは9mmなので、ずれの許容は片側1.25mm。用紙の切り方や治具の印刷誤差を積み上げても0.9mm程度に収まる計算でした。</p>
+
+            <h3>② 挟んでひっくり返す（サンドイッチ反転）</h3>
+            <p>シールは瓶の底に貼るので、貼るときは瓶が逆さまです。でも充填するときは正立でないといけない。60本を1本ずつ持ち替えていたら治具の意味がありません。そこで、シールを貼り終えた治具1の上に治具2を被せ、<strong>両方を挟んだまま全体をひっくり返す</strong>ことにしました。治具1を持ち上げれば、瓶は治具2に正立で乗り移っています。瓶には一度も手を触れません。</p>
+            <p>面白いのは、ひっくり返している最中は瓶そのものが上下の治具をつないでいることです。だから連結は「並びがそろっていればいい」程度の精度で済みました。</p>
+
+            <h3>③ 0.25mmの壁問題を「開口」で解いた</h3>
+            <p>これが一番、設計らしい判断でした。穴の間隔は12.7mm、瓶を受ける穴の直径は12.2mm。引き算すると、隣り合う穴の間に残る壁は<strong>わずか0.25mm</strong>。3Dプリンタでは印刷できない薄さです。</p>
+            <p>壁を厚くするには穴の間隔を広げるしかないのですが、それをすると①で消した「貼る位置を考える作業」が復活してしまう。悩んだ末に気づいたのは、「瓶同士は1.2mm離れていて、そもそもぶつからない」ということでした。ならば穴の側面を4mmだけ開口して、<strong>壁そのものを無くしてしまえばいい</strong>。直径11.2mmの瓶は4mmの隙間からは抜けないので、受け台としての機能は変わりません。</p>
+            <figure class="fig"><img src="../images/jig-lot-seal-module.png" alt="6本用モジュール1本の設計プレビュー。側面が開口している"><figcaption>モジュール1本。穴の側面が4mmずつ開いていて、隣との薄い壁が存在しない</figcaption></figure>
+
+            <h3>④ 支え材がいらない形にした</h3>
+            <p>3Dプリンタは下から積み上げて作るので、宙に浮いた「下向きの面」があると、その下に「サポート」という支え材を自動で生やします。後で剥がす手間がかかるうえ、細かい溝の中に生えると取れません。そこで、<strong>全部品から浮いた下向き面をなくす</strong>ことを設計の条件にしました。</p>
+            <p>最終形は、モジュール同士の連結部を「上から見て台形の、まっすぐ縦に伸びる溝」にして、隣のモジュールを<strong>上から落とし込んで差す</strong>方式です。斜面も天井もないので、浮く面がそもそも存在しません。実は、ここに辿り着くまでに一度失敗しているのですが、それは次の章で書きます。</p>
+            <figure class="fig"><img src="../images/jig-lot-seal-vertical-dovetail.png" alt="モジュールの縦連結の設計プレビュー"><figcaption>連結部の最終形。上から見て台形の縦溝に、隣のモジュールを落とし込む</figcaption></figure>
+            </section>
+
+            <section id="s5"><h2>試作して、判断を変えたもの</h2>
+            <p>きれいな話だけ書くとうそになるので、途中で捨てたものも書きます。</p>
+
+            <h3>押さえフォークを作って、捨てた</h3>
+            <p>最初の版では、短冊を瓶の底に押し付けるための「フォーク」まで設計していました。歯が6本あって、シールの重心を押すように2mmずらしてあって、押し込みすぎないように高さ止めも付いている。我ながらよくできていたと思います。1列分のテストピースを印刷して試した感触も「めっちゃいい感じ」でした。</p>
+            <p>ただ、実際にやってみると、<strong>フォークで押すより指で貼ったほうが早かった</strong>。それだけの理由で、フォークは廃止です。設計に時間をかけたものほど手放しにくいのですが、現場で速いほうが正解です。</p>
+            <figure class="fig"><img src="../images/jig-lot-seal-fork-v1.png" alt="廃止した押さえフォークの設計プレビュー"><figcaption>初版で設計した押さえフォーク。印刷して試して、手貼りのほうが早いと分かり廃止</figcaption></figure>
+            <div class="photo-ph">【写真：1列分のテストピース（治具1・治具2・フォーク）】<small>初回に印刷した試作3点。PLAとPETGの比較があれば一緒に</small></div>
+
+            <h3>材料は、しなやかなPETGより硬いPLAが良かった</h3>
+            <p>テストピースはPLAとPETGという2種類の樹脂で刷ってみました。治具は「たわまない」ほうが扱いやすく、硬さのあるPLAのほうが向いていました。</p>
+
+            <h3>脚付きをやめて、底板で力を受ける</h3>
+            <p>治具2は最初、脚付きの浅い設計でした。でもスプレーを瓶に押し込む工程では、上からかなりの力がかかります。脚で受けるより、<strong>5mmの底板で床に直接逃がす</strong>ほうが素直だと判断し、脚なし・深さ33mm（瓶の高さとほぼ同じ）に変更しました。</p>
+
+            <h3>蝶ネクタイ型のつなぎ部品は「面倒すぎる」で却下</h3>
+            <p>モジュールの連結方法として、一度は蝶ネクタイ型の小さな部品を別に作って差し込む案を出しました。サイズを3種類刷って、合うものを使う、という案です。ただ、部品が増える・なくす・サイズを選ぶ、と面倒が積み上がるので却下。代わりに、モジュールの底に直接「あり溝」という滑り込ませる溝を付けて、部品を増やさずスライドでつなぐ形にしました。……このときは、これで決着したつもりでした。</p>
+
+            <h3>溝の中に支え材が生えていた——最初の対策は「45度」</h3>
+            <p>本番一式をスライサーにかけた画面を見たら、連結の溝の中に木の枝のような支え材が生えていました。そこで連結部の断面を「底は平ら、上面だけ45度」に変え、印刷設定でも支え材をオフにして、<strong>試作なしで本番一式を1枚のプレートに並べて印刷</strong>しました。3Dプリンタは45度までの斜面なら支えなしで印刷できる、という定石に沿った形です。</p>
+            <figure class="fig"><img src="../images/jig-lot-seal-dovetail.png" alt="45度案の連結部の断面。底が平らで上面が45度"><figcaption>45度案の断面（左）。このときは、これが最終形のつもりだった</figcaption></figure>
+
+            <h3>その45度も、刷ってみたら失敗だった——横に差すのをやめ、縦に落とす</h3>
+            <p>ところが実際に印刷すると、45度の天井のいちばん下の層が空中に浮いた状態になり、糸を引いたような印刷の乱れが出ました。定石どおりのはずが、細い溝の中では通用しなかった。そこで、横からスライドして差す方式ごとやめて、④で書いた「上から落とし込む縦の連結」に作り直しました。斜面で"逃げる"のではなく、<strong>浮く面がそもそも存在しない形にする</strong>。作り直した版は、層ごとの断面をプログラムで解析して浮いた面がゼロであることを確かめてから刷っています。</p>
+            <figure class="fig"><img src="../images/jig-lot-seal-photo-modules.jpg" alt="縦連結で組んだモジュール10本と端板の実物"><figcaption>作り直したモジュール10本＋端板を連結した実物。縦の溝と、端板の位置決めピンが見える</figcaption></figure>
+            <figure class="fig"><video src="../images/jig-lot-seal-modules.mp4" autoplay muted loop playsinline controls style="width:100%;max-width:380px;margin:0 auto;display:block;border:1px solid var(--border-color);border-radius:8px;background:#fff;"></video><figcaption>連結したモジュールの現物（動画・音なし）</figcaption></figure>
+
+            <h3>反転は「握りっぱなし」だと分かって、部品が1つ増えた</h3>
+            <p>使ってみて分かったことがもう1つ。治具1とモジュール群を挟んでひっくり返すあいだ、両手でずっと挟み続けていないといけません。60本分を毎回これでやるのは疲れます。そこで「台座トレー」（治具3）を追加しました。反転の前に上から被せると、両端の爪が治具1の側面にカチッと掛かって機械的にロックされる。反転中に握る力が要らず、反転後はそのまま充填の台座になります。あわせて、連結したモジュールを長い1本のまま持つとフニャつくことも分かったので、モジュールは1本ずつ治具1に被せる手順に変えました。</p>
+            <figure class="fig"><img src="../images/jig-lot-seal-tray-latch.png" alt="台座トレーを治具1に被せた状態の設計プレビュー"><figcaption>台座トレー（緑）を被せた状態。両端の爪が治具1に掛かり、反転中のロックになる</figcaption></figure>
+            <div class="photo-ph">【写真：実運用。モジュールに正立で乗り移った瓶60本に充填・スプレー圧入している様子】</div>
+
+            <h3>今度は「取り出せない」——壁を外せるトレーにした</h3>
+            <p>ここまでで一段落かと思ったら、次の問題が出ました。連結を縦（上から落とし込む）に変えたということは、<strong>外すときも真上に抜くしかない</strong>ということです。ところが充填が終わった瓶入りのモジュールは、四方をトレーの壁に囲まれていて、指を差し込む隙間がありません。</p>
+            <p>解決策は、壁のほうを外せるようにすることでした。トレーの長い側の壁を本体から切り離して<strong>差し込み式の「側壁バー」2本</strong>にし、ほぞを本体の穴に落とすとカチッと座るようにしました。充填と反転のあいだは装着して壁として働き、取り出すときは真上に抜けば壁が消えます。あわせて、モジュールの端に指が掛かる小さな窪みも付けました。</p>
+            <figure class="fig"><img src="../images/jig-lot-seal-tray-v5.png" alt="側壁バーを外せる分解式トレーの設計プレビュー"><figcaption>今の形。緑の部分が抜き差しできる側壁バー。抜けば長い側の壁が消えて、モジュールを真上に取り出せる</figcaption></figure>
+            <div class="note-good">この一連の流れが、今回いちばん設計らしい部分だったと思います。<strong>支え材を無くすために連結を縦にしたら、取り出しの自由が減った。</strong>ひとつ直すと別のところにしわ寄せが出る。机上で全部見通せていたわけではなく、刷って、使って、次の不便が出てくる、の繰り返しでここまで来ました。</div>
+            <div class="note-alert">試作で分かったことの大半は「設計図の上では正しかったが、現場では要らなかった」という種類のものでした。フォークがその典型です。AIは設計図の上の正しさを速く作れますが、<strong>「要るか要らないか」は現物を触らないと分かりません</strong>。ここを飛ばして本番を刷ると、きれいな無駄ができます。</div>
+            </section>
+
+            <section id="s6"><h2>生産技術の経験と、AIの役割分担</h2>
+            <p>私は独立前、製造業で生産技術の仕事をしていました。金型や寸法の公差（許される誤差の幅）を日常的に扱っていた経験は、今回かなり効いたと思います。</p>
+            <p>ただ、効いたのは「設計ができること」ではありません。AIとの会話の中で、<strong>何を疑うか</strong>が分かっていたことです。「壁が0.25mmって印刷できるの？」「圧入の力はどこで受けるの？」「この溝、支え材が生えない？」——こういう問いは、現場を知らないと出てきません。逆に言うと、問いさえ出せれば、形にするところはAIが圧倒的に速い。</p>
+            <table class="data">
+                <tr><th style="width:40%;">AIに任せたこと</th><th>人が持ったこと</th></tr>
+                <tr><td class="l">寸法から立体を作るプログラム（Python）を書く</td><td class="l">何に困っているかを言葉にする（従業員の提案）</td></tr>
+                <tr><td class="l">STLファイルと確認用の画像を出す</td><td class="l">「それ印刷できる？」「力はどこで受ける？」と疑う</td></tr>
+                <tr><td class="l">印刷設定ファイルを書く</td><td class="l">試作を触って、要る・要らないを決める</td></tr>
+                <tr><td class="l">壁が薄いと分かったときの代替案を出す</td><td class="l">フォークを捨てる、蝶ネクタイを却下する、という判断</td></tr>
+            </table>
+            <p>最初の問いを出してくれたのは従業員で、途中の問いを出したのは私、形にしたのはAI。誰か一人の手柄ではなく、この分担ができたことが、今回一番良かった点だと思っています。</p>
+            </section>
+
+            <section id="s7"><h2>中小の現場で「AIで治具」が現実的になったと思う理由</h2>
+            <p>治具を外注すると、図面を起こして、打ち合わせして、納期を待って、合わなければ作り直し、という流れになります。小さな現場では、その手間と費用に見合わないので「手でやればいい」で終わりがちです。今回、着手から本番一式の印刷まで2日。かかった費用は樹脂代だけです。</p>
+            <p>現実的になった理由を3つ挙げるなら、</p>
+            <ul>
+                <li><strong>専用の設計ソフトを覚えなくていい</strong>。日本語で寸法と条件を伝えれば、形が出てくる</li>
+                <li><strong>作り直しが一瞬</strong>。数字を直して実行するだけ。「フォークを捨てる」「脚をやめる」といった方針転換に設計作業が追いつく</li>
+                <li><strong>3Dプリンタが家庭用の価格で、安定して動く</strong>。スライサーの設定ファイルまでAIが書ける</li>
+            </ul>
+            <p>ただし、AIがあれば誰でも治具が作れる、とは思っていません。必要なのは「ここが面倒」と言える現場と、「それ本当に要る？」と疑える人です。道具が安くなったぶん、この2つの価値が相対的に上がった、というのが正直な実感です。</p>
+            <p>ひとつ付け加えると、今回の治具は、使いながらいまも変わり続けています。初版を刷った日から1週間で、連結の方式を作り直し、台座トレーが増え、そのトレーの壁が外れるようになりました。この記事を書いているあいだにも、はめ合いの当たりを調整するテスト印刷が回っています。瓶のロットが変われば外径も変わる。そのたびに、プログラムの数字を直して、また刷るだけです。</p>
+            <p>結局のところ、治具そのものより価値があるのは、<strong>「ここ、こうしたい」と言われてから翌日には形が変わっている、という速さのほう</strong>だと思っています。最初に声を上げてくれた人が、それを見てまた次の一言を言ってくれる。今のところ、その往復が続いています。</p>
+            </section>
+
+            <div class="p-8 rounded-xl border text-center mt-12" style="border-color:var(--border-color);background:#f1f7fd;">
+                <h3 class="font-serif-jp text-xl font-bold mb-4 text-gray-800">「うちの現場のこの作業、道具にできる？」と思ったら</h3>
+                <p class="mb-6 text-left md:text-center">同じやり方で作れるかどうかは、作業の内容と寸法を聞けばだいたい分かります。写真と「何に困っているか」をLINEで送っていただければ、現実的かどうかの目安をお返しします。予約や電話は不要です。</p>
+                <a href="https://line.me/R/ti/p/@756qpakc" target="_blank" class="btn-primary inline-block px-8 py-4 rounded-lg font-bold text-lg shadow-lg transform hover:-translate-y-1 transition duration-300">
+                    LINEで相談する
+                </a>
+            </div>
+        </div>
+
+        <div class="mt-10 text-center">
+            <a href="./index.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium transition-colors">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                業務改善コラム一覧に戻る
+            </a>
+        </div>
+    </article>
+
+    <footer class="text-gray-400 py-8 mt-12 text-center text-xs" style="background:var(--primary-color-dark);">
+        <p>© 2026 合同会社ヤシノミ All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

@@ -1,2 +1,10 @@
 [build]
   functions = "netlify/functions"
+
+# 取り下げた記事の転送先（公開済みURLを404にしないため）
+# auto-frees-iteration-time: 治具を題材にしていたが説明が実物とずれていたため取り下げ、実話版に差し替え（2026-08-27）
+[[redirects]]
+  from = "/column/auto-frees-iteration-time.html"
+  to = "/column/ai-3dprint-jig-lot-seal.html"
+  status = 301
+  force = true

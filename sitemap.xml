@@ -1,68 +1,248 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://www.yashi-nomi.com/</loc>
-    <lastmod>2025-12-06</lastmod>
+    <loc>https://yashi-nomi.com/</loc>
+    <lastmod>2026-08-30</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://www.yashi-nomi.com/blog/amazon-ads-profitability.html</loc>
-    <lastmod>2025-12-06</lastmod>
+    <loc>https://yashi-nomi.com/services.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://yashi-nomi.com/amazon.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://yashi-nomi.com/works.html</loc>
+    <lastmod>2026-08-27</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.yashi-nomi.com/blog/amazon-basics-policy.html</loc>
-    <lastmod>2025-12-06</lastmod>
+    <loc>https://yashi-nomi.com/flow.html</loc>
+    <lastmod>2026-08-27</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.yashi-nomi.com/blog/amazon-consulting-cost.html</loc>
-    <lastmod>2025-12-06</lastmod>
+    <loc>https://yashi-nomi.com/column/</loc>
+    <lastmod>2026-08-30</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://yashi-nomi.com/check/</loc>
+    <lastmod>2026-08-27</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://yashi-nomi.com/column/ai-3dprint-jig-lot-seal.html</loc>
+    <lastmod>2026-08-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.yashi-nomi.com/blog/amazon-inhouse-operation.html</loc>
-    <lastmod>2025-12-06</lastmod>
+    <loc>https://yashi-nomi.com/column/ai-daily-log-pipeline.html</loc>
+    <lastmod>2026-08-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.yashi-nomi.com/blog/amazon-seo-optimization.html</loc>
-    <lastmod>2025-12-06</lastmod>
+    <loc>https://yashi-nomi.com/column/ai-shindan-sekkei.html</loc>
+    <lastmod>2026-08-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.yashi-nomi.com/blog/case-addiction.html</loc>
-    <lastmod>2025-12-06</lastmod>
+    <loc>https://yashi-nomi.com/column/amazon-ads-early-warning.html</loc>
+    <lastmod>2026-08-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.yashi-nomi.com/blog/case-nocross.html</loc>
-    <lastmod>2025-12-06</lastmod>
+    <loc>https://yashi-nomi.com/column/amazon-ads-self-improvement-loop.html</loc>
+    <lastmod>2026-08-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.yashi-nomi.com/blog/case-pharma-hemp.html</loc>
-    <lastmod>2025-12-06</lastmod>
+    <loc>https://yashi-nomi.com/column/amazon-ads-tier-monitoring.html</loc>
+    <lastmod>2026-08-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.yashi-nomi.com/blog/</loc>
-    <lastmod>2025-12-06</lastmod>
+    <loc>https://yashi-nomi.com/column/amazon-rank-tracking.html</loc>
+    <lastmod>2026-08-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.yashi-nomi.com/blog/osaka-amazon-consulting.html</loc>
-    <lastmod>2025-12-06</lastmod>
+    <loc>https://yashi-nomi.com/column/blog-first-site-design.html</loc>
+    <lastmod>2026-08-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.yashi-nomi.com/blog/pre-launch-strategy.html</loc>
-    <lastmod>2025-12-06</lastmod>
+    <loc>https://yashi-nomi.com/column/blog-seo.html</loc>
+    <lastmod>2026-08-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.yashi-nomi.com/blog/why-no-marunage.html</loc>
-    <lastmod>2025-12-06</lastmod>
+    <loc>https://yashi-nomi.com/column/business-automation.html</loc>
+    <lastmod>2026-08-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://yashi-nomi.com/column/case-cockring-market-entry.html</loc>
+    <lastmod>2026-08-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://yashi-nomi.com/column/case-dezura-genba-dx.html</loc>
+    <lastmod>2026-08-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://yashi-nomi.com/column/case-salon-rebuild.html</loc>
+    <lastmod>2026-08-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://yashi-nomi.com/column/customer-voice-ig-asset.html</loc>
+    <lastmod>2026-08-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://yashi-nomi.com/column/ec-coupon-price-formula.html</loc>
+    <lastmod>2026-08-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://yashi-nomi.com/column/fba-inventory-valuation.html</loc>
+    <lastmod>2026-08-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://yashi-nomi.com/column/gsc-content-kaizen.html</loc>
+    <lastmod>2026-08-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://yashi-nomi.com/column/ig-asset-theme-batch.html</loc>
+    <lastmod>2026-08-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://yashi-nomi.com/column/keiri-automation.html</loc>
+    <lastmod>2026-08-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://yashi-nomi.com/column/line-claude-code.html</loc>
+    <lastmod>2026-08-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://yashi-nomi.com/column/line-follow-automation.html</loc>
+    <lastmod>2026-08-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://yashi-nomi.com/column/messy-so-systemize.html</loc>
+    <lastmod>2026-08-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://yashi-nomi.com/column/niche-market-selection.html</loc>
+    <lastmod>2026-08-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://yashi-nomi.com/column/quiz-lock-line-funnel.html</loc>
+    <lastmod>2026-08-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://yashi-nomi.com/column/saas-subscription-audit.html</loc>
+    <lastmod>2026-08-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://yashi-nomi.com/column/scheduled-infra.html</loc>
+    <lastmod>2026-08-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://yashi-nomi.com/column/shippai-pattern-db.html</loc>
+    <lastmod>2026-08-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://yashi-nomi.com/column/show-dont-claim.html</loc>
+    <lastmod>2026-08-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://yashi-nomi.com/column/sns-content-queue-mindset.html</loc>
+    <lastmod>2026-08-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://yashi-nomi.com/column/tiktok-shop-playbook.html</loc>
+    <lastmod>2026-08-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://yashi-nomi.com/column/uriage-mieruka.html</loc>
+    <lastmod>2026-08-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://yashi-nomi.com/column/voice-ranking-trap.html</loc>
+    <lastmod>2026-08-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://yashi-nomi.com/culture/awareness-before-automation.html</loc>
+    <lastmod>2026-08-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://yashi-nomi.com/culture/awareness-x100.html</loc>
+    <lastmod>2026-08-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://yashi-nomi.com/culture/center-pin-investment.html</loc>
+    <lastmod>2026-08-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://yashi-nomi.com/culture/difficulty-brings-solutions.html</loc>
+    <lastmod>2026-08-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://yashi-nomi.com/culture/habit-is-a-booster.html</loc>
+    <lastmod>2026-08-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://yashi-nomi.com/culture/referral-and-broadcast.html</loc>
+    <lastmod>2026-08-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://yashi-nomi.com/culture/systemize-is-kindness.html</loc>
+    <lastmod>2026-08-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://yashi-nomi.com/blog/case-addiction.html</loc>
+    <lastmod>2026-08-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://yashi-nomi.com/blog/case-nocross.html</loc>
+    <lastmod>2026-08-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://yashi-nomi.com/blog/case-pharma-hemp.html</loc>
+    <lastmod>2026-08-30</lastmod>
     <priority>0.8</priority>
   </url>
 </urlset>

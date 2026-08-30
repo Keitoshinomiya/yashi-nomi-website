@@ -90,6 +90,19 @@
     <section id="blog-archive" class="py-16 bg-gray-50">
         <div class="container mx-auto px-6">
 
+            <!-- キーワード検索（SNSからプロフィール経由で来た人が、目当ての記事を探せるように） -->
+            <div class="max-w-xl mx-auto mb-6">
+                <label for="column-search" class="sr-only">記事をキーワードで探す</label>
+                <div class="relative">
+                    <svg class="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z"></path></svg>
+                    <input id="column-search" type="search" autocomplete="off"
+                           placeholder="キーワードで記事を探す（例：治具、広告、経理）"
+                           class="w-full bg-white border rounded-full py-3 pl-12 pr-5 text-sm focus:outline-none"
+                           style="border-color:#E6E6E6;">
+                </div>
+                <p id="column-search-hit" class="text-center text-xs text-gray-500 mt-3" style="display:none;"></p>
+            </div>
+
             <!-- タグフィルター（バニラJS / Alpine非依存） -->
             <div class="flex flex-wrap justify-center gap-2 mb-12 blog-filter">
                 <button type="button" data-cat="all" class="filter-btn text-sm font-semibold px-4 py-2 rounded-full border transition">すべて</button>
@@ -709,15 +722,40 @@
           return (b.getAttribute('data-date')||'').localeCompare(a.getAttribute('data-date')||'');
         }).forEach(function(c){ grid.appendChild(c); });
 
-        // ③ カテゴリフィルター
+        // ③ カテゴリフィルター ＋ キーワード検索（SNSから来た人が記事を探せるように）
+        var box = scope.querySelector('#column-search');
+        var hit = scope.querySelector('#column-search-hit');
+        var cur = 'all';
+
+        // 検索対象は「見出し＋説明文」。カードごとに一度だけ作って持たせる
+        cards.forEach(function(c){
+          var h = c.querySelector('h3'), p = c.querySelector('p');
+          c._text = ((h?h.textContent:'') + ' ' + (p?p.textContent:'')).toLowerCase();
+        });
+
         function apply(cat){
+          cur = cat;
+          var q = (box && box.value || '').trim().toLowerCase();
+          var shown = 0;
           cards.forEach(function(c){
             var cats = (c.getAttribute('data-cats')||'').split(/\s+/);
-            c.style.display = (cat==='all' || cats.indexOf(cat)>-1) ? '' : 'none';
+            var okCat = (cat==='all' || cats.indexOf(cat)>-1);
+            var okQ = !q || c._text.indexOf(q) > -1;
+            var show = okCat && okQ;
+            c.style.display = show ? '' : 'none';
+            if(show) shown++;
           });
           btns.forEach(function(b){ b.classList.toggle('is-active', b.getAttribute('data-cat')===cat); });
+          if(hit){
+            hit.textContent = q ? (shown ? '「'+box.value.trim()+'」に一致する記事：'+shown+'件' : '「'+box.value.trim()+'」に一致する記事は見つかりませんでした') : '';
+            hit.style.display = q ? '' : 'none';
+          }
         }
         btns.forEach(function(b){ b.addEventListener('click', function(){ apply(b.getAttribute('data-cat')); }); });
+        if(box){
+          box.addEventListener('input', function(){ apply(cur); });
+          box.addEventListener('keydown', function(e){ if(e.key==='Escape'){ box.value=''; apply(cur); } });
+        }
         apply('all');
       }
       function boot(){ initFilter(document.getElementById('blog-archive')); }

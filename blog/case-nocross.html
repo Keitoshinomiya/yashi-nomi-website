@@ -154,5 +154,74 @@
     <footer class="bg-gray-900 text-gray-400 py-8 mt-12 text-center text-xs">
         <p>© 2026 合同会社ヤシノミ All Rights Reserved.</p>
     </footer>
+<!-- 記事の計測（流入 → 読了 → 行動 を1本で追う） -->
+<script>
+(function(){
+  if (typeof gtag !== 'function') return;
+  var slug = location.pathname.split('/').pop().replace('.html','') || 'index';
+  var section = location.pathname.indexOf('/culture/') > -1 ? 'culture'
+              : location.pathname.indexOf('/blog/') > -1 ? 'blog' : 'column';
+
+  // ① 流入経路：どこから来たか。SNSはリンクが貼れずUTMも落ちるため参照元でも判定する
+  function source(){
+    var p = new URLSearchParams(location.search);
+    var u = p.get('utm_source');
+    if (u) return u;
+    var r = document.referrer || '';
+    if (!r) return 'direct';
+    if (/instagram/.test(r)) return 'instagram';
+    if (/tiktok/.test(r)) return 'tiktok';
+    if (/line\.me|liff/.test(r)) return 'line';
+    if (/google|yahoo|bing/.test(r)) return 'search';
+    if (/yashi-nomi\.com/.test(r)) return 'internal';
+    return 'other';
+  }
+  var src = source();
+  gtag('event', 'article_view', {
+    article_slug: slug, article_section: section,
+    traffic_source: src, utm_campaign: new URLSearchParams(location.search).get('utm_campaign') || ''
+  });
+
+  // ② 読了：どこまで読まれたか（25/50/75/100%を1回ずつ）
+  var marks = [25,50,75,100], fired = {};
+  function onScroll(){
+    var h = document.documentElement;
+    var total = h.scrollHeight - h.clientHeight;
+    if (total <= 0) return;
+    var pct = Math.min(100, Math.round((h.scrollTop || document.body.scrollTop) / total * 100));
+    marks.forEach(function(m){
+      if (pct >= m && !fired[m]) {
+        fired[m] = 1;
+        gtag('event', 'article_read', { article_slug: slug, percent: m, traffic_source: src });
+      }
+    });
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+
+  // ③ 滞在時間：離脱時に秒数を送る（流し読みか、ちゃんと読んだかの判別用）
+  var start = Date.now();
+  window.addEventListener('pagehide', function(){
+    var sec = Math.round((Date.now()-start)/1000);
+    if (sec > 2 && navigator.sendBeacon) {
+      gtag('event', 'article_time', { article_slug: slug, seconds: Math.min(sec, 1800), traffic_source: src });
+    }
+  });
+
+  // ④ 行動：LINE相談・他記事への回遊。どの記事から押されたかを必ず添える
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a');
+    if (!a) return;
+    var href = a.getAttribute('href') || '';
+    if (/line\.me/.test(href)) {
+      gtag('event', 'line_click', {
+        article_slug: slug, article_section: section, traffic_source: src,
+        placement: a.closest('header') ? 'header' : 'article_cta'
+      });
+    } else if (/\.html$|^\.\//.test(href)) {
+      gtag('event', 'article_next', { from_slug: slug, to_url: href });
+    }
+  });
+})();
+</script>
 </body>
 </html>

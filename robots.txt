@@ -4,4 +4,7 @@ Allow: /
 # 関係者限定の隠しページ（検索には出さない）
 Disallow: /tryon-torinox-x7k2/
 
+# 認証の受け渡し用ページ
+Disallow: /oauth/
+
 Sitemap: https://yashi-nomi.com/sitemap.xml

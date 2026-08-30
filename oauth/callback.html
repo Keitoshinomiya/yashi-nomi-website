@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>認証コード | 合同会社ヤシノミ</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{--green:#23AC38;--ink:#1A1A1A;--muted:#7C7C7C;--line:#E6E6E6;}
+  *{box-sizing:border-box}
+  body{font-family:'Noto Sans JP',sans-serif;color:var(--ink);background:#F7FAF7;margin:0;
+       min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;}
+  .card{background:#fff;border:1px solid var(--line);border-radius:16px;max-width:640px;width:100%;
+        padding:36px 32px;box-shadow:0 2px 18px rgba(0,0,0,.05);}
+  .bar{height:6px;background:var(--green);border-radius:3px;width:64px;margin-bottom:22px;}
+  h1{font-size:1.35rem;margin:0 0 8px;}
+  p{line-height:1.9;color:#4B4B4B;margin:.4rem 0;}
+  .code{margin-top:20px;background:#F3F9F3;border:1px solid #CDE8D2;border-radius:10px;
+        padding:16px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.92rem;
+        word-break:break-all;line-height:1.7;}
+  button{margin-top:16px;background:var(--green);color:#fff;border:0;border-radius:999px;
+         padding:14px 28px;font-size:1rem;font-weight:700;cursor:pointer;font-family:inherit;}
+  button:disabled{background:#9ccfa5;cursor:default}
+  .ng{background:#FBEEEE;border-color:#EBC9C9;color:#8a2f2f}
+  .note{margin-top:22px;padding-top:18px;border-top:1px solid var(--line);font-size:.86rem;color:var(--muted);}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="bar"></div>
+  <h1 id="ttl">認証コードを受け取りました</h1>
+  <p id="lead">下のコードをコピーして、ターミナルに貼り付けてください。</p>
+  <div class="code" id="code">読み込み中…</div>
+  <button id="copy">コードをコピー</button>
+  <div class="note">
+    このページは認証の受け渡しのためだけのものです。コードは短時間で使えなくなるので、
+    そのままターミナルに貼り付けてください。うまくいかない場合は、
+    ブラウザのアドレス欄のURLをまるごとコピーしても大丈夫です。
+  </div>
+</div>
+<script>
+(function(){
+  var p = new URLSearchParams(location.search);
+  var code = (p.get('code')||'').split('#')[0];
+  var err  = p.get('error_description') || p.get('error');
+  var el = document.getElementById('code'), btn = document.getElementById('copy');
+  if (code) {
+    el.textContent = code;
+  } else {
+    document.getElementById('ttl').textContent = '認証コードが見つかりません';
+    document.getElementById('lead').textContent = err ? '次の理由で止まりました。もう一度お試しください。' : 'このページは認証の途中で自動的に開かれます。直接開いても何も表示されません。';
+    el.textContent = err || location.href;
+    el.className = 'code ng';
+    btn.style.display = 'none';
+  }
+  btn.addEventListener('click', function(){
+    navigator.clipboard.writeText(code).then(function(){
+      btn.textContent = 'コピーしました'; btn.disabled = true;
+    });
+  });
+})();
+</script>
+</body>
+</html>

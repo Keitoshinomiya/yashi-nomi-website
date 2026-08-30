@@ -12,7 +12,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Amazon広告で一番こわいのは「気づいたら赤字」。私たちは毎週の改善ループと毎日の早期警告で、悪化が確定する前に手を打つ仕組みを回しています。4レンジ分析・スマート入札ルール・4つの危険シグナルを、表と図で具体的に公開します。">
+    <meta name="description" content="Amazon広告で一番こわいのは「気づいたら赤字」。私たちは毎週の改善ループと毎日の早期警告で、悪化が確定する前に手を打つ仕組みを回しています。3つの期間での分析・入札の判断ルール・4つの危険な兆候を、表と図で具体的に公開します。">
     <title>広告の不調を「悪化する前」に止める：Amazon広告の自己改善ループ - 合同会社ヤシノミ</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700&family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
@@ -69,7 +69,7 @@
         <div class="prose max-w-none text-gray-700 leading-relaxed space-y-8">
             <p class="text-lg font-medium leading-8 pl-4 p-4 rounded-r" style="border-left:4px solid var(--accent-orange);background:#fff8ef;">
                 Amazon広告で一番こわいのは、派手な失敗ではありません。<span class="marker">「気づいたら、じわじわ赤字が膨らんでいた」</span>という静かな失敗です。<br>
-                私たちは自社ブランドの広告を、毎週の改善ループと毎日の早期警告で運用しています。狙いはただ一つ、<strong>「悪化が確定する前に、手を打つ」</strong>こと。
+                私たちは自社ブランドの広告を、毎週の改善ループ（同じ手順をぐるぐる回して少しずつ良くしていく流れ）と毎日の早期警告で運用しています。狙いはただ一つ、<strong>「悪化が確定する前に、手を打つ」</strong>こと。
                 この記事では、その仕組みの中身を、実際に使っている判断基準の表や図とともに公開します。Amazon広告に限らず、「数字で守りながら攻める」考え方として読んでいただけます。
             </p>
 
@@ -79,10 +79,10 @@
                 <ol class="list-decimal pl-5 space-y-1.5 text-gray-600">
                     <li><a href="#fear">広告で一番こわいのは「手遅れ」</a></li>
                     <li><a href="#loop">全体像：回し続ける改善ループ</a></li>
-                    <li><a href="#range">判断は「4つの期間」で行う</a></li>
+                    <li><a href="#range">判断は「3つの期間」で行う</a></li>
                     <li><a href="#bid">入札は「勘」ではなく「ルール」で決める</a></li>
-                    <li><a href="#warning">毎日の早期警告：4つの危険シグナル</a></li>
-                    <li><a href="#dashboard">数字は1枚のダッシュボードで見る</a></li>
+                    <li><a href="#warning">毎日の早期警告：4つの危険な兆候</a></li>
+                    <li><a href="#dashboard">数字は1枚の一覧画面で見る</a></li>
                     <li><a href="#learn">失敗から学ぶ仕組みを持つ</a></li>
                     <li><a href="#type">他社でも使える「数字で守る」型</a></li>
                 </ol>
@@ -106,19 +106,19 @@
                 <p>私たちの広告運用は、4つの段階をぐるぐる回す形になっています。</p>
                 <div class="grid sm:grid-cols-2 gap-3 mt-6 text-sm">
                     <div class="rounded-lg p-4 text-white" style="background:var(--primary-color);">
-                        <p class="font-bold mb-1">① PLAN（仮説を立てる）</p>
+                        <p class="font-bold mb-1">① 計画（仮説を立てる）</p>
                         <p class="opacity-90">「このキーワードは入札を上げれば伸びる」など、変更ごとに必ず仮説と成功基準（例：7日後に注文8件以上）を決める。</p>
                     </div>
                     <div class="rounded-lg p-4 text-white" style="background:var(--primary-color);">
-                        <p class="font-bold mb-1">② DO（最小限だけ動かす）</p>
+                        <p class="font-bold mb-1">② 実行（最小限だけ動かす）</p>
                         <p class="opacity-90">1回の変更は必要最小限に。極端な入札変更や、まとめて大量の変更はしない（崩れたとき原因が分からなくなるため）。</p>
                     </div>
                     <div class="rounded-lg p-4 text-white" style="background:var(--primary-color);">
-                        <p class="font-bold mb-1">③ CHECK（毎日見張る）</p>
+                        <p class="font-bold mb-1">③ 確認（毎日見張る）</p>
                         <p class="opacity-90">変更後の数日間、危険な兆候が出ていないかを毎日監視。出たらすぐ補正する（後述の早期警告）。</p>
                     </div>
                     <div class="rounded-lg p-4 text-white" style="background:var(--primary-color);">
-                        <p class="font-bold mb-1">④ LEARN（当たり外れを記録）</p>
+                        <p class="font-bold mb-1">④ 学習（当たり外れを記録）</p>
                         <p class="opacity-90">翌週、仮説が当たったか外れたかを判定。「的中率」を記録し、外れた条件は次回の判断ルールに反映する。</p>
                     </div>
                 </div>
@@ -128,11 +128,14 @@
                 </p>
             </section>
 
+            <figure style="margin:2.2rem 0;"><img src="../images/art-amazon-ads-early-warning-1.jpg" alt="" loading="lazy" style="width:100%;max-width:760px;margin:0 auto;display:block;border-radius:10px;"></figure>
+
+
             <section id="range">
-                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">3. 判断は「4つの期間」で行う</h2>
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">3. 判断は「3つの期間」で行う</h2>
                 <p>
                     入札を上げるか下げるかを、昨日1日の数字だけで決めるのは危険です。たまたま良かった/悪かっただけかもしれない。
-                    そこで私たちは<strong>「30日・14日・昨日」を並べて、トレンドで判断</strong>します。同じ「ACOSが高い」でも、改善中なのか悪化中なのかで打ち手は正反対だからです。
+                    そこで私たちは<strong>「30日・14日・昨日」を並べて、流れで判断</strong>します。同じ「ACOS（広告費が広告経由の売上の何割かを示す数字）が高い」でも、改善中なのか悪化中なのかで打ち手は正反対だからです。
                 </p>
                 <div class="overflow-x-auto mt-4">
                 <table class="data">
@@ -152,39 +155,40 @@
             <section id="bid">
                 <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">4. 入札は「勘」ではなく「ルール」で決める</h2>
                 <p>
-                    「なんとなく高そうだから下げる」では、人によって判断がブレます。私たちは<span class="marker">ACOS（広告費 ÷ 広告経由の売上）に応じて、入札の基準をルール化</span>しています。考え方はシンプルです。
+                    「なんとなく高そうだから下げる」では、人によって判断がブレます。私たちは<span class="marker">ACOS（広告費 ÷ 広告経由の売上）に応じて、入札の基準をルール化</span>しています。考え方は単純です。
                 </p>
                 <div class="overflow-x-auto mt-4">
                 <table class="data">
                     <thead><tr><th>ACOS（直近）</th><th>評価</th><th>入札の方針</th><th>上限</th></tr></thead>
                     <tbody>
-                        <tr><td>20%未満</td><td>✨ 超優良</td><td>強気に攻める（CPC維持）</td><td>¥50</td></tr>
-                        <tr><td>20〜30%</td><td>🟢 良好</td><td>やや抑える（CPC×0.9）</td><td>¥40</td></tr>
-                        <tr><td>30〜47%</td><td>🟡 安定</td><td>抑える（CPC×0.75）</td><td>¥35</td></tr>
-                        <tr><td>47〜70%</td><td>🟠 様子見</td><td>大きく抑える（CPC×0.5）</td><td>¥25</td></tr>
+                        <tr><td>20%未満</td><td>✨ 超優良</td><td>強気に攻める（クリック単価は維持）</td><td>¥50</td></tr>
+                        <tr><td>20〜30%</td><td>🟢 良好</td><td>やや抑える（クリック単価×0.9）</td><td>¥40</td></tr>
+                        <tr><td>30〜47%</td><td>🟡 安定</td><td>抑える（クリック単価×0.75）</td><td>¥35</td></tr>
+                        <tr><td>47〜70%</td><td>🟠 様子見</td><td>大きく抑える（クリック単価×0.5）</td><td>¥25</td></tr>
                         <tr><td>70%以上</td><td>🔴 赤字</td><td>最低入札へ／整理</td><td>¥10</td></tr>
                     </tbody>
                 </table>
                 </div>
                 <p class="mt-4">
-                    ポイントは2つあります。1つは、<strong>赤字でもいきなり止めず「最低入札（¥10）で残す」</strong>こと。
-                    完全に止めるとデータが取れなくなり、「本当にダメなのか」が判断できなくなるからです。コストはほぼゼロのまま、観察を続けます。
+                    大事なのは2つあります。1つは、<strong>赤字でもいきなり止めず「最低入札（¥10）で残す」</strong>こと。
+                    完全に止めるとデータが取れなくなり、「本当にダメなのか」が判断できなくなるからです。費用はほぼゼロのまま、観察を続けます。
                 </p>
                 <p>
                     もう1つは、<strong>変更は必ず事前に確認・承認してから実行する</strong>こと。ルールはあくまで「たたき台」で、最後は人が判断します。
                     自動化は「人の判断を奪うもの」ではなく、「人が良い判断をしやすくするもの」と考えています。
+                    ※その後、安全弁を付けたうえで自動実行に移行しました（続編で詳しく書いています）。
                 </p>
             </section>
 
             <section id="warning">
-                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">5. 毎日の早期警告：4つの危険シグナル</h2>
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">5. 毎日の早期警告：4つの危険な兆候</h2>
                 <p>
                     入札を変えた後が、いちばん危険です。良かれと思って上げた入札が、裏目に出ることもある。
-                    そこで変更後の数日間、<span class="marker">「結果（ROAS）が悪くなる前に表れる、4つの先行サイン」</span>を毎日見張ります。
+                    そこで変更後の数日間、<span class="marker">「結果（ROAS＝広告費1円あたり何円の売上になったか）が悪くなる前に表れる、4つの先行サイン」</span>を毎日見張ります。
                 </p>
                 <div class="overflow-x-auto mt-4">
                 <table class="data">
-                    <thead><tr><th>危険シグナル</th><th>何が起きている</th><th>放置すると</th></tr></thead>
+                    <thead><tr><th>危険な兆候</th><th>何が起きている</th><th>放置すると</th></tr></thead>
                     <tbody>
                         <tr><td style="font-weight:700;">表示回数の急増</td><td>急に広く配信され始めた</td><td>関係ない検索にも出て無駄打ち</td></tr>
                         <tr><td style="font-weight:700;">広告枠上位比率の急騰</td><td>高い枠に出続けている</td><td>クリック単価が跳ね上がる</td></tr>
@@ -227,15 +231,15 @@
             </section>
 
             <section id="dashboard">
-                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">6. 数字は1枚のダッシュボードで見る</h2>
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">6. 数字は1枚の一覧画面で見る</h2>
                 <p>
                     調子が悪いとき、「どこから崩れているのか」を素早く特定できないと、手当てが遅れます。
-                    私たちは数字を<strong>大きい順から細かい順へ、4つの階層で見られる1枚のダッシュボード</strong>に集約しています。上から順にたどれば、原因にたどり着けます。
+                    私たちは数字を<strong>大きい順から細かい順へ、4つの階層で見られる1枚の一覧画面</strong>に集約しています。上から順にたどれば、原因にたどり着けます。
                 </p>
                 <!-- ダッシュボードのイメージ図（ネスト） -->
                 <div class="my-6 space-y-2 text-sm">
                     <div class="rounded-lg p-3 text-white" style="background:var(--primary-color-dark);">
-                        <span class="font-bold">第1階層</span>　広告タイプ別（全体の調子をひと目で）
+                        <span class="font-bold">第1階層</span>　広告の種類別（全体の調子をひと目で）
                     </div>
                     <div class="rounded-lg p-3 text-white ml-4" style="background:var(--primary-color);">
                         <span class="font-bold">第2階層</span>　商品別（どの商品が効いている／崩れている）
@@ -244,7 +248,7 @@
                         <span class="font-bold">第3階層</span>　広告グループ別（その商品の中のどの施策か）
                     </div>
                     <div class="rounded-lg p-3 ml-12" style="background:#eef4fa;color:var(--primary-color-dark);border:1px solid var(--border-color);">
-                        <span class="font-bold">第4階層</span>　キーワード／ターゲット別（個別の犯人を特定）
+                        <span class="font-bold">第4階層</span>　キーワード／配信先ごと（個別の犯人を特定）
                     </div>
                 </div>
                 <p>
@@ -260,10 +264,10 @@
                 </p>
                 <ul class="list-disc pl-6 space-y-2 mt-4 text-sm">
                     <li><strong>的中率の記録：</strong>毎週の提案が成功基準を満たしたかを判定し、「当たった割合」を記録。週を追うごとに上がっているかで、仕組みが機能しているかを確認します。</li>
-                    <li><strong>失敗パターン集：</strong>「サンプル数が少ない（注文が少ない）のに、入札を大きく上げて暴落した」など、過去の失敗を型として残し、新しい提案がそれに当てはまらないかをチェックします。</li>
+                    <li><strong>失敗の型集：</strong>「件数が少ない（注文が少ない）のに、入札を大きく上げて暴落した」など、過去の失敗を型として残し、新しい提案がそれに当てはまらないかを確認します。</li>
                 </ul>
                 <p class="mt-4 text-sm text-gray-600 bg-gray-50 border-l-4 pl-4 py-3" style="border-color:var(--accent-orange);">
-                    例：「注文数がまだ少ない段階での大幅な入札アップは、結果が安定せず逆効果になりやすい」。
+                    例：「注文数がまだ少ない段階での大幅な入札の引き上げは、結果が安定せず逆効果になりやすい」。
                     こうした学びをルール化しておくと、忙しい時でも危ない判断を避けられます。
                 </p>
             </section>

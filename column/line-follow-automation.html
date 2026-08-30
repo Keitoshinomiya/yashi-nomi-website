@@ -12,7 +12,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="新規のお客様を集めるより、一度買ってくれた人にもう一度買ってもらうほうがずっと安い。私たちはLINEでの「お礼・使い方・再購入の声かけ」を自動のステップ配信に置き換え、手作業のフォローをなくしながらリピートにつなげる仕組みを作りました。配信フロー図つきで公開します。">
+    <meta name="description" content="新規のお客様を集めるより、一度買ってくれた人にもう一度買ってもらうほうがずっと安い。私たちはLINEでの「お礼・使い方・再購入の声かけ」を、購入日を起点に順番に自動で届くメッセージに置き換え、手作業のフォローをなくしながら再購入につなげる仕組みを作りました。配信の流れ図つきで公開します。">
     <title>LINEの手作業フォローを自動化する：一度きりのお客様を「また来てくれるお客様」に変える仕組み - 合同会社ヤシノミ</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700&family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
@@ -71,8 +71,8 @@
 
         <div class="prose max-w-none text-gray-700 leading-relaxed space-y-8">
             <p class="text-lg font-medium leading-8 pl-4 p-4 rounded-r" style="border-left:4px solid var(--accent-green);background:#effaf3;">
-                新しいお客様を1人集めるのには、広告費も手間もかかります。でも<span class="marker">一度買ってくれた人にもう一度買ってもらうのは、その何分の一のコスト</span>で済みます。<br>
-                問題は、その「もう一度」を生むフォロー——お礼・使い方の案内・再購入の声かけ——が、手作業だと続かないこと。私たちはこれをLINEの自動ステップ配信に置き換えました。この記事では、配信の流れを図にしながら、仕組みの作り方を公開します。
+                新しいお客様を1人集めるのには、広告費も手間もかかります。でも<span class="marker">一度買ってくれた人にもう一度買ってもらうのは、その何分の一の費用</span>で済みます。<br>
+                問題は、その「もう一度」を生むフォロー——お礼・使い方の案内・再購入の声かけ——が、手作業だと続かないこと。私たちはこれを、LINEの<strong>自動フォロー配信</strong>（購入日や友だち追加の日を起点に、決めた間隔でメッセージが順番に自動で届く仕組み）に置き換えました。この記事では、配信の流れを図にしながら、仕組みの作り方を公開します。
             </p>
 
             <nav class="toc text-sm bg-gray-50 border rounded-lg p-5" style="border-color:var(--border-color);">
@@ -80,7 +80,7 @@
                 <ol class="list-decimal pl-5 space-y-1.5 text-gray-600">
                     <li><a href="#why">なぜ「フォロー」は手作業だと続かないのか</a></li>
                     <li><a href="#why-line">なぜLINEなのか</a></li>
-                    <li><a href="#flow">配信フロー：買った後の数週間を設計する</a></li>
+                    <li><a href="#flow">配信の流れ：買った後の数週間を設計する</a></li>
                     <li><a href="#segment">「全員に同じ」をやめる：分けて送る</a></li>
                     <li><a href="#pitfall">やりすぎ厳禁：嫌われない設計</a></li>
                     <li><a href="#type">他社でも使える「自動フォロー」の型</a></li>
@@ -98,7 +98,7 @@
                 <p>
                     しかも手作業のフォローは、人によって・日によって質がバラつきます。
                     元気なときは丁寧に、疲れているときはそっけなく。<span class="marker">「やったりやらなかったり」が一番もったいない</span>のです。
-                    だったら、買った直後に必ず届く流れを、最初に一度だけ設計してしまう。これが自動ステップ配信の考え方です。
+                    だったら、買った直後に必ず届く流れを、最初に一度だけ設計してしまう。これが自動フォロー配信の考え方です。
                 </p>
             </section>
 
@@ -122,10 +122,13 @@
                 </p>
             </section>
 
+            <figure style="margin:2.2rem 0;"><img src="../images/art-line-follow-automation-1.jpg" alt="" loading="lazy" style="width:100%;max-width:760px;margin:0 auto;display:block;border-radius:10px;"></figure>
+
+
             <section id="flow">
-                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">3. 配信フロー：買った後の数週間を設計する</h2>
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">3. 配信の流れ：買った後の数週間を設計する</h2>
                 <p>
-                    自動ステップ配信とは、<span class="marker">「友だち追加」や「購入」をきっかけに、決めた間隔でメッセージが自動で届く仕組み</span>です。
+                    自動フォロー配信とは、<span class="marker">「友だち追加」や「購入」をきっかけに、決めた間隔でメッセージが自動で届く仕組み</span>です。
                     たとえば、こんな流れを一度作っておきます（内容・日数は商材に合わせて調整します）。
                 </p>
                 <div class="mt-5 space-y-0">
@@ -200,7 +203,7 @@
                     </tbody>
                 </table>
                 <p class="mt-4">
-                    自動化のゴールは「たくさん送ること」ではありません。<strong>「ちょうどいいタイミングで、ちょうどいい一言を届けること」</strong>です。
+                    自動化の目的は「たくさん送ること」ではありません。<strong>「ちょうどいいタイミングで、ちょうどいい一言を届けること」</strong>です。
                     送る回数を減らしたほうが、結果として読まれ、買ってもらえることはよくあります。
                 </p>
             </section>
@@ -211,7 +214,7 @@
                     <li><strong>つながる入口を1つ作る。</strong>商品同梱のカードやレジ横で、LINE友だち追加をお願いする。ここがすべての起点。</li>
                     <li><strong>買った後の数週間を紙に書く。</strong>「当日・3日後・1週間後…」と、いつ何を伝えるかを先に決める。これが配信の設計図。</li>
                     <li><strong>前半は売らない。</strong>お礼と役立つ情報に徹し、売り込みは最後だけにする。</li>
-                    <li><strong>相手で内容を変える。</strong>初回のお客様・リピーター・離れたお客様で、送る言葉を分ける。</li>
+                    <li><strong>相手で内容を変える。</strong>初めてのお客様・何度も買ってくださるお客様・しばらく離れているお客様で、送る言葉を分ける。</li>
                     <li><strong>反応を見て直す。</strong>開封・ブロック・返信を見ながら、刺さらない通を入れ替える。</li>
                 </ol>
             </section>
@@ -225,8 +228,8 @@
                     それが、一度きりのお客様を「また来てくれるお客様」に変えていきます。
                 </p>
                 <p>
-                    私たちは自社で配信の仕組みを回しながら、LINEを使ったリピート施策の設計をお手伝いしています。
-                    「リピートが伸びない」「フォローが続かない」という方は、ぜひ一度ご相談ください。
+                    私たちは自社で配信の仕組みを回しながら、LINEを使って再購入につなげる設計をお手伝いしています。
+                    「二度目の購入が伸びない」「フォローが続かない」という方は、ぜひ一度ご相談ください。
                 </p>
             </section>
 

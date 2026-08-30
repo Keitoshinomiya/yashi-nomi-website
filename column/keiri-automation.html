@@ -68,18 +68,18 @@
 
         <div class="prose max-w-none text-gray-700 leading-relaxed space-y-8">
             <p class="text-lg font-medium leading-8 pl-4 p-4 rounded-r" style="border-left:4px solid var(--primary-color);background:#f1f7fd;">
-                ネットショップを運営していると、毎月必ずやってくる作業があります。<span class="marker">モールの精算データを見ながら、会計ソフトに売上や手数料を打ち込む作業</span>です。<br>
-                これは、やってもやっても利益を生まない「固定残業」のようなもの。私たちは自社のEC経理でこの作業を自動化し、月初の手入力をほぼゼロに近づけました。この記事では、その考え方と仕訳の作り方を、表と図でできるだけ具体的に公開します。
+                ネットショップを運営していると、毎月必ずやってくる作業があります。<span class="marker">通販モール（Amazonや楽天などの出店先）の精算データを見ながら、会計ソフトに売上や手数料を打ち込む作業</span>です。<br>
+                これは、やってもやっても利益を生まない「固定残業」のようなもの。私たちは自社のEC（ネット通販）経理でこの作業を自動化し、月初の手入力をほぼゼロに近づけました。この記事では、その考え方と仕訳の作り方を、表と図でできるだけ具体的に公開します。
             </p>
 
             <nav class="toc text-sm bg-gray-50 border rounded-lg p-5" style="border-color:var(--border-color);">
                 <p class="font-bold text-gray-800 mb-3">この記事の内容</p>
                 <ol class="list-decimal pl-5 space-y-1.5 text-gray-600">
                     <li><a href="#pain">毎月の経理が「重い」本当の理由</a></li>
-                    <li><a href="#before">Before：手入力でやっていた頃</a></li>
-                    <li><a href="#after">After：データから自動で仕訳を作る</a></li>
+                    <li><a href="#before">自動化前：手入力でやっていた頃</a></li>
+                    <li><a href="#after">自動化後：データから自動で仕訳を作る</a></li>
                     <li><a href="#shiwake">仕訳のイメージ：売上・手数料はこう分ける</a></li>
-                    <li><a href="#pitfall">つまずきポイント（手数料は数ヶ月遅れて来る）</a></li>
+                    <li><a href="#pitfall">つまずきやすい点（手数料は数ヶ月遅れて来る）</a></li>
                     <li><a href="#type">他社でも使える「経理自動化」の型</a></li>
                     <li><a href="#summary">まとめ</a></li>
                 </ol>
@@ -94,32 +94,32 @@
                 </p>
                 <p>
                     だから本当は、<span class="marker">「総売上」「販売手数料」「広告費」「入金額」を分けて記帳する</span>必要がある。
-                    モールごとに精算書のフォーマットが違い、項目名もバラバラ。これを毎月、手で会計ソフトに転記していると、月初は何時間も経理に取られます。
+                    モールごとに精算書の形式が違い、項目名もバラバラ。これを毎月、手で会計ソフトに転記していると、月初は何時間も経理に取られます。
                     しかも転記ミスがあれば、決算で帳尻が合わずに探し回ることになります。
                 </p>
             </section>
 
             <section id="before">
-                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">2. Before：手入力でやっていた頃</h2>
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">2. 自動化前：手入力でやっていた頃</h2>
                 <p>自動化する前の流れは、おおよそこうでした。</p>
                 <div class="grid sm:grid-cols-2 gap-4 mt-5 text-sm">
                     <div class="border rounded-lg p-4" style="border-color:var(--border-color);">
-                        <p class="font-bold text-gray-800 mb-2">😵 Before（手作業）</p>
+                        <p class="font-bold text-gray-800 mb-2">😵 これまで（手作業）</p>
                         <ol class="list-decimal pl-4 space-y-1 text-gray-600">
-                            <li>各モールの管理画面から精算書CSVをダウンロード</li>
+                            <li>各モールの管理画面から精算書のCSVファイル（表計算ソフトで開けるデータ）をダウンロード</li>
                             <li>Excelで売上・手数料・広告費を電卓で集計</li>
                             <li>会計ソフトを開いて1件ずつ仕訳を手入力</li>
-                            <li>入金額と帳簿が合うか目視でチェック</li>
+                            <li>入金額と帳簿が合うか目視で確認</li>
                             <li>合わなければ原因を探して修正</li>
                         </ol>
                         <p class="mt-3 text-xs text-gray-500">→ モールが増えるほど時間が膨らむ。毎月のことなので慣れても短くならない。</p>
                     </div>
                     <div class="border rounded-lg p-4" style="border-color:var(--primary-color);background:#f1f7fd;">
-                        <p class="font-bold primary-color mb-2">🙂 After（自動）</p>
+                        <p class="font-bold primary-color mb-2">🙂 いまは（自動）</p>
                         <ol class="list-decimal pl-4 space-y-1 text-gray-700">
                             <li>精算データを所定のフォルダに置く</li>
-                            <li>スクリプトが項目を読み取り、仕訳の形に整える</li>
-                            <li>会計ソフトのAPIに自動で投入</li>
+                            <li>小さなプログラムが項目を読み取り、仕訳の形に整える</li>
+                            <li>会計ソフトのAPI（外部のプログラムとデータをやり取りする窓口）に自動で投入</li>
                             <li>人は「投入された仕訳が妥当か」だけ確認</li>
                         </ol>
                         <p class="mt-3 text-xs primary-color font-bold">→ 集計と転記が消え、人の仕事は「確認」だけに。</p>
@@ -132,8 +132,11 @@
                 </div>
             </section>
 
+            <figure style="margin:2.2rem 0;"><img src="../images/art-keiri-automation-1.jpg" alt="" loading="lazy" style="width:100%;max-width:760px;margin:0 auto;display:block;border-radius:10px;"></figure>
+
+
             <section id="after">
-                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">3. After：データから自動で仕訳を作る</h2>
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">3. 自動化後：データから自動で仕訳を作る</h2>
                 <p>
                     自動化といっても、特別な発明はありません。やっていることは3つだけです。
                 </p>
@@ -143,7 +146,7 @@
                     <li><strong>投入する：</strong>会計ソフトのAPIに送って、仕訳として登録する。</li>
                 </ol>
                 <p>
-                    ポイントは、<span class="marker">人間が判断していたルールを、そのままプログラムのルールに書き写しただけ</span>だということ。
+                    大事なのは、<span class="marker">人間が判断していたルールを、そのままプログラムのルールに書き写しただけ</span>だということ。
                     「この項目は売上高」「この項目は支払手数料」という対応表さえ一度作れば、あとは毎月同じ処理が走ります。
                     モールごとに対応表を1枚ずつ用意しておけば、新しいモールが増えても表を足すだけで済みます。
                 </p>
@@ -166,15 +169,15 @@
                         <tr><td class="l" style="font-weight:700;">合計</td><td style="font-weight:700;">100,000</td><td class="l" style="font-weight:700;">合計</td><td style="font-weight:700;">100,000</td></tr>
                     </tbody>
                 </table>
-                <p class="text-xs text-gray-500 mt-2">※借方合計と貸方合計が一致するのが仕訳の鉄則。自動化でもこの一致チェックは必ず入れる。</p>
+                <p class="text-xs text-gray-500 mt-2">※借方合計と貸方合計が一致するのが仕訳の鉄則。自動化でもこの一致の確認は必ず入れる。</p>
                 <p class="mt-4">
                     自動化のプログラムは、精算CSVの数字を読み取って、この表とまったく同じ構造の仕訳を組み立てます。
-                    人がやっていた「総売上で立てて、手数料と広告費を分ける」という判断を、コードに固定しているだけです。
+                    人がやっていた「総売上で立てて、手数料と広告費を分ける」という判断を、プログラムに固定しているだけです。
                 </p>
             </section>
 
             <section id="pitfall">
-                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">5. つまずきポイント（手数料は数ヶ月遅れて来る）</h2>
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">5. つまずきやすい点（手数料は数ヶ月遅れて来る）</h2>
                 <p>EC経理の自動化で、特に注意したい落とし穴を挙げます。</p>
                 <table class="data mt-4">
                     <thead>
@@ -199,7 +202,7 @@
                         <tr>
                             <td class="l">「全部おまかせ」にする</td>
                             <td class="l">自動投入を信じきって、誰も中身を見なくなる</td>
-                            <td class="l">投入後の「妥当性チェック」だけは必ず人が残す</td>
+                            <td class="l">投入後の「内容が妥当かの確認」だけは必ず人が残す</td>
                         </tr>
                     </tbody>
                 </table>
@@ -217,7 +220,7 @@
                     <li><strong>毎月くり返す入力を1つ選ぶ。</strong>「決まったデータを、決まった勘定科目に転記する」作業が狙い目。判断が毎回違う処理は後回し。</li>
                     <li><strong>自分の判断を対応表にする。</strong>「この項目→この科目・この税区分」を1枚の表に書き出す。これが自動化の設計図になる。</li>
                     <li><strong>仕訳の形に組み立てる。</strong>借方・貸方が必ず一致する形でデータを整える。一致しなければ止める仕組みにする。</li>
-                    <li><strong>会計ソフトへ投入する。</strong>API連携が使えれば自動投入。難しければCSVインポートでも十分に時短になる。</li>
+                    <li><strong>会計ソフトへ投入する。</strong>会計ソフトが外部からのデータ受け取りに対応していれば自動投入。難しければCSVファイルの取り込みでも十分に時短になる。</li>
                     <li><strong>確認だけは人が残す。</strong>自動で作った仕訳が妥当かを毎回ざっと見る。ここを残すから安心して任せられる。</li>
                 </ol>
             </section>

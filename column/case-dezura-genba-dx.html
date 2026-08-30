@@ -12,7 +12,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="現場の出面管理を、まず私たちがスプレッドシートとGASで自動化しPDFを自動送付。それでも専用アプリ「デズラ」に作り替えたのはなぜか。どんな手札を比べ、なぜその設計を選んだか――結果自慢ではなく、課題への向き合い方そのものを公開します。">
+    <meta name="description" content="現場の出面管理を、まず私たちが表計算シートと簡単な自動処理で仕組み化し、PDFを自動送付。それでも専用アプリ「デズラ」に作り替えたのはなぜか。どんな手札を比べ、なぜその設計を選んだか――結果自慢ではなく、課題への向き合い方そのものを公開します。">
     <title>動いている仕組みを、なぜわざわざアプリに作り替えたのか ― 現場管理アプリ「デズラ」の設計判断 - 合同会社ヤシノミ</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700&family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
@@ -95,7 +95,7 @@
                 これは、私たちの本業であるAmazon・ECとは少し違う事例です。知人（建設業の親方）の「出面（でづら）管理」を、
                 <span class="marker">現場管理アプリ「デズラ」（<a href="https://dezura.site" target="_blank" rel="noopener" class="underline" style="color:var(--dz);">dezura.site</a>）として作り直し、いまも私たちが運用しています。</span><br>
                 ただし最初にお断りします。これは「導入したら〇〇が△分になりました」という成果自慢の記事ではありません。
-                もともとは<strong>スマホのメモで現場ごとに管理</strong>していたものを、まず私たちが<strong>スプレッドシートとGASで自動化</strong>し、それなりに回る状態にしていました。
+                もともとは<strong>スマホのメモで現場ごとに管理</strong>していたものを、まず私たちが<strong>表計算シート（Googleスプレッドシート）と、そこに書ける簡単な自動処理</strong>で仕組み化し、それなりに回る状態にしていました。
                 それでも専用アプリへ作り替えたのは、なぜか――どんな手札を並べ、なぜその設計を選んだのか。私たちの考え方そのものをお見せします。
             </p>
 
@@ -119,7 +119,7 @@
                     <strong>現場ごとに、スマホのメモ帳で人の出入りを書き留めている</strong>状態。手元では分かっても、締めや集計はすべて手作業でした。
                 </p>
                 <p class="mt-4">
-                    そこで私たちがまず作ったのが、<strong>スプレッドシートとGAS（簡単なプログラム）を組み合わせた仕組み</strong>です。
+                    そこで私たちがまず作ったのが、<strong>表計算シートと、そこに書ける簡単な自動処理（決まった作業をひとりでにこなす短い命令書のようなもの）を組み合わせた仕組み</strong>です。
                 </p>
                 <ul class="list-disc pl-6 space-y-2 mt-4 text-sm">
                     <li>誰が・どの現場に・何日出たかを表計算で記録する</li>
@@ -143,7 +143,7 @@
                 <div class="grid sm:grid-cols-3 gap-4 mt-6">
                     <div class="p-4 rounded-lg border" style="border-color:var(--border-color);background:#fafafa;">
                         <p class="font-bold text-gray-800 text-sm mb-1">① 増やすと破綻する</p>
-                        <p class="text-xs text-gray-600">親方や現場が増えるたびにシートを足す方式では、すぐに管理しきれない。今後ほかの人に頼まれたときの拡張性がない。</p>
+                        <p class="text-xs text-gray-600">親方や現場が増えるたびにシートを足す方式では、すぐに管理しきれない。今後ほかの人に頼まれたときに、広げていく余地がない。</p>
                     </div>
                     <div class="p-4 rounded-lg border" style="border-color:var(--border-color);background:#fafafa;">
                         <p class="font-bold text-gray-800 text-sm mb-1">② 現場ではスマホが主役</p>
@@ -160,6 +160,9 @@
                 </p>
             </section>
 
+            <figure style="margin:2.2rem 0;"><img src="../images/art-case-dezura-genba-dx-1.jpg" alt="" loading="lazy" style="width:100%;max-width:760px;margin:0 auto;display:block;border-radius:10px;"></figure>
+
+
             <section id="cards">
                 <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">3. 手札を全部出して、却下理由まで言葉にする</h2>
                 <p>
@@ -173,13 +176,13 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td><strong>案A</strong><br>既製の勤怠SaaSを導入</td>
+                            <td><strong>案A</strong><br>既製の勤怠管理サービス（月額で借りて使うネットサービス）を入れる</td>
                             <td><span class="o">○</span> すぐ使える／自分たちで作らなくていい</td>
                             <td><span class="x">×</span> 「人工」「特殊な締め日」「元請へ書類送付」など建設特有の流れに合わない。機能が多すぎて現場が迷う</td>
                         </tr>
                         <tr>
                             <td><strong>案B</strong><br>いまの表計算を改良し続ける</td>
-                            <td><span class="o">○</span> 慣れた形のまま／追加コストが小さい</td>
+                            <td><span class="o">○</span> 慣れた形のまま／追加の費用が小さい</td>
                             <td><span class="x">×</span> 一番の課題＝<strong>増やしても回る形にならない</strong>。スマホで現場入力にするのも無理がある</td>
                         </tr>
                         <tr>
@@ -191,7 +194,7 @@
                 </table>
                 </div>
                 <p class="mt-5">
-                    最終的に選んだのは<strong>案C（専用アプリ）</strong>でした。決め手は、課題が「機能不足」ではなく「<span class="marker">業界特有の流れと、増えても続けられる拡張性</span>」だった点です。
+                    最終的に選んだのは<strong>案C（専用アプリ）</strong>でした。決め手は、課題が「機能不足」ではなく「<span class="marker">業界特有の流れと、人や現場が増えても続けられるかどうか</span>」だった点です。
                     そこは既製品では埋まらず、表計算の改良でも解けない。だから作る、と決めました。
                     同時に「作る手間と運用責任は私たちが背負う」という案Cの弱点も、最初から引き受ける前提で進めています。
                     <strong>都合の良い面だけで選ばないこと</strong>を、私たちはいつも大事にしています。
@@ -208,7 +211,7 @@
                     <div>
                         <p class="font-bold text-gray-800">判断① ログインは「LINEだけ」。専用パスワードは作らない</p>
                         <p class="text-sm mt-1">
-                            ITに不慣れな方ほど「新しいIDとパスワードを覚える」で離脱します。そこで普段使っているLINEでそのまま入れる形にしました。
+                            パソコンやスマホに不慣れな方ほど、「新しい会員番号とパスワードを覚える」の段階で使うのをやめてしまいます。そこで普段使っているLINEでそのまま入れる形にしました。
                             副次効果として、自前でパスワードを預からないぶん<span class="marker">守るべきものが減り、安全面でも有利</span>になります。
                         </p>
                     </div>
@@ -217,7 +220,7 @@
                         <p class="font-bold text-gray-800">判断② 「メニューを開かない前提」で日常を回す</p>
                         <p class="text-sm mt-1">
                             締め日のお知らせや明細は、LINEのメッセージとして届きます。そのボタンを押せば該当画面に直接着地し、操作を終えたらLINEに戻る。
-                            「アプリを開いて、メニューを探して……」という動作を、日常からほぼ無くしました。下は実際のリッチメニューとお知らせの考え方を、ごく簡略にイメージにしたものです。
+                            「アプリを開いて、メニューを探して……」という動作を、日常からほぼ無くしました。下は、実際のリッチメニュー（LINEの画面下にいつも出ているボタン一覧）とお知らせの考え方を、ごく簡単な絵にしたものです。
                         </p>
                         <div class="grid sm:grid-cols-2 gap-6 mt-5 items-start">
                             <div class="phone">
@@ -249,7 +252,7 @@
                     <div>
                         <p class="font-bold text-gray-800">判断③ 入力は「その場で1回だけ」。写真からも拾えるように</p>
                         <p class="text-sm mt-1">
-                            事務所に戻ってまとめて打ち直すのをやめ、現場で発生したその場で1タップ記録する形にしました。
+                            事務所に戻ってまとめて打ち直すのをやめ、現場で起きたその場で、画面を1回押すだけで記録できる形にしました。
                             手書きのメモなどは写真からも読み取れるようにし、<span class="marker">「同じ数字を何度も書き写す」作業そのものを設計から消す</span>ことを狙っています。
                         </p>
                     </div>
@@ -327,9 +330,9 @@
             <div class="p-8 rounded-xl border text-center mt-12" style="border-color:var(--border-color);background:#f1f6fb;">
                 <h3 class="font-serif-jp text-xl font-bold mb-4 text-gray-800">「いまのやり方、回ってはいるけれど不安」という方へ</h3>
                 <p class="mb-6 text-left md:text-center">
-                    特定の一人に依存している。現場で使いにくい。既製のツールが業界の事情に合わない。
+                    特定の一人に依存している。現場で使いにくい。既製のサービスが業界の事情に合わない。
                     そんな状態でしたら、まずは現状をお聞かせください。<br>
-                    高機能なツールを売り込むのではなく、<strong>そもそも作り替えるべきか</strong>から、一緒に考えます。
+                    高機能な道具を売り込むのではなく、<strong>そもそも作り替えるべきか</strong>から、一緒に考えます。
                 </p>
                 <a href="https://line.me/R/ti/p/@756qpakc" target="_blank" class="btn-primary inline-block px-8 py-4 rounded-lg font-bold text-lg shadow-lg transform hover:-translate-y-1 transition duration-300">
                     LINEで相談する

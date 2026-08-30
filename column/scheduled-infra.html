@@ -12,7 +12,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="自動化のいちばんの敵は「いつの間にか止まっていた」。私たちは毎日の自動処理を止めないために、専用マシンでの定期実行・10分おきリトライ・重複防止フラグ・復旧後の自動再実行・別マシンからのヘルスチェックという仕組みを組んでいます。図と表で公開します。">
+    <meta name="description" content="自動化のいちばんの敵は「いつの間にか止まっていた」。私たちは毎日の自動処理を止めないために、専用パソコンでの定期実行・10分おきの再挑戦・二度実行しないための目印・復旧後の自動再実行・別のパソコンからの動作確認という仕組みを組んでいます。図と表で公開します。">
     <title>止まらない自動化のつくり方：毎日動く処理を「止めない」ための仕組み - 合同会社ヤシノミ</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700&family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
@@ -68,7 +68,7 @@
 
         <div class="prose max-w-none text-gray-700 leading-relaxed space-y-8">
             <p class="text-lg font-medium leading-8 pl-4 p-4 rounded-r" style="border-left:4px solid var(--accent-orange);background:#fff8ef;">
-                自動化の本当の敵は、派手なバグではありません。<span class="marker">「いつの間にか止まっていて、誰も気づかなかった」</span>です。<br>
+                自動化の本当の敵は、派手な不具合ではありません。<span class="marker">「いつの間にか止まっていて、誰も気づかなかった」</span>です。<br>
                 毎朝走るはずのレポートが3日前から動いていない——それに気づくのが月末だったら、自動化はかえって危険です。私たちは毎日の自動処理を「止めない」ために、いくつもの仕掛けを重ねています。この記事では、その仕組みを図と表で公開します。専門用語は使わず、考え方として読めるようにしました。
             </p>
 
@@ -76,10 +76,10 @@
                 <p class="font-bold text-gray-800 mb-3">この記事の内容</p>
                 <ol class="list-decimal pl-5 space-y-1.5 text-gray-600">
                     <li><a href="#enemy">自動化の敵は「静かに止まること」</a></li>
-                    <li><a href="#machine">①専用のマシンで動かす</a></li>
+                    <li><a href="#machine">①専用のパソコンで動かす</a></li>
                     <li><a href="#retry">②「決まった時刻に1回」をやめる</a></li>
                     <li><a href="#flag">③同じ処理を二度やらない工夫</a></li>
-                    <li><a href="#healthcheck">④別のマシンから見張る</a></li>
+                    <li><a href="#healthcheck">④別のパソコンから見張る</a></li>
                     <li><a href="#diagram">全体像：4つの仕掛けの関係</a></li>
                     <li><a href="#type">他社でも使える「止めない自動化」の型</a></li>
                     <li><a href="#summary">まとめ</a></li>
@@ -100,18 +100,21 @@
             </section>
 
             <section id="machine">
-                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">2. ①専用のマシンで動かす</h2>
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">2. ①専用のパソコンで動かす</h2>
                 <p>
                     最初の工夫は、<strong>自動処理を「普段使うパソコン」でやらない</strong>ことです。
                     日常的に使うノートPCは、持ち歩いて電源を切ったり、スリープしたり、別の作業で重くなったりします。
                     そんな環境では、決まった時刻に処理が走る保証がありません。
                 </p>
                 <p>
-                    そこで私たちは、<span class="marker">電源を入れっぱなしにできる1台を「定期実行の専用マシン」</span>に決めています。
+                    そこで私たちは、<span class="marker">電源を入れっぱなしにできる1台を「定期実行の専用パソコン」</span>に決めています。
                     普段は触らず、ただ淡々と毎日の処理を回すためだけの存在。これだけで「PCを閉じていて動かなかった」という事故がなくなります。
                     大げさな設備は不要で、使っていない1台で十分です。
                 </p>
             </section>
+
+            <figure style="margin:2.2rem 0;"><img src="../images/art-scheduled-infra-1.jpg" alt="" loading="lazy" style="width:100%;max-width:760px;margin:0 auto;display:block;border-radius:10px;"></figure>
+
 
             <section id="retry">
                 <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">3. ②「決まった時刻に1回」をやめる</h2>
@@ -147,7 +150,7 @@
                     これがないと、1日に何回も同じレポートを送ってしまいます。
                 </p>
                 <p>
-                    やり方はシンプルです。処理が成功したら、<span class="marker">「今日やった」という目印（フラグ）を1つ残す</span>。
+                    やり方はシンプルです。処理が成功したら、<span class="marker">「今日やった」という目印を1つ残す</span>。
                     次の挑戦では、まずその目印があるかを確認し、あれば何もせず終了します。
                 </p>
                 <table class="data mt-4">
@@ -160,25 +163,25 @@
                     </tbody>
                 </table>
                 <p class="mt-4">
-                    「何度も挑戦する（リトライ）」と「一度だけ実行する（重複防止）」は、セットで効きます。
+                    「何度も挑戦する」と「一度成功したらその日はもうやらない」は、二つセットで効きます。
                     片方だけだと、止まりやすいか、二重実行するか、どちらかの事故が起きます。
                 </p>
             </section>
 
             <section id="healthcheck">
-                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">5. ④別のマシンから見張る</h2>
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">5. ④別のパソコンから見張る</h2>
                 <p>
-                    ここまでで処理は止まりにくくなりました。でも、専用マシン自体が固まったり、電源が落ちたら？
-                    <strong>そのマシンの中の仕組みだけでは、自分が止まったことを知らせられません。</strong>
+                    ここまでで処理は止まりにくくなりました。でも、専用パソコン自体が固まったり、電源が落ちたら？
+                    <strong>そのパソコンの中の仕組みだけでは、自分が止まったことを知らせられません。</strong>
                 </p>
                 <p>
-                    だから私たちは、<span class="marker">別のマシンから「ちゃんと終わった？」を毎日確認</span>させています。
-                    たとえば普段使うPCが、決まった時刻に「今日の処理は完了しているか」をチェックし、
-                    完了の印が見当たらなければ、チャットに「今日のバッチが終わっていません」と通知を飛ばす。
+                    だから私たちは、<span class="marker">別のパソコンから「ちゃんと終わった？」を毎日確認</span>させています。
+                    たとえば普段使うパソコンが、決まった時刻に「今日の処理は完了しているか」を確認し、
+                    完了の印が見当たらなければ、社内のチャット（LINEやSlackなど、日常的にやりとりする連絡アプリ）に「今日の自動処理が終わっていません」と通知を飛ばす。
                 </p>
                 <p>
-                    ポイントは<strong>「見張る役と、見張られる役を別にする」</strong>こと。
-                    同じマシンに見張りを置くと、そのマシンごと止まったときに通知も出せません。
+                    大事なのは<strong>「見張る役と、見張られる役を別にする」</strong>こと。
+                    同じパソコンに見張りを置くと、そのパソコンごと止まったときに通知も出せません。
                     別々にしておくから、片方が倒れてももう片方が気づけます。
                 </p>
             </section>
@@ -188,19 +191,19 @@
                 <p>ここまでの4つを1枚にすると、こうなります。</p>
                 <div class="border rounded-xl p-5 mt-4 bg-gray-50 text-sm" style="border-color:var(--border-color);">
                     <div class="rounded-lg p-4 text-white mb-3" style="background:var(--primary-color);">
-                        <p class="font-bold">🖥 専用マシン（止めずに動かす）</p>
+                        <p class="font-bold">🖥 専用パソコン（止めずに動かす）</p>
                         <div class="mt-3 ml-3 space-y-2">
                             <div class="bg-white bg-opacity-10 rounded p-2">
-                                <p class="font-bold">⏱ 時間帯リトライ：10分おきに「まだ？」と挑戦</p>
+                                <p class="font-bold">⏱ 時間帯で再挑戦：10分おきに「まだ？」と挑戦</p>
                             </div>
                             <div class="bg-white bg-opacity-10 rounded p-2">
-                                <p class="font-bold">🏁 重複防止フラグ：成功したら今日の目印を残す</p>
+                                <p class="font-bold">🏁 二度実行しない：成功したら今日の目印を残す</p>
                             </div>
                         </div>
                     </div>
                     <p class="text-center text-gray-400 mb-3">▲ 完了の印を確認 ▲</p>
                     <div class="rounded-lg p-4 border-2" style="border-color:var(--accent-orange);">
-                        <p class="font-bold text-gray-800">📱 別マシン（見張り役）</p>
+                        <p class="font-bold text-gray-800">📱 別パソコン（見張り役）</p>
                         <p class="text-gray-600 mt-1">毎日「完了の印はある？」と確認 → なければチャットに通知</p>
                     </div>
                 </div>
@@ -215,8 +218,8 @@
                 <ol class="list-decimal pl-6 space-y-3 mt-3">
                     <li><strong>専用の1台を決める。</strong>普段使いのPCではなく、つけっぱなしにできる1台で動かす。</li>
                     <li><strong>1回きりにしない。</strong>「決まった時刻に1回」ではなく「時間帯で何度も挑戦」する。</li>
-                    <li><strong>二度やらない印を残す。</strong>成功したら今日の目印を残し、以降はスキップする。</li>
-                    <li><strong>見張りを別に置く。</strong>別のマシンから「終わった？」を確認し、止まっていたら通知する。</li>
+                    <li><strong>二度やらない印を残す。</strong>成功したら今日の目印を残し、それ以降は何もせず終える。</li>
+                    <li><strong>見張りを別に置く。</strong>別のパソコンから「終わった？」を確認し、止まっていたら通知する。</li>
                     <li><strong>通知は人が見る場所へ。</strong>毎日見るチャットに飛ばす。メールの奥に埋もれさせない。</li>
                 </ol>
             </section>
@@ -225,7 +228,7 @@
                 <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">8. まとめ</h2>
                 <p>
                     自動化は「作って終わり」ではありません。<span class="marker">作った後に、止まらない・止まったら気づく仕組みを足してこそ、安心して任せられます。</span>
-                    専用マシン・時間帯リトライ・重複防止・別マシンの見張り。どれも難しい技術ではなく、「考え方」で組めるものばかりです。
+                    専用のパソコン・時間帯での再挑戦・二度実行しない目印・別のパソコンからの見張り。どれも難しい技術ではなく、「考え方」で組めるものばかりです。
                 </p>
                 <p>
                     私たちは自社の自動化をこの形で守りながら、同じように「自動化したいけど止まったら怖い」という事業者さんを支援しています。

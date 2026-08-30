@@ -12,7 +12,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="少額のSaaS・サブスクは『気づいたら毎月引き落とされ続ける』固定費の代表格。私たちが自社で実際にやったサブスク棚卸しの手順（全課金の洗い出し→4つの判定→解約・返金交渉→棚卸しを仕組みにする）を、表と具体例で公開します。重複課金の返金や使っていないライセンスの整理まで。">
+    <meta name="description" content="少額の月額サービス（サブスク）は『気づいたら毎月引き落とされ続ける』固定費の代表格。私たちが自社で実際にやった棚卸しの手順（全課金の洗い出し→4つの判定→解約・返金交渉→棚卸しを仕組みにする）を、表と具体例で公開します。重複課金の返金や使っていない契約枠の整理まで。">
     <title>使っていないサブスク、年間いくら？見えない固定費を棚卸しする - 合同会社ヤシノミ</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700&family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
@@ -72,25 +72,25 @@
 
         <div class="prose max-w-none text-gray-700 leading-relaxed space-y-8">
             <p class="text-lg font-medium leading-8 pl-4 p-4 rounded-r" style="border-left:4px solid var(--primary-color);background:#f1f7fd;">
-                月額1,000円。たった一つなら気になりません。でも<span class="marker">少額のサブスクが10個、20個と積み上がると、誰も全体像を把握していない固定費の山</span>になります。
-                私たちは自社で実際に「サブスクの棚卸し」をやり、重複課金の返金や、使っていないライセンスの整理までを進めました。この記事では、その手順をそのまま公開します。特別なツールは要りません。今日から真似できます。
+                月額1,000円。たった一つなら気になりません。でもサブスク（毎月自動で引き落とされる月額サービス）は、<span class="marker">少額のものが10個、20個と積み上がると、誰も全体像を把握していない固定費の山</span>になります。
+                私たちは自社で実際に「サブスクの棚卸し」をやり、重複課金の返金や、使っていない契約枠の整理までを進めました。この記事では、その手順をそのまま公開します。特別な道具は要りません。今日から真似できます。
             </p>
 
             <nav class="toc text-sm bg-gray-50 border rounded-lg p-5" style="border-color:var(--border-color);">
                 <p class="font-bold text-gray-800 mb-3">この記事の内容</p>
                 <ol class="list-decimal pl-5 space-y-1.5 text-gray-600">
-                    <li><a href="#why">なぜSaaSの固定費は「見えなく」なるのか</a></li>
+                    <li><a href="#why">なぜ月額サービスの固定費は「見えなく」なるのか</a></li>
                     <li><a href="#list">まず、全部を1枚に書き出す</a></li>
                     <li><a href="#judge">4つの軸で「残す・やめる」を仕分ける</a></li>
                     <li><a href="#muda">実際に出てきた「ムダの型」</a></li>
-                    <li><a href="#cut">解約・ダウングレードの進め方</a></li>
+                    <li><a href="#cut">解約・プラン引き下げの進め方</a></li>
                     <li><a href="#loop">一度で終わらせない：棚卸しを「仕組み」に</a></li>
                     <li><a href="#summary">まとめ</a></li>
                 </ol>
             </nav>
 
             <section id="why">
-                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">1. なぜSaaSの固定費は「見えなく」なるのか</h2>
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">1. なぜ月額サービスの固定費は「見えなく」なるのか</h2>
                 <p>
                     サブスクの怖さは、金額の大きさではなく<strong>「気づけない構造」</strong>にあります。理由は3つです。
                 </p>
@@ -100,7 +100,7 @@
                     <li><strong>契約者がバラバラ</strong>：個人カード・会社カード・担当者ごとに契約していて、誰も全体を見ていない。</li>
                 </ul>
                 <p class="mt-4">
-                    つまり、努力やコスト意識の問題ではありません。<span class="marker">「一覧になっていない」から見えないだけ</span>。だから最初の一手は、削ることではなく<strong>「並べること」</strong>です。
+                    つまり、努力や費用への意識の問題ではありません。<span class="marker">「一覧になっていない」から見えないだけ</span>。だから最初の一手は、削ることではなく<strong>「並べること」</strong>です。
                 </p>
             </section>
 
@@ -118,7 +118,7 @@
                             <tr><td class="l">ツールA</td><td>¥1,500/月</td><td>会社カード</td><td>毎週</td><td>残す</td></tr>
                             <tr><td class="l">ツールB</td><td>¥3,000/月</td><td>個人カード</td><td>半年前</td><td>停止候補</td></tr>
                             <tr><td class="l">ツールC・D</td><td>同種で2契約</td><td>別々の担当</td><td>両方たまに</td><td>重複→1本化</td></tr>
-                            <tr><td class="l">ツールE</td><td>¥9,800/月(上位)</td><td>会社カード</td><td>下位機能のみ</td><td>ダウングレード</td></tr>
+                            <tr><td class="l">ツールE</td><td>¥9,800/月(上位)</td><td>会社カード</td><td>下位機能のみ</td><td>プランを下げる</td></tr>
                         </tbody>
                     </table>
                     <figcaption class="text-xs text-gray-400 mt-2">※ 表はイメージ。実際のサービス名・金額は伏せています。</figcaption>
@@ -127,6 +127,9 @@
                     ポイントは「最後に使ったのはいつか」を必ず書くこと。<span class="marker">金額ではなく"使用頻度"が、やめる判断の主役</span>です。
                 </p>
             </section>
+
+            <figure style="margin:2.2rem 0;"><img src="../images/art-saas-subscription-audit-1.jpg" alt="" loading="lazy" style="width:100%;max-width:760px;margin:0 auto;display:block;border-radius:10px;"></figure>
+
 
             <section id="judge">
                 <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">3. 4つの軸で「残す・やめる」を仕分ける</h2>
@@ -156,8 +159,8 @@
                 <p>私たちが自社でやったとき、出てきたのは派手な無駄遣いではなく、<strong>どの会社にもある"地味な型"</strong>でした。</p>
                 <ul class="list-disc pl-6 space-y-2 mt-4">
                     <li><strong>二重課金していたツール</strong>：同じサービスを実質2回払っていた。サポートへ連絡したら、<span class="marker">過払い分が返金</span>された。</li>
-                    <li><strong>使っていない高機能ライセンス</strong>：年に数回しか開かないのに、毎月の上位プランを契約し続けていた。</li>
-                    <li><strong>過剰なプラン</strong>：下位プランの機能しか使っていないのに、惰性で上位プランのまま。ダウングレードで即削減。</li>
+                    <li><strong>使っていない高機能の契約枠</strong>：年に数回しか開かないのに、毎月の上位プランを契約し続けていた。</li>
+                    <li><strong>過剰なプラン</strong>：下位プランの機能しか使っていないのに、惰性で上位プランのまま。プランを下げれば即削減。</li>
                 </ul>
                 <div class="note-good rounded-r p-4 mt-5 text-sm">
                     金額の規模はあえて出しませんが、棚卸しの効果は<strong>「やめた額」だけではありません</strong>。<span class="marker">返金として戻ってくるお金</span>もあり、しかも翌月以降ずっと効き続ける——固定費削減は"利回りの良い改善"です。
@@ -165,12 +168,12 @@
             </section>
 
             <section id="cut">
-                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">5. 解約・ダウングレードの進め方</h2>
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">5. 解約・プラン引き下げの進め方</h2>
                 <p>
                     仕分けたら、あとは実行です。多くは管理画面から数クリックで止められますが、つまずきやすい点を挙げておきます。
                 </p>
                 <ul class="list-disc pl-6 space-y-2 mt-4">
-                    <li><strong>解約導線が分かりにくいサービス</strong>がある。設定→契約→「プランの変更/解約」を粘り強く探す。</li>
+                    <li><strong>解約の手順が分かりにくいサービス</strong>がある。設定→契約→「プランの変更/解約」を粘り強く探す。</li>
                     <li><strong>年額契約の途中</strong>は、次回更新日をカレンダーに登録し、更新前に止める。</li>
                     <li><strong>二重課金・誤課金</strong>は、サポート窓口へ事実を添えて連絡すれば返金されることが多い。海外サービスでも、要点を箇条書きにした短い英文で十分通じます（私たちはこの交渉文の作成も支援しています）。</li>
                 </ul>
@@ -197,9 +200,9 @@
             <section id="summary">
                 <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">7. まとめ</h2>
                 <ul class="list-disc pl-6 space-y-2">
-                    <li>SaaSの固定費は「一覧になっていない」から見えないだけ。まず全部を1枚に並べる。</li>
+                    <li>月額サービスの固定費は「一覧になっていない」から見えないだけ。まず全部を1枚に並べる。</li>
                     <li>判断の主役は金額ではなく<strong>使用頻度</strong>。使ってる／重複／惰性／解約漏れの4軸で機械的に仕分ける。</li>
-                    <li>二重課金・誤課金は<strong>返金</strong>を狙える。過剰プランはダウングレード。</li>
+                    <li>二重課金・誤課金は<strong>返金</strong>を狙える。過剰なプランは下位に引き下げる。</li>
                     <li>一度で終わらせず、<strong>半年〜年1回の棚卸しを仕組み化</strong>する。</li>
                 </ul>
             </section>
@@ -207,7 +210,7 @@
             <div class="p-8 rounded-xl border text-center mt-12" style="border-color:var(--border-color);background:#f1f7fd;">
                 <h3 class="font-serif-jp text-xl font-bold mb-4 text-gray-800">「固定費、たぶん無駄があると思うけど手が回らない」方へ</h3>
                 <p class="mb-6 text-left md:text-center">
-                    棚卸しの一覧づくりから、解約・ダウングレード・返金交渉（英語サポート含む）まで、一緒に手を動かしてお手伝いします。<br>
+                    棚卸しの一覧づくりから、解約・プラン引き下げ・返金交渉（英語サポート含む）まで、一緒に手を動かしてお手伝いします。<br>
                     まずは「どこに何が積み上がっているか」を見える化するところから。無料相談でお気軽にどうぞ。
                 </p>
                 <a href="https://line.me/R/ti/p/@756qpakc" target="_blank" class="btn-primary inline-block px-8 py-4 rounded-lg font-bold text-lg shadow-lg transform hover:-translate-y-1 transition duration-300">

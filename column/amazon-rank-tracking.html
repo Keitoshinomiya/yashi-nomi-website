@@ -12,7 +12,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Amazonの自然検索順位・価格・BSRを、なぜ毎日「同じ条件で」追跡するのか。手作業の目視チェックをやめて自動追跡に仕組み化した意思決定と、取得→記録→通知の設計、海外IPで圏外になる等のつまずきまで、実際に運用しているツールの考え方を公開します。">
+    <meta name="description" content="Amazonの自然検索順位・価格・BSRを、なぜ毎日「同じ条件で」追跡するのか。手作業の目視確認をやめて自動追跡に仕組み化した意思決定と、取得→記録→通知の設計、海外から見ると圏外になる等のつまずきまで、実際に運用している仕組みの考え方を公開します。">
     <title>順位を「毎日同じ条件で」見る：Amazon検索順位の追跡を、なぜ仕組み化したか － 合同会社ヤシノミ</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700&family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
@@ -74,8 +74,8 @@
 
         <div class="prose max-w-none text-gray-700 leading-relaxed space-y-8">
             <p class="text-lg font-medium leading-8 pl-4 p-4 rounded-r note-amber">
-                Amazon運用で「売上が落ちた」と気づいたときには、たいてい手遅れです。売上は<strong>結果</strong>で、結果が動くより先に動いている数字があります。そのひとつが<span class="marker">自然検索順位</span>です。<br>
-                この記事では、私たちが自社・支援先の商品で毎日見ている「検索順位・価格・BSR」を、<strong>なぜ手作業の目視から自動追跡に仕組み化したのか</strong>、その意思決定と設計を、実際に動いているツールの考え方とともに公開します。
+                Amazon運用で「売上が落ちた」と気づいたときには、たいてい手遅れです。売上は<strong>結果</strong>で、結果が動くより先に動いている数字があります。そのひとつが<span class="marker">自然検索順位</span>（広告枠を除いた、通常の検索結果での並び順）です。<br>
+                この記事では、私たちが自社・支援先の商品で毎日見ている「検索順位・価格・BSR（Amazonの売れ筋ランキング順位）」を、<strong>なぜ手作業の目視から自動追跡に仕組み化したのか</strong>、その意思決定と設計を、実際に動いている仕組みの考え方とともに公開します。
             </p>
 
             <p class="text-sm text-gray-500 bg-gray-50 border rounded-lg p-4" style="border-color:var(--border-color);">
@@ -90,7 +90,7 @@
                     <li><a href="#what">毎日とる7つの数字と、「順位の定義」を固定する話</a></li>
                     <li><a href="#manual">手作業の限界：なぜ自動化を決めたのか</a></li>
                     <li><a href="#system">仕組みの全体図：取得 → 記録 → 通知</a></li>
-                    <li><a href="#gate">「誤ったデータは流さない」品質ゲート</a></li>
+                    <li><a href="#gate">「誤ったデータは流さない」ための門番</a></li>
                     <li><a href="#lesson">つまずいて学んだこと</a></li>
                     <li><a href="#type">他の指標にも使える「定点観測の型」</a></li>
                 </ol>
@@ -141,15 +141,18 @@
                     </table>
                 </figure>
                 <p>
-                    ⑥の自然検索順位と⑦のBSRは似て非なるものです。<strong>順位は「露出」、BSRは「売れ行き」</strong>。両方を並べると「露出はあるのに売れていない（ページや価格に問題）」「売れているのに露出が落ちた（広告やSEOの問題）」といった<span class="marker">ギャップの診断</span>ができます。
+                    ⑥の自然検索順位と⑦のBSRは似て非なるものです。<strong>順位は「露出」、BSRは「売れ行き」</strong>。両方を並べると「露出はあるのに売れていない（ページや価格に問題）」「売れているのに露出が落ちた（広告や、検索で上位に出すための対策の問題）」といった<span class="marker">ズレの診断</span>ができます。
                 </p>
                 <p>
-                    ここで決定的に重要なのが、<strong>「順位の定義」を最初に固定すること</strong>です。Amazonの検索結果には広告（スポンサー）枠が混ざります。これを人の目で除外していると、日によって数え方がブレて、順位が信用できなくなります。私たちのツールは<span class="marker">スポンサー枠を構造的に必ず除外し、同じ商品の重複も排除して、純粋な自然検索順位だけを数える</span>ようにしています。
+                    ここで決定的に重要なのが、<strong>「順位の定義」を最初に固定すること</strong>です。Amazonの検索結果には広告（スポンサー）枠が混ざります。これを人の目で除外していると、日によって数え方がブレて、順位が信用できなくなります。私たちの仕組みは<span class="marker">広告（スポンサー）枠を構造的に必ず除外し、同じ商品の重複も排除して、純粋な自然検索順位だけを数える</span>ようにしています。
                 </p>
                 <p class="note-amber p-4 rounded-r">
                     「何位か」より先に<strong>「何をもって順位と呼ぶか」</strong>を決める。広告を含めるか・重複をどう扱うか・いつ・どこから見るか——この定義が毎回ブレていると、どんなにマメに記録しても比較できません。<strong>計測は、定義を固定して初めて意味を持ちます。</strong>
                 </p>
             </section>
+
+            <figure style="margin:2.2rem 0;"><img src="../images/art-amazon-rank-tracking-1.jpg" alt="" loading="lazy" style="width:100%;max-width:760px;margin:0 auto;display:block;border-radius:10px;"></figure>
+
 
             <section id="manual">
                 <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">3. 手作業の限界：なぜ自動化を決めたのか</h2>
@@ -163,22 +166,22 @@
                     <div class="p-4 rounded-lg note-alert"><p class="text-sm"><strong>担当者依存</strong>。その人が休むと止まり、見方も人によって変わる。</p></div>
                 </div>
                 <p class="mt-5">
-                    そこで、「<strong>検索 → 数字を抜き出す → スプレッドシートに記録 → 前日と比較 → 通知</strong>」までを1本の処理に仕組み化しました。1回の実行は<strong>2分弱</strong>で終わります。狙いは時短そのものより、<span class="marker">「毎日・同じ条件・同じ定義」で記録が積み上がること</span>。人は「集めて転記する」から解放され、「見て判断する」だけに集中できます。
+                    そこで、「<strong>検索 → 数字を抜き出す → スプレッドシート（表計算シート）に記録 → 前日と比較 → 通知</strong>」までを1本の処理に仕組み化しました。1回の実行は<strong>2分弱</strong>で終わります。狙いは時短そのものより、<span class="marker">「毎日・同じ条件・同じ定義」で記録が積み上がること</span>。人は「集めて転記する」から解放され、「見て判断する」だけに集中できます。
                 </p>
             </section>
 
             <section id="system">
                 <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">4. 仕組みの全体図：取得 → 記録 → 通知</h2>
-                <p>全体は3つのブロックでできています。</p>
+                <p>全体は3つのまとまりでできています。</p>
                 <div class="space-y-3 my-6">
                     <div class="flow-box" style="border-top:4px solid var(--accent-orange);">
                         <p class="font-bold text-gray-800">① 取得（実ブラウザで人間のように検索）</p>
-                        <p class="text-sm text-gray-600 mt-1">専用マシンが実ブラウザを自動操作し、検索ボックスに入力 → スポンサー除外 → 順位・価格・バッジ・クーポンを抽出。商品ページからBSRも取得。</p>
+                        <p class="text-sm text-gray-600 mt-1">専用のパソコンが実際のブラウザを自動で操作し、検索ボックスに入力 → スポンサー除外 → 順位・価格・バッジ・クーポンを抽出。商品ページからBSRも取得。</p>
                     </div>
                     <p class="text-center text-gray-300">▼</p>
                     <div class="flow-box" style="border-top:4px solid var(--primary-color);">
                         <p class="font-bold text-gray-800">② 記録（スプレッドシートに当日行を追記）</p>
-                        <p class="text-sm text-gray-600 mt-1">当日の日付行を探し、各ブランドの列に書き込む。通貨・％などの書式も自動で揃える。失敗時はローカルにCSVで退避。</p>
+                        <p class="text-sm text-gray-600 mt-1">当日の日付行を探し、各ブランドの列に書き込む。通貨・％などの書式も自動で揃える。失敗したときは手元にCSVファイル（表計算ソフトで開けるデータ）で退避。</p>
                     </div>
                     <p class="text-center text-gray-300">▼</p>
                     <div class="flow-box" style="border-top:4px solid var(--good);">
@@ -187,12 +190,12 @@
                     </div>
                 </div>
                 <p>
-                    実行は<strong>専用マシンで毎朝1回</strong>。当初はクラウド上で動かそうとしましたが、ここで大きな落とし穴にぶつかりました（後述）。記録は分析のために<strong>蓄積</strong>し、通知は判断のために<strong>差分（前日比）</strong>を出す——<span class="marker">「貯める場所」と「気づかせる場所」を分けている</span>のがポイントです。
+                    実行は<strong>専用のパソコンで毎朝1回</strong>。当初はクラウド（インターネット上の他社サーバー）で動かそうとしましたが、ここで大きな落とし穴にぶつかりました（後述）。記録は分析のために<strong>蓄積</strong>し、通知は判断のために<strong>前日からの変化</strong>を出す——<span class="marker">「貯める場所」と「気づかせる場所」を分けている</span>のがポイントです。
                 </p>
             </section>
 
             <section id="gate">
-                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">5. 「誤ったデータは流さない」品質ゲート</h2>
+                <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">5. 「誤ったデータは流さない」ための門番</h2>
                 <p>
                     自動化でいちばん怖いのは、<strong>壊れたデータが、正しい顔をしてチャットに流れること</strong>です。順位が取れなかった日に「0位」や空欄が共有されれば、見た人が誤った判断をします。そこで、通知の直前に必ず“門番”を置きました。
                 </p>
@@ -203,7 +206,7 @@
                         </thead>
                         <tbody>
                             <tr><td style="color:var(--good);font-weight:700;">正常</td><td style="text-align:left;">自社順位が数値で取れている／半数以上のブランドが有効</td><td style="text-align:left;">ランキング用チャンネルへ画像つきで自動投稿</td></tr>
-                            <tr><td style="color:var(--alert);font-weight:700;">不完全</td><td style="text-align:left;">圏外多発・取得失敗が目立つ</td><td style="text-align:left;"><strong>チャンネルには出さず</strong>、担当者へ個別に「要確認・手動で再実行を」とDM</td></tr>
+                            <tr><td style="color:var(--alert);font-weight:700;">不完全</td><td style="text-align:left;">圏外多発・取得失敗が目立つ</td><td style="text-align:left;"><strong>チャンネルには出さず</strong>、担当者へ個別に「要確認・手動で再実行を」とメッセージを送る</td></tr>
                         </tbody>
                     </table>
                 </figure>
@@ -218,11 +221,11 @@
                 <div class="space-y-4 mt-4">
                     <div class="p-5 rounded-lg border" style="border-color:var(--border-color);border-left:5px solid var(--alert);">
                         <p class="font-bold text-gray-800">海外から見ると、全部「圏外」になった</p>
-                        <p class="text-sm mt-1 text-gray-600">最初はクラウド（海外サーバー）で動かそうとしたところ、検索結果が日本と別物になり順位が取れませんでした。<strong>順位は「どこから見るか」で変わる</strong>。日本市場を見るなら日本から見る必要があり、国内の専用マシンに集約しました。</p>
+                        <p class="text-sm mt-1 text-gray-600">最初は海外にあるクラウドのサーバーで動かそうとしたところ、検索結果が日本と別物になり順位が取れませんでした。<strong>順位は「どこから見るか」で変わる</strong>。日本市場を見るなら日本から見る必要があり、国内に置いた専用のパソコンに集約しました。</p>
                     </div>
                     <div class="p-5 rounded-lg border" style="border-color:var(--border-color);border-left:5px solid var(--alert);">
                         <p class="font-bold text-gray-800">画像ファイルの上書きで処理が止まった</p>
-                        <p class="text-sm mt-1 text-gray-600">通知用の画像を毎回同じ名前で出力していたら、ファイルの競合でエラーに。<strong>日付つきのファイル名に分けて</strong>解決。自動化は本体より“周辺の細部”でこける、という典型でした。</p>
+                        <p class="text-sm mt-1 text-gray-600">通知用の画像を毎回同じ名前で出力していたら、ファイルの取り合いが起きて処理が止まりました。<strong>日付つきのファイル名に分けて</strong>解決。自動化は本体より“周辺の細部”でこける、という典型でした。</p>
                     </div>
                     <div class="p-5 rounded-lg border" style="border-color:var(--border-color);border-left:5px solid var(--good);">
                         <p class="font-bold text-gray-800">いちばんの学び：計測条件こそが命</p>
@@ -247,7 +250,7 @@
                     </div>
                     <div class="flex gap-4">
                         <span class="font-serif-jp text-2xl primary-color flex-shrink-0" style="line-height:1.2;">03</span>
-                        <div><p class="font-bold text-gray-800">「貯める場所」と「気づかせる場所」を分ける</p><p class="text-sm mt-1 text-gray-600">記録は蓄積・分析用、通知は前日比など“差分”で判断の起点に。</p></div>
+                        <div><p class="font-bold text-gray-800">「貯める場所」と「気づかせる場所」を分ける</p><p class="text-sm mt-1 text-gray-600">記録は蓄積・分析用、通知は前日比など“変化”で判断の起点に。</p></div>
                     </div>
                     <div class="flex gap-4">
                         <span class="font-serif-jp text-2xl primary-color flex-shrink-0" style="line-height:1.2;">04</span>

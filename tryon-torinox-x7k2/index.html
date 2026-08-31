@@ -18,6 +18,7 @@
            border-radius:14px; overflow:hidden; margin-top:12px; box-shadow:0 10px 34px rgba(0,0,0,.55); }
   #video { display:none; }
   #three { position:absolute; inset:0; width:100%; height:100%; transform:scaleX(-1); }
+  #three.nomirror { transform:none; }
   #msg { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; text-align:center;
          font-size:13.5px; color:#cdd5e0; padding:24px; background:rgba(0,0,0,.6); line-height:1.8; }
   .panel { width:min(94vw,720px); background:var(--panel); border:1px solid var(--line);
@@ -70,6 +71,12 @@
     <button id="pcIn" class="pcbtn">屋内</button>
     <button id="pcOut" class="pcbtn">屋外</button>
     <span class="val" id="pcNote"></span>
+  </div>
+  <div class="row">
+    <label>画面の向き</label>
+    <button id="mirOn" class="pcbtn active">鏡のように</button>
+    <button id="mirOff" class="pcbtn">実物どおり</button>
+    <span class="val" id="mirNote">鏡と同じ向き（ロゴは左右反転して見えます）</span>
   </div>
   <div class="row"><label>傾き</label><input id="tl" type="range" min="-20" max="20" value="0"><span class="val" id="tlV">0°</span></div>
   <div class="row"><label>サイズ</label><input id="sc" type="range" min="85" max="115" value="100"><span class="val" id="scV">100%</span></div>
@@ -283,12 +290,26 @@ $('models').querySelectorAll('button').forEach(b => {
   };
 });
 
-/* 写真保存：canvasに映像も3Dも入っているので左右反転して書き出す */
+/* 表示の左右反転：試着は鏡向きが自然だが、テンプルのロゴを読むときは実物どおりに切り替える */
+let mirrored = true;
+function applyMirror(){
+  canvas.classList.toggle('nomirror', !mirrored);
+  $('mirOn').classList.toggle('active', mirrored);
+  $('mirOff').classList.toggle('active', !mirrored);
+  $('mirNote').textContent = mirrored
+    ? '鏡と同じ向き（ロゴは左右反転して見えます）'
+    : '実物どおりの向き（ロゴが読めます）';
+}
+$('mirOn').onclick  = () => { mirrored = true;  applyMirror(); };
+$('mirOff').onclick = () => { mirrored = false; applyMirror(); };
+applyMirror();
+
+/* 写真保存：canvasの向きは表示設定に合わせる */
 $('shot').onclick = () => {
   const w = canvas.width, h = canvas.height;
   const c = document.createElement('canvas'); c.width = w; c.height = h;
   const ctx = c.getContext('2d');
-  ctx.translate(w, 0); ctx.scale(-1, 1);
+  if (mirrored) { ctx.translate(w, 0); ctx.scale(-1, 1); }
   ctx.drawImage(canvas, 0, 0);
   const a = document.createElement('a');
   a.download = 'torinox-tryon.png';

@@ -74,9 +74,9 @@
   </div>
   <div class="row">
     <label>画面の向き</label>
-    <button id="mirOn" class="pcbtn active">鏡のように</button>
-    <button id="mirOff" class="pcbtn">実物どおり</button>
-    <span class="val" id="mirNote">鏡と同じ向き（ロゴは左右反転して見えます）</span>
+    <button id="mirOn" class="pcbtn">鏡のように</button>
+    <button id="mirOff" class="pcbtn active">実物どおり</button>
+    <span class="val" id="mirNote">実物どおりの向き（ロゴが読めます）</span>
   </div>
   <div class="row"><label>傾き</label><input id="tl" type="range" min="-20" max="20" value="0"><span class="val" id="tlV">0°</span></div>
   <div class="row"><label>サイズ</label><input id="sc" type="range" min="85" max="115" value="100"><span class="val" id="scV">100%</span></div>
@@ -291,7 +291,7 @@ $('models').querySelectorAll('button').forEach(b => {
 });
 
 /* 表示の左右反転：試着は鏡向きが自然だが、テンプルのロゴを読むときは実物どおりに切り替える */
-let mirrored = true;
+let mirrored = false;   // 既定は実物どおり（ロゴが正しく読める向き）
 function applyMirror(){
   canvas.classList.toggle('nomirror', !mirrored);
   $('mirOn').classList.toggle('active', mirrored);

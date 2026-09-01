@@ -6,45 +6,58 @@
 <meta name="robots" content="noindex,nofollow">
 <title>TORINOX バーチャル試着デモ</title>
 <style>
-  :root { --bg:#0d0e11; --panel:#181a20; --line:#2b2f3a; --accent:#4da3ff; --text:#eef1f5; --sub:#98a1b0; }
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Orbitron:wght@500;700;900&display=swap');
+  :root { --bg:#000000; --panel:#0b0b0b; --line:#2a2a2a; --accent:#B48250; --text:#ffffff; --sub:#a4a4a4;
+          --orbitron:"Orbitron","Noto Sans JP",sans-serif; }
   * { box-sizing:border-box; margin:0; }
-  body { background:var(--bg); color:var(--text); font-family:"Hiragino Sans","Noto Sans JP",sans-serif;
-         min-height:100vh; display:flex; flex-direction:column; align-items:center; padding-bottom:32px; }
-  header { padding:16px 20px 4px; text-align:center; }
-  header h1 { font-size:17px; font-weight:700; letter-spacing:.08em; }
-  header p { font-size:11.5px; color:var(--sub); margin-top:5px; line-height:1.6; }
+  body { background:var(--bg); color:var(--text); font-family:"Noto Sans JP","Hiragino Sans",sans-serif; font-weight:500;
+         min-height:100vh; display:flex; flex-direction:column; align-items:center; padding-bottom:36px; }
+  header { padding:22px 20px 4px; text-align:center; }
+  header h1 { font-family:var(--orbitron); font-size:24px; font-weight:900; letter-spacing:.22em; text-indent:.22em; }
+  header .en { font-family:var(--orbitron); font-size:10px; font-weight:700; letter-spacing:.42em; text-indent:.42em;
+               color:var(--accent); margin-top:6px; }
+  header p { font-size:11px; color:var(--sub); margin-top:8px; line-height:1.7; font-weight:400; }
   #stage { position:relative; width:min(94vw,720px); aspect-ratio:4/3;
-           background:radial-gradient(circle at 50% 42%, #3a4150 0%, #15171d 70%);
-           border-radius:14px; overflow:hidden; margin-top:12px; box-shadow:0 10px 34px rgba(0,0,0,.55); }
+           background:radial-gradient(circle at 50% 42%, #1c1d1f 0%, #050505 72%);
+           border:1px solid var(--line); overflow:hidden; margin-top:14px; }
   #video { display:none; }
   #three { position:absolute; inset:0; width:100%; height:100%; transform:scaleX(-1); }
   #three.nomirror { transform:none; }
   #msg { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; text-align:center;
-         font-size:13.5px; color:#cdd5e0; padding:24px; background:rgba(0,0,0,.6); line-height:1.8; }
+         font-size:13px; color:#d5d5d5; padding:24px; background:rgba(0,0,0,.66); line-height:1.9; font-weight:400; }
   .panel { width:min(94vw,720px); background:var(--panel); border:1px solid var(--line);
-           border-radius:14px; margin-top:12px; padding:14px 18px; }
-  .row { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:9px 0; }
-  .row > label { font-size:12.5px; color:var(--sub); min-width:6.2em; }
-  .chips button { background:#252932; color:var(--text); border:1px solid #39404e; border-radius:8px;
-                  padding:7px 14px; font-size:13px; cursor:pointer; }
-  .chips button.active { background:var(--accent); border-color:var(--accent); color:#07131f; font-weight:700; }
-  .sw button { width:34px; height:34px; border-radius:50%; border:2px solid #3a4150; cursor:pointer; padding:0; }
-  .sw button.active { border-color:var(--accent); box-shadow:0 0 0 2px rgba(77,163,255,.35); }
-  .pcbtn { background:#252932; color:var(--text); border:1px solid #39404e; border-radius:7px;
-           padding:5px 12px; font-size:12px; cursor:pointer; }
-  .pcbtn.active { background:var(--accent); border-color:var(--accent); color:#07131f; font-weight:700; }
+           margin-top:14px; padding:18px 20px; }
+  .row { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:10px 0; }
+  .row > label { font-size:11px; color:var(--sub); min-width:6.4em; letter-spacing:.14em; font-weight:700; }
+  button { transition:.25s; }
+  .chips button { background:#000; color:var(--text); border:1px solid #ffffff; border-radius:0;
+                  padding:8px 16px; font-size:12px; cursor:pointer; font-family:var(--orbitron); font-weight:700; letter-spacing:.08em; }
+  .chips button:hover { opacity:.6; }
+  .chips button.active { background:var(--accent); border-color:var(--accent); color:#000; }
+  .sw button { width:36px; height:36px; border-radius:50%; border:1px solid #3d3d3d; cursor:pointer; padding:0;
+               box-shadow:inset 0 0 0 2px #000; }
+  .sw button:hover { opacity:.75; }
+  .sw button.active { border-color:var(--accent); box-shadow:inset 0 0 0 2px #000, 0 0 0 2px var(--accent); }
+  .pcbtn { background:#000; color:var(--text); border:1px solid #ffffff; border-radius:0;
+           padding:6px 13px; font-size:11.5px; cursor:pointer; font-weight:500; letter-spacing:.06em; }
+  .pcbtn:hover { opacity:.6; }
+  .pcbtn.active { background:var(--accent); border-color:var(--accent); color:#000; font-weight:700; }
   input[type=range] { flex:1; min-width:150px; accent-color:var(--accent); }
-  .val { font-size:11.5px; color:#8b94a4; width:4.2em; text-align:right; }
-  .act { display:flex; gap:10px; margin-top:12px; flex-wrap:wrap; }
-  .act button { background:#252932; color:var(--text); border:1px solid #39404e; border-radius:8px;
-                padding:9px 16px; font-size:13px; cursor:pointer; }
-  .act button.primary { background:var(--accent); border-color:var(--accent); color:#07131f; font-weight:700; }
-  footer { font-size:10.5px; color:#5d6675; margin-top:16px; text-align:center; line-height:1.7; }
+  .val { font-family:var(--orbitron); font-weight:500; font-size:11px; color:var(--sub); width:4.6em; text-align:right; letter-spacing:.04em; }
+  #mirNote { width:auto; font-family:"Noto Sans JP",sans-serif; font-weight:400; font-size:10.5px; letter-spacing:0; text-align:left; }
+  #pcNote { width:auto; }
+  .act { display:flex; gap:10px; margin-top:16px; flex-wrap:wrap; }
+  .act button { background:#000; color:var(--text); border:1px solid #ffffff; border-radius:0;
+                padding:10px 18px; font-size:12.5px; cursor:pointer; letter-spacing:.1em; font-weight:700; }
+  .act button:hover { opacity:.6; }
+  .act button.primary { background:var(--accent); border-color:var(--accent); color:#000; }
+  footer { font-size:10px; color:#6b6b6b; margin-top:18px; text-align:center; line-height:1.8; font-weight:400; }
 </style>
 </head>
 <body>
 <header>
-  <h1>TORINOX バーチャル試着デモ</h1>
+  <h1>TORINOX</h1>
+  <div class="en">VIRTUAL TRY-ON</div>
   <p>カメラに顔を映すとサングラスが装着されます。映像は端末内だけで処理し、外部には一切送信しません。</p>
 </header>
 
@@ -89,9 +102,8 @@
   </div>
 </div>
 <footer>
-  Amazon 3D要件準拠（GLB / 三角形187,456 / 実寸148mm / ノード Frame・TempleR・TempleL・LensR・LensL / レンズ KHR_materials_transmission / glTF-Validator エラー0）<br>
-  フレーム #262523・アクセント #a4a097 は実製品写真からの実測値<br>
-  TORINOX × 合同会社ヤシノミ — 技術デモ（非公開・関係者限り）
+  Amazon 3D要件準拠（GLB／ノード分割／KHR_materials_transmission／glTF-Validator エラー0・警告0）<br>
+  TORINOX &times; 合同会社ヤシノミ ― 技術デモ（非公開・関係者限り）
 </footer>
 
 <script type="importmap">
@@ -115,10 +127,14 @@ const BASE_POS = { y: 2.05, z: 5.50 };
 /* レンズ色 = 実製品写真から実測した「色相」を明るさ1.0に正規化したリニアRGB。
    実際の濃さは下のVLT（可視光線透過率）スライダーで決める。 */
 const LENS_COLORS = [
-  { name:'スモーク', tint:[1.00, 1.00, 1.03], swatch:'#9e9e9f', vlt:8 },
-  { name:'ブラウン', tint:[1.39, 1.09, 0.52], swatch:'#b7a578', vlt:8 },
-  { name:'グリーン', tint:[1.13, 1.07, 0.80], swatch:'#a8a390', vlt:8 },
-  { name:'ブルー',   tint:[0.64, 0.84, 1.52], swatch:'#8393bf', vlt:8 },
+  { name:'スモーク', tint:[1.00, 1.00, 1.03], vlt:8,
+    swatch:'radial-gradient(circle at 32% 28%, #5c6065 0%, #26282c 52%, #0e0f11 100%)' },
+  { name:'ブラウン', tint:[1.39, 1.09, 0.52], vlt:8,
+    swatch:'radial-gradient(circle at 32% 28%, #7a5a35 0%, #3a2a17 52%, #16100a 100%)' },
+  { name:'グリーン', tint:[1.13, 1.07, 0.80], vlt:8,
+    swatch:'radial-gradient(circle at 32% 28%, #5a6350 0%, #29301f 52%, #0f120c 100%)' },
+  { name:'ブルー',   tint:[0.64, 0.84, 1.52], vlt:8,
+    swatch:'radial-gradient(circle at 32% 28%, #46587a 0%, #1e2a3d 52%, #0c111a 100%)' },
 ];
 /* 調光レンズの演出用（実物は屋外で約60秒かけて濃くなる） */
 const PHOTO = { indoor:55, outdoor:10, ms:2500 };

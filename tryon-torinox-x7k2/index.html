@@ -73,9 +73,6 @@
     <button data-m="glasses_A.glb" class="active">ARQ（角型）</button>
     <button data-m="glasses_C.glb">MOTION（角型）</button>
   </div>
-  <div class="row sw" id="lensCols">
-    <label>レンズ色</label>
-  </div>
   <div class="row"><label>レンズ透過率</label><input id="op" type="range" min="3" max="70" value="8"><span class="val" id="opV">8%</span></div>
   <div class="row">
     <label>調光レンズ</label>
@@ -126,14 +123,7 @@ const BASE_POS = { y: 2.05, z: 5.50 };
 /* レンズ色 = 実製品写真から実測した「色相」を明るさ1.0に正規化したリニアRGB。
    実際の濃さは下のVLT（可視光線透過率）スライダーで決める。 */
 const LENS_COLORS = [
-  { name:'スモーク', tint:[1.00, 1.00, 1.03], vlt:8,
-    swatch:'radial-gradient(circle at 32% 28%, #5c6065 0%, #26282c 52%, #0e0f11 100%)' },
-  { name:'ブラウン', tint:[1.39, 1.09, 0.52], vlt:8,
-    swatch:'radial-gradient(circle at 32% 28%, #7a5a35 0%, #3a2a17 52%, #16100a 100%)' },
-  { name:'グリーン', tint:[1.13, 1.07, 0.80], vlt:8,
-    swatch:'radial-gradient(circle at 32% 28%, #5a6350 0%, #29301f 52%, #0f120c 100%)' },
-  { name:'ブルー',   tint:[0.64, 0.84, 1.52], vlt:8,
-    swatch:'radial-gradient(circle at 32% 28%, #46587a 0%, #1e2a3d 52%, #0c111a 100%)' },
+  { name:'ブラック', tint:[1.00, 1.00, 1.03], vlt:8 },   // 受注仕様: ブラックレンズのみ
 ];
 /* 調光レンズの演出用（実物は屋外で約60秒かけて濃くなる） */
 const PHOTO = { indoor:55, outdoor:10, ms:2500 };
@@ -212,21 +202,6 @@ function loadModel(file){
   }, undefined, () => { msg.textContent = 'モデル読み込みに失敗しました: ' + file; });
 }
 
-const swWrap = $('lensCols');
-LENS_COLORS.forEach((c, i) => {
-  const b = document.createElement('button');
-  b.style.background = c.swatch;
-  b.title = c.name;
-  if (i === 0) b.classList.add('active');
-  b.onclick = () => {
-    swWrap.querySelectorAll('button').forEach(x => x.classList.remove('active'));
-    b.classList.add('active');
-    curLens = c;
-    $('op').value = c.vlt;            // その色に記憶された透過率を復元
-    applyLens();
-  };
-  swWrap.appendChild(b);
-});
 
 /* ---- 調光レンズの演出（実物は屋外で約60秒かけて変化） ---- */
 let photoMode = null, animId = null;

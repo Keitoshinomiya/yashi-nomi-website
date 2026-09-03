@@ -70,8 +70,8 @@
 <div class="panel">
   <div class="row chips" id="models">
     <label>モデル</label>
-    <button data-m="glasses_A.glb" class="active">ARQ（角型）</button>
-    <button data-m="glasses_C.glb">MOTION（角型）</button>
+    <button data-m="glasses_A.glb?v=20260903" class="active">ARQ（角型）</button>
+    <button data-m="glasses_C.glb?v=20260903">MOTION（角型）</button>
   </div>
   <div class="row"><label>レンズ透過率</label><input id="op" type="range" min="3" max="70" value="8"><span class="val" id="opV">8%</span></div>
   <div class="row">
@@ -152,7 +152,7 @@ draco.setDecoderPath('https://unpkg.com/three@0.160.0/examples/jsm/libs/draco/')
 loader.setDRACOLoader(draco);
 
 /* 顔オクルーダー：色を描かず深度だけ書き、顔の裏のテンプルを隠す */
-loader.load('face_occluder.glb', g => {
+loader.load('face_occluder.glb?v=20260903', g => {
   const occ = g.scene;
   occ.traverse(o => {
     if (o.isMesh) {
@@ -308,7 +308,7 @@ $('shot').onclick = () => {
 };
 
 applyFit();
-loadModel('glasses_A.glb');
+loadModel('glasses_A.glb?v=20260903');
 
 let landmarker = null, running = false, lastT = -1;
 const faceMat = new THREE.Matrix4();

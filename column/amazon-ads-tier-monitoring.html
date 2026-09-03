@@ -81,8 +81,8 @@
 
         <div class="prose max-w-none text-gray-700 leading-relaxed space-y-8">
             <p class="text-lg font-medium leading-8 pl-4 p-4 rounded-r" style="border-left:4px solid var(--accent-orange);background:#fff8ef;">
-                Amazon広告で一番こわいのは、赤字そのものより<span class="marker">「気づいたら、もう手遅れだった」</span>です。気づくのが2週間遅れれば、その2週間ぶんの広告費はもう戻りません。<br>
-                私たちは自社ブランドの運用で、これを<strong>「仕組み」で防いでいます</strong>。広告に入れる候補をランク（S/A/B/C）で仕分け、稼働中の配信先（広告を出しているキーワードや商品）は<strong>毎朝、Slackに“悪化が見える表”が自動で届く</strong>。この記事では、その全体像と通知のイメージを、数値は伏せながらできるだけ具体的に公開します。
+                Amazon広告で一番こわいのは、赤字そのものより<span class="marker">「気づいたら、もう手遅れだった」</span>やと思ってます。気づくのが2週間遅れれば、その2週間ぶんの広告費はもう戻ってきません。<br>
+                うちは自社ブランドの運用で、これを<strong>「仕組み」で防いでいます</strong>。広告に入れる候補をランク（S/A/B/C）で仕分け、稼働中の配信先（広告を出しているキーワードや商品）は<strong>毎朝、Slackに“悪化が見える表”が自動で届く</strong>。この記事では、その全体像と通知のイメージを、数値は伏せながらできるだけ具体的に書きます。
             </p>
 
             <nav class="toc text-sm bg-gray-50 border rounded-lg p-5" style="border-color:var(--border-color);">
@@ -102,20 +102,20 @@
             <section id="why">
                 <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">1. 「気づいたら手遅れ」を、仕組みで防ぐ</h2>
                 <p>
-                    広告の数字は、毎日少しずつ動きます。昨日まで良かったキーワードが、今日から静かに悪化し始める。人が毎日全配信先を目視チェックするのは現実的ではなく、たいてい<span class="marker">月末にまとめて見て「うわ、ここ赤字だった」と気づく</span>——これが一番もったいないパターンです。
+                    広告の数字は、毎日少しずつ動きます。昨日まで良かったキーワードが、今日から静かに悪化し始める。人が毎日全配信先を目視チェックするのは現実的やないので、たいてい<span class="marker">月末にまとめて見て「うわ、ここ赤字だった」と気づく</span>。これが一番もったいないパターンでした。
                 </p>
                 <p class="mt-4">
-                    だから私たちは、「頑張って毎日見る」ではなく、<strong>「悪化したものだけが、向こうから毎朝目の前に出てくる」</strong>状態を作りました。人の根性ではなく、表と通知に見張らせるのです。
+                    そこで「頑張って毎日見る」のはやめて、<strong>「悪化したものだけが、向こうから毎朝目の前に出てくる」</strong>状態を作りました。人の根性ではなく、表と通知に見張らせる。私はこの形に落ち着いてます。
                 </p>
             </section>
 
             <section id="overview">
                 <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">2. 全体像：日次で“見張り”、週次で“組み替え”</h2>
-                <p>運用は「日次」と「週次」の2つのリズムで回しています。役割がはっきり分かれているのがポイントです。</p>
+                <p>運用は「日次」と「週次」の2つのリズムで回してます。役割をはっきり分けたのが効きました。</p>
                 <div class="grid sm:grid-cols-2 gap-5 mt-6">
                     <div class="p-5 rounded-lg border" style="border-color:var(--border-color);background:#f1f7fd;">
                         <p class="font-bold primary-color mb-2">🔁 日次（毎朝9:00）＝見張り役</p>
-                        <p class="text-sm text-gray-600">昨日の結果を取得し、<strong>悪化した配信先を表にしてSlackへ自動通知</strong>。「今日、手を打つべきものはどれか」だけが分かる。</p>
+                        <p class="text-sm text-gray-600">昨日の結果を取得し、<strong>悪化した配信先を表にしてSlackへ自動通知</strong>。「今日、手を打つのはどれか」だけが分かる。</p>
                     </div>
                     <div class="p-5 rounded-lg border" style="border-color:var(--border-color);background:#f1f7fd;">
                         <p class="font-bold primary-color mb-2">🗓 週次（月曜）＝組み替え役</p>
@@ -123,7 +123,7 @@
                     </div>
                 </div>
                 <p class="mt-5 text-sm text-gray-600 bg-gray-50 border-l-4 pl-4 py-3" style="border-color:var(--primary-color);">
-                    日次は「守り（悪化を止める）」、週次は「攻め（伸ばす候補を入れる）」。この2層に分けることで、<span class="marker">毎日バタバタ手を入れて余計に壊す</span>ことを防いでいます。
+                    日次は「守り（悪化を止める）」、週次は「攻め（伸ばす候補を入れる）」。この2層に分けてから、<span class="marker">毎日バタバタ手を入れて余計に壊す</span>のがなくなりました。分ける前は、朝見た数字にその場で反応して、だいたい裏目に出てました。笑
                 </p>
             </section>
 
@@ -133,7 +133,7 @@
             <section id="tier">
                 <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">3. ランクで候補を仕分ける（自動判定＋手動マーク）</h2>
                 <p>
-                    「次に広告へ入れるキーワード／商品」の候補は、放っておくと毎週バラバラに湧いてきます。そこで全候補を<strong>実績データで4段階のランクに自動判定</strong>し、一覧表に貯めています。
+                    「次に広告へ入れるキーワード／商品」の候補は、放っておくと毎週バラバラに湧いてきます。そこで全候補を<strong>実績データで4段階のランクに自動判定</strong>して、一覧表に貯めるようにしました。
                 </p>
                 <figure class="my-5 overflow-x-auto">
                     <table class="data">
@@ -150,7 +150,7 @@
                     <figcaption class="text-xs text-gray-400 mt-2">※ ACOS＝広告費が広告経由の売上の何割かを示す数字。低いほど効率が良いという意味です。</figcaption>
                 </figure>
                 <p>
-                    ただし自動判定だけだと、<strong>「数字上は優良でも、絶対に入れたくないもの」</strong>（自社商品と関係ない雑多なキーワード等）が毎週また候補に上がってきます。そこで<span class="marker">人にしか分からない判断を“手動マーク”として永続保存</span>しています。
+                    ただ、自動判定だけやと<strong>「数字上は優良でも、絶対に入れたくないもの」</strong>（自社商品と関係ない雑多なキーワード等）が毎週また候補に上がってきます。毎週同じものを見て、毎週同じように「これは違う」と切る。これがしんどかった。そこで<span class="marker">人にしか分からない判断を“手動マーク”として永続保存</span>することにしました。
                 </p>
                 <div class="grid sm:grid-cols-3 gap-4 mt-5">
                     <div class="p-4 rounded-lg border" style="border-color:var(--border-color);background:#fff8e6;">
@@ -167,14 +167,14 @@
                     </div>
                 </div>
                 <div class="note-good rounded-r p-4 mt-5 text-sm">
-                    キモは<strong>「同じ判断を毎週くり返さない」</strong>こと。一度マークした判断は貯まり続け、半年も回せば<span class="marker">“経験値がたまった一覧表”</span>になります。人の頭の中にしかなかった判断が、資産として残っていきます。
+                    大事なのは<strong>「同じ判断を毎週くり返さない」</strong>ことやと思ってます。一度マークした判断は貯まり続け、半年も回せば<span class="marker">“経験値がたまった一覧表”</span>になる。頭の中にしかなかった判断が、資産として残っていきます。
                 </div>
             </section>
 
             <section id="daily">
                 <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">4. 毎朝Slackに届く「悪化が見える表」</h2>
                 <p>
-                    稼働中の配信先は、毎朝9:00に前日結果を集計して<strong>Slackへ自動投稿</strong>します。ポイントは、<span class="marker">「昨日まで問題なかったのに、今日から悪化したもの」を🆕新規として最上段に分離</span>していること。継続中の問題はその下にまとめ、見るべきものが埋もれないようにしています。だから「今日まず見るべき1件」が毎朝はっきりします。
+                    稼働中の配信先は、毎朝9:00に前日結果を集計して<strong>Slackへ自動投稿</strong>されます。一番効いたのは、<span class="marker">「昨日まで問題なかったのに、今日から悪化したもの」を🆕新規として最上段に分離</span>したことでした。継続中の問題はその下にまとめて、見るべきものが埋もれへんようにしてます。おかげで「今日まず見る1件」が毎朝はっきりします。
                 </p>
                 <div class="grid md:grid-cols-2 gap-6 mt-6 items-start">
                     <div>
@@ -216,7 +216,7 @@
             <section id="watch">
                 <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">5. 経過観察の表：変えた後を“14日”追う</h2>
                 <p>
-                    入札やキーワードを変えたら、<strong>「変えっぱなし」にしない</strong>のが鉄則です。変更した配信先は<span class="marker">14日間、毎朝この表で追跡</span>します。変更前の30日ACOSを基準に、昨日／7日／14日の推移と<strong>損益分岐（これを超えると赤字になる線）</strong>を並べ、改善したか・赤字が続くかを毎日ひと目で判定できるようにしています。
+                    入札やキーワードを変えたら、<strong>「変えっぱなし」にしない</strong>。これは自分への戒めでもあります。変更した配信先は<span class="marker">14日間、毎朝この表で追跡</span>します。変更前の30日ACOSを基準に、昨日／7日／14日の推移と<strong>損益分岐（これを超えると赤字になる線）</strong>を並べて、改善したか・赤字が続くかを毎日ひと目で判定できるようにしてます。
                 </p>
                 <figure class="my-5 overflow-x-auto">
                     <table class="data">
@@ -232,15 +232,15 @@
                     <figcaption class="text-xs text-gray-400 mt-2">※ 表はイメージ。数値はすべて伏せています（○）。判定の考え方だけが本質です。</figcaption>
                 </figure>
                 <p>
-                    判定は機械的です。<strong>ACOSが損益分岐を下回れば✅改善、14日たっても赤字なら❌、データ不足なら観察延長</strong>。さらに変更後3〜5日の段階で「広告の表示回数だけ急増」「表示順位が急騰したのに受注ゼロ」などの<span class="marker">危険な兆候を見つけたら、その場ですぐ通知</span>し、悪化が固まる前に手を打ちます。
+                    判定はあえて機械的にしてます。<strong>ACOSが損益分岐を下回れば✅改善、14日たっても赤字なら❌、データ不足なら観察延長</strong>。ここに情が入ると「もうちょっと様子見よか」で伸びるので、機械に決めさせるほうがいい。さらに変更後3〜5日の段階で「広告の表示回数だけ急増」「表示順位が急騰したのに受注ゼロ」などの<span class="marker">危険な兆候を見つけたら、その場ですぐ通知</span>して、悪化が固まる前に手を打ちます。
                 </p>
-                <p class="text-sm text-gray-500 mt-3">（この“悪化する前に止める”早期警告の考え方は、別記事 <a href="./amazon-ads-early-warning.html" class="text-blue-600 underline">「広告の不調を『悪化する前』に止める」</a> で詳しく解説しています。）</p>
+                <p class="text-sm text-gray-500 mt-3">（この“悪化する前に止める”早期警告の考え方は、別記事 <a href="./amazon-ads-early-warning.html" class="text-blue-600 underline">「広告の不調を『悪化する前』に止める」</a> で詳しく書いています。）</p>
             </section>
 
             <section id="weekly">
                 <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">6. 週次の流れ：仮説→実行→検証→学習</h2>
                 <p>
-                    週次は、ただ候補を入れるだけではありません。<strong>毎週「先週の打ち手は当たったか」を検証してから、次の手を決める</strong>——回すほど提案が賢くなる仕組みにしています。
+                    週次は、ただ候補を入れるだけではありません。<strong>毎週「先週の打ち手は当たったか」を検証してから、次の手を決める</strong>。回すほど提案が賢くなるように組んでます。
                 </p>
                 <div class="grid sm:grid-cols-4 gap-3 mt-6">
                     <div class="p-4 rounded-lg border text-center" style="border-color:var(--border-color);background:#f1f7fd;"><p class="font-bold text-sm primary-color mb-1">① 学習</p><p class="text-xs text-gray-600">先週の変更を測定し、的中率と学びを記録</p></div>
@@ -249,13 +249,13 @@
                     <div class="p-4 rounded-lg border text-center" style="border-color:var(--border-color);background:#f1f7fd;"><p class="font-bold text-sm primary-color mb-1">④ 検証</p><p class="text-xs text-gray-600">翌週また①へ。当たり外れを蓄積</p></div>
                 </div>
                 <p class="mt-5">
-                    各提案には<strong>「仮説・想定リスク・成功基準（例：7日後に受注○件以上）」</strong>を必ず添えます。安全側に逃げず、リスクを認識したうえで取る。そして<span class="marker">外れた仮説こそ記録して、次から同じ失敗を避ける</span>。「高評価だが受注が少ないものを一気に上げると暴落する」といった失敗の型は、ルールとして書き出し、自動で警告が出るようにしています。
+                    各提案には<strong>「仮説・想定リスク・成功基準（例：7日後に受注○件以上）」</strong>を必ず添えてます。安全側に逃げず、リスクを認識したうえで取る。そして<span class="marker">外れた仮説こそ記録して、次から同じ失敗を避ける</span>。「高評価だが受注が少ないものを一気に上げると暴落する」みたいな失敗の型は、うちが実際にやらかしたやつです。ルールとして書き出して、いまは自動で警告が出るようにしてます。
                 </p>
             </section>
 
             <section id="type">
                 <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">7. 他社でも使える「悪化を見える化する」型</h2>
-                <p>Amazon広告の話で書きましたが、この型は在庫・経理・店舗の数字管理でもそのまま使えます。</p>
+                <p>Amazon広告の話で書きましたが、この型は在庫・経理・店舗の数字管理でもそのまま使えると思ってます。</p>
                 <div class="space-y-6 mt-6">
                     <div class="flex gap-4"><span class="font-serif-jp text-2xl primary-color flex-shrink-0" style="line-height:1.2;">01</span><div><p class="font-bold text-gray-800">「見にいく」をやめ、「届く」に変える</p><p class="text-sm mt-1 text-gray-600">毎日全部を目視しない。悪化したものだけが向こうから出てくる仕組みにする。</p></div></div>
                     <div class="flex gap-4"><span class="font-serif-jp text-2xl primary-color flex-shrink-0" style="line-height:1.2;">02</span><div><p class="font-bold text-gray-800">「新規の悪化」と「継続の問題」を分ける</p><p class="text-sm mt-1 text-gray-600">今日から悪くなったものを最上段に。継続はまとめて、見るべきものを埋もれさせない。</p></div></div>
@@ -273,13 +273,14 @@
                     <li>変更は「変えっぱなし」にせず、<strong>損益分岐と並べて14日追う</strong>。危険な兆候はすぐ通知。</li>
                     <li>週次は仮説→実行→検証→学習の繰り返し。<strong>外れた仮説も記録</strong>して提案の精度を上げ続ける。</li>
                 </ul>
+                <p>結局これ、広告が上手い人になろうとするのをやめた話やと思ってます。うちも最初は勘で触ってました。同じところで悩んでる人がいたら、まず何を毎朝表にするかから一緒に考えましょう。</p>
             </section>
 
             <div class="p-8 rounded-xl border text-center mt-12" style="border-color:var(--border-color);background:#fff8ef;">
                 <h3 class="font-serif-jp text-xl font-bold mb-4 text-gray-800">「広告、気づいたら悪化してた」をなくしたい方へ</h3>
                 <p class="mb-6 text-left md:text-center">
-                    ランクでの候補管理から、毎朝の“悪化が見える表”のSlack自動通知、週次の検証の流れまで、お客様のアカウントに合わせて設計します。<br>
-                    私たち自身がAmazon物販の当事者として毎日使っている仕組みを、現場で回せる形でお渡しします。まずは無料相談でお気軽にどうぞ。
+                    ランクでの候補管理から、毎朝の“悪化が見える表”のSlack自動通知、週次の検証の流れまで、アカウントに合わせて組み直します。<br>
+                    私自身がAmazon物販の当事者として毎日使っている仕組みなので、現場で回せる形でお渡しできます。LINEで状況を送ってもらえたら、どこから手を付けるかを返します。
                 </p>
                 <a href="https://line.me/R/ti/p/@756qpakc" target="_blank" class="btn-primary inline-block px-8 py-4 rounded-lg font-bold text-lg shadow-lg transform hover:-translate-y-1 transition duration-300">
                     LINEで相談する

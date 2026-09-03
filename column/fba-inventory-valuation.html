@@ -74,8 +74,8 @@
 
         <div class="prose max-w-none text-gray-700 leading-relaxed space-y-8">
             <p class="text-lg font-medium leading-8 pl-4 p-4 rounded-r" style="border-left:4px solid var(--accent-orange);background:#fff8ef;">
-                月末になると、決算や試算表のために「いま在庫がいくら分あるか（棚卸資産）」を出す必要があります。Amazon FBAだと、これが地味に重い。<span class="marker">在庫は複数倉庫に分散し、毎日動き、しかも原価と紐づいていない</span>からです。<br>
-                私たちは自社のネット通販の経理で、この月末作業を<strong>Amazonから在庫データを自動で受け取って評価する仕組み</strong>に置き換えました。考え方と設計の流れ、そして実際につまずいた点（一度に呼び出せる回数の上限）まで、できるだけ具体的に公開します。
+                月末になると、決算や試算表のために「いま在庫がいくら分あるか（棚卸資産）」を出さなあかん。Amazon FBAだと、これが地味に重いんです。<span class="marker">在庫は複数倉庫に分散して、毎日動いて、しかも原価と紐づいていない</span>から。<br>
+                うちは自社のネット通販の経理で、この月末作業を<strong>Amazonから在庫データを自動で受け取って評価する仕組み</strong>に置き換えました。考え方と設計の流れ、それと実際につまずいた点（一度に呼び出せる回数の上限）まで、できるだけそのまま書きます。
             </p>
 
             <nav class="toc text-sm bg-gray-50 border rounded-lg p-5" style="border-color:var(--border-color);">
@@ -93,22 +93,22 @@
 
             <section id="why">
                 <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">1. なぜFBA在庫の棚卸しは面倒なのか</h2>
-                <p>計算式自体は単純です（在庫数 × 原価）。面倒なのは、その材料を集める工程です。</p>
+                <p>計算式そのものは単純です（在庫数 × 原価）。しんどいのは、その材料を集める工程のほうでした。</p>
                 <ul class="list-disc pl-6 space-y-2 mt-4">
                     <li><strong>在庫が分散している</strong>：FBAの在庫はAmazonの複数の配送拠点に散らばり、さらに「販売可能」「入荷中」「保留」など状態も分かれる。</li>
                     <li><strong>毎日動く</strong>：売れた・返品された・補充した……で数字は刻々と変わる。「いつ時点か」を固定しないと意味がない。</li>
-                    <li><strong>原価と紐づいていない</strong>：Amazonの画面に出るのは在庫"数"。評価額を出すには、自社で持っているSKU（商品の種類ごとの管理単位）ごとの<strong>原価</strong>と突き合わせる必要がある。</li>
+                    <li><strong>原価と紐づいていない</strong>：Amazonの画面に出るのは在庫"数"。評価額を出すには、自社で持っているSKU（商品の種類ごとの管理単位）ごとの<strong>原価</strong>と突き合わせなあかん。</li>
                 </ul>
                 <p class="mt-4">
-                    これを毎月、画面からCSVを落として手で集計していると、<span class="marker">月初の数時間がまるごと消える</span>。しかも手作業はミスが混じります。
+                    これを毎月、画面からCSVを落として手で集計していた頃は、<span class="marker">月初の数時間がまるごと消えて</span>いました。しかも手作業なので、どこかで必ず打ち間違える。
                 </p>
             </section>
 
             <section id="what">
                 <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">2. 何を自動化したか（全体像）</h2>
                 <p>
-                    やったことは一言でいうと、<span class="marker">「月末時点の在庫の状態をその時点の記録として自動で取り、自社の原価表と掛け合わせて評価額を出す」</span>仕組みづくりです。
-                    手でCSVをダウンロードする代わりに、Amazonの<strong>レポートAPI（他社のサービスからデータを受け取る窓口）</strong>から在庫データを取得し、原価表と突き合わせて、結果を表計算シートに記録、最後に社内チャットのSlackへ通知します。
+                    やったことは一言でいうと、<span class="marker">「月末時点の在庫の状態をその時点の記録として自動で取って、自社の原価表と掛け合わせて評価額を出す」</span>仕組みづくりです。
+                    手でCSVを落とす代わりに、Amazonの<strong>レポートAPI（他社のサービスからデータを受け取る窓口）</strong>から在庫データを取って、原価表と突き合わせて、結果を表計算シートに記録して、最後に社内チャットのSlackへ通知する。それだけです。
                 </p>
                 <figure class="my-5 overflow-x-auto">
                     <table class="data">
@@ -150,27 +150,27 @@
                     </div>
                 </div>
                 <p class="mt-5">
-                    肝は<strong>「原価表」を一度きちんと整える</strong>こと。ここさえ整えば、毎月の評価は完全に自動で回せます。逆にここが曖昧だと、いくら自動化しても数字が信用できません。
+                    肝は<strong>「原価表」を一度きちんと整える</strong>ことやと思ってます。ここさえ整えば、毎月の評価は完全に自動で回る。逆にここが曖昧なままやと、いくら自動化しても出てくる数字を自分が信用できません。
                 </p>
             </section>
 
             <section id="pitfall">
                 <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">4. つまずき：一度に呼び出せる回数の上限</h2>
                 <p>
-                    正直に、ハマった点も書きます。最初は<strong>毎回レポートを新規作成して取得</strong>する作りにしていました。ところが、レポートを連続で作成しているうちに<span class="marker">Amazon側が決めている「一度に呼び出せる回数の上限」に当たってしまった</span>のです。
+                    ハマったところも正直に書きます。最初は<strong>毎回レポートを新規作成して取得</strong>する作りにしていました。そしたら、レポートを連続で作ってるうちに<span class="marker">Amazon側が決めている「一度に呼び出せる回数の上限」に当たってしまった</span>んです。動いてたものが急に止まって、しばらく原因が分からんかった。笑
                 </p>
                 <div class="note-alert rounded-r p-4 mt-4 text-sm">
-                    <strong>学び：</strong>「毎回ゼロから作る」のは富豪的でムダ。直近に作られた同種のレポートがあれば<strong>それを再利用</strong>し、無ければ作る——という設計に変えたら、上限に当たらず安定しました。自動化は「動けばいい」ではなく、<strong>相手先のサービスの作法（回数の上限・待ち時間）に合わせて設計する</strong>ことまで含めて初めて"続く"仕組みになります。
+                    <strong>学び：</strong>「毎回ゼロから作る」のはただのムダでした。直近に作られた同種のレポートがあれば<strong>それを再利用</strong>して、無ければ作る——という設計に変えたら、上限に当たらず安定しました。自動化は「動けばいい」やなくて、<strong>相手先のサービスの作法（回数の上限・待ち時間）に合わせて設計する</strong>ところまで含めて、はじめて"続く"仕組みになるんやと思ってます。
                 </div>
             </section>
 
             <section id="after">
                 <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">5. 月末はどう変わったか</h2>
                 <p>
-                    以前は「画面を開いてCSVを落として、関数で原価を貼って、合計して、ファイルを保存して……」という一連の手作業。今は、<span class="marker">仕組みが勝手に評価額を出してSlackに通知してくれるので、人は"確認するだけ"</span>になりました。
+                    前は「画面を開いてCSVを落として、関数で原価を貼って、合計して、ファイルを保存して……」をずっと手でやっていました。今は、<span class="marker">仕組みが勝手に評価額を出してSlackに通知してくれるので、人は"確認するだけ"</span>です。
                 </p>
                 <p class="mt-4">
-                    効果は時短だけではありません。毎月同じ条件・同じ時点で記録されるので、<strong>在庫評価額の「推移」</strong>が自然に貯まります。「在庫が膨らみすぎていないか」「過剰在庫の兆候はないか」を、後から振り返れるようになりました。
+                    効いたのは時短だけやありませんでした。毎月同じ条件・同じ時点で記録されるので、<strong>在庫評価額の「推移」</strong>が勝手に貯まる。「在庫が膨らみすぎてへんか」「過剰在庫の兆候はないか」を、後から振り返れるようになりました。こっちのほうが、じつは有り難かった。
                 </p>
             </section>
 
@@ -179,7 +179,7 @@
                 <div class="space-y-6 mt-6">
                     <div class="flex gap-4">
                         <span class="font-serif-jp text-2xl primary-color flex-shrink-0" style="line-height:1.2;">01</span>
-                        <div><p class="font-bold text-gray-800">「いつ時点か」を固定する</p><p class="text-sm mt-1 text-gray-600">毎日動く在庫は、月末などの基準時点を決めて、その時点の記録を取る。これが棚卸しの大前提。</p></div>
+                        <div><p class="font-bold text-gray-800">「いつ時点か」を固定する</p><p class="text-sm mt-1 text-gray-600">毎日動く在庫は、月末などの基準時点を決めて、その時点の記録を取る。ここが決まってないと、後の計算が全部あやふやになります。</p></div>
                     </div>
                     <div class="flex gap-4">
                         <span class="font-serif-jp text-2xl primary-color flex-shrink-0" style="line-height:1.2;">02</span>
@@ -191,7 +191,7 @@
                     </div>
                     <div class="flex gap-4">
                         <span class="font-serif-jp text-2xl primary-color flex-shrink-0" style="line-height:1.2;">04</span>
-                        <div><p class="font-bold text-gray-800">記録を残し、推移で見る</p><p class="text-sm mt-1 text-gray-600">単月の数字より、積み上がった推移が経営判断に効く。月ごとの記録シートに自動で貯める。</p></div>
+                        <div><p class="font-bold text-gray-800">記録を残し、推移で見る</p><p class="text-sm mt-1 text-gray-600">単月の数字より、積み上がった推移のほうが判断に効きました。月ごとの記録シートに自動で貯めています。</p></div>
                     </div>
                 </div>
             </section>
@@ -204,13 +204,16 @@
                     <li>相手先のサービスは<strong>呼び出し回数の上限</strong>に注意。毎回新規作成せず再利用する設計に。</li>
                     <li>毎月同条件で記録すると<strong>在庫評価額の推移</strong>が貯まり、過剰在庫の兆候も見えてくる。</li>
                 </ul>
+                <p class="mt-4">
+                    正直に言うと、この仕組みを作った動機は「経理を良くしたい」やなくて「月初にあの作業をもうやりたくない」でした。笑　でも結果として、在庫の見え方まで変わりました。
+                </p>
             </section>
 
             <div class="p-8 rounded-xl border text-center mt-12" style="border-color:var(--border-color);background:#fff8ef;">
                 <h3 class="font-serif-jp text-xl font-bold mb-4 text-gray-800">「月末の在庫集計に毎回半日とられている」方へ</h3>
                 <p class="mb-6 text-left md:text-center">
-                    原価表の整備から、レポートAPIでの自動取得・評価・記録・通知まで、お客様の在庫の実態に合わせて設計します。<br>
-                    Amazon物販を自分たちでもやっている当事者として、現場で使える形に落とし込みます。まずは無料相談でご相談ください。
+                    原価表の整備から、レポートAPIでの自動取得・評価・記録・通知まで、その在庫の実態に合わせて組みます。<br>
+                    私も同じ月末をやってきた側なので、現場で使える形に落とすところまで一緒にやります。同じことで困ってる人がいたら、まず話しましょう。
                 </p>
                 <a href="https://line.me/R/ti/p/@756qpakc" target="_blank" class="btn-primary inline-block px-8 py-4 rounded-lg font-bold text-lg shadow-lg transform hover:-translate-y-1 transition duration-300">
                     LINEで相談する

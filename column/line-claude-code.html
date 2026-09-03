@@ -73,10 +73,11 @@
 
         <div class="prose max-w-none text-gray-700 leading-relaxed space-y-8">
             <p class="text-lg font-medium leading-8 pl-4 p-4 rounded-r" style="border-left:4px solid var(--line-green);background:#f1fbf5;">
+                「LINEでこんな配信できます？」と聞かれて、月額サービスの管理画面を開いて「あー、これはできへんな」となる。何回かありました。
                 LINEで「お客様に配信する仕組み」を持とうとすると、たいていは<strong>月額制のLINE配信サービスを契約する</strong>のが定番です。
-                私たちはあえて別の道——<span class="marker">自社で持っているLINEの土台を、AI（Claude Code。日本語で指示すると、そのとおりにプログラムを書いて動かしてくれるAI）から直接動かす</span>——を選んでいます。<br>
-                安く済むからではありません。<strong>「やりたいこと」をそのまま日本語で指示すれば、配信の中身も見た目も、その場で自在に組めるから</strong>です。
-                この記事では、なぜその構成を選ぶのか、出来合いツールとどう違うのか、そして<strong>どんな会社に向き・不向きなのか</strong>まで正直にお話しします。
+                うちはあえて別の道——<span class="marker">自社で持っているLINEの土台を、AI（Claude Code。日本語で指示すると、そのとおりにプログラムを書いて動かしてくれるAI）から直接動かす</span>——を選んでます。<br>
+                安く済むからやないです。<strong>「やりたいこと」をそのまま日本語で指示すれば、配信の中身も見た目も、その場で自在に組めるから</strong>です。
+                この記事では、なぜその構成にしてるのか、出来合いツールとどう違うのか、そして<strong>どんな会社に向き・不向きなのか</strong>まで正直に書きます。
             </p>
 
             <!-- 目次 -->
@@ -96,11 +97,11 @@
             <section id="problem">
                 <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">1. LINE配信、何で動かすか問題</h2>
                 <p>
-                    お客様との接点としてLINEを使う会社は増えました。お礼メッセージ、使い方の案内、再購入のひと声、予約前日のお知らせ——どれも効果的です。
-                    問題は「<strong>その配信を、何の上で動かすか</strong>」です。
+                    お客様との接点としてLINEを使う会社は増えました。お礼メッセージ、使い方の案内、再購入のひと声、予約前日のお知らせ——どれもよく効きます。
+                    引っかかるのは「<strong>その配信を、何の上で動かすか</strong>」です。
                 </p>
                 <p>
-                    多くの場合は月額制のLINE配信サービスを使います。手早く始められる良い選択です。一方で、使い込むほど次のような壁にぶつかることがあります。
+                    たいていは月額制のLINE配信サービスを使います。手早く始められるし、悪くない選択です。ただ、使い込むほどこういう壁に当たります。
                 </p>
                 <ul class="list-disc pl-6 space-y-2 mt-3 text-sm text-gray-600">
                     <li><strong>できることの上限</strong>：用意されたひな形や機能の範囲を超えた配信がしづらい。</li>
@@ -109,15 +110,15 @@
                     <li><strong>仕様変更・値上げ・サービス終了</strong>の心配が、自社の都合の外にある。</li>
                 </ul>
                 <p class="mt-4">
-                    やりたいことが「定番の範囲」に収まるうちは快適でも、<span class="marker">事業が育って“ひとひねり”が欲しくなった瞬間に、ツールの天井に頭をぶつける</span>。これがよくある悩みです。
+                    やりたいことが「定番の範囲」に収まるうちは快適でも、<span class="marker">事業が育って“ひとひねり”が欲しくなった瞬間に、ツールの天井に頭をぶつける</span>。私も何回かぶつけました。笑
                 </p>
             </section>
 
             <section id="choice">
                 <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">2. 私たちの選択：自社で作る土台 × AI直接連携</h2>
                 <p>
-                    そこで私たちが取っているのが、<strong>自社で持てる身軽なLINEの土台を用意し、それをAI（Claude Code）から直接動かす</strong>構成です。
-                    難しそうに聞こえますが、考え方は単純です。
+                    そこでうちが取ってるのが、<strong>自社で持てる身軽なLINEの土台を用意し、それをAI（Claude Code）から直接動かす</strong>構成です。
+                    難しそうに聞こえますけど、考え方は単純です。
                 </p>
                 <div class="rounded-xl border p-5 my-5" style="border-color:var(--border-color);background:#fafafa;">
                     <p class="text-sm text-gray-500 mb-3 font-bold">ざっくりした全体像</p>
@@ -128,7 +129,7 @@
                     </div>
                 </div>
                 <p>
-大事なのは、土台が<strong>自社の持ち物</strong>だということです。だから上限も、追加費用も、他人の仕様変更も気にせず、
+効いてるのは、土台が<strong>自社の持ち物</strong>だということです。だから上限も、追加費用も、他人の仕様変更も気にせず、
                     <span class="marker">「やりたいこと」を起点に、必要な分だけ作り足せます。</span>
                 </p>
             </section>
@@ -139,7 +140,7 @@
             <section id="why-direct">
                 <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">3. 「直接連携」の何がそんなに効くのか</h2>
                 <p>
-                    一番の価値は、<strong>作業が「管理画面をポチポチ」から「AIに日本語で頼む」に変わる</strong>ことです。たとえば、こう言うだけです。
+                    いちばん効いたのは、<strong>作業が「管理画面をポチポチ」から「AIに日本語で頼む」に変わった</strong>ことです。たとえば、こう言うだけです。
                 </p>
                 <div class="p-4 rounded-lg my-4" style="background:#f1fbf5;border:1px solid #bdebcd;">
                     <p class="text-sm text-gray-700">
@@ -148,17 +149,17 @@
                 </div>
                 <p>
                     この一言から、配信の流れ・条件分岐・メッセージ文面・送信タイミングまでを、AIがその場で形にします。
-                    出来合いのツールなら「その出し分けは対応していません」で止まる要望が、<span class="marker">自社の土台＋AIなら“ただの相談ごと”として通る</span>。ここが決定的な差です。
+                    出来合いのツールなら「その出し分けは対応していません」で止まる要望が、<span class="marker">自社の土台＋AIなら“ただの相談ごと”として通る</span>。ここがいちばん大きい差やと思ってます。
                 </p>
-                <p>そしてこの自由さは、私たち自身が日々の業務で確かめています。広告レポートの自動作成、経理データの仕分け、SNS投稿の予約——どれも「AIに指示して仕組みを組む」やり方で運用しています。LINE配信も、その延長線上にあるだけです。</p>
+                <p>この自由さは、うち自身が毎日の業務で確かめてます。広告レポートの自動作成、経理データの仕分け、SNS投稿の予約——どれも「AIに指示して仕組みを組む」やり方で回してます。LINE配信も、その延長にあるだけです。</p>
             </section>
 
             <section id="flex">
                 <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">4. FLEXメッセージ：見た目まで自在に作れる</h2>
                 <p>
                     LINEには「<strong>FLEXメッセージ</strong>」という、画像・ボタン・カードを自由に配置できる仕組みがあります。
-                    出来合いのツールでは選べる型が決まっていることが多いのですが、自社で作った土台なら<span class="marker">ブランドに合わせて見た目を一から組める</span>。
-                    しかもAIに「こんな雰囲気で」と頼めば、見た目の調整もその場で進みます。
+                    出来合いのツールだと選べる型が決まっていることが多いんですが、自社で作った土台なら<span class="marker">ブランドに合わせて見た目を一から組める</span>。
+                    しかもAIに「こんな雰囲気で」と頼めば、見た目の調整もその場で進みます。正直、私が手で直すより早いです。笑
                 </p>
 
                 <figure class="my-6">
@@ -178,14 +179,14 @@
 
                 <p>
                     予約前のお知らせ、明細の通知、催しの案内——用途ごとに「ちょうどいい見た目」を作れるので、
-                    お客様にとっても<strong>「読みやすく、押しやすい」</strong>メッセージになります。決まったひな形に合わせて妥協する必要がありません。
+                    お客様にとっても<strong>「読みやすく、押しやすい」</strong>メッセージになります。決まったひな形に合わせて妥協せんで済むのが、地味に大きいです。
                 </p>
             </section>
 
             <section id="compare">
                 <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">5. 手札を並べる：3つの選択肢の向き不向き</h2>
                 <p>
-                    とはいえ「自作×AIが最強」と言いたいわけではありません。<strong>会社の状況によって、正解は変わります。</strong>主な手札を正直に並べます。
+                    とはいえ「自作×AIが最強」と言いたいわけやないです。<strong>会社の状況で正解は変わります。</strong>主な手札を正直に並べます。
                 </p>
                 <figure class="my-5 overflow-x-auto">
                     <table class="data">
@@ -212,15 +213,15 @@
                     </table>
                 </figure>
                 <p>
-                    私たちが自作×AIを選ぶのは、<span class="marker">事業の変化にいつでも合わせられる柔らかさ</span>を最優先しているからです。
-                    一方で、「まず小さく試したい」段階なら出来合いの月額サービスで十分なこともあります。大事なのは、見栄ではなく<strong>自社のいまに合った手札を選ぶこと</strong>です。
+                    うちが自作×AIを選んでるのは、<span class="marker">事業の変化にいつでも合わせられる柔らかさ</span>を最優先してるからです。
+                    一方で、「まず小さく試したい」段階なら出来合いの月額サービスで十分なこともあります。見栄やなくて<strong>自社のいまに合った手札を選ぶこと</strong>やと思ってます。
                 </p>
             </section>
 
             <section id="caution">
                 <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">6. 正直な注意点：誰にでも勧める話ではない</h2>
                 <p>
-                    自社で土台を作るやり方の弱点は表にも書いたとおり、<strong>「作って・動かし続けられる相手」が要る</strong>ことです。ここを軽視すると、いずれ動かせない仕組みが残ります。私たちが大切にしているのは次の3つです。
+                    自社で土台を作るやり方の弱点は表にも書いたとおり、<strong>「作って・動かし続けられる相手」が要る</strong>ことです。ここを軽く見ると、いずれ誰も触れん仕組みが残ります。私が気をつけてるのは3つです。
                 </p>
                 <div class="space-y-4 mt-4">
                     <div class="p-4 rounded-lg border" style="border-color:var(--border-color);border-left:5px solid var(--line-green);">
@@ -229,7 +230,7 @@
                     </div>
                     <div class="p-4 rounded-lg border" style="border-color:var(--border-color);border-left:5px solid var(--line-green);">
                         <p class="font-bold text-gray-800">小さく始めて、効果を見てから広げる</p>
-                        <p class="text-sm mt-1 text-gray-600">いきなり全部を作り込まない。まず1本の配信で効果を確かめ、手応えを見ながら足していくのが安全です。</p>
+                        <p class="text-sm mt-1 text-gray-600">いきなり全部を作り込まない。まず1本の配信で効果を確かめ、手応えを見ながら足していく。私はこの順番にしてます。</p>
                     </div>
                     <div class="p-4 rounded-lg border" style="border-color:var(--border-color);border-left:5px solid var(--line-green);">
                         <p class="font-bold text-gray-800">お客様に嫌われない設計を守る</p>
@@ -241,7 +242,7 @@
             <section id="type">
                 <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">7. 自社で考えるときの問い</h2>
                 <p>
-                    「うちはどの手札がいいのか?」を考えるとき、次の問いが役に立ちます。
+                    「うちはどの手札がいいのか?」を考えるとき、私はこの3つを先に聞きます。
                 </p>
                 <div class="space-y-6 mt-6">
                     <div class="flex gap-4">
@@ -258,16 +259,16 @@
                     </div>
                 </div>
                 <p class="mt-6">
-                    私たちは、ツールを売りたいのではありません。<span class="marker">お客様のやりたいことを起点に、一番ちょうどいい手札を一緒に選び、必要なら土台ごと引き受ける</span>。
-                    LINE×AIの自由さは、その選択肢を広げるための道具だと考えています。
+                    私は、ツールを売りたいわけやないです。<span class="marker">お客様のやりたいことを起点に、一番ちょうどいい手札を一緒に選び、必要なら土台ごと引き受ける</span>。
+                    LINE×AIの自由さは、その選択肢を広げるための道具やと思ってます。
                 </p>
             </section>
 
             <div class="p-8 rounded-xl border text-center mt-12" style="border-color:var(--border-color);background:#f1fbf5;">
                 <h3 class="font-serif-jp text-xl font-bold mb-4 text-gray-800">「LINEでこういうことがしたいけど、できる?」と思ったら</h3>
                 <p class="mb-6 text-left md:text-center">
-                    出来合いのツールで止まっていた案でも、自社の土台＋AIなら実現できることは少なくありません。<br>
-                    まずは「やってみたい配信」をそのままお聞かせください。<strong>手札の選び方から</strong>、一緒に考えます。
+                    出来合いのツールで止まっていた案でも、自社の土台＋AIなら形になることは結構あります。<br>
+                    「やってみたい配信」をそのまま聞かせてください。<strong>手札の選び方から</strong>一緒に話しましょう。
                 </p>
                 <a href="https://line.me/R/ti/p/@756qpakc" target="_blank" class="btn-primary inline-block px-8 py-4 rounded-lg font-bold text-lg shadow-lg transform hover:-translate-y-1 transition duration-300">
                     LINEで相談する

@@ -74,8 +74,8 @@
 
         <div class="prose max-w-none text-gray-700 leading-relaxed space-y-8">
             <p class="text-lg font-medium leading-8 pl-4 p-4 rounded-r note-amber">
-                Amazon運用で「売上が落ちた」と気づいたときには、たいてい手遅れです。売上は<strong>結果</strong>で、結果が動くより先に動いている数字があります。そのひとつが<span class="marker">自然検索順位</span>（広告枠を除いた、通常の検索結果での並び順）です。<br>
-                この記事では、私たちが自社・支援先の商品で毎日見ている「検索順位・価格・BSR（Amazonの売れ筋ランキング順位）」を、<strong>なぜ手作業の目視から自動追跡に仕組み化したのか</strong>、その意思決定と設計を、実際に動いている仕組みの考え方とともに公開します。
+                「今月ちょっと売上落ちてない？」。この一言が出た時点で、だいたい手遅れです。売上は<strong>結果</strong>で、結果が動くより先に動いてる数字があります。そのひとつが<span class="marker">自然検索順位</span>（広告枠を除いた、通常の検索結果での並び順）です。<br>
+                この記事では、うちが自社・支援先の商品で毎日見てる「検索順位・価格・BSR（Amazonの売れ筋ランキング順位）」を、<strong>なぜ手作業の目視から自動追跡に仕組み化したのか</strong>、その判断と設計を、実際に動いてる仕組みの考え方とあわせて書きます。
             </p>
 
             <p class="text-sm text-gray-500 bg-gray-50 border rounded-lg p-4" style="border-color:var(--border-color);">
@@ -117,7 +117,7 @@
                     </div>
                 </div>
                 <p>
-                    肝は<strong>自社単独で見ないこと</strong>です。自社の順位が下がったとき、それが自分のせいなのか、市場全体が動いたのか、特定の競合が値下げやクーポンを仕掛けてきたのかは、<span class="marker">競合と同じ画面・同じ日に横並びで並べて初めて分かります</span>。だから私たちは「自社1＋競合数社」をワンセットで、同じキーワードで毎日記録しています。
+                    肝は<strong>自社単独で見ないこと</strong>やと思ってます。自社の順位が下がったとき、それが自分のせいなのか、市場全体が動いたのか、特定の競合が値下げやクーポンを仕掛けてきたのかは、<span class="marker">競合と同じ画面・同じ日に横並びで並べて初めて分かります</span>。だからうちは「自社1＋競合数社」をワンセットで、同じキーワードで毎日記録してます。
                 </p>
             </section>
 
@@ -144,10 +144,10 @@
                     ⑥の自然検索順位と⑦のBSRは似て非なるものです。<strong>順位は「露出」、BSRは「売れ行き」</strong>。両方を並べると「露出はあるのに売れていない（ページや価格に問題）」「売れているのに露出が落ちた（広告や、検索で上位に出すための対策の問題）」といった<span class="marker">ズレの診断</span>ができます。
                 </p>
                 <p>
-                    ここで決定的に重要なのが、<strong>「順位の定義」を最初に固定すること</strong>です。Amazonの検索結果には広告（スポンサー）枠が混ざります。これを人の目で除外していると、日によって数え方がブレて、順位が信用できなくなります。私たちの仕組みは<span class="marker">広告（スポンサー）枠を構造的に必ず除外し、同じ商品の重複も排除して、純粋な自然検索順位だけを数える</span>ようにしています。
+                    ここでいちばん効いたのが、<strong>「順位の定義」を最初に固定したこと</strong>です。Amazonの検索結果には広告（スポンサー）枠が混ざります。これを人の目で除外してると、日によって数え方がブレて、順位が信用できなくなる。うちの仕組みは<span class="marker">広告（スポンサー）枠を構造的に必ず除外し、同じ商品の重複も排除して、純粋な自然検索順位だけを数える</span>ようにしてます。
                 </p>
                 <p class="note-amber p-4 rounded-r">
-                    「何位か」より先に<strong>「何をもって順位と呼ぶか」</strong>を決める。広告を含めるか・重複をどう扱うか・いつ・どこから見るか——この定義が毎回ブレていると、どんなにマメに記録しても比較できません。<strong>計測は、定義を固定して初めて意味を持ちます。</strong>
+                    「何位か」より先に<strong>「何をもって順位と呼ぶか」</strong>を決める。広告を含めるか・重複をどう扱うか・いつ・どこから見るか——この定義が毎回ブレてると、どんなにマメに記録しても比較できません。<strong>計測は、定義を固定して初めて意味を持つ。</strong>ここは痛い目を見て学びました。
                 </p>
             </section>
 
@@ -157,7 +157,7 @@
             <section id="manual">
                 <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">3. 手作業の限界：なぜ自動化を決めたのか</h2>
                 <p>
-                    もともとは、人が毎日Amazonを開いて順位を目で確認していました。これはすぐに限界が来ます。
+                    もともとは、人が毎日Amazonを開いて順位を目で確認してました。私もやってましたが、まあ続きません。笑 限界はすぐ来ました。
                 </p>
                 <div class="space-y-3 mt-4">
                     <div class="p-4 rounded-lg note-alert"><p class="text-sm"><strong>毎日同じ時刻に、欠かさず</strong>続けるのが難しい。忙しい日は飛ぶ。</p></div>
@@ -166,7 +166,7 @@
                     <div class="p-4 rounded-lg note-alert"><p class="text-sm"><strong>担当者依存</strong>。その人が休むと止まり、見方も人によって変わる。</p></div>
                 </div>
                 <p class="mt-5">
-                    そこで、「<strong>検索 → 数字を抜き出す → スプレッドシート（表計算シート）に記録 → 前日と比較 → 通知</strong>」までを1本の処理に仕組み化しました。1回の実行は<strong>2分弱</strong>で終わります。狙いは時短そのものより、<span class="marker">「毎日・同じ条件・同じ定義」で記録が積み上がること</span>。人は「集めて転記する」から解放され、「見て判断する」だけに集中できます。
+                    そこで、「<strong>検索 → 数字を抜き出す → スプレッドシート（表計算シート）に記録 → 前日と比較 → 通知</strong>」までを1本の処理に仕組み化しました。1回の実行は<strong>2分弱</strong>で終わります。狙いは時短そのものより、<span class="marker">「毎日・同じ条件・同じ定義」で記録が積み上がること</span>でした。人は「集めて転記する」から降りて、「見て判断する」だけに集中できます。
                 </p>
             </section>
 
@@ -190,14 +190,14 @@
                     </div>
                 </div>
                 <p>
-                    実行は<strong>専用のパソコンで毎朝1回</strong>。当初はクラウド（インターネット上の他社サーバー）で動かそうとしましたが、ここで大きな落とし穴にぶつかりました（後述）。記録は分析のために<strong>蓄積</strong>し、通知は判断のために<strong>前日からの変化</strong>を出す——<span class="marker">「貯める場所」と「気づかせる場所」を分けている</span>のがポイントです。
+                    実行は<strong>専用のパソコンで毎朝1回</strong>。当初はクラウド（インターネット上の他社サーバー）で動かそうとしたんですが、ここで大きな落とし穴にぶつかりました（後述）。記録は分析のために<strong>蓄積</strong>し、通知は判断のために<strong>前日からの変化</strong>を出す。<span class="marker">「貯める場所」と「気づかせる場所」を分ける</span>のが効きました。
                 </p>
             </section>
 
             <section id="gate">
                 <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">5. 「誤ったデータは流さない」ための門番</h2>
                 <p>
-                    自動化でいちばん怖いのは、<strong>壊れたデータが、正しい顔をしてチャットに流れること</strong>です。順位が取れなかった日に「0位」や空欄が共有されれば、見た人が誤った判断をします。そこで、通知の直前に必ず“門番”を置きました。
+                    自動化でいちばん怖いのは、<strong>壊れたデータが、正しい顔をしてチャットに流れること</strong>やと思ってます。順位が取れなかった日に「0位」や空欄が共有されたら、見た人が誤った判断をする。そこで、通知の直前に必ず“門番”を置きました。
                 </p>
                 <figure class="my-5 overflow-x-auto">
                     <table class="data">
@@ -211,25 +211,25 @@
                     </table>
                 </figure>
                 <p class="note-good p-4 rounded-r">
-                    <span class="marker">自動化に「沈黙の失敗」を作らない。</span>取れなかったときに“何も言わずそれっぽい数字を出す”のがいちばん危険です。正常なら全員に、不完全なら担当者だけにそっと知らせる。この一段があるだけで、自動化されたデータを安心して信じられるようになります。
+                    <span class="marker">自動化に「沈黙の失敗」を作らない。</span>取れなかったときに“何も言わずそれっぽい数字を出す”のがいちばん危ないです。正常なら全員に、不完全なら担当者だけにそっと知らせる。この一段があるだけで、自動化されたデータを安心して信じられるようになりました。
                 </p>
             </section>
 
             <section id="lesson">
                 <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">6. つまずいて学んだこと</h2>
-                <p>うまくいった話だけでは役に立たないので、つまずきも正直に書きます。</p>
+                <p>うまくいった話だけ並べても役に立たないので、こけたところも正直に書きます。</p>
                 <div class="space-y-4 mt-4">
                     <div class="p-5 rounded-lg border" style="border-color:var(--border-color);border-left:5px solid var(--alert);">
                         <p class="font-bold text-gray-800">海外から見ると、全部「圏外」になった</p>
-                        <p class="text-sm mt-1 text-gray-600">最初は海外にあるクラウドのサーバーで動かそうとしたところ、検索結果が日本と別物になり順位が取れませんでした。<strong>順位は「どこから見るか」で変わる</strong>。日本市場を見るなら日本から見る必要があり、国内に置いた専用のパソコンに集約しました。</p>
+                        <p class="text-sm mt-1 text-gray-600">最初は海外にあるクラウドのサーバーで動かそうとしたところ、検索結果が日本と別物になり順位が取れませんでした。<strong>順位は「どこから見るか」で変わる</strong>。当たり前なんですけど、動かすまで気づいてませんでした。日本市場を見るなら日本から見なあかんので、国内に置いた専用のパソコンに集約しました。</p>
                     </div>
                     <div class="p-5 rounded-lg border" style="border-color:var(--border-color);border-left:5px solid var(--alert);">
                         <p class="font-bold text-gray-800">画像ファイルの上書きで処理が止まった</p>
-                        <p class="text-sm mt-1 text-gray-600">通知用の画像を毎回同じ名前で出力していたら、ファイルの取り合いが起きて処理が止まりました。<strong>日付つきのファイル名に分けて</strong>解決。自動化は本体より“周辺の細部”でこける、という典型でした。</p>
+                        <p class="text-sm mt-1 text-gray-600">通知用の画像を毎回同じ名前で出力してたら、ファイルの取り合いが起きて処理が止まりました。<strong>日付つきのファイル名に分けて</strong>解決。自動化は本体より“周辺の細部”でこける、という典型でした。笑</p>
                     </div>
                     <div class="p-5 rounded-lg border" style="border-color:var(--border-color);border-left:5px solid var(--good);">
                         <p class="font-bold text-gray-800">いちばんの学び：計測条件こそが命</p>
-                        <p class="text-sm mt-1 text-gray-600">スポンサー除外・重複排除・取得時刻・取得地——この<strong>計測条件を固定したこと</strong>で、初めて日々の小さな変動と前日比を信頼して読めるようになりました。数字を集めることより、<span class="marker">同じ条件で集め続けること</span>のほうが、はるかに価値があります。</p>
+                        <p class="text-sm mt-1 text-gray-600">スポンサー除外・重複排除・取得時刻・取得地——この<strong>計測条件を固定したこと</strong>で、初めて日々の小さな変動と前日比を信頼して読めるようになりました。数字を集めることより、<span class="marker">同じ条件で集め続けること</span>のほうが、はるかに価値があると思ってます。</p>
                     </div>
                 </div>
             </section>
@@ -237,7 +237,7 @@
             <section id="type">
                 <h2 class="font-serif-jp text-2xl font-bold mb-4 primary-color">7. 他の指標にも使える「定点観測の型」</h2>
                 <p>
-                    この仕組みはAmazonの順位の話ですが、考え方は売上・在庫・広告・SNSなど、毎日変わるあらゆる数字に応用できます。型としてまとめます。
+                    これはAmazonの順位の話ですけど、考え方は売上・在庫・広告・SNSなど、毎日変わる数字ならだいたい同じやと思ってます。型にしてみます。
                 </p>
                 <div class="space-y-6 mt-6">
                     <div class="flex gap-4">
@@ -266,8 +266,8 @@
             <div class="p-8 rounded-xl border text-center mt-12" style="border-color:var(--border-color);background:#fff7ec;">
                 <h3 class="font-serif-jp text-xl font-bold mb-4 text-gray-800">「順位が落ちた理由が分からない」とき</h3>
                 <p class="mb-6 text-left md:text-center">
-                    私たちは、Amazon運用を“勘”ではなく“毎日の数字”で回します。<strong>順位・価格・BSRを同じ条件で見える化し、競合と横並びで原因を切り分けるところ</strong>から、運用のお手伝いをします。<br>
-                    こうした追跡や見える化の仕組みづくりも、ご相談いただけます。
+                    うちは、Amazon運用を“勘”ではなく“毎日の数字”で回してます。<strong>順位・価格・BSRを同じ条件で見える化して、競合と横並びで原因を切り分けるところ</strong>から一緒にやります。<br>
+                    同じことで困ってる人がいたら、まず何を毎日見るかを決めるところから話しましょう。
                 </p>
                 <a href="https://line.me/R/ti/p/@756qpakc" target="_blank" class="btn-primary inline-block px-8 py-4 rounded-lg font-bold text-lg shadow-lg transform hover:-translate-y-1 transition duration-300">
                     LINEで相談する

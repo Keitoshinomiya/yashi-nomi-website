@@ -87,6 +87,13 @@
     <button id="mirOff" class="pcbtn active">実物どおり</button>
     <span class="val" id="mirNote">実物どおりの向き（ロゴが読めます）</span>
   </div>
+  <div class="row">
+    <label>点検</label>
+    <button id="occOn" class="pcbtn active">顔の隠しあり</button>
+    <button id="occOff" class="pcbtn">顔の隠しなし</button>
+    <button id="dsOff" class="pcbtn active">片面描画</button>
+    <button id="dsOn" class="pcbtn">両面描画</button>
+  </div>
   <div class="row"><label>傾き</label><input id="tl" type="range" min="-20" max="20" value="0"><span class="val" id="tlV">0°</span></div>
   <div class="row"><label>サイズ</label><input id="sc" type="range" min="85" max="115" value="100"><span class="val" id="scV">100%</span></div>
   <div class="row"><label>上下</label><input id="oy" type="range" min="-15" max="15" value="0"><span class="val" id="oyV">0.0mm</span></div>
@@ -162,10 +169,10 @@ loader.load('face_occluder.glb?v=20260903', g => {
     }
   });
   occ.scale.setScalar(100);
-  anchor.add(occ);
+  anchor.add(occ); occRoot = occ;
 });
 
-let glasses = null;
+let glasses = null, occRoot = null, doubleSided = false;
 const lensMats = [];
 let curLens = LENS_COLORS[0];
 
@@ -189,10 +196,10 @@ function loadModel(file){
           o.renderOrder = 2;
         } else if (n === 'AccentMat') {
           m.envMapIntensity = 0.45;      // サテン仕上げ。白飛びを抑える
-          o.renderOrder = 1;
+          o.renderOrder = 1; m.side = doubleSided ? THREE.DoubleSide : THREE.FrontSide;
         } else {
           m.envMapIntensity = 0.30;
-          o.renderOrder = 1;
+          o.renderOrder = 1; m.side = doubleSided ? THREE.DoubleSide : THREE.FrontSide;
         }
       });
     });
@@ -280,6 +287,22 @@ $('models').querySelectorAll('button').forEach(b => {
     b.classList.add('active'); loadModel(b.dataset.m);
   };
 });
+
+/* 点検用: 顔の隠し(オクルーダー)と両面描画の切替。穴の原因切り分けに使う */
+function applyInspect(){
+  if (occRoot) occRoot.visible = !$('occOff').classList.contains('active');
+  if (glasses) glasses.traverse(o => {
+    if (!o.isMesh) return;
+    (Array.isArray(o.material) ? o.material : [o.material]).forEach(m => {
+      if ((m.name || '') === 'LensMat') return;
+      m.side = doubleSided ? THREE.DoubleSide : THREE.FrontSide; m.needsUpdate = true;
+    });
+  });
+}
+$('occOn').onclick  = () => { $('occOn').classList.add('active');  $('occOff').classList.remove('active'); applyInspect(); };
+$('occOff').onclick = () => { $('occOff').classList.add('active'); $('occOn').classList.remove('active');  applyInspect(); };
+$('dsOff').onclick  = () => { doubleSided = false; $('dsOff').classList.add('active'); $('dsOn').classList.remove('active');  applyInspect(); };
+$('dsOn').onclick   = () => { doubleSided = true;  $('dsOn').classList.add('active');  $('dsOff').classList.remove('active'); applyInspect(); };
 
 /* 表示の左右反転：試着は鏡向きが自然だが、テンプルのロゴを読むときは実物どおりに切り替える */
 let mirrored = false;   // 既定は実物どおり（ロゴが正しく読める向き）

@@ -88,6 +88,12 @@
     <span class="val" id="mirNote">実物どおりの向き（ロゴが読めます）</span>
   </div>
   <div class="row">
+    <label>つる</label>
+    <button id="tpFade" class="pcbtn active">耳まで（ぼかし）</button>
+    <button id="tpAll" class="pcbtn">全部表示</button>
+    <span class="val">耳の後ろは髪や耳に隠れる部分なので、ぼかして消しています</span>
+  </div>
+  <div class="row">
     <label>点検</label>
     <button id="occOn" class="pcbtn active">顔の隠しあり</button>
     <button id="occOff" class="pcbtn">顔の隠しなし</button>
@@ -107,7 +113,7 @@
 <footer>
   Amazon 3D要件準拠（GLB／ノード分割／KHR_materials_transmission／glTF-Validator エラー0・警告0）<br>
   TORINOX &times; 合同会社ヤシノミ ― 技術デモ（非公開・関係者限り）<br>
-  <span style="opacity:.55">モデル版: 2026-09-03a（ARQ 面向き修正／MOTION 球面レンズ）</span>
+  <span style="opacity:.55">モデル版: 2026-09-04a（つるのぼかし／頭の隠し追加）</span>
 </footer>
 
 <script type="importmap">
@@ -170,9 +176,35 @@ loader.load('face_occluder.glb?v=20260903', g => {
   });
   occ.scale.setScalar(100);
   anchor.add(occ); occRoot = occ;
+  // 頭の隠し: 顔メッシュには側頭部・耳・後頭部が無いため、その先で隠れが途切れてヨロイやつるが「欠けて」見える。
+  // つるの開き幅(片側7.2〜7.6cm)より少し細い楕円体を頭として置き、つるは外側に出したまま奥の部品だけ隠す
+  const head = new THREE.Mesh(new THREE.SphereGeometry(1, 48, 32), new THREE.MeshBasicMaterial({ colorWrite:false }));
+  head.scale.set(7.3, 10.5, 9.5); head.position.set(0, 0, -9.5);
+  head.renderOrder = -10; head.frustumCulled = false;
+  occ.add(head);
 });
 
 let glasses = null, occRoot = null, doubleSided = false;
+let templeFade = true;                       // 既定: 耳の位置でぼかして消す
+const FADE_START = -0.088, FADE_END = -0.108;   // モデル座標(m)。前面原点から8.8cmで消え始め10.8cmで完全に消える
+function makeTempleMaterial(m){
+  const t = m.clone(); t.transparent = true; t.depthWrite = true;
+  t.userData.fade = { value: templeFade ? 1.0 : 0.0 };
+  t.onBeforeCompile = sh => {
+    sh.uniforms.uFade = t.userData.fade;
+    sh.vertexShader = sh.vertexShader
+      .replace('#include <common>', '#include <common>\nvarying float vLocalZ;')
+      .replace('#include <begin_vertex>', '#include <begin_vertex>\nvLocalZ = position.z;');
+    sh.fragmentShader = sh.fragmentShader
+      .replace('#include <common>', '#include <common>\nvarying float vLocalZ; uniform float uFade;')
+      .replace('#include <color_fragment>', '#include <color_fragment>\n'
+        + 'float fz = smoothstep(' + FADE_END.toFixed(3) + ', ' + FADE_START.toFixed(3) + ', vLocalZ);\n'
+        + 'diffuseColor.a *= mix(1.0, fz, uFade);');
+  };
+  t.customProgramCacheKey = () => 'templeFade';
+  return t;
+}
+const templeMats = [];
 const lensMats = [];
 let curLens = LENS_COLORS[0];
 
@@ -181,9 +213,17 @@ function loadModel(file){
   loader.load(file, g => {
     if (glasses) fit.remove(glasses);
     glasses = g.scene; lensMats.length = 0;
+    templeMats.length = 0;
     glasses.traverse(o => {
       if (!o.isMesh) return;
       o.frustumCulled = false;
+      let isTemple = false;
+      for (let p = o; p; p = p.parent) if (/^Temple/.test(p.name || '')) { isTemple = true; break; }
+      if (isTemple) {
+        if (Array.isArray(o.material)) o.material = o.material.map(makeTempleMaterial);
+        else o.material = makeTempleMaterial(o.material);
+        (Array.isArray(o.material) ? o.material : [o.material]).forEach(m => templeMats.push(m));
+      }
       const ms = Array.isArray(o.material) ? o.material : [o.material];
       ms.forEach(m => {
         const n = m.name || '';
@@ -299,6 +339,13 @@ function applyInspect(){
     });
   });
 }
+function applyTemple(){
+  templeMats.forEach(m => { m.userData.fade.value = templeFade ? 1.0 : 0.0; });
+  $('tpFade').classList.toggle('active', templeFade); $('tpAll').classList.toggle('active', !templeFade);
+}
+$('tpFade').onclick = () => { templeFade = true;  applyTemple(); };
+$('tpAll').onclick  = () => { templeFade = false; applyTemple(); };
+
 $('occOn').onclick  = () => { $('occOn').classList.add('active');  $('occOff').classList.remove('active'); applyInspect(); };
 $('occOff').onclick = () => { $('occOff').classList.add('active'); $('occOn').classList.remove('active');  applyInspect(); };
 $('dsOff').onclick  = () => { doubleSided = false; $('dsOff').classList.add('active'); $('dsOn').classList.remove('active');  applyInspect(); };

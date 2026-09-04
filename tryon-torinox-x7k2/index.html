@@ -75,25 +75,29 @@
 </div>
 
 <div class="panel">
-  <p class="intro">このページは、<b>Amazonのバーチャル試着に載せる3Dモデルの見え方を、実物と見比べて調整するため</b>のものです。
-  お客様向けの試着画面ではありません。各バーを実物と同じ見え方になるところに合わせ、<b>「設定を書き出す」</b>で値を共有してください。納品モデルへの反映はヤシノミが行います。</p>
+  <p class="intro">このページは、<b>Amazonのバーチャル試着に載せる3Dモデルの見え方を、実物と見比べて確認・調整するため</b>のものです。
+  お客様向けの試着画面ではありません。<br>
+  <b>確認・調整をお願いしたいのは「レンズの濃さ」と「顔への載り方」の2つ</b>です。実物と同じ見え方になるところに合わせ、<b>「設定を書き出す」</b>の内容をお送りください。納品モデルへの反映はヤシノミが行います。<br>
+  つるの見え方は調整不要です（下記参照）。</p>
   <div class="row chips" id="models">
     <label>モデル</label>
     <button data-m="glasses_A.glb?v=20260904e" class="active">ARQ（角型）</button>
     <button data-m="glasses_C.glb?v=20260904e">MOTION（角型）</button>
   </div>
-  <div class="grp">レンズ</div>
+  <div class="grp">レンズ ― 確認・調整をお願いします</div>
   <div class="row"><label>レンズの濃さ</label><input id="op" type="range" min="3" max="70" value="8"><span class="val" id="opV">8%</span>
     <span class="note">数値は可視光線透過率（VLT）。小さいほど濃い。実物のレンズと同じ濃さに見えるところに合わせます。</span></div>
-  <div class="grp">つる</div>
-  <div class="row"><label>つるを消す位置</label><input id="tpLen" type="range" min="80" max="160" value="160"><span class="val" id="tpLenV">全長</span>
-    <span class="note">実際にかけると、耳の後ろのつるは髪や耳に隠れて見えません。この画面ではその隠れを再現するため、バーの位置（前面からの距離）から先をなだらかに消します。右端まで動かすと全長を表示します。</span></div>
-  <div class="grp">顔への載り方</div>
+  <div class="grp">顔への載り方 ― 確認・調整をお願いします</div>
   <span class="note" style="display:block;margin:0 0 6px">実物をかけた時と同じ位置・傾きになるところに合わせてください。この値をもとに、納品モデルの基準位置を合わせます。</span>
   <div class="row"><label>傾き</label><input id="tl" type="range" min="-20" max="20" value="0"><span class="val" id="tlV">0°</span></div>
   <div class="row"><label>サイズ</label><input id="sc" type="range" min="85" max="115" value="100"><span class="val" id="scV">100%</span></div>
   <div class="row"><label>上下</label><input id="oy" type="range" min="-15" max="15" value="0"><span class="val" id="oyV">0.0mm</span></div>
   <div class="row"><label>前後</label><input id="oz" type="range" min="-10" max="20" value="0"><span class="val" id="ozV">0.0mm</span></div>
+  <div class="grp">つる ― 調整不要（参考）</div>
+  <span class="note" style="display:block;margin:0 0 6px"><b style="color:#fff">Amazonの試着画面では、つるは頭の形で自動的に隠れ、耳の少し手前で途切れて見えます</b>（2026-09-04 に試着対応の他社商品をAmazonアプリで確認済み。耳の上に乗ったり貫通したりはしません）。
+  このページでもAmazonと同じ見え方になるよう、既定で同じ位置から先を消しています。納品モデルのつるは実物どおり全長のままです。<br>
+  下のバーは参考用です。右端まで動かすとモデルの全長を確認できます。</span>
+  <div class="row"><label>つるを消す位置</label><input id="tpLen" type="range" min="80" max="160" value="160"><span class="val" id="tpLenV">全長</span></div>
   <div class="act">
     <button id="shot" class="primary">写真を保存</button>
     <button id="export">設定を書き出す</button>
@@ -103,7 +107,7 @@
 <footer>
   Amazon 3D要件準拠（GLB／ノード分割／KHR_materials_transmission／glTF-Validator エラー0・警告0）<br>
   TORINOX &times; 合同会社ヤシノミ ― 技術デモ（非公開・関係者限り）<br>
-  <span style="opacity:.55">モデル版: 2026-09-04i（型番ごとの既定値／調光・向き・つる切替を撤去）</span>
+  <span style="opacity:.55">モデル版: 2026-09-04j（提出版）</span>
 </footer>
 
 <script type="importmap">
@@ -273,7 +277,7 @@ $('export').onclick = () => {
   showSheet(txt);
   if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).catch(() => {});
 };
-const DEMO_VERSION = '2026-09-04i';
+const DEMO_VERSION = '2026-09-04j';
 function showSheet(txt){
   const d = document.createElement('div'); d.id = 'sheet';
   d.innerHTML = '<div class="box"><div style="font-size:12px;color:var(--sub);margin-bottom:8px">設定（クリップボードにもコピーしました。コピーできない端末は下の文字を長押しで選択）</div>'

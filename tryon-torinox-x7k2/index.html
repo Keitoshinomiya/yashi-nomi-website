@@ -77,7 +77,7 @@
 <div class="panel">
   <p class="intro">このページは、<b>Amazonのバーチャル試着に載せる3Dモデルの見え方を、実物と見比べて確認・調整するため</b>のものです。
   お客様向けの試着画面ではありません。<br>
-  <b>確認・調整をお願いしたいのは「レンズの濃さ」と「顔への載り方」の2つ</b>です。実物と同じ見え方になるところに合わせ、<b>「設定を書き出す」</b>の内容をお送りください。納品モデルへの反映はヤシノミが行います。<br>
+  <b>確認・調整をお願いしたいのは「レンズ（濃さ・色味・反射）」と「顔への載り方」の2つ</b>です。実物と同じ見え方になるところに合わせ、<b>「設定を書き出す」</b>の内容をお送りください。納品モデルへの反映はヤシノミが行います。<br>
   つるの見え方は調整不要です（下記参照）。</p>
   <div class="row chips" id="models">
     <label>モデル</label>
@@ -87,6 +87,12 @@
   <div class="grp">レンズ ― 確認・調整をお願いします</div>
   <div class="row"><label>レンズの濃さ</label><input id="op" type="range" min="3" max="70" value="8"><span class="val" id="opV">8%</span>
     <span class="note">数値は可視光線透過率（VLT）。小さいほど濃い。実物のレンズと同じ濃さに見えるところに合わせます。</span></div>
+  <div class="row"><label>色味</label><input id="hue" type="range" min="-100" max="100" value="0"><span class="val" id="hueV">中間</span>
+    <span class="note">左＝青み（クール）、中央＝無彩色のグレー／ブラック、右＝茶み（ウォーム）。</span></div>
+  <div class="row"><label>色の強さ</label><input id="sat" type="range" min="0" max="100" value="0"><span class="val" id="satV">0%</span>
+    <span class="note">0%＝真っ黒に近い無彩色。上げるほど「色味」で選んだ色が乗ります。</span></div>
+  <div class="row"><label>レンズの反射</label><input id="refl" type="range" min="0" max="100" value="10"><span class="val" id="reflV">10%</span>
+    <span class="note">照明の映り込みの強さ。Amazonの試着画面はほぼ反射が無いため、既定は弱めにしています。</span></div>
   <div class="grp">顔への載り方 ― 確認・調整をお願いします</div>
   <span class="note" style="display:block;margin:0 0 6px">実物をかけた時と同じ位置・傾きになるところに合わせてください。この値をもとに、納品モデルの基準位置を合わせます。</span>
   <div class="row"><label>傾き</label><input id="tl" type="range" min="-20" max="20" value="0"><span class="val" id="tlV">0°</span></div>
@@ -107,7 +113,7 @@
 <footer>
   Amazon 3D要件準拠（GLB／ノード分割／KHR_materials_transmission／glTF-Validator エラー0・警告0）<br>
   TORINOX &times; 合同会社ヤシノミ ― 技術デモ（非公開・関係者限り）<br>
-  <span style="opacity:.55">モデル版: 2026-09-04j（提出版）</span>
+  <span style="opacity:.55">モデル版: 2026-09-04k（提出版・色味／反射／鏡向き）</span>
 </footer>
 
 <script type="importmap">
@@ -130,8 +136,8 @@ const msg = $('msg'), video = $('video'), canvas = $('three');
 const BASE_POS = { y: 2.05, z: 5.50 };
 /* 型番ごとの既定値（2026-09-04 に実物と見比べて書き出した値） */
 const MODEL_DEFAULTS = {
-  A: { tl: 1,  sc: 100, oy: 0,  oz: 0, fade: 9.5 },   // ARQ
-  C: { tl: -1, sc: 100, oy: -3, oz: 0, fade: 9.3 },   // MOTION
+  A: { tl: 1,  sc: 100, oy: 0,  oz: 0, fade: 9.5, vlt: 8, hue: 0, sat: 0, refl: 10 },   // ARQ
+  C: { tl: -1, sc: 100, oy: -3, oz: 0, fade: 9.3, vlt: 8, hue: 0, sat: 0, refl: 10 },   // MOTION
 };
 let curKey = 'A';
 /* レンズ色 = 実製品写真から実測した「色相」を明るさ1.0に正規化したリニアRGB。
@@ -269,7 +275,7 @@ function loadModel(file){
 $('export').onclick = () => {
   const model = $('models').querySelector('button.active').textContent.trim();
   const lines = ['TORINOX バーチャル試着 調整値', '対象モデル: ' + model, ''];
-  LENS_COLORS.forEach(c => lines.push(`${c.name}　VLT ${c.vlt}%`));
+  lines.push(`レンズ: 濃さ VLT ${$('op').value}% / 色味 ${$('hueV').textContent} / 色の強さ ${$('sat').value}% / 反射 ${$('refl').value}%`);
   lines.push('', `フィット調整: 傾き ${$('tl').value}° / サイズ ${$('sc').value}% / 上下 ${$('oy').value}mm / 前後 ${$('oz').value}mm`);
   lines.push(`つるを消す位置: ${$('tpLenV').textContent}${$('tpLenV').textContent === '全長' ? '' : '（前面から）'}`);
   lines.push('', 'デモ版: ' + DEMO_VERSION + ' / ' + new Date().toLocaleString('ja-JP'));
@@ -277,7 +283,7 @@ $('export').onclick = () => {
   showSheet(txt);
   if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).catch(() => {});
 };
-const DEMO_VERSION = '2026-09-04j';
+const DEMO_VERSION = '2026-09-04k';
 function showSheet(txt){
   const d = document.createElement('div'); d.id = 'sheet';
   d.innerHTML = '<div class="box"><div style="font-size:12px;color:var(--sub);margin-bottom:8px">設定（クリップボードにもコピーしました。コピーできない端末は下の文字を長押しで選択）</div>'
@@ -288,14 +294,30 @@ function showSheet(txt){
   document.body.appendChild(d);
 }
 
+/* レンズの色味: 無彩色(1,1,1)を基準に、色味スライダーで 青み(クール) ⇄ 茶み(ウォーム) の方向へ、
+   色の強さで混ぜる量を決める。最大成分を1に正規化するので、濃さ(VLT)は色味に影響されない */
+const TINT_WARM = [1.00, 0.80, 0.55], TINT_COOL = [0.70, 0.85, 1.00];
+function lensTint(){
+  const h = +$('hue').value / 100, sat = +$('sat').value / 100;
+  const dir = h >= 0 ? TINT_WARM : TINT_COOL, k = Math.abs(h) * sat;
+  const t = [0,1,2].map(i => 1 + (dir[i] - 1) * k);
+  const mx = Math.max(...t);
+  return t.map(v => v / mx);
+}
 function setLensVLT(pct){
   const vlt = pct / 100;
   $('opV').textContent = Math.round(pct) + '%';
-  const t = curLens.tint;
+  const h = +$('hue').value, sat = +$('sat').value, refl = +$('refl').value;
+  $('hueV').textContent = h === 0 ? '中間' : (h > 0 ? '茶み ' + h : '青み ' + (-h));
+  $('satV').textContent = sat + '%'; $('reflV').textContent = refl + '%';
+  const t = lensTint();
   lensMats.forEach(m => {
     // 透過光 = 背景 × color。色相はtint、明るさはVLTで決まる（リニア空間で指定）
     m.color.setRGB(t[0]*vlt, t[1]*vlt, t[2]*vlt);
     m.transmission = 1.0;
+    m.envMapIntensity = 0.5 * refl / 100;          // 環境の映り込み
+    m.specularIntensity = refl / 100;              // 照明のハイライト
+    m.roughness = 0.20;
     m.needsUpdate = true;
   });
 }
@@ -314,11 +336,12 @@ function applyFit(){
   fit.position.set(0, BASE_POS.y + oy/10, BASE_POS.z + oz/10);
   fit.rotation.x = tl * Math.PI / 180;     // 前傾角（つるの高さが変わる）
 }
-$('op').oninput = applyLens;
+['op','hue','sat','refl'].forEach(id => $(id).oninput = applyLens);
 ['sc','oy','oz','tl'].forEach(id => $(id).oninput = applyFit);
 function applyDefaults(){
   const d = MODEL_DEFAULTS[curKey] || MODEL_DEFAULTS.A;
   $('sc').value = d.sc; $('oy').value = d.oy; $('oz').value = d.oz; $('tl').value = d.tl; applyFit();
+  $('op').value = d.vlt; $('hue').value = d.hue; $('sat').value = d.sat; $('refl').value = d.refl; applyLens();
   $('tpLen').value = Math.min(d.fade * 10, +$('tpLen').max); applyTempleLen();
 }
 $('reset').onclick = applyDefaults;
@@ -337,8 +360,8 @@ function applyTempleLen(){
 $('tpLen').oninput = applyTempleLen;
 
 
-const mirrored = false;   // 実物どおり固定（ロゴが読める向き）
-canvas.classList.add('nomirror');
+const mirrored = true;    // 鏡と同じ向きに固定（写真保存も鏡向きで出る）
+canvas.classList.remove('nomirror');
 
 /* 写真保存：canvasの向きは表示設定に合わせる */
 $('shot').onclick = async () => {

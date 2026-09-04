@@ -45,7 +45,9 @@
   input[type=range] { flex:1; min-width:150px; accent-color:var(--accent); }
   .val { font-family:var(--orbitron); font-weight:500; font-size:11px; color:var(--sub); width:4.6em; text-align:right; letter-spacing:.04em; }
   #mirNote { width:auto; font-family:"Noto Sans JP",sans-serif; font-weight:400; font-size:10.5px; letter-spacing:0; text-align:left; }
-  #pcNote { width:auto; }
+  .intro { font-size:11.5px; color:#d0d0d0; line-height:1.8; font-weight:400; border-bottom:1px solid var(--line); padding-bottom:12px; margin-bottom:6px; }
+  .intro b { color:var(--accent); font-weight:700; }
+  .grp { font-size:10.5px; color:var(--sub); letter-spacing:.12em; font-weight:700; margin:16px 0 2px; padding-top:12px; border-top:1px solid var(--line); }
   .note { flex-basis:100%; width:auto; font-family:"Noto Sans JP",sans-serif; font-weight:400; font-size:10.5px; color:var(--sub); letter-spacing:0; text-align:left; line-height:1.6; margin-top:-4px; }
   #sheet { position:fixed; inset:0; background:rgba(0,0,0,.7); display:flex; align-items:center; justify-content:center; padding:20px; z-index:9; }
   #sheet .box { background:var(--panel); border:1px solid var(--line); padding:16px; width:min(92vw,560px); }
@@ -73,32 +75,21 @@
 </div>
 
 <div class="panel">
+  <p class="intro">このページは、<b>Amazonのバーチャル試着に載せる3Dモデルの見え方を、実物と見比べて調整するため</b>のものです。
+  お客様向けの試着画面ではありません。各バーを実物と同じ見え方になるところに合わせ、<b>「設定を書き出す」</b>で値を共有してください。納品モデルへの反映はヤシノミが行います。</p>
   <div class="row chips" id="models">
     <label>モデル</label>
     <button data-m="glasses_A.glb?v=20260904e" class="active">ARQ（角型）</button>
     <button data-m="glasses_C.glb?v=20260904e">MOTION（角型）</button>
   </div>
-  <div class="row"><label>レンズ透過率</label><input id="op" type="range" min="3" max="70" value="8"><span class="val" id="opV">8%</span></div>
-  <div class="row">
-    <label>調光レンズ</label>
-    <button id="pcOff" class="pcbtn active">なし</button>
-    <button id="pcIn" class="pcbtn">屋内</button>
-    <button id="pcOut" class="pcbtn">屋外</button>
-    <span class="val" id="pcNote"></span>
-  </div>
-  <div class="row">
-    <label>画面の向き</label>
-    <button id="mirOn" class="pcbtn">鏡のように</button>
-    <button id="mirOff" class="pcbtn active">実物どおり</button>
-    <span class="val" id="mirNote">実物どおりの向き（ロゴが読めます）</span>
-  </div>
-  <div class="row">
-    <label>つる</label>
-    <button id="tpFade" class="pcbtn active">耳まで（ぼかし）</button>
-    <button id="tpAll" class="pcbtn">全部表示</button>
-    <span class="note">「耳まで」は、指定した位置から先を髪や耳に隠れる部分としてなだらかに消します。位置は下のバーで調整できます。</span>
-  </div>
-  <div class="row"><label>消え始め</label><input id="tpLen" type="range" min="80" max="160" value="160"><span class="val" id="tpLenV">16.0cm</span></div>
+  <div class="grp">レンズ</div>
+  <div class="row"><label>レンズの濃さ</label><input id="op" type="range" min="3" max="70" value="8"><span class="val" id="opV">8%</span>
+    <span class="note">数値は可視光線透過率（VLT）。小さいほど濃い。実物のレンズと同じ濃さに見えるところに合わせます。</span></div>
+  <div class="grp">つる</div>
+  <div class="row"><label>つるを消す位置</label><input id="tpLen" type="range" min="80" max="160" value="160"><span class="val" id="tpLenV">全長</span>
+    <span class="note">実際にかけると、耳の後ろのつるは髪や耳に隠れて見えません。この画面ではその隠れを再現するため、バーの位置（前面からの距離）から先をなだらかに消します。右端まで動かすと全長を表示します。</span></div>
+  <div class="grp">顔への載り方</div>
+  <span class="note" style="display:block;margin:0 0 6px">実物をかけた時と同じ位置・傾きになるところに合わせてください。この値をもとに、納品モデルの基準位置を合わせます。</span>
   <div class="row"><label>傾き</label><input id="tl" type="range" min="-20" max="20" value="0"><span class="val" id="tlV">0°</span></div>
   <div class="row"><label>サイズ</label><input id="sc" type="range" min="85" max="115" value="100"><span class="val" id="scV">100%</span></div>
   <div class="row"><label>上下</label><input id="oy" type="range" min="-15" max="15" value="0"><span class="val" id="oyV">0.0mm</span></div>
@@ -106,13 +97,13 @@
   <div class="act">
     <button id="shot" class="primary">写真を保存</button>
     <button id="export">設定を書き出す</button>
-    <button id="reset">位置をリセット</button>
+    <button id="reset">既定に戻す</button>
   </div>
 </div>
 <footer>
   Amazon 3D要件準拠（GLB／ノード分割／KHR_materials_transmission／glTF-Validator エラー0・警告0）<br>
   TORINOX &times; 合同会社ヤシノミ ― 技術デモ（非公開・関係者限り）<br>
-  <span style="opacity:.55">モデル版: 2026-09-04h（消え始めの上限をつるの実長に）</span>
+  <span style="opacity:.55">モデル版: 2026-09-04i（型番ごとの既定値／調光・向き・つる切替を撤去）</span>
 </footer>
 
 <script type="importmap">
@@ -133,13 +124,17 @@ const msg = $('msg'), video = $('video'), canvas = $('three');
 
 /* 標準顔モデル(MediaPipe canonical face, cm)上で検証した装着位置 */
 const BASE_POS = { y: 2.05, z: 5.50 };
+/* 型番ごとの既定値（2026-09-04 に実物と見比べて書き出した値） */
+const MODEL_DEFAULTS = {
+  A: { tl: 1,  sc: 100, oy: 0,  oz: 0, fade: 9.5 },   // ARQ
+  C: { tl: -1, sc: 100, oy: -3, oz: 0, fade: 9.3 },   // MOTION
+};
+let curKey = 'A';
 /* レンズ色 = 実製品写真から実測した「色相」を明るさ1.0に正規化したリニアRGB。
    実際の濃さは下のVLT（可視光線透過率）スライダーで決める。 */
 const LENS_COLORS = [
   { name:'ブラック', tint:[1.00, 1.00, 1.03], vlt:8 },   // 受注仕様: ブラックレンズのみ
 ];
-/* 調光レンズの演出用（実物は屋外で約60秒かけて濃くなる） */
-const PHOTO = { indoor:55, outdoor:10, ms:2500 };
 
 const renderer = new THREE.WebGLRenderer({ canvas, antialias:true });
 renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -185,7 +180,7 @@ loader.load('face_occluder.glb?v=20260903', g => {
 });
 
 let glasses = null, occRoot = null; const doubleSided = false;
-let templeFade = true;                       // 既定: 耳の位置でぼかして消す
+const templeFade = true;                     // ぼかしは常に有効。バー右端＝全長表示
 const fadeU = { start:{ value:-0.160 }, end:{ value:-0.180 } };   // モデル座標(m)。既定はつるの終端（モデル読込時に実測して上書き）＝全長表示、2cmかけて完全に消える（スライダーで可変）
 function makeTempleMaterial(m){
   const t = m.clone(); t.transparent = true; t.alphaToCoverage = false; t.depthWrite = true;   // ぼかしは通常のアルファブレンド（alphaToCoverage はMSAA有効でも効かない環境があり、2026-09-04 に「消え始めが効かない」となった）
@@ -223,10 +218,9 @@ function loadModel(file){
       o.geometry.computeBoundingBox(); templeEnd = Math.max(templeEnd, -o.geometry.boundingBox.min.z * 100);
     });
     if (templeEnd > 0) {
-      const maxCm = Math.ceil(templeEnd);            // 例: ARQ 15.4cm → 16
-      $('tpLen').max = maxCm * 10; $('tpLen').value = maxCm * 10;
-      $('tpLenV').textContent = maxCm.toFixed(1) + 'cm';
-      fadeU.start.value = -maxCm / 100; fadeU.end.value = -(maxCm + 2) / 100;
+      const maxCm = Math.ceil(templeEnd);            // 例: ARQ 15.4cm → 16（右端＝全長）
+      $('tpLen').max = maxCm * 10;
+      applyDefaults();
     }
     glasses.traverse(o => {
       if (!o.isMesh) return;
@@ -266,48 +260,20 @@ function loadModel(file){
 }
 
 
-/* ---- 調光レンズの演出（実物は屋外で約60秒かけて変化） ---- */
-let photoMode = null, animId = null;
-function markPC(id){
-  ['pcOff','pcIn','pcOut'].forEach(k => $(k).classList.toggle('active', k === id));
-}
-function animateVLT(from, to){
-  if (animId) cancelAnimationFrame(animId);
-  const t0 = performance.now();
-  (function step(now){
-    const k = Math.min(1, (now - t0) / PHOTO.ms);
-    const e = k < 0.5 ? 2*k*k : 1 - Math.pow(-2*k+2, 2)/2;   // ease-in-out
-    setLensVLT(from + (to - from) * e);
-    if (k < 1) animId = requestAnimationFrame(step);
-  })(t0);
-}
-$('pcOff').onclick = () => { photoMode = null; markPC('pcOff'); $('pcNote').textContent=''; setLensVLT(curLens.vlt); };
-$('pcIn').onclick  = () => {
-  const from = photoMode === 'out' ? PHOTO.outdoor : +$('opV').textContent.replace('%','');
-  photoMode = 'in'; markPC('pcIn'); $('pcNote').textContent = PHOTO.indoor + '%';
-  animateVLT(from, PHOTO.indoor);
-};
-$('pcOut').onclick = () => {
-  const from = photoMode === 'in' ? PHOTO.indoor : +$('opV').textContent.replace('%','');
-  photoMode = 'out'; markPC('pcOut'); $('pcNote').textContent = PHOTO.outdoor + '%';
-  animateVLT(from, PHOTO.outdoor);
-};
 
 /* ---- 設定の書き出し（TORINOX側で決めた値をそのまま共有できるように） ---- */
 $('export').onclick = () => {
   const model = $('models').querySelector('button.active').textContent.trim();
-  const lines = ['TORINOX バーチャル試着デモ — レンズ設定', '対象モデル: ' + model, ''];
+  const lines = ['TORINOX バーチャル試着 調整値', '対象モデル: ' + model, ''];
   LENS_COLORS.forEach(c => lines.push(`${c.name}　VLT ${c.vlt}%`));
   lines.push('', `フィット調整: 傾き ${$('tl').value}° / サイズ ${$('sc').value}% / 上下 ${$('oy').value}mm / 前後 ${$('oz').value}mm`);
-  lines.push(`つる: ${templeFade ? '耳まで（ぼかし）' : '全部表示'} / 消え始め ${(+$('tpLen').value/10).toFixed(1)}cm`);
-  lines.push(`画面の向き: ${mirrored ? '鏡のように' : '実物どおり'}`);
-  lines.push(`調光レンズ演出: 屋内 ${PHOTO.indoor}% / 屋外 ${PHOTO.outdoor}%`);
+  lines.push(`つるを消す位置: ${$('tpLenV').textContent}${$('tpLenV').textContent === '全長' ? '' : '（前面から）'}`);
   lines.push('', 'デモ版: ' + DEMO_VERSION + ' / ' + new Date().toLocaleString('ja-JP'));
   const txt = lines.join('\n');
   showSheet(txt);
   if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).catch(() => {});
 };
-const DEMO_VERSION = '2026-09-04e';
+const DEMO_VERSION = '2026-09-04i';
 function showSheet(txt){
   const d = document.createElement('div'); d.id = 'sheet';
   d.innerHTML = '<div class="box"><div style="font-size:12px;color:var(--sub);margin-bottom:8px">設定（クリップボードにもコピーしました。コピーできない端末は下の文字を長押しで選択）</div>'
@@ -332,7 +298,6 @@ function setLensVLT(pct){
 function applyLens(){
   const pct = +$('op').value;
   curLens.vlt = pct;                 // 色ごとに設定を記憶
-  photoMode = null; markPC('pcOff');
   setLensVLT(pct);
 }
 function applyFit(){
@@ -347,40 +312,29 @@ function applyFit(){
 }
 $('op').oninput = applyLens;
 ['sc','oy','oz','tl'].forEach(id => $(id).oninput = applyFit);
-$('reset').onclick = () => { $('sc').value=100; $('oy').value=0; $('oz').value=0; $('tl').value=0; applyFit(); };
+function applyDefaults(){
+  const d = MODEL_DEFAULTS[curKey] || MODEL_DEFAULTS.A;
+  $('sc').value = d.sc; $('oy').value = d.oy; $('oz').value = d.oz; $('tl').value = d.tl; applyFit();
+  $('tpLen').value = Math.min(d.fade * 10, +$('tpLen').max); applyTempleLen();
+}
+$('reset').onclick = applyDefaults;
 $('models').querySelectorAll('button').forEach(b => {
   b.onclick = () => {
     $('models').querySelectorAll('button').forEach(x => x.classList.remove('active'));
-    b.classList.add('active'); loadModel(b.dataset.m);
+    b.classList.add('active'); curKey = /glasses_C/.test(b.dataset.m) ? 'C' : 'A'; loadModel(b.dataset.m);
   };
 });
 
-function applyTemple(){
-  templeMats.forEach(m => { m.userData.fade.value = templeFade ? 1.0 : 0.0; });
-  $('tpFade').classList.toggle('active', templeFade); $('tpAll').classList.toggle('active', !templeFade);
-}
-$('tpLen').oninput = () => {
-  const cm = +$('tpLen').value / 10;
-  $('tpLenV').textContent = cm.toFixed(1) + 'cm';
+function applyTempleLen(){
+  const v = +$('tpLen').value, max = +$('tpLen').max, cm = v / 10;
+  $('tpLenV').textContent = v >= max ? '全長' : cm.toFixed(1) + 'cm';
   fadeU.start.value = -cm / 100; fadeU.end.value = -(cm + 2.0) / 100;   // 指定位置から2cmかけて消える
-};
-$('tpFade').onclick = () => { templeFade = true;  applyTemple(); };
-$('tpAll').onclick  = () => { templeFade = false; applyTemple(); };
-
-
-/* 表示の左右反転：試着は鏡向きが自然だが、テンプルのロゴを読むときは実物どおりに切り替える */
-let mirrored = false;   // 既定は実物どおり（ロゴが正しく読める向き）
-function applyMirror(){
-  canvas.classList.toggle('nomirror', !mirrored);
-  $('mirOn').classList.toggle('active', mirrored);
-  $('mirOff').classList.toggle('active', !mirrored);
-  $('mirNote').textContent = mirrored
-    ? '鏡と同じ向き（ロゴは左右反転して見えます）'
-    : '実物どおりの向き（ロゴが読めます）';
 }
-$('mirOn').onclick  = () => { mirrored = true;  applyMirror(); };
-$('mirOff').onclick = () => { mirrored = false; applyMirror(); };
-applyMirror();
+$('tpLen').oninput = applyTempleLen;
+
+
+const mirrored = false;   // 実物どおり固定（ロゴが読める向き）
+canvas.classList.add('nomirror');
 
 /* 写真保存：canvasの向きは表示設定に合わせる */
 $('shot').onclick = async () => {

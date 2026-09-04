@@ -99,13 +99,6 @@
     <span class="note">「耳まで」は、指定した位置から先を髪や耳に隠れる部分としてなだらかに消します。位置は下のバーで調整できます。</span>
   </div>
   <div class="row"><label>消え始め</label><input id="tpLen" type="range" min="80" max="200" value="190"><span class="val" id="tpLenV">19.0cm</span></div>
-  <div class="row" id="inspectRow" hidden>
-    <label>点検</label>
-    <button id="occOn" class="pcbtn active">顔の隠しあり</button>
-    <button id="occOff" class="pcbtn">顔の隠しなし</button>
-    <button id="dsOff" class="pcbtn active">片面描画</button>
-    <button id="dsOn" class="pcbtn">両面描画</button>
-  </div>
   <div class="row"><label>傾き</label><input id="tl" type="range" min="-20" max="20" value="0"><span class="val" id="tlV">0°</span></div>
   <div class="row"><label>サイズ</label><input id="sc" type="range" min="85" max="115" value="100"><span class="val" id="scV">100%</span></div>
   <div class="row"><label>上下</label><input id="oy" type="range" min="-15" max="15" value="0"><span class="val" id="oyV">0.0mm</span></div>
@@ -119,7 +112,7 @@
 <footer>
   Amazon 3D要件準拠（GLB／ノード分割／KHR_materials_transmission／glTF-Validator エラー0・警告0）<br>
   TORINOX &times; 合同会社ヤシノミ ― 技術デモ（非公開・関係者限り）<br>
-  <span style="opacity:.55">モデル版: 2026-09-04e（つるの隠し方を変更／書き出し・保存を改修）</span>
+  <span style="opacity:.55">モデル版: 2026-09-04f（頭の隠しの寸法バグ修正／点検行を撤去）</span>
 </footer>
 
 <script type="importmap">
@@ -185,12 +178,13 @@ loader.load('face_occluder.glb?v=20260903', g => {
   // 頭の隠し: 顔メッシュには側頭部・耳・後頭部が無いため、その先で隠れが途切れてヨロイやつるが「欠けて」見える。
   // つるの開き幅(片側7.2〜7.6cm)より少し細い楕円体を頭として置き、つるは外側に出したまま奥の部品だけ隠す
   const head = new THREE.Mesh(new THREE.SphereGeometry(1, 48, 32), new THREE.MeshBasicMaterial({ colorWrite:false }));
-  head.scale.set(7.3, 10.5, 9.5); head.position.set(0, 0, -9.5);
+  head.scale.set(7.3, 10.5, 9.5); head.position.set(0, 0, -9.5);   // anchor 直下に置く（cm単位）。
   head.renderOrder = -20; head.frustumCulled = false;   // 頭: いちばん先に深度だけ描き、奥側のつるを隠す
-  occ.add(head);
+  // ※ occ（scale 100）の子にすると 7.3m の球になり、顔の前面より奥の部品を全部隠してしまう（2026-09-04 の「つるが消える」の真因）
+  anchor.add(head); occRoot.userData.head = head;
 });
 
-let glasses = null, occRoot = null, doubleSided = false;
+let glasses = null, occRoot = null; const doubleSided = false;
 let templeFade = true;                       // 既定: 耳の位置でぼかして消す
 const fadeU = { start:{ value:-0.190 }, end:{ value:-0.210 } };   // モデル座標(m)。前面原点から19cmで消え始め（ARQのつるは15.4cmで終わるので既定では全部見える）、2cmかけて完全に消える（スライダーで可変）
 function makeTempleMaterial(m){
@@ -347,17 +341,6 @@ $('models').querySelectorAll('button').forEach(b => {
   };
 });
 
-/* 点検用: 顔の隠し(オクルーダー)と両面描画の切替。穴の原因切り分けに使う */
-function applyInspect(){
-  if (occRoot) occRoot.visible = !$('occOff').classList.contains('active');
-  if (glasses) glasses.traverse(o => {
-    if (!o.isMesh) return;
-    (Array.isArray(o.material) ? o.material : [o.material]).forEach(m => {
-      if ((m.name || '') === 'LensMat') return;
-      m.side = doubleSided ? THREE.DoubleSide : THREE.FrontSide; m.needsUpdate = true;
-    });
-  });
-}
 function applyTemple(){
   templeMats.forEach(m => { m.userData.fade.value = templeFade ? 1.0 : 0.0; });
   $('tpFade').classList.toggle('active', templeFade); $('tpAll').classList.toggle('active', !templeFade);
@@ -370,11 +353,6 @@ $('tpLen').oninput = () => {
 $('tpFade').onclick = () => { templeFade = true;  applyTemple(); };
 $('tpAll').onclick  = () => { templeFade = false; applyTemple(); };
 
-if (new URLSearchParams(location.search).get('debug') === '1') $('inspectRow').hidden = false;
-$('occOn').onclick  = () => { $('occOn').classList.add('active');  $('occOff').classList.remove('active'); applyInspect(); };
-$('occOff').onclick = () => { $('occOff').classList.add('active'); $('occOn').classList.remove('active');  applyInspect(); };
-$('dsOff').onclick  = () => { doubleSided = false; $('dsOff').classList.add('active'); $('dsOn').classList.remove('active');  applyInspect(); };
-$('dsOn').onclick   = () => { doubleSided = true;  $('dsOn').classList.add('active');  $('dsOff').classList.remove('active'); applyInspect(); };
 
 /* 表示の左右反転：試着は鏡向きが自然だが、テンプルのロゴを読むときは実物どおりに切り替える */
 let mirrored = false;   // 既定は実物どおり（ロゴが正しく読める向き）

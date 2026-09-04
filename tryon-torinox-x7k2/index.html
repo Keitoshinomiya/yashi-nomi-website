@@ -98,7 +98,7 @@
     <button id="tpAll" class="pcbtn">全部表示</button>
     <span class="note">「耳まで」は、指定した位置から先を髪や耳に隠れる部分としてなだらかに消します。位置は下のバーで調整できます。</span>
   </div>
-  <div class="row"><label>消え始め</label><input id="tpLen" type="range" min="80" max="200" value="190"><span class="val" id="tpLenV">19.0cm</span></div>
+  <div class="row"><label>消え始め</label><input id="tpLen" type="range" min="80" max="160" value="160"><span class="val" id="tpLenV">16.0cm</span></div>
   <div class="row"><label>傾き</label><input id="tl" type="range" min="-20" max="20" value="0"><span class="val" id="tlV">0°</span></div>
   <div class="row"><label>サイズ</label><input id="sc" type="range" min="85" max="115" value="100"><span class="val" id="scV">100%</span></div>
   <div class="row"><label>上下</label><input id="oy" type="range" min="-15" max="15" value="0"><span class="val" id="oyV">0.0mm</span></div>
@@ -112,7 +112,7 @@
 <footer>
   Amazon 3D要件準拠（GLB／ノード分割／KHR_materials_transmission／glTF-Validator エラー0・警告0）<br>
   TORINOX &times; 合同会社ヤシノミ ― 技術デモ（非公開・関係者限り）<br>
-  <span style="opacity:.55">モデル版: 2026-09-04g（つるのぼかしをアルファブレンドに）</span>
+  <span style="opacity:.55">モデル版: 2026-09-04h（消え始めの上限をつるの実長に）</span>
 </footer>
 
 <script type="importmap">
@@ -186,7 +186,7 @@ loader.load('face_occluder.glb?v=20260903', g => {
 
 let glasses = null, occRoot = null; const doubleSided = false;
 let templeFade = true;                       // 既定: 耳の位置でぼかして消す
-const fadeU = { start:{ value:-0.190 }, end:{ value:-0.210 } };   // モデル座標(m)。前面原点から19cmで消え始め（ARQのつるは15.4cmで終わるので既定では全部見える）、2cmかけて完全に消える（スライダーで可変）
+const fadeU = { start:{ value:-0.160 }, end:{ value:-0.180 } };   // モデル座標(m)。既定はつるの終端（モデル読込時に実測して上書き）＝全長表示、2cmかけて完全に消える（スライダーで可変）
 function makeTempleMaterial(m){
   const t = m.clone(); t.transparent = true; t.alphaToCoverage = false; t.depthWrite = true;   // ぼかしは通常のアルファブレンド（alphaToCoverage はMSAA有効でも効かない環境があり、2026-09-04 に「消え始めが効かない」となった）
   t.userData.fade = { value: templeFade ? 1.0 : 0.0 };
@@ -214,6 +214,20 @@ function loadModel(file){
     if (glasses) fit.remove(glasses);
     glasses = g.scene; lensMats.length = 0;
     templeMats.length = 0;
+    // つるの実長（前面原点からの奥行き）を測り、「消え始め」バーの上限＝つるの終端にする
+    let templeEnd = 0;
+    glasses.traverse(o => {
+      if (!o.isMesh) return;
+      let isT = false; for (let p = o; p; p = p.parent) if (/^Temple/.test(p.name || '')) { isT = true; break; }
+      if (!isT) return;
+      o.geometry.computeBoundingBox(); templeEnd = Math.max(templeEnd, -o.geometry.boundingBox.min.z * 100);
+    });
+    if (templeEnd > 0) {
+      const maxCm = Math.ceil(templeEnd);            // 例: ARQ 15.4cm → 16
+      $('tpLen').max = maxCm * 10; $('tpLen').value = maxCm * 10;
+      $('tpLenV').textContent = maxCm.toFixed(1) + 'cm';
+      fadeU.start.value = -maxCm / 100; fadeU.end.value = -(maxCm + 2) / 100;
+    }
     glasses.traverse(o => {
       if (!o.isMesh) return;
       o.frustumCulled = false;

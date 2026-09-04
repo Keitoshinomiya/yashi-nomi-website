@@ -46,6 +46,11 @@
   .val { font-family:var(--orbitron); font-weight:500; font-size:11px; color:var(--sub); width:4.6em; text-align:right; letter-spacing:.04em; }
   #mirNote { width:auto; font-family:"Noto Sans JP",sans-serif; font-weight:400; font-size:10.5px; letter-spacing:0; text-align:left; }
   #pcNote { width:auto; }
+  .note { flex-basis:100%; width:auto; font-family:"Noto Sans JP",sans-serif; font-weight:400; font-size:10.5px; color:var(--sub); letter-spacing:0; text-align:left; line-height:1.6; margin-top:-4px; }
+  #sheet { position:fixed; inset:0; background:rgba(0,0,0,.7); display:flex; align-items:center; justify-content:center; padding:20px; z-index:9; }
+  #sheet .box { background:var(--panel); border:1px solid var(--line); padding:16px; width:min(92vw,560px); }
+  #sheet textarea { width:100%; height:220px; background:#000; color:#fff; border:1px solid var(--line); font:12px/1.6 "Noto Sans JP",monospace; padding:10px; resize:vertical; }
+  #sheet .act { margin-top:10px; }
   .act { display:flex; gap:10px; margin-top:16px; flex-wrap:wrap; }
   .act button { background:#000; color:var(--text); border:1px solid #ffffff; border-radius:0;
                 padding:10px 18px; font-size:12.5px; cursor:pointer; letter-spacing:.1em; font-weight:700; }
@@ -70,8 +75,8 @@
 <div class="panel">
   <div class="row chips" id="models">
     <label>モデル</label>
-    <button data-m="glasses_A.glb?v=20260904d" class="active">ARQ（角型）</button>
-    <button data-m="glasses_C.glb?v=20260903">MOTION（角型）</button>
+    <button data-m="glasses_A.glb?v=20260904e" class="active">ARQ（角型）</button>
+    <button data-m="glasses_C.glb?v=20260904e">MOTION（角型）</button>
   </div>
   <div class="row"><label>レンズ透過率</label><input id="op" type="range" min="3" max="70" value="8"><span class="val" id="opV">8%</span></div>
   <div class="row">
@@ -91,10 +96,10 @@
     <label>つる</label>
     <button id="tpFade" class="pcbtn active">耳まで（ぼかし）</button>
     <button id="tpAll" class="pcbtn">全部表示</button>
-    <span class="val">耳の後ろは髪や耳に隠れる部分なので、ぼかして消しています</span>
+    <span class="note">「耳まで」は、指定した位置から先を髪や耳に隠れる部分としてなだらかに消します。位置は下のバーで調整できます。</span>
   </div>
-  <div class="row"><label>つるの長さ</label><input id="tpLen" type="range" min="80" max="160" value="135"><span class="val" id="tpLenV">13.5cm</span></div>
-  <div class="row">
+  <div class="row"><label>消え始め</label><input id="tpLen" type="range" min="80" max="200" value="190"><span class="val" id="tpLenV">19.0cm</span></div>
+  <div class="row" id="inspectRow" hidden>
     <label>点検</label>
     <button id="occOn" class="pcbtn active">顔の隠しあり</button>
     <button id="occOff" class="pcbtn">顔の隠しなし</button>
@@ -114,7 +119,7 @@
 <footer>
   Amazon 3D要件準拠（GLB／ノード分割／KHR_materials_transmission／glTF-Validator エラー0・警告0）<br>
   TORINOX &times; 合同会社ヤシノミ ― 技術デモ（非公開・関係者限り）<br>
-  <span style="opacity:.55">モデル版: 2026-09-04d（ARQ バー下地を銀に／つる13.5cm）</span>
+  <span style="opacity:.55">モデル版: 2026-09-04e（つるの隠し方を変更／書き出し・保存を改修）</span>
 </footer>
 
 <script type="importmap">
@@ -172,7 +177,7 @@ loader.load('face_occluder.glb?v=20260903', g => {
   occ.traverse(o => {
     if (o.isMesh) {
       o.material = new THREE.MeshBasicMaterial({ colorWrite:false });
-      o.renderOrder = -10; o.frustumCulled = false;
+      o.renderOrder = -10; o.frustumCulled = false;      // 顔メッシュ: フレーム・レンズを隠す（つるは先に描くので隠されない）
     }
   });
   occ.scale.setScalar(100);
@@ -181,15 +186,15 @@ loader.load('face_occluder.glb?v=20260903', g => {
   // つるの開き幅(片側7.2〜7.6cm)より少し細い楕円体を頭として置き、つるは外側に出したまま奥の部品だけ隠す
   const head = new THREE.Mesh(new THREE.SphereGeometry(1, 48, 32), new THREE.MeshBasicMaterial({ colorWrite:false }));
   head.scale.set(7.3, 10.5, 9.5); head.position.set(0, 0, -9.5);
-  head.renderOrder = -10; head.frustumCulled = false;
+  head.renderOrder = -20; head.frustumCulled = false;   // 頭: いちばん先に深度だけ描き、奥側のつるを隠す
   occ.add(head);
 });
 
 let glasses = null, occRoot = null, doubleSided = false;
 let templeFade = true;                       // 既定: 耳の位置でぼかして消す
-const fadeU = { start:{ value:-0.135 }, end:{ value:-0.155 } };   // モデル座標(m)。前面原点から13.5cmで消え始め、2cmかけて完全に消える（スライダーで可変）
+const fadeU = { start:{ value:-0.190 }, end:{ value:-0.210 } };   // モデル座標(m)。前面原点から19cmで消え始め（ARQのつるは15.4cmで終わるので既定では全部見える）、2cmかけて完全に消える（スライダーで可変）
 function makeTempleMaterial(m){
-  const t = m.clone(); t.transparent = true; t.depthWrite = true;
+  const t = m.clone(); t.transparent = false; t.alphaToCoverage = true; t.depthWrite = true;   // 不透明パスで描き、ぼかしはMSAAカバレッジで表現
   t.userData.fade = { value: templeFade ? 1.0 : 0.0 };
   t.onBeforeCompile = sh => {
     sh.uniforms.uFade = t.userData.fade; sh.uniforms.uFadeStart = fadeU.start; sh.uniforms.uFadeEnd = fadeU.end;
@@ -224,6 +229,7 @@ function loadModel(file){
         if (Array.isArray(o.material)) o.material = o.material.map(makeTempleMaterial);
         else o.material = makeTempleMaterial(o.material);
         (Array.isArray(o.material) ? o.material : [o.material]).forEach(m => templeMats.push(m));
+        o.userData.temple = true;
       }
       const ms = Array.isArray(o.material) ? o.material : [o.material];
       ms.forEach(m => {
@@ -237,10 +243,10 @@ function loadModel(file){
           o.renderOrder = 2;
         } else if (n === 'AccentMat') {
           m.envMapIntensity = 0.45;      // サテン仕上げ。白飛びを抑える
-          o.renderOrder = 1; m.side = doubleSided ? THREE.DoubleSide : THREE.FrontSide;
+          o.renderOrder = o.userData.temple ? -15 : 1; m.side = doubleSided ? THREE.DoubleSide : THREE.FrontSide;
         } else {
           m.envMapIntensity = 0.30;
-          o.renderOrder = 1; m.side = doubleSided ? THREE.DoubleSide : THREE.FrontSide;
+          o.renderOrder = o.userData.temple ? -15 : 1; m.side = doubleSided ? THREE.DoubleSide : THREE.FrontSide;
         }
       });
     });
@@ -285,12 +291,24 @@ $('export').onclick = () => {
   const lines = ['TORINOX バーチャル試着デモ — レンズ設定', '対象モデル: ' + model, ''];
   LENS_COLORS.forEach(c => lines.push(`${c.name}　VLT ${c.vlt}%`));
   lines.push('', `フィット調整: 傾き ${$('tl').value}° / サイズ ${$('sc').value}% / 上下 ${$('oy').value}mm / 前後 ${$('oz').value}mm`);
+  lines.push(`つる: ${templeFade ? '耳まで（ぼかし）' : '全部表示'} / 消え始め ${(+$('tpLen').value/10).toFixed(1)}cm`);
+  lines.push(`画面の向き: ${mirrored ? '鏡のように' : '実物どおり'}`);
   lines.push(`調光レンズ演出: 屋内 ${PHOTO.indoor}% / 屋外 ${PHOTO.outdoor}%`);
+  lines.push('', 'デモ版: ' + DEMO_VERSION + ' / ' + new Date().toLocaleString('ja-JP'));
   const txt = lines.join('\n');
-  navigator.clipboard.writeText(txt)
-    .then(() => alert('設定をコピーしました。\n\n' + txt))
-    .catch(() => alert(txt));
+  showSheet(txt);
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).catch(() => {});
 };
+const DEMO_VERSION = '2026-09-04e';
+function showSheet(txt){
+  const d = document.createElement('div'); d.id = 'sheet';
+  d.innerHTML = '<div class="box"><div style="font-size:12px;color:var(--sub);margin-bottom:8px">設定（クリップボードにもコピーしました。コピーできない端末は下の文字を長押しで選択）</div>'
+    + '<textarea readonly></textarea><div class="act"><button class="primary" id="sheetClose">閉じる</button></div></div>';
+  d.querySelector('textarea').value = txt;
+  d.querySelector('#sheetClose').onclick = () => d.remove();
+  d.onclick = e => { if (e.target === d) d.remove(); };
+  document.body.appendChild(d);
+}
 
 function setLensVLT(pct){
   const vlt = pct / 100;
@@ -352,6 +370,7 @@ $('tpLen').oninput = () => {
 $('tpFade').onclick = () => { templeFade = true;  applyTemple(); };
 $('tpAll').onclick  = () => { templeFade = false; applyTemple(); };
 
+if (new URLSearchParams(location.search).get('debug') === '1') $('inspectRow').hidden = false;
 $('occOn').onclick  = () => { $('occOn').classList.add('active');  $('occOff').classList.remove('active'); applyInspect(); };
 $('occOff').onclick = () => { $('occOff').classList.add('active'); $('occOn').classList.remove('active');  applyInspect(); };
 $('dsOff').onclick  = () => { doubleSided = false; $('dsOff').classList.add('active'); $('dsOn').classList.remove('active');  applyInspect(); };
@@ -372,20 +391,27 @@ $('mirOff').onclick = () => { mirrored = false; applyMirror(); };
 applyMirror();
 
 /* 写真保存：canvasの向きは表示設定に合わせる */
-$('shot').onclick = () => {
+$('shot').onclick = async () => {
+  renderer.render(scene, camera);                 // 直前に描いてから読む（描画バッファは保持されないため）
   const w = canvas.width, h = canvas.height;
   const c = document.createElement('canvas'); c.width = w; c.height = h;
   const ctx = c.getContext('2d');
   if (mirrored) { ctx.translate(w, 0); ctx.scale(-1, 1); }
   ctx.drawImage(canvas, 0, 0);
-  const a = document.createElement('a');
-  a.download = 'torinox-tryon.png';
-  a.href = c.toDataURL('image/png');
-  a.click();
+  const name = 'torinox-tryon-' + new Date().toISOString().slice(0,19).replace(/[-:T]/g,'') + '.png';
+  const blob = await new Promise(r => c.toBlob(r, 'image/png'));
+  if (!blob) { alert('画像を作成できませんでした'); return; }
+  const file = new File([blob], name, { type:'image/png' });
+  if (navigator.canShare && navigator.canShare({ files:[file] })) {
+    try { await navigator.share({ files:[file], title:'TORINOX 試着' }); return; } catch(e) { if (e.name === 'AbortError') return; }
+  }
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href = url; a.download = name; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 10000);
 };
 
 applyFit();
-loadModel('glasses_A.glb?v=20260904d');
+loadModel('glasses_A.glb?v=20260904e');
 
 let landmarker = null, running = false, lastT = -1;
 const faceMat = new THREE.Matrix4();

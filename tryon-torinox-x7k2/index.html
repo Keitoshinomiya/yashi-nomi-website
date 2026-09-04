@@ -70,7 +70,7 @@
 <div class="panel">
   <div class="row chips" id="models">
     <label>モデル</label>
-    <button data-m="glasses_A.glb?v=20260904c" class="active">ARQ（角型）</button>
+    <button data-m="glasses_A.glb?v=20260904d" class="active">ARQ（角型）</button>
     <button data-m="glasses_C.glb?v=20260903">MOTION（角型）</button>
   </div>
   <div class="row"><label>レンズ透過率</label><input id="op" type="range" min="3" max="70" value="8"><span class="val" id="opV">8%</span></div>
@@ -93,7 +93,7 @@
     <button id="tpAll" class="pcbtn">全部表示</button>
     <span class="val">耳の後ろは髪や耳に隠れる部分なので、ぼかして消しています</span>
   </div>
-  <div class="row"><label>つるの長さ</label><input id="tpLen" type="range" min="80" max="150" value="115"><span class="val" id="tpLenV">11.5cm</span></div>
+  <div class="row"><label>つるの長さ</label><input id="tpLen" type="range" min="80" max="160" value="135"><span class="val" id="tpLenV">13.5cm</span></div>
   <div class="row">
     <label>点検</label>
     <button id="occOn" class="pcbtn active">顔の隠しあり</button>
@@ -114,7 +114,7 @@
 <footer>
   Amazon 3D要件準拠（GLB／ノード分割／KHR_materials_transmission／glTF-Validator エラー0・警告0）<br>
   TORINOX &times; 合同会社ヤシノミ ― 技術デモ（非公開・関係者限り）<br>
-  <span style="opacity:.55">モデル版: 2026-09-04c（ARQ バー下地の復元／つる長さ調整）</span>
+  <span style="opacity:.55">モデル版: 2026-09-04d（ARQ バー下地を銀に／つる13.5cm）</span>
 </footer>
 
 <script type="importmap">
@@ -187,7 +187,7 @@ loader.load('face_occluder.glb?v=20260903', g => {
 
 let glasses = null, occRoot = null, doubleSided = false;
 let templeFade = true;                       // 既定: 耳の位置でぼかして消す
-const fadeU = { start:{ value:-0.115 }, end:{ value:-0.135 } };   // モデル座標(m)。前面原点から11.5cmで消え始め、2cmかけて完全に消える（スライダーで可変）
+const fadeU = { start:{ value:-0.135 }, end:{ value:-0.155 } };   // モデル座標(m)。前面原点から13.5cmで消え始め、2cmかけて完全に消える（スライダーで可変）
 function makeTempleMaterial(m){
   const t = m.clone(); t.transparent = true; t.depthWrite = true;
   t.userData.fade = { value: templeFade ? 1.0 : 0.0 };
@@ -385,7 +385,7 @@ $('shot').onclick = () => {
 };
 
 applyFit();
-loadModel('glasses_A.glb?v=20260904c');
+loadModel('glasses_A.glb?v=20260904d');
 
 let landmarker = null, running = false, lastT = -1;
 const faceMat = new THREE.Matrix4();

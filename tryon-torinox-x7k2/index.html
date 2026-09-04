@@ -70,7 +70,7 @@
 <div class="panel">
   <div class="row chips" id="models">
     <label>モデル</label>
-    <button data-m="glasses_A.glb?v=20260903" class="active">ARQ（角型）</button>
+    <button data-m="glasses_A.glb?v=20260904b" class="active">ARQ（角型）</button>
     <button data-m="glasses_C.glb?v=20260903">MOTION（角型）</button>
   </div>
   <div class="row"><label>レンズ透過率</label><input id="op" type="range" min="3" max="70" value="8"><span class="val" id="opV">8%</span></div>
@@ -113,7 +113,7 @@
 <footer>
   Amazon 3D要件準拠（GLB／ノード分割／KHR_materials_transmission／glTF-Validator エラー0・警告0）<br>
   TORINOX &times; 合同会社ヤシノミ ― 技術デモ（非公開・関係者限り）<br>
-  <span style="opacity:.55">モデル版: 2026-09-04a（つるのぼかし／頭の隠し追加）</span>
+  <span style="opacity:.55">モデル版: 2026-09-04b（ARQ 銀バー継ぎ目・内壁両面化）</span>
 </footer>
 
 <script type="importmap">
@@ -379,7 +379,7 @@ $('shot').onclick = () => {
 };
 
 applyFit();
-loadModel('glasses_A.glb?v=20260903');
+loadModel('glasses_A.glb?v=20260904b');
 
 let landmarker = null, running = false, lastT = -1;
 const faceMat = new THREE.Matrix4();

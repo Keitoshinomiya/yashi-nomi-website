@@ -112,7 +112,7 @@
 <footer>
   Amazon 3D要件準拠（GLB／ノード分割／KHR_materials_transmission／glTF-Validator エラー0・警告0）<br>
   TORINOX &times; 合同会社ヤシノミ ― 技術デモ（非公開・関係者限り）<br>
-  <span style="opacity:.55">モデル版: 2026-09-04f（頭の隠しの寸法バグ修正／点検行を撤去）</span>
+  <span style="opacity:.55">モデル版: 2026-09-04g（つるのぼかしをアルファブレンドに）</span>
 </footer>
 
 <script type="importmap">
@@ -188,7 +188,7 @@ let glasses = null, occRoot = null; const doubleSided = false;
 let templeFade = true;                       // 既定: 耳の位置でぼかして消す
 const fadeU = { start:{ value:-0.190 }, end:{ value:-0.210 } };   // モデル座標(m)。前面原点から19cmで消え始め（ARQのつるは15.4cmで終わるので既定では全部見える）、2cmかけて完全に消える（スライダーで可変）
 function makeTempleMaterial(m){
-  const t = m.clone(); t.transparent = false; t.alphaToCoverage = true; t.depthWrite = true;   // 不透明パスで描き、ぼかしはMSAAカバレッジで表現
+  const t = m.clone(); t.transparent = true; t.alphaToCoverage = false; t.depthWrite = true;   // ぼかしは通常のアルファブレンド（alphaToCoverage はMSAA有効でも効かない環境があり、2026-09-04 に「消え始めが効かない」となった）
   t.userData.fade = { value: templeFade ? 1.0 : 0.0 };
   t.onBeforeCompile = sh => {
     sh.uniforms.uFade = t.userData.fade; sh.uniforms.uFadeStart = fadeU.start; sh.uniforms.uFadeEnd = fadeU.end;

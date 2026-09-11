@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PBN7WNCX8N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-PBN7WNCX8N');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="商品が3種類あるのにほぼ1番しか売れていなかった。価格の基準がバラバラで、ページが孤島になっていたことが原因でした。詳細な比較表より「あなたはここにいる」と示す地図の方が機能する。自社の香水ECで試した見える化の話。">
+    <title>複数商品をECモールで売るとき、ページが孤島になっていた——価格を揃えて「地図」を置いたら何が変わるか - 合同会社ヤシノミ</title>
+    <meta property="og:title" content="スペック比較より「地図」の方が、選べないお客さんに効いた">
+    <meta property="og:description" content="商品が3種類あるのにほぼ1番しか売れていなかった。価格の基準がバラバラで、ページが孤島になっていたことが原因でした。詳細な比較表より「あなたはここにいる」と示す地図の方が機能する。自社の香水ECで試した見える化の話。">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://yashi-nomi.com/column/ec-product-map-design.html">
+    <meta property="og:image" content="https://yashi-nomi.com/images/ogp.jpg">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0a3d62;
+            --primary-color-dark: #06283d;
+            --accent-orange: #FF9900;
+            --border-color: #e5e7eb;
+            --good: #4E7C59;
+            --alert: #B23A3A;
+        }
+        body { font-family: 'Noto Sans JP', sans-serif; color: #1f2937; background-color: #f8f9fa; }
+        .font-serif-jp { font-family: 'Noto Serif JP', serif; }
+        .primary-color { color: var(--primary-color); }
+        .text-accent { color: var(--accent-orange); }
+        .btn-primary { background-image: linear-gradient(to right, #0a3d62 0%, #06283d 50%, #0a3d62 100%); background-size: 200% auto; color: white; }
+        .btn-primary:hover { background-position: right center; }
+        .marker { background: linear-gradient(transparent 60%, #cfe8ff 60%); font-weight: 700; }
+        .prose h2 { scroll-margin-top: 80px; font-family:'Noto Serif JP',serif; font-size:1.5rem; font-weight:700; color:var(--primary-color); border-left:5px solid var(--accent-orange); padding-left:14px; margin-top:2.5rem; }
+        .prose h3 { font-weight:700; font-size:1.15rem; color:#1f2937; margin-top:1.6rem; }
+        article p, article li { font-size: 1.0625rem; line-height: 1.9; }
+        @media (min-width: 768px) { article p, article li { font-size: 1.125rem; line-height: 1.95; } }
+        .prose ul { list-style:disc; padding-left:1.5rem; } .prose ol { list-style:decimal; padding-left:1.5rem; }
+        .toc a:hover { color: var(--primary-color); text-decoration: underline; }
+        table.data { width:100%; border-collapse:collapse; font-size:0.85rem; }
+        table.data th, table.data td { border:1px solid var(--border-color); padding:8px 10px; text-align:center; }
+        table.data th { background:var(--primary-color); color:#fff; font-weight:700; }
+        table.data tr:nth-child(even) td { background:#fafafa; }
+        table.data td.l { text-align:left; }
+        .note-good { background:#eef5ef; border-left:4px solid var(--good); border-radius:0 8px 8px 0; padding:16px 18px; }
+        .note-alert { background:#fbeeee; border-left:4px solid var(--alert); border-radius:0 8px 8px 0; padding:16px 18px; }
+    </style>
+
+    <link rel="icon" href="/images/icon.png" type="image/png" sizes="192x192">
+    <link rel="shortcut icon" href="/images/icon.png" type="image/png">
+    <link rel="apple-touch-icon" href="/images/icon.png">
+</head>
+<body>
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="../index.html" class="flex items-center gap-2">
+                <img src="../images/logo.png" alt="合同会社ヤシノミ ロゴ" class="h-8 w-auto">
+            </a>
+            <a href="https://line.me/R/ti/p/@756qpakc" target="_blank" class="btn-primary px-4 py-2 rounded text-sm font-bold transition shadow-md">LINEで相談</a>
+        </div>
+    </header>
+
+    <article class="container mx-auto px-6 py-12 max-w-5xl bg-white mt-8 rounded-xl shadow-sm">
+        <div class="flex items-center gap-2 mb-4 flex-wrap">
+            <span class="text-white text-xs font-bold px-3 py-1 rounded" style="background:var(--primary-color);">集客・見える化</span>
+            <span class="text-gray-400 text-xs">業務改善コラム</span>
+        </div>
+        <h1 class="font-serif-jp text-3xl md:text-4xl font-bold mt-2 mb-4 leading-tight text-gray-800" style="letter-spacing:0.02em;">
+            スペック比較より「地図」の方が、選べないお客さんに効いた
+            <span class="text-2xl md:text-3xl mt-3 block text-gray-600 font-normal">——複数商品をECに並べるとき、ページを孤島にしていないか</span>
+        </h1>
+        <p class="text-sm text-gray-400 mb-8">業務改善コラム ／ 集客・見える化 ／ 読了目安：約8分</p>
+
+        <div class="prose max-w-none text-gray-700 leading-relaxed space-y-8">
+            <p class="text-lg font-medium leading-8 pl-4 p-4 rounded-r" style="border-left:4px solid var(--primary-color);background:#f1f7fd;">
+                通販サイトに3種類の商品を並べていたのに、売れるのはほぼ1番だけでした。原因は<span class="marker">「ページが孤島になっていたこと」</span>——お客さんが他の商品に辿り着く方法がなかっただけでした。価格の基準を揃えて、詳細な比較表より「地図」を置く形に変えた話です。
+            </p>
+
+            <nav class="toc text-sm bg-gray-50 border rounded-lg p-5" style="border-color:var(--border-color);">
+                <p class="font-bold text-gray-800 mb-3">この記事の内容</p>
+                <ol class="list-decimal pl-5 space-y-1.5 text-gray-600">
+                    <li><a href="#s1">3種類並べたのに、ほぼ1番しか売れていなかった</a></li>
+<li><a href="#s2">モールの商品ページは、放っておくと「孤島」になる</a></li>
+<li><a href="#s3">最初にやったこと：価格の「基準」を揃える</a></li>
+<li><a href="#s4">「比較表」を置いても、人は選べない</a></li>
+<li><a href="#s5">「地図」という見せ方に変えた</a></li>
+<li><a href="#s6">複数の商品があれば、どんな商売にも使える</a></li>
+                </ol>
+            </nav>
+
+            <section id="s1"><h2>3種類並べたのに、ほぼ1番しか売れていなかった</h2><p>うちの香水ブランド（COLLEGRANCE）では、Qoo10という通販モールに1本・2本・3本の3種類のセットを出品していました。それぞれちゃんとページを作って、説明文も書いていた。でも、ある時ふと数字を見て気づいたんです。ほぼ1番のページからしか売れていない、と。</p><p>「セットの方がお得なのに知られていないのかな」くらいに思っていました。でも自分でページを開いてみたら、すぐ原因が分かりました。<strong>1本のページから2本・3本のページに移動する方法が、どこにもなかった。</strong>来てくれたお客さんは、他のセットの存在を知らないまま、買うか離れるかしかない状態でした。笑</p></section>
+<section id="s2"><h2>モールの商品ページは、放っておくと「孤島」になる</h2><p>ネット通販のモール（楽天やAmazon、Qoo10など）に商品を出す時、商品のページはそれぞれ独立して作られます。同じブランドの商品でも、ページ同士は自動でつながりません。お客さんが検索で1つのページに来た場合、そこしか見ていない状態でいきなり判断を求められます。</p><p>自前のウェブサイトなら「関連商品」欄を自分で設けられますが、モールの場合は自分で意識して「橋」を架けないといけない。サボると全商品ページが孤立したまま並んでいるだけになります。うちがまさにそれでした。</p><div class="note-alert">モールの商品ページは、意識して設計しないかぎりバラバラの孤島になります。来たお客さんは1ページしか見ていない、という前提で設計を見直すと変わります。</div></section>
+<section id="s3"><h2>最初にやったこと：価格の「基準」を揃える</h2><p>ページをつなぐ前に、もう1つ整理が必要でした。価格の基準が、Amazonと揃っていなかったんです。</p><p>うちはQoo10とAmazonの両方に出品しています。Amazonでの実際の価格は1本あたり1,185円。でも別のページには850円という数字を使っていました。モールをまたいで違う価格基準が並ぶと、お客さんが複数ページを見た時に「高い・安い」の感覚がズレます。セットのお得感も計算できなくなる。</p><p>まず全ページの1本あたり基準価格をAmazonと同じ1,185円に統一しました。これをやって初めて、「2本セットは○○円」「3本セットは○○円」という表示が意味を持つようになります。値段を揃えるだけで、見る順番がちゃんと機能し始める感じがしました。</p></section>
+<section id="s4"><h2>「比較表」を置いても、人は選べない</h2><p>次に、3種類のページをつなぐリンクを各ページに追加しました。「2本セットはこちら」「3本セットはこちら」という形です。これはすぐできる。</p><p>ただ「どう見せるか」で少し迷いました。最初に思い浮かんだのが「比較表」です。1本・2本・3本それぞれの内容や価格・割引率を横に並べる表。でも実際にお客さん目線で見てみると、情報量が増えても「じゃあ私はどれを選べばいいんですか？」という問いには答えていないんですよね。</p><p>商品の詳細を並べることと、お客さんが「選べる状態になること」は別の話やと思っています。比較表は、すでに「どれが欲しいか」をある程度絞れている人には便利ですが、まだ何も決まっていない人には逆に迷わせてしまう。</p></section>
+<section id="s5"><h2>「地図」という見せ方に変えた</h2><p>そこで作ったのが「香りの地図」という図です。うちの香水は複数の香りの種類があって、系統がそれぞれ違います。それを表にするのではなく、「どの香りがどのあたりの系統か」を図で視覚的に示す。</p><p>伝えたかったのは「あなたが普段こういう系統の香りが好きなら、このあたりの商品が合いやすいですよ」ということです。詳細な一覧よりも「自分がどのあたりにいるか」を示す図の方が、選ぶきっかけになるやと思って。</p><p>商品の詳細ページというより、入り口にナビゲーターを1枚置くイメージです。「比べてください」ではなく「まず自分の場所を確認してください」という順番に変えました。</p><div class="note-good">「選んでください」ではなく「あなたはこのあたりです」と先に示す。お客さんを主語にするだけで、商品の案内のトーンが自然と変わります。</div></section>
+<section id="s6"><h2>複数の商品があれば、どんな商売にも使える</h2><p>今回やったことは、香水に限らず使える話やと思っています。サプリを3種類出しているとか、サービスをライト・スタンダード・プロの段階で売っているとか、食品のフレーバーが複数あるとか。選択肢が2つ以上ある商売は、大体これが使えます。</p><p>そのとき「全部説明する」よりも「どこから入ればいいか」を先に示す方が、お客さんが動きやすくなります。まず自分のページを、全く何も知らない人として開いてみてください。他の商品に辿り着けますか？価格の基準は分かりますか？選ぶための手がかりはありますか？</p><p>私もできていなかったし、気づいてからでも3ステップで整えられました。難しいことは何もしていないです。同じことで困っている人がいたら、話しましょう。</p></section>
+
+            <div class="p-8 rounded-xl border text-center mt-12" style="border-color:var(--border-color);background:#f1f7fd;">
+                <h3 class="font-serif-jp text-xl font-bold mb-4 text-gray-800">自社の商品ページの設計、LINEで気軽に話しましょう</h3>
+                <p class="mb-6 text-left md:text-center">「うちも商品が複数あって、どう見せるか迷っている」「ECページのどこから手をつけたらいいか分からない」——そんな話、LINEでメッセージを送ってもらえれば聞かせてもらいます。予約も電話も不要です。</p>
+                <a href="https://line.me/R/ti/p/@756qpakc" target="_blank" class="btn-primary inline-block px-8 py-4 rounded-lg font-bold text-lg shadow-lg transform hover:-translate-y-1 transition duration-300">
+                    LINEで相談する
+                </a>
+            </div>
+        </div>
+
+
+    <!-- RELATED:START -->
+    <section class="mt-12 pt-8" style="border-top:1px solid var(--border-color);">
+      <p class="font-serif-jp text-lg font-bold mb-4" style="color:var(--primary-color);">あわせて読みたい</p>
+      <div class="grid sm:grid-cols-3 gap-4">
+      <a href="/column/customer-voice-ig-asset.html" class="group block rounded-lg overflow-hidden bg-white hover:no-underline" style="border:1px solid var(--border-color);">
+        <img src="../images/card-customer-voice-ig-asset.jpg" alt="" loading="lazy" class="w-full object-cover transition-transform duration-500 group-hover:scale-105" style="height:120px;">
+        <div class="p-3">
+          <span class="text-xs font-bold" style="color:var(--accent-orange);">集客・見える化</span>
+          <p class="text-gray-800 font-bold mt-1" style="font-size:0.92rem;line-height:1.55;">「いい商品だと思ってる」だけでは、伝わらない</p>
+        </div>
+      </a>
+      <a href="/column/gsc-content-kaizen.html" class="group block rounded-lg overflow-hidden bg-white hover:no-underline" style="border:1px solid var(--border-color);">
+        <img src="../images/card-gsc-content-kaizen.jpg" alt="" loading="lazy" class="w-full object-cover transition-transform duration-500 group-hover:scale-105" style="height:120px;">
+        <div class="p-3">
+          <span class="text-xs font-bold" style="color:var(--accent-orange);">集客・見える化</span>
+          <p class="text-gray-800 font-bold mt-1" style="font-size:0.92rem;line-height:1.55;">新記事を書く前に、検索されている記事を直す</p>
+        </div>
+      </a>
+      <a href="/column/voice-ranking-trap.html" class="group block rounded-lg overflow-hidden bg-white hover:no-underline" style="border:1px solid var(--border-color);">
+        <img src="../images/card-voice-ranking-trap.jpg" alt="" loading="lazy" class="w-full object-cover transition-transform duration-500 group-hover:scale-105" style="height:120px;">
+        <div class="p-3">
+          <span class="text-xs font-bold" style="color:var(--accent-orange);">集客・見える化</span>
+          <p class="text-gray-800 font-bold mt-1" style="font-size:0.92rem;line-height:1.55;">平均★順で並べたら、最も多く声が集まった商品が7位に沈んでいた</p>
+        </div>
+      </a>
+      </div>
+      <div class="mt-8 rounded-lg px-6 py-7 text-center" style="background:#f1f7fd;border:1px solid var(--border-color);">
+        <p class="font-bold text-gray-800 mb-1" style="font-size:1.02rem;">新しい記事は、LINEでお知らせしています</p>
+        <p class="text-gray-600 mb-4" style="font-size:0.9rem;line-height:1.7;">実際に動いている仕組みの話を、月に数本。登録しても相談の義務はありません。</p>
+        <a href="https://line.me/R/ti/p/@756qpakc" target="_blank" rel="noopener" data-placement="article_subscribe" class="inline-block px-7 py-3 rounded-lg font-bold text-white shadow-md transition hover:-translate-y-0.5" style="background:#06C755;font-size:0.95rem;">LINEで新着記事を受け取る</a>
+      </div>
+    </section>
+    <!-- RELATED:END -->
+        <div class="mt-10 text-center">
+            <a href="./index.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium transition-colors">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                業務改善コラム一覧に戻る
+            </a>
+        </div>
+    </article>
+
+    <footer class="text-gray-400 py-8 mt-12 text-center text-xs" style="background:var(--primary-color-dark);">
+        <p>© 2026 合同会社ヤシノミ All Rights Reserved.</p>
+    </footer>
+<!-- 記事の計測（流入 → 読了 → 行動 を1本で追う） -->
+<script>
+(function(){
+  if (typeof gtag !== 'function') return;
+  var slug = location.pathname.split('/').pop().replace('.html','') || 'index';
+  var section = location.pathname.indexOf('/culture/') > -1 ? 'culture'
+              : location.pathname.indexOf('/blog/') > -1 ? 'blog' : 'column';
+
+  // ① 流入経路：どこから来たか。SNSはリンクが貼れずUTMも落ちるため参照元でも判定する
+  function source(){
+    var p = new URLSearchParams(location.search);
+    var u = p.get('utm_source');
+    if (u) return u;
+    var r = document.referrer || '';
+    if (!r) return 'direct';
+    if (/instagram/.test(r)) return 'instagram';
+    if (/tiktok/.test(r)) return 'tiktok';
+    if (/line\.me|liff/.test(r)) return 'line';
+    if (/google|yahoo|bing/.test(r)) return 'search';
+    if (/yashi-nomi\.com/.test(r)) return 'internal';
+    return 'other';
+  }
+  var src = source();
+  gtag('event', 'article_view', {
+    article_slug: slug, article_section: section,
+    traffic_source: src, utm_campaign: new URLSearchParams(location.search).get('utm_campaign') || ''
+  });
+
+  // ② 読了：どこまで読まれたか（25/50/75/100%を1回ずつ）
+  var marks = [25,50,75,100], fired = {};
+  function onScroll(){
+    var h = document.documentElement;
+    var total = h.scrollHeight - h.clientHeight;
+    if (total <= 0) return;
+    var pct = Math.min(100, Math.round((h.scrollTop || document.body.scrollTop) / total * 100));
+    marks.forEach(function(m){
+      if (pct >= m && !fired[m]) {
+        fired[m] = 1;
+        gtag('event', 'article_read', { article_slug: slug, percent: m, traffic_source: src });
+      }
+    });
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+
+  // ③ 滞在時間：離脱時に秒数を送る（流し読みか、ちゃんと読んだかの判別用）
+  var start = Date.now();
+  window.addEventListener('pagehide', function(){
+    var sec = Math.round((Date.now()-start)/1000);
+    if (sec > 2 && navigator.sendBeacon) {
+      gtag('event', 'article_time', { article_slug: slug, seconds: Math.min(sec, 1800), traffic_source: src });
+    }
+  });
+
+  // ④ 行動：LINE相談・他記事への回遊。どの記事から押されたかを必ず添える
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a');
+    if (!a) return;
+    var href = a.getAttribute('href') || '';
+    if (/line\.me/.test(href)) {
+      gtag('event', 'line_click', {
+        article_slug: slug, article_section: section, traffic_source: src,
+        placement: a.getAttribute('data-placement') || (a.closest('header') ? 'header' : 'article_cta')
+      });
+    } else if (/\.html$|^\.\//.test(href)) {
+      gtag('event', 'article_next', { from_slug: slug, to_url: href });
+    }
+  });
+})();
+</script>
+</body>
+</html>

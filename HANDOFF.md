@@ -85,3 +85,7 @@ GA4（プロパティ357932107・hostName=yashi-nomi.com で絞る）の直近30
 - **LINE配信**: 週次ブログ公開成功時に Messaging API broadcast で友だちに新記事URL（utm_source=line）を送る（yashinomi_blog_weekly.sh 4.5）
 - レポート再実行: `python3 ~/.claude/scripts/yashinomi_ga4_report.py --days 30`
 - **オーナー作業（未）**: ①Search Console の yashi-nomi.com に `amazon-tracker@eastern-concord-412616.iam.gserviceaccount.com` をユーザー追加（検索語が取れるようになる） ②IGプロフィールのURLを `流入経路のURL.md` のUTM付きに差し替え（現状は素のトップURL） ③GA4のキーイベントに `line_click` を登録
+
+## 2026-09-12 手書き記事「最初の100個は、自宅の机で組んだ」公開
+- `column/suicom-min-lot-home-assembly.html`（Amazonコラム／本人の口述をもとに執筆・本人確認済み）。写真6枚はPhotosライブラリ（2023年2〜3月）からAppleScript `search for "満寿美町"` で原本を取得（`~/Desktop/01_claude-outputs/5_自社サイト・他事業/suicom_firstlot_photos/` に書き出し原本を保存。家族写真も混ざるので公開物には使わない）
+- 手書き記事の手順: テンプレ差し込み → `images/card-<slug>.jpg`（実写切り出し）→ column/index.html と index.html にカード → sitemap.xml → `python3 tools/build_related.py`

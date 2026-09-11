@@ -98,6 +98,8 @@
   <div class="row"><label>サイズ</label><input id="sc" type="range" min="85" max="115" value="100"><span class="val" id="scV">100%</span></div>
   <div class="row"><label>上下</label><input id="oy" type="range" min="-15" max="15" value="0"><span class="val" id="oyV">0.0mm</span></div>
   <div class="row"><label>前後</label><input id="oz" type="range" min="-10" max="20" value="0"><span class="val" id="ozV">0.0mm</span></div>
+  <div class="row"><label>左右</label><input id="ox" type="range" min="-15" max="15" value="0"><span class="val" id="oxV">0.0mm</span>
+    <span class="note">画面上で顔の中心に合わせるための調整です。納品値には使わないので書き出しには含めません。</span></div>
   <div class="grp">つる ― 調整不要（参考）</div>
   <span class="note" style="display:block;margin:0 0 6px"><b style="color:#fff">Amazonの試着画面では、つるは頭の形で自動的に隠れ、耳の少し手前で途切れて見えます</b>（2026-09-04 に試着対応の他社商品をAmazonアプリで確認済み。耳の上に乗ったり貫通したりはしません）。
   このページでもAmazonと同じ見え方になるよう、既定で同じ位置から先を消しています。納品モデルのつるは実物どおり全長のままです。<br>
@@ -112,7 +114,7 @@
 <footer>
   Amazon 3D要件準拠（GLB／ノード分割／KHR_materials_transmission／glTF-Validator エラー0・警告0）<br>
   TORINOX &times; 合同会社ヤシノミ ― 技術デモ（非公開・関係者限り）<br>
-  <span style="opacity:.55">モデル版: 2026-09-11a（提出版）</span>
+  <span style="opacity:.55">モデル版: 2026-09-11b（提出版）</span>
 </footer>
 
 <script type="importmap">
@@ -135,8 +137,8 @@ const msg = $('msg'), video = $('video'), canvas = $('three');
 const BASE_POS = { y: 2.05, z: 5.50 };
 /* 型番ごとの既定値（2026-09-04 に実物と見比べて書き出した値） */
 const MODEL_DEFAULTS = {
-  A: { tl: 1,  sc: 100, oy: 0,  oz: 0, fade: 9.5, vlt: 8, hue: 0, sat: 0, refl: 10 },   // ARQ
-  C: { tl: -1, sc: 100, oy: -3, oz: 0, fade: 9.3, vlt: 8, hue: 0, sat: 0, refl: 10 },   // MOTION
+  A: { tl: 1,  sc: 100, oy: 0,  oz: 0, ox: 0, fade: 9.5, vlt: 8, hue: 0, sat: 0, refl: 10 },   // ARQ
+  C: { tl: -1, sc: 100, oy: -3, oz: 0, ox: 0, fade: 9.3, vlt: 8, hue: 0, sat: 0, refl: 10 },   // MOTION
 };
 let curKey = 'A';
 /* レンズ色 = 実製品写真から実測した「色相」を明るさ1.0に正規化したリニアRGB。
@@ -282,7 +284,7 @@ $('export').onclick = () => {
   showSheet(txt);
   if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).catch(() => {});
 };
-const DEMO_VERSION = '2026-09-11a';
+const DEMO_VERSION = '2026-09-11b';
 function showSheet(txt){
   const d = document.createElement('div'); d.id = 'sheet';
   d.innerHTML = '<div class="box"><div style="font-size:12px;color:var(--sub);margin-bottom:8px">設定（クリップボードにもコピーしました。コピーできない端末は下の文字を長押しで選択）</div>'
@@ -326,22 +328,23 @@ function applyLens(){
   setLensVLT(pct);
 }
 function applyFit(){
-  const s = +$('sc').value / 100, oy = +$('oy').value, oz = +$('oz').value, tl = +$('tl').value;
+  const s = +$('sc').value / 100, oy = +$('oy').value, oz = +$('oz').value, tl = +$('tl').value, ox = +$('ox').value;
+  $('oxV').textContent = ox.toFixed(1) + 'mm';
   $('scV').textContent = Math.round(s*100) + '%';
   $('oyV').textContent = oy.toFixed(1) + 'mm';
   $('ozV').textContent = oz.toFixed(1) + 'mm';
   $('tlV').textContent = tl + '°';
   fit.scale.setScalar(s);
-  fit.position.set(0, BASE_POS.y + oy/10, BASE_POS.z + oz/10);
+  fit.position.set(ox/10, BASE_POS.y + oy/10, BASE_POS.z + oz/10);
   fit.rotation.x = tl * Math.PI / 180;     // 前傾角（つるの高さが変わる）
 }
 ['op','hue','sat'].forEach(id => $(id).oninput = applyLens);
 // 色味を動かしたのに色の強さが0%だと何も変わらない（9/11 荒尾さん側の書き出しで発生）→ 強さが0なら自動で50%に
 $('hue').addEventListener('input', () => { if (+$('sat').value === 0 && +$('hue').value !== 0) { $('sat').value = 50; applyLens(); } });
-['sc','oy','oz','tl'].forEach(id => $(id).oninput = applyFit);
+['sc','oy','oz','tl','ox'].forEach(id => $(id).oninput = applyFit);
 function applyDefaults(){
   const d = MODEL_DEFAULTS[curKey] || MODEL_DEFAULTS.A;
-  $('sc').value = d.sc; $('oy').value = d.oy; $('oz').value = d.oz; $('tl').value = d.tl; applyFit();
+  $('sc').value = d.sc; $('oy').value = d.oy; $('oz').value = d.oz; $('tl').value = d.tl; $('ox').value = d.ox; applyFit();
   $('op').value = d.vlt; $('hue').value = d.hue; $('sat').value = d.sat; $('refl').value = d.refl; applyLens();
   $('tpLen').value = Math.min(d.fade * 10, +$('tpLen').max); applyTempleLen();
 }

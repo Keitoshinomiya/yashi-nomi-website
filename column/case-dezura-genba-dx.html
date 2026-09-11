@@ -340,6 +340,40 @@
             </div>
         </div>
 
+
+    <!-- RELATED:START -->
+    <section class="mt-12 pt-8" style="border-top:1px solid var(--border-color);">
+      <p class="font-serif-jp text-lg font-bold mb-4" style="color:var(--primary-color);">あわせて読みたい</p>
+      <div class="grid sm:grid-cols-3 gap-4">
+      <a href="/column/ai-3dprint-jig-lot-seal.html" class="group block rounded-lg overflow-hidden bg-white hover:no-underline" style="border:1px solid var(--border-color);">
+        <img src="../images/card-ai-3dprint-jig-lot-seal.jpg" alt="" loading="lazy" class="w-full object-cover transition-transform duration-500 group-hover:scale-105" style="height:120px;">
+        <div class="p-3">
+          <span class="text-xs font-bold" style="color:var(--accent-orange);">現場DX・ものづくり</span>
+          <p class="text-gray-800 font-bold mt-1" style="font-size:0.92rem;line-height:1.55;">AIと一緒に生産治具を設計して、3Dプリンタで作るまで</p>
+        </div>
+      </a>
+      <a href="/column/customer-voice-ig-asset.html" class="group block rounded-lg overflow-hidden bg-white hover:no-underline" style="border:1px solid var(--border-color);">
+        <img src="../images/card-customer-voice-ig-asset.jpg" alt="" loading="lazy" class="w-full object-cover transition-transform duration-500 group-hover:scale-105" style="height:120px;">
+        <div class="p-3">
+          <span class="text-xs font-bold" style="color:var(--accent-orange);">集客・見える化</span>
+          <p class="text-gray-800 font-bold mt-1" style="font-size:0.92rem;line-height:1.55;">「いい商品だと思ってる」だけでは、伝わらない</p>
+        </div>
+      </a>
+      <a href="/column/fba-inventory-valuation.html" class="group block rounded-lg overflow-hidden bg-white hover:no-underline" style="border:1px solid var(--border-color);">
+        <img src="../images/card-fba-inventory.jpg" alt="" loading="lazy" class="w-full object-cover transition-transform duration-500 group-hover:scale-105" style="height:120px;">
+        <div class="p-3">
+          <span class="text-xs font-bold" style="color:var(--accent-orange);">Amazonコラム</span>
+          <p class="text-gray-800 font-bold mt-1" style="font-size:0.92rem;line-height:1.55;">FBA在庫を毎月“自動で”棚卸し評価する：月末の在庫金額を手集計しない</p>
+        </div>
+      </a>
+      </div>
+      <div class="mt-8 rounded-lg px-6 py-7 text-center" style="background:#f1f7fd;border:1px solid var(--border-color);">
+        <p class="font-bold text-gray-800 mb-1" style="font-size:1.02rem;">新しい記事は、LINEでお知らせしています</p>
+        <p class="text-gray-600 mb-4" style="font-size:0.9rem;line-height:1.7;">実際に動いている仕組みの話を、月に数本。登録しても相談の義務はありません。</p>
+        <a href="https://line.me/R/ti/p/@756qpakc" target="_blank" rel="noopener" data-placement="article_subscribe" class="inline-block px-7 py-3 rounded-lg font-bold text-white shadow-md transition hover:-translate-y-0.5" style="background:#06C755;font-size:0.95rem;">LINEで新着記事を受け取る</a>
+      </div>
+    </section>
+    <!-- RELATED:END -->
         <div class="mt-10 text-center">
             <a href="./index.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium transition-colors">
                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
@@ -412,7 +446,7 @@
     if (/line\.me/.test(href)) {
       gtag('event', 'line_click', {
         article_slug: slug, article_section: section, traffic_source: src,
-        placement: a.closest('header') ? 'header' : 'article_cta'
+        placement: a.getAttribute('data-placement') || (a.closest('header') ? 'header' : 'article_cta')
       });
     } else if (/\.html$|^\.\//.test(href)) {
       gtag('event', 'article_next', { from_slug: slug, to_url: href });

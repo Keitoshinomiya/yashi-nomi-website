@@ -74,3 +74,14 @@ Amazon運用代行と本質が同じ（＝デジタル運用の代行）なの�
 ## 2026-06-12 全面公開済み（b59f08f）
 上記リニューアル一式（トップ・/check/診断・OGP・チェックリストPDF・LINE中心CTA）は本番公開済み。
 バックアップ preview/index-backup-2026-06-11.html は旧版として保持。
+
+## 2026-09-11 GA4分析にもとづく6改善（公開済み）
+GA4（プロパティ357932107・hostName=yashi-nomi.com で絞る）の直近30日: 日本146セッション／111人、Direct(US)59はボット。
+読まれているのは 3Dプリンタ治具／お客様の声IG素材／FBA棚卸し。記事に検索着地した人は直帰ゼロ、トップ着地は直帰58%。
+- **記事の出口**: 全42記事の末尾に「あわせて読みたい（同カテゴリ3本）＋LINE新着通知」ブロック。生成は `tools/build_related.py`（`<!-- RELATED:START/END -->` を毎回作り直す。週次ブログ生成スクリプトの最後でも自動実行）
+- **トップ**: 自社ブランドカードを文字帯→実物写真（works/ の画像流用）。コラムは読了率上位3本を `data-pin` で先頭固定＋新着3本。コラム下にLINE購読ブロック
+- **フォーム**: Netlify honeypot（`bot-field`）追加。9月は送信10件中7件が海外スパムだった
+- **計測**: トップのLINE系CTAは記事と同じ `line_click`＋`placement`（top_hero / top_contact / top_sticky / top_float / top_blog_subscribe）、診断は `cta_click`。汎用 click_tracking にも placement 追加。記事側は `data-placement` 属性を優先。ブログテンプレ（~/Desktop/50_yashinomi_sns/blog_template.html）に記事計測スクリプトを追加（それまで新記事は未計測だった）
+- **LINE配信**: 週次ブログ公開成功時に Messaging API broadcast で友だちに新記事URL（utm_source=line）を送る（yashinomi_blog_weekly.sh 4.5）
+- レポート再実行: `python3 ~/.claude/scripts/yashinomi_ga4_report.py --days 30`
+- **オーナー作業（未）**: ①Search Console の yashi-nomi.com に `amazon-tracker@eastern-concord-412616.iam.gserviceaccount.com` をユーザー追加（検索語が取れるようになる） ②IGプロフィールのURLを `流入経路のURL.md` のUTM付きに差し替え（現状は素のトップURL） ③GA4のキーイベントに `line_click` を登録

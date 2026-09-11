@@ -90,7 +90,7 @@
   <div class="row"><label>色味</label><input id="hue" type="range" min="-100" max="100" value="0"><span class="val" id="hueV">中間</span>
     <span class="note">左＝青み（クール）、中央＝無彩色のグレー／ブラック、右＝茶み（ウォーム）。</span></div>
   <div class="row"><label>色の強さ</label><input id="sat" type="range" min="0" max="100" value="0"><span class="val" id="satV">0%</span>
-    <span class="note">0%＝真っ黒に近い無彩色。上げるほど「色味」で選んだ色が乗ります。</span></div>
+    <span class="note">0%＝真っ黒に近い無彩色。上げるほど「色味」で選んだ色が乗ります（色味を動かすと自動で50%が入ります）。</span></div>
   <input id="refl" type="hidden" value="10">
   <div class="grp">顔への載り方 ― 確認・調整をお願いします</div>
   <span class="note" style="display:block;margin:0 0 6px">実物をかけた時と同じ位置・傾きになるところに合わせてください。この値をもとに、納品モデルの基準位置を合わせます。</span>
@@ -112,7 +112,7 @@
 <footer>
   Amazon 3D要件準拠（GLB／ノード分割／KHR_materials_transmission／glTF-Validator エラー0・警告0）<br>
   TORINOX &times; 合同会社ヤシノミ ― 技術デモ（非公開・関係者限り）<br>
-  <span style="opacity:.55">モデル版: 2026-09-04l（提出版）</span>
+  <span style="opacity:.55">モデル版: 2026-09-11a（提出版）</span>
 </footer>
 
 <script type="importmap">
@@ -282,7 +282,7 @@ $('export').onclick = () => {
   showSheet(txt);
   if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).catch(() => {});
 };
-const DEMO_VERSION = '2026-09-04l';
+const DEMO_VERSION = '2026-09-11a';
 function showSheet(txt){
   const d = document.createElement('div'); d.id = 'sheet';
   d.innerHTML = '<div class="box"><div style="font-size:12px;color:var(--sub);margin-bottom:8px">設定（クリップボードにもコピーしました。コピーできない端末は下の文字を長押しで選択）</div>'
@@ -336,6 +336,8 @@ function applyFit(){
   fit.rotation.x = tl * Math.PI / 180;     // 前傾角（つるの高さが変わる）
 }
 ['op','hue','sat'].forEach(id => $(id).oninput = applyLens);
+// 色味を動かしたのに色の強さが0%だと何も変わらない（9/11 荒尾さん側の書き出しで発生）→ 強さが0なら自動で50%に
+$('hue').addEventListener('input', () => { if (+$('sat').value === 0 && +$('hue').value !== 0) { $('sat').value = 50; applyLens(); } });
 ['sc','oy','oz','tl'].forEach(id => $(id).oninput = applyFit);
 function applyDefaults(){
   const d = MODEL_DEFAULTS[curKey] || MODEL_DEFAULTS.A;

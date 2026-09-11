@@ -47,6 +47,14 @@
   #mirNote { width:auto; font-family:"Noto Sans JP",sans-serif; font-weight:400; font-size:10.5px; letter-spacing:0; text-align:left; }
   .intro { font-size:11.5px; color:#d0d0d0; line-height:1.8; font-weight:400; border-bottom:1px solid var(--line); padding-bottom:12px; margin-bottom:6px; }
   .intro b { color:var(--accent); font-weight:700; }
+  .guide { margin:4px 0 14px; border:1px solid var(--line); padding:12px 14px; }
+  .guide h3 { font-size:11.5px; color:var(--accent); letter-spacing:.12em; font-weight:700; margin-bottom:8px; }
+  .guide table { width:100%; border-collapse:collapse; font-size:11px; line-height:1.6; font-weight:400; }
+  .guide th, .guide td { text-align:left; padding:5px 6px; border-top:1px solid var(--line); vertical-align:top; }
+  .guide th { color:var(--sub); font-weight:700; letter-spacing:.06em; }
+  .guide td.y { color:#fff; font-weight:700; white-space:nowrap; }
+  .guide td.n { color:var(--sub); white-space:nowrap; }
+  .guide p { font-size:11px; color:var(--sub); line-height:1.7; margin-top:8px; font-weight:400; }
   .grp { font-size:10.5px; color:var(--sub); letter-spacing:.12em; font-weight:700; margin:16px 0 2px; padding-top:12px; border-top:1px solid var(--line); }
   .note { flex-basis:100%; width:auto; font-family:"Noto Sans JP",sans-serif; font-weight:400; font-size:10.5px; color:var(--sub); letter-spacing:0; text-align:left; line-height:1.6; margin-top:-4px; }
   #sheet { position:fixed; inset:0; background:rgba(0,0,0,.7); display:flex; align-items:center; justify-content:center; padding:20px; z-index:9; }
@@ -80,6 +88,20 @@
   バーは<b>「納品モデルに反映する値」</b>と<b>「画面合わせ（納品には使わない）」</b>の2つに分かれています。
   上の段を実物と同じ見え方になるところに合わせ、<b>「設定を書き出す」</b>の内容をお送りください。納品モデルへの反映はヤシノミが行います。<br>
   下の段はこの画面で見やすくするためだけのもので、納品モデルには影響しません。</p>
+  <div class="guide">
+    <h3>各バーの意味 ― どれが納品モデルに反映されるか</h3>
+    <table>
+      <tr><th>項目</th><th>納品モデルに反映</th><th>説明</th></tr>
+      <tr><td>レンズの濃さ</td><td class="y">反映する</td><td>レンズ材質の透過率（VLT）そのもの。実物と同じ濃さに合わせてください</td></tr>
+      <tr><td>色味・色の強さ</td><td class="y">反映する</td><td>レンズ材質の色そのもの。実物と同じ色に合わせてください</td></tr>
+      <tr><td>傾き・上下・前後</td><td class="y">反映する（条件付き）</td><td>モデルの基準の姿勢と位置。カメラ1台では顔の個人差を測れないため人ごとに数mmずれます。<b style="color:#fff">実物をお持ちの方1名</b>が、かけた状態と見比べて合わせた値だけを採用します（人ごとの平均は取りません）</td></tr>
+      <tr><td>サイズ</td><td class="n">反映しない</td><td>モデルは実寸で固定。この画面で顔の大きさに見た目を合わせるだけ。Amazonの試着は顔の実寸を測るので本番では合います</td></tr>
+      <tr><td>左右</td><td class="n">反映しない</td><td>この画面で顔の中心に合わせるだけ</td></tr>
+      <tr><td>つるを消す位置</td><td class="n">反映しない</td><td>Amazonの試着では、つるは頭の形で自動的に隠れて耳の少し手前で途切れます（他社の試着対応商品で確認済み）。この画面で同じ見え方を再現しているだけで、納品モデルのつるは全長です</td></tr>
+      <tr><td>レンズの反射</td><td class="n">対象外</td><td>映り込みの量はAmazon側の環境光で決まり、モデルでは指定できません（バーはありません）</td></tr>
+    </table>
+    <p>「誰がやっても少しずれる」のは、普通のカメラ1台では顔の実寸・鼻の高さが測れず、全員を標準サイズの顔として置いているためです。モデルの不具合ではなく、この画面の仕組み上の限界です。</p>
+  </div>
   <div class="row chips" id="models">
     <label>モデル</label>
     <button data-m="glasses_A.glb?v=20260904e" class="active">ARQ（角型）</button>
@@ -114,7 +136,7 @@
 <footer>
   Amazon 3D要件準拠（GLB／ノード分割／KHR_materials_transmission／glTF-Validator エラー0・警告0）<br>
   TORINOX &times; 合同会社ヤシノミ ― 技術デモ（非公開・関係者限り）<br>
-  <span style="opacity:.55">モデル版: 2026-09-11c（提出版）</span>
+  <span style="opacity:.55">モデル版: 2026-09-11d（提出版）</span>
 </footer>
 
 <script type="importmap">
@@ -287,7 +309,7 @@ $('export').onclick = () => {
   showSheet(txt);
   if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).catch(() => {});
 };
-const DEMO_VERSION = '2026-09-11c';
+const DEMO_VERSION = '2026-09-11d';
 function showSheet(txt){
   const d = document.createElement('div'); d.id = 'sheet';
   d.innerHTML = '<div class="box"><div style="font-size:12px;color:var(--sub);margin-bottom:8px">設定（クリップボードにもコピーしました。コピーできない端末は下の文字を長押しで選択）</div>'

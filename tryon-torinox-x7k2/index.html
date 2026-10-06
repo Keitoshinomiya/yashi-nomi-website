@@ -85,7 +85,7 @@
 <div class="panel">
   <p class="intro">このページは、<b>Amazonのバーチャル試着に載せる3Dモデルの見え方を、実物と見比べて確認・調整するため</b>のものです。
   お客様向けの試着画面ではありません。<br>
-  バーは<b>「納品モデルに反映する値」</b>と<b>「画面合わせ（納品には使わない）」</b>の2つに分かれています。
+  バーは<b>「納品モデルに反映する値」（レンズ）</b>と<b>「画面合わせ（納品には使わない）」</b>の2つに分かれています。
   上の段を実物と同じ見え方になるところに合わせ、<b>「設定を書き出す」</b>の内容をお送りください。納品モデルへの反映はヤシノミが行います。<br>
   下の段はこの画面で見やすくするためだけのもので、納品モデルには影響しません。</p>
   <div class="guide">
@@ -94,7 +94,7 @@
       <tr><th>項目</th><th>納品モデルに反映</th><th>説明</th></tr>
       <tr><td>レンズの濃さ</td><td class="y">反映する</td><td>レンズ材質の透過率（VLT）そのもの。実物と同じ濃さに合わせてください</td></tr>
       <tr><td>色味・色の強さ</td><td class="y">反映する</td><td>レンズ材質の色そのもの。実物と同じ色に合わせてください</td></tr>
-      <tr><td>傾き・上下・前後</td><td class="y">反映する（条件付き）</td><td>モデルの基準の姿勢と位置。カメラ1台では顔の個人差を測れないため人ごとに数mmずれます。<b style="color:#fff">実物をお持ちの方1名</b>が、かけた状態と見比べて合わせた値だけを採用します（人ごとの平均は取りません）</td></tr>
+      <tr><td>傾き・上下・前後</td><td class="n">反映しない</td><td>Amazonの審査（2026-09-18）で、モデルの原点を「外形の前面中央」に置くよう指定されました。顔への載る位置はAmazonの試着画面が自動で合わせるため、モデル側では指定できません。この画面で実物に近い載り方を確認するための調整です</td></tr>
       <tr><td>サイズ</td><td class="n">反映しない</td><td>モデルは実寸で固定。この画面で顔の大きさに見た目を合わせるだけ。Amazonの試着は顔の実寸を測るので本番では合います</td></tr>
       <tr><td>左右</td><td class="n">反映しない</td><td>この画面で顔の中心に合わせるだけ</td></tr>
       <tr><td>つるを消す位置</td><td class="n">反映しない</td><td>Amazonの試着では、つるは頭の形で自動的に隠れて耳の少し手前で途切れます（他社の試着対応商品で確認済み）。この画面で同じ見え方を再現しているだけで、納品モデルのつるは全長です</td></tr>
@@ -115,13 +115,12 @@
   <div class="row"><label>色の強さ</label><input id="sat" type="range" min="0" max="100" value="0"><span class="val" id="satV">0%</span>
     <span class="note">0%＝真っ黒に近い無彩色。上げるほど「色味」で選んだ色が乗ります（色味を動かすと自動で50%が入ります）。</span></div>
   <input id="refl" type="hidden" value="10">
-  <div class="grp">納品モデルに反映する値 ②顔への載り方</div>
-  <span class="note" style="display:block;margin:0 0 6px">実物をかけた状態と見比べて、同じ位置・傾きになるところに合わせてください。この値をもとに納品モデルの基準位置と傾きを合わせます。
-  カメラ1台では顔の個人差を測れないため人によって数mmずれます。<b style="color:#fff">実物をお持ちの方1名で合わせた値</b>をお送りください（人ごとの平均は取りません）。</span>
+  <div class="grp">画面合わせ ①顔への載り方（納品には使いません）</div>
+  <span class="note" style="display:block;margin:0 0 6px">この画面で実物に近い載り方にするための調整です。Amazonの審査で原点の位置が指定されたため（外形の前面中央）、顔への載る位置はAmazonの試着画面が自動で合わせます。ここの値は納品モデルに反映しません。</span>
   <div class="row"><label>傾き</label><input id="tl" type="range" min="-20" max="20" value="0"><span class="val" id="tlV">0°</span></div>
   <div class="row"><label>上下</label><input id="oy" type="range" min="-15" max="15" value="0"><span class="val" id="oyV">0.0mm</span></div>
   <div class="row"><label>前後</label><input id="oz" type="range" min="-10" max="20" value="0"><span class="val" id="ozV">0.0mm</span></div>
-  <div class="grp">画面合わせ（納品には使いません）</div>
+  <div class="grp">画面合わせ ②サイズ・つる（納品には使いません）</div>
   <span class="note" style="display:block;margin:0 0 6px">この画面で見やすくするための調整です。モデルは実寸で作ってあり、Amazonの試着では顔の実寸を測って表示されるため、ここの値は納品モデルに反映しません。</span>
   <div class="row"><label>サイズ</label><input id="sc" type="range" min="85" max="115" value="100"><span class="val" id="scV">100%</span></div>
   <div class="row"><label>左右</label><input id="ox" type="range" min="-15" max="15" value="0"><span class="val" id="oxV">0.0mm</span></div>
@@ -162,7 +161,7 @@ const MODEL_DEFAULTS = {
   // py/pz: 2026-10-06 版からモデル原点が「バウンディングボックス前面中央」（Amazon QA指示）になったため、
   //         旧原点（鼻ブリッジ接地点）との差をここで補正して画面上の載り方を以前と同じにする（ビルドログ PIVOT 行の値、cm）
   A: { tl: 1,  sc: 100, oy: 0,  oz: 0, ox: 0, fade: 9.5, vlt: 8, hue: 0, sat: 0, refl: 10, py: 0.47, pz: 0.48 },   // ARQ
-  C: { tl: -1, sc: 100, oy: 0,  oz: 0, ox: 0, fade: 9.3, vlt: 8, hue: 0, sat: 0, refl: 10, py: 0.39, pz: 0.97 },   // MOTION（上下−3mmは 2026-09-16 版モデルに焼き込み済み）
+  C: { tl: -1, sc: 100, oy: 0,  oz: 0, ox: 0, fade: 9.3, vlt: 8, hue: 0, sat: 0, refl: 10, py: 0.39, pz: 0.97 },   // MOTION（py/pz は 2026-10-06 版の原点＝外形前面中央 からブリッジ位置への補正）
 };
 let curKey = 'A';
 /* レンズ色 = 実製品写真から実測した「色相」を明るさ1.0に正規化したリニアRGB。
@@ -302,8 +301,8 @@ $('export').onclick = () => {
   const lines = ['TORINOX バーチャル試着 調整値', '対象モデル: ' + model, ''];
   lines.push('【納品モデルに反映する値】');
   lines.push(`レンズ: 濃さ VLT ${$('op').value}% / 色味 ${$('hueV').textContent} / 色の強さ ${$('sat').value}%`);
-  lines.push(`顔への載り方: 傾き ${$('tl').value}° / 上下 ${$('oy').value}mm / 前後 ${$('oz').value}mm`);
   lines.push('', '【画面合わせ（納品には使いません）】');
+  lines.push(`顔への載り方: 傾き ${$('tl').value}° / 上下 ${$('oy').value}mm / 前後 ${$('oz').value}mm`);
   lines.push(`サイズ ${$('sc').value}% / 左右 ${$('ox').value}mm`);
   lines.push(`つるを消す位置: ${$('tpLenV').textContent}${$('tpLenV').textContent === '全長' ? '' : '（前面から）'}`);
   lines.push('', 'デモ版: ' + DEMO_VERSION + ' / ' + new Date().toLocaleString('ja-JP'));
@@ -311,7 +310,7 @@ $('export').onclick = () => {
   showSheet(txt);
   if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).catch(() => {});
 };
-const DEMO_VERSION = '2026-10-06b';
+const DEMO_VERSION = '2026-10-06c';
 function showSheet(txt){
   const d = document.createElement('div'); d.id = 'sheet';
   d.innerHTML = '<div class="box"><div style="font-size:12px;color:var(--sub);margin-bottom:8px">設定（クリップボードにもコピーしました。コピーできない端末は下の文字を長押しで選択）</div>'

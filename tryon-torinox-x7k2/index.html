@@ -104,8 +104,8 @@
   </div>
   <div class="row chips" id="models">
     <label>モデル</label>
-    <button data-m="glasses_A.glb?v=20260904e" class="active">ARQ（角型）</button>
-    <button data-m="glasses_C.glb?v=20260916">MOTION（角型）</button>
+    <button data-m="glasses_A.glb?v=20261006" class="active">ARQ（角型）</button>
+    <button data-m="glasses_C.glb?v=20261006">MOTION（角型）</button>
   </div>
   <div class="grp">納品モデルに反映する値 ①レンズ</div>
   <div class="row"><label>レンズの濃さ</label><input id="op" type="range" min="3" max="70" value="8"><span class="val" id="opV">8%</span>
@@ -136,7 +136,7 @@
 <footer>
   Amazon 3D要件準拠（GLB／ノード分割／KHR_materials_transmission／glTF-Validator エラー0・警告0）<br>
   TORINOX &times; 合同会社ヤシノミ ― 技術デモ（非公開・関係者限り）<br>
-  <span style="opacity:.55">モデル版: 2026-09-16a（提出版・MOTION 上下確定値を焼き込み）</span>
+  <span style="opacity:.55">モデル版: 2026-10-06a（Amazon QA対応: 高精細メッシュ・原点変更）</span>
 </footer>
 
 <script type="importmap">
@@ -159,8 +159,10 @@ const msg = $('msg'), video = $('video'), canvas = $('three');
 const BASE_POS = { y: 2.05, z: 5.50 };
 /* 型番ごとの既定値（2026-09-04 に実物と見比べて書き出した値） */
 const MODEL_DEFAULTS = {
-  A: { tl: 1,  sc: 100, oy: 0,  oz: 0, ox: 0, fade: 9.5, vlt: 8, hue: 0, sat: 0, refl: 10 },   // ARQ
-  C: { tl: -1, sc: 100, oy: 0,  oz: 0, ox: 0, fade: 9.3, vlt: 8, hue: 0, sat: 0, refl: 10 },   // MOTION（上下−3mmは 2026-09-16 版モデルに焼き込み済み）
+  // py/pz: 2026-10-06 版からモデル原点が「バウンディングボックス前面中央」（Amazon QA指示）になったため、
+  //         旧原点（鼻ブリッジ接地点）との差をここで補正して画面上の載り方を以前と同じにする（ビルドログ PIVOT 行の値、cm）
+  A: { tl: 1,  sc: 100, oy: 0,  oz: 0, ox: 0, fade: 9.5, vlt: 8, hue: 0, sat: 0, refl: 10, py: 0.47, pz: 0.48 },   // ARQ
+  C: { tl: -1, sc: 100, oy: 0,  oz: 0, ox: 0, fade: 9.3, vlt: 8, hue: 0, sat: 0, refl: 10, py: 0.39, pz: 0.97 },   // MOTION（上下−3mmは 2026-09-16 版モデルに焼き込み済み）
 };
 let curKey = 'A';
 /* レンズ色 = 実製品写真から実測した「色相」を明るさ1.0に正規化したリニアRGB。
@@ -309,7 +311,7 @@ $('export').onclick = () => {
   showSheet(txt);
   if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).catch(() => {});
 };
-const DEMO_VERSION = '2026-09-16a';
+const DEMO_VERSION = '2026-10-06a';
 function showSheet(txt){
   const d = document.createElement('div'); d.id = 'sheet';
   d.innerHTML = '<div class="box"><div style="font-size:12px;color:var(--sub);margin-bottom:8px">設定（クリップボードにもコピーしました。コピーできない端末は下の文字を長押しで選択）</div>'
@@ -360,7 +362,8 @@ function applyFit(){
   $('ozV').textContent = oz.toFixed(1) + 'mm';
   $('tlV').textContent = tl + '°';
   fit.scale.setScalar(s);
-  fit.position.set(ox/10, BASE_POS.y + oy/10, BASE_POS.z + oz/10);
+  const pv = MODEL_DEFAULTS[curKey] || MODEL_DEFAULTS.A;
+  fit.position.set(ox/10, BASE_POS.y + (pv.py||0) + oy/10, BASE_POS.z + (pv.pz||0) + oz/10);
   fit.rotation.x = tl * Math.PI / 180;     // 前傾角（つるの高さが変わる）
 }
 ['op','hue','sat'].forEach(id => $(id).oninput = applyLens);
@@ -413,7 +416,7 @@ $('shot').onclick = async () => {
 };
 
 applyFit();
-loadModel('glasses_A.glb?v=20260904e');
+loadModel('glasses_A.glb?v=20261006');
 
 let landmarker = null, running = false, lastT = -1;
 const faceMat = new THREE.Matrix4();

@@ -104,8 +104,8 @@
   </div>
   <div class="row chips" id="models">
     <label>モデル</label>
-    <button data-m="glasses_A.glb?v=20261006" class="active">ARQ（角型）</button>
-    <button data-m="glasses_C.glb?v=20261006">MOTION（角型）</button>
+    <button data-m="glasses_A.glb?v=20261006b" class="active">ARQ（角型）</button>
+    <button data-m="glasses_C.glb?v=20261006b">MOTION（角型）</button>
   </div>
   <div class="grp">納品モデルに反映する値 ①レンズ</div>
   <div class="row"><label>レンズの濃さ</label><input id="op" type="range" min="3" max="70" value="8"><span class="val" id="opV">8%</span>
@@ -136,7 +136,7 @@
 <footer>
   Amazon 3D要件準拠（GLB／ノード分割／KHR_materials_transmission／glTF-Validator エラー0・警告0）<br>
   TORINOX &times; 合同会社ヤシノミ ― 技術デモ（非公開・関係者限り）<br>
-  <span style="opacity:.55">モデル版: 2026-10-06a（Amazon QA対応: 高精細メッシュ・原点変更）</span>
+  <span style="opacity:.55">モデル版: 2026-10-06b（Amazon QA対応: 法線平滑化・高精細メッシュ・原点変更）</span>
 </footer>
 
 <script type="importmap">
@@ -311,7 +311,7 @@ $('export').onclick = () => {
   showSheet(txt);
   if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).catch(() => {});
 };
-const DEMO_VERSION = '2026-10-06a';
+const DEMO_VERSION = '2026-10-06b';
 function showSheet(txt){
   const d = document.createElement('div'); d.id = 'sheet';
   d.innerHTML = '<div class="box"><div style="font-size:12px;color:var(--sub);margin-bottom:8px">設定（クリップボードにもコピーしました。コピーできない端末は下の文字を長押しで選択）</div>'
@@ -416,7 +416,7 @@ $('shot').onclick = async () => {
 };
 
 applyFit();
-loadModel('glasses_A.glb?v=20261006');
+loadModel('glasses_A.glb?v=20261006b');
 
 let landmarker = null, running = false, lastT = -1;
 const faceMat = new THREE.Matrix4();

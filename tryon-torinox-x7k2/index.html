@@ -104,8 +104,8 @@
   </div>
   <div class="row chips" id="models">
     <label>モデル</label>
-    <button data-m="glasses_A.glb?v=20261006b" class="active">ARQ（角型）</button>
-    <button data-m="glasses_C.glb?v=20261006b">MOTION（角型）</button>
+    <button data-m="glasses_A.glb?v=20261015a" class="active">ARQ（角型）</button>
+    <button data-m="glasses_C.glb?v=20261015a">MOTION（角型）</button>
   </div>
   <div class="grp">納品モデルに反映する値 ①レンズ</div>
   <div class="row"><label>レンズの濃さ</label><input id="op" type="range" min="3" max="70" value="8"><span class="val" id="opV">8%</span>
@@ -310,7 +310,7 @@ $('export').onclick = () => {
   showSheet(txt);
   if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).catch(() => {});
 };
-const DEMO_VERSION = '2026-10-06c';
+const DEMO_VERSION = '2026-10-15a';
 function showSheet(txt){
   const d = document.createElement('div'); d.id = 'sheet';
   d.innerHTML = '<div class="box"><div style="font-size:12px;color:var(--sub);margin-bottom:8px">設定（クリップボードにもコピーしました。コピーできない端末は下の文字を長押しで選択）</div>'
@@ -415,7 +415,7 @@ $('shot').onclick = async () => {
 };
 
 applyFit();
-loadModel('glasses_A.glb?v=20261006b');
+loadModel('glasses_A.glb?v=20261015a');
 
 let landmarker = null, running = false, lastT = -1;
 const faceMat = new THREE.Matrix4();

@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>TORINOX カラー確認</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Orbitron:wght@500;700;900&display=swap');
+  :root { --bg:#000; --panel:#0b0b0b; --line:#2a2a2a; --accent:#B48250; --text:#fff; --sub:#a4a4a4;
+          --orbitron:"Orbitron","Noto Sans JP",sans-serif; }
+  * { box-sizing:border-box; margin:0; }
+  body { background:var(--bg); color:var(--text); font-family:"Noto Sans JP","Hiragino Sans",sans-serif; font-weight:500;
+         display:flex; flex-direction:column; align-items:center; padding:0 16px 40px; }
+  header { padding:22px 0 6px; text-align:center; }
+  header h1 { font-family:var(--orbitron); font-size:24px; font-weight:900; letter-spacing:.22em; text-indent:.22em; }
+  header .en { font-family:var(--orbitron); font-size:10px; font-weight:700; letter-spacing:.42em; text-indent:.42em; color:var(--accent); margin-top:6px; }
+  header p { font-size:11px; color:var(--sub); margin-top:8px; line-height:1.7; font-weight:400; }
+  .wrap { width:min(100%,980px); }
+  /* 型のタブ */
+  .tabs { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:14px; }
+  .tab { background:#000; border:1px solid #fff; color:#fff; cursor:pointer; display:flex; align-items:center; gap:12px; padding:8px 12px; text-align:left; transition:.2s; }
+  .tab:hover { opacity:.75; }
+  .tab img { width:96px; background:#fff; display:block; }
+  .tab b { font-family:var(--orbitron); font-size:16px; letter-spacing:.12em; display:block; }
+  .tab span { font-size:11px; color:var(--sub); }
+  .tab.active { background:var(--accent); border-color:var(--accent); color:#000; }
+  .tab.active span { color:#2b1c0d; }
+  /* 選択中の表示 */
+  .now { margin-top:14px; border:1px solid var(--line); background:var(--panel); padding:10px 14px; display:flex; flex-wrap:wrap; align-items:baseline; gap:6px 14px; }
+  .now .m { font-family:var(--orbitron); font-size:18px; font-weight:900; letter-spacing:.1em; color:var(--accent); }
+  .now .g { font-size:11px; border:1px solid var(--sub); color:var(--sub); padding:1px 6px; letter-spacing:.1em; }
+  .now .c { font-family:var(--orbitron); font-size:15px; font-weight:700; letter-spacing:.06em; }
+  .now .d { flex-basis:100%; font-size:11px; color:var(--sub); font-weight:400; }
+  /* ビューア＋商品写真 */
+  .view { display:grid; grid-template-columns:1.7fr 1fr; gap:8px; margin-top:8px; }
+  .stage { position:relative; aspect-ratio:4/3; border:1px solid var(--line); overflow:hidden; background:#ddd; }
+  .stage canvas { width:100%; height:100%; display:block; touch-action:none; cursor:grab; }
+  .stage .hint { position:absolute; left:8px; bottom:8px; font-size:10px; background:rgba(0,0,0,.55); padding:3px 7px; font-weight:400; }
+  .stage .bg { position:absolute; right:8px; top:8px; display:flex; gap:4px; }
+  .stage .bg button { font-size:10px; background:rgba(0,0,0,.6); color:#fff; border:1px solid #fff; padding:3px 7px; cursor:pointer; }
+  .stage .bg button.active { background:var(--accent); border-color:var(--accent); color:#000; }
+  .stage .load { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,.45); font-size:12px; }
+  .photo { border:1px solid var(--line); background:#fff; display:flex; flex-direction:column; }
+  .photo .cap { font-size:10px; color:#fff; background:#000; padding:4px 8px; letter-spacing:.08em; }
+  .photo img { width:100%; display:block; margin:auto 0; }
+  /* 色の選択 */
+  .grade { margin-top:16px; font-size:11px; color:var(--sub); letter-spacing:.14em; font-weight:700; border-top:1px solid var(--line); padding-top:10px; }
+  .sw { display:grid; grid-template-columns:repeat(auto-fill,minmax(170px,1fr)); gap:8px; margin-top:8px; }
+  .chip { background:#fff; color:#111; border:2px solid transparent; cursor:pointer; text-align:left; padding:0; transition:.15s; }
+  .chip:hover { opacity:.85; }
+  .chip.active { border-color:var(--accent); box-shadow:0 0 0 2px var(--accent); }
+  .chip .pair { display:grid; grid-template-columns:1.4fr 1fr; align-items:center; }
+  .chip img { width:100%; display:block; }
+  .chip .t { font-size:11px; font-weight:700; padding:5px 7px 0; }
+  .chip .d { font-size:9.5px; color:#666; padding:1px 7px 6px; font-weight:400; line-height:1.45; }
+  .chip .tag { font-size:9px; color:#fff; background:#555; padding:1px 5px; margin-left:4px; vertical-align:1px; }
+  .note { margin-top:18px; border:1px solid var(--line); background:var(--panel); padding:12px 14px; font-size:11px; color:var(--sub); line-height:1.8; font-weight:400; }
+  .note b { color:#fff; }
+  footer { font-size:10px; color:#6b6b6b; margin-top:18px; text-align:center; line-height:1.8; font-weight:400; }
+  @media (max-width:640px) {
+    .view { grid-template-columns:1fr; }
+    .tab img { width:72px; } .tab b { font-size:14px; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>TORINOX</h1>
+  <div class="en">LENS COLOR CHECK</div>
+  <p>Amazonの3D表示用モデルの色違いを、商品写真と見比べるためのページです（関係者限り）。</p>
+</header>
+<div class="wrap">
+  <div class="tabs" id="tabs"></div>
+  <div class="now" id="now"></div>
+  <div class="view">
+    <div class="stage" id="stage">
+      <canvas id="cv"></canvas>
+      <div class="bg" id="bgs"></div>
+      <div class="hint">ドラッグで回転・ホイール／ピンチで拡大</div>
+      <div class="load" id="load">読み込み中…</div>
+    </div>
+    <div class="photo"><div class="cap">商品写真（Amazon）</div><img id="photo" alt="商品写真"></div>
+  </div>
+  <div id="grades"></div>
+  <div class="note">
+    <b>見え方について</b><br>
+    ・3Dの背景は切り替えられます。「肌色」はレンズ越しに顔が透ける試着に近い見え方です。<br>
+    ・ミラーは、商品写真のグラデーションの映り込みを焼き込んでいます。黒・グレー系は、うっすらとした銀の映り込みを焼き込んでいます。<br>
+    ・調光は、かける人の右のレンズを反応前（明るい）、左を反応後（暗い）にしています（正面から見ると明るいレンズが向かって左）。<br>
+    ・「入稿済み」はAmazonに入稿済みのモデル（ARQ＝2026-10-06版、MOTION＝2026-10-15版）そのものです。
+  </div>
+</div>
+<footer>TORINOX &times; 合同会社ヤシノミ ― 非公開・関係者限り<br><span style="opacity:.55">カラー版: 2026-10-21</span></footer>
+
+<script type="importmap">
+{ "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+} }
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+
+const $ = id => document.getElementById(id);
+const CV = '20261021d';
+const MODELS = {
+  A: { name:'ARQ', shape:'角型', thumb:'ARQ_BASE' },
+  C: { name:'MOTION', shape:'角型', thumb:'MO_BASE' },
+};
+// file 無し＝colors/<key>.glb。入稿済みは納品ファイル（の軽量版）そのもの
+const VARIANTS = {
+  A: [
+    { key:'ARQ_BASE', g:'BASIC', name:'BLACK/BLACK', d:'入稿済み（2026-10-06版）', file:'glasses_A.glb?v=20261015b', base:true },
+    { key:'ARQ_ALLBLACK', g:'BASIC', name:'ALL BLACK/BLACK', d:'銀のバーも黒／うっすら銀の映り込み' },
+    { key:'ARQ_ORANGE', g:'BASIC', name:'BLACK/ORANGE', d:'ミラー（黄→赤）' },
+    { key:'ARQ_MIRRORBLUE', g:'BASIC', name:'BLACK/MIRROR BLUE', d:'ミラー（水色→青）' },
+    { key:'ARQ_CHOKO_BLACK', g:'BASIC', name:'BLACK/偏光調光BLACK', d:'調光（左右で反応前・反応後）' },
+    { key:'ARQ_CHOKO_BROWN', g:'BASIC', name:'BLACK/偏光調光BROWN', d:'調光（左右で反応前・反応後）' },
+    { key:'ARQP_GREY', g:'PERFORMANCE', name:'BLACK/GREY', d:'グレー／うっすら銀の映り込み' },
+    { key:'ARQP_BROWN', g:'PERFORMANCE', name:'BLACK/BROWN', d:'ローズブラウン' },
+    { key:'ARQP_BLUE', g:'PERFORMANCE', name:'BLACK/BLUE', d:'ミラー（アイスブルー）' },
+  ],
+  C: [
+    { key:'MO_BASE', g:'BASIC', name:'MATT BLACK/BLACK', d:'入稿済み（2026-10-15版）', file:'glasses_C.glb?v=20261015a', base:true },
+    { key:'MO_CHOKO_BLUE', g:'BASIC', name:'BLACK/偏光調光BLUE', d:'調光（左右で反応前・反応後）／艶ありフレーム' },
+    { key:'MO_CHOKO_BLACK', g:'BASIC', name:'BLACK/偏光調光BLACK', d:'調光（左右で反応前・反応後）／艶ありフレーム' },
+    { key:'MO_MIRRORBLUE', g:'BASIC', name:'MATT BLACK/MIRROR BLUE', d:'ミラー（水色→青）' },
+    { key:'MO_SHINY', g:'BASIC', name:'SHINY BLACK/BLACK', d:'艶ありフレーム／うっすら銀の映り込み' },
+  ],
+};
+const BGS = [ ['肌色', 0xd9b49c], ['白', 0xf2f2f2], ['グレー', 0x8a8a8a], ['黒', 0x111111] ];
+
+/* ---- 3D ---- */
+const canvas = $('cv');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias:true });
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.2;
+const scene = new THREE.Scene();
+scene.environment = new THREE.PMREMGenerator(renderer).fromScene(new RoomEnvironment(), 0.02).texture;
+scene.background = new THREE.Color(BGS[0][1]);
+const camera = new THREE.PerspectiveCamera(28, 4/3, 0.005, 10);
+camera.position.set(-0.17, 0.05, 0.19);   // 商品写真と同じ斜め前（左前・やや上）から
+const controls = new OrbitControls(camera, canvas);
+controls.target.set(0, -0.012, -0.05); controls.enableDamping = true; controls.minDistance = 0.12; controls.maxDistance = 0.6;
+controls.update();
+const loader = new GLTFLoader();
+const draco = new DRACOLoader(); draco.setDecoderPath('https://unpkg.com/three@0.160.0/examples/jsm/libs/draco/'); loader.setDRACOLoader(draco);
+let current = null, reqId = 0;
+function resize(){
+  const w = canvas.clientWidth, h = canvas.clientHeight;
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2)); renderer.setSize(w, h, false);
+  camera.aspect = w / h; camera.updateProjectionMatrix();
+}
+new ResizeObserver(resize).observe(canvas);
+(function loop(){ controls.update(); renderer.render(scene, camera); requestAnimationFrame(loop); })();
+
+function load(v){
+  const id = ++reqId; $('load').style.display = 'flex';
+  loader.load((v.file || ('colors/' + v.key + '.glb?v=' + CV)), g => {
+    if (id !== reqId) return;
+    if (current) scene.remove(current);
+    current = g.scene; scene.add(current);
+    $('load').style.display = 'none';
+  }, undefined, () => { $('load').textContent = '読み込みに失敗しました'; });
+}
+
+/* ---- UI ---- */
+let curM = 'A', curV = null;
+function buildTabs(){
+  $('tabs').innerHTML = '';
+  Object.entries(MODELS).forEach(([k, m]) => {
+    const b = document.createElement('button'); b.className = 'tab' + (k === curM ? ' active' : '');
+    b.innerHTML = `<img src="colors/photo_${m.thumb}.jpg?v=${CV}" alt=""><div><b>${m.name}</b><span>${m.shape}／${VARIANTS[k].length}色</span></div>`;
+    b.onclick = () => { curM = k; buildTabs(); buildGrades(); select(VARIANTS[k][0]); };
+    $('tabs').appendChild(b);
+  });
+}
+function buildGrades(){
+  const box = $('grades'); box.innerHTML = '';
+  const groups = {};
+  VARIANTS[curM].forEach(v => (groups[v.g] = groups[v.g] || []).push(v));
+  Object.entries(groups).forEach(([g, list]) => {
+    const h = document.createElement('div'); h.className = 'grade'; h.textContent = `${MODELS[curM].name} ／ ${g}グレード（${list.length}色）`; box.appendChild(h);
+    const sw = document.createElement('div'); sw.className = 'sw';
+    list.forEach(v => {
+      const c = document.createElement('button'); c.className = 'chip'; c.dataset.k = v.key;
+      c.innerHTML = `<div class="t">${v.name}${v.base ? '<span class="tag">入稿済み</span>' : ''}</div><div class="d">${v.d}</div>`
+        + `<div class="pair"><img loading="lazy" src="colors/tile_${v.key}.jpg?v=${CV}" alt="3D"><img loading="lazy" src="colors/photo_${v.key}.jpg?v=${CV}" alt="商品写真"></div>`;
+      c.onclick = () => select(v);
+      sw.appendChild(c);
+    });
+    box.appendChild(sw);
+  });
+}
+function select(v){
+  curV = v;
+  document.querySelectorAll('.chip').forEach(x => x.classList.toggle('active', x.dataset.k === v.key));
+  $('now').innerHTML = `<span class="m">${MODELS[curM].name}</span><span class="g">${v.g}</span><span class="c">${v.name}</span>${v.base ? '<span class="g">入稿済み</span>' : ''}<span class="d">${v.d}</span>`;
+  $('photo').src = `colors/photo_${v.key}.jpg?v=${CV}`;
+  load(v);
+}
+BGS.forEach(([n, c], i) => {
+  const b = document.createElement('button'); b.textContent = n; if (!i) b.className = 'active';
+  b.onclick = () => { scene.background = new THREE.Color(c); $('bgs').querySelectorAll('button').forEach(x => x.classList.toggle('active', x === b)); };
+  $('bgs').appendChild(b);
+});
+buildTabs(); buildGrades(); select(VARIANTS.A[0]);
+</script>
+</body>
+</html>

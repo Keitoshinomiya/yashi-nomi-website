@@ -66,6 +66,23 @@
                 padding:10px 18px; font-size:12.5px; cursor:pointer; letter-spacing:.1em; font-weight:700; }
   .act button:hover { opacity:.6; }
   .act button.primary { background:var(--accent); border-color:var(--accent); color:#000; }
+  /* カラー確認（?colors=1 のときだけ表示） */
+  #refWrap { position:absolute; right:8px; bottom:8px; width:24%; display:none; z-index:3; pointer-events:none; }
+  #refWrap div { font-size:10px; color:#fff; background:rgba(0,0,0,.65); padding:2px 6px; display:inline-block; }
+  #refWrap img { width:100%; display:block; background:#fff; border:1px solid #fff; }
+  .cmp { width:min(94vw,720px); background:var(--panel); border:1px solid var(--line); margin-top:14px; padding:16px 18px; display:none; }
+  .cmp h3 { font-size:11.5px; color:var(--accent); letter-spacing:.12em; font-weight:700; margin-bottom:6px; }
+  .cmp p { font-size:11px; color:var(--sub); line-height:1.7; font-weight:400; margin-bottom:10px; }
+  .cmp .grid { display:grid; grid-template-columns:repeat(2,1fr); gap:8px; }
+  .card { background:#fff; color:#111; border:1px solid var(--line); cursor:pointer; transition:.2s; }
+  .card:hover { opacity:.85; }
+  .card.active { outline:3px solid var(--accent); outline-offset:-3px; }
+  .card .pair { display:grid; grid-template-columns:1.55fr 1fr; align-items:center; }
+  .card img { width:100%; display:block; }
+  .card .t { font-size:11px; font-weight:700; padding:6px 8px 0; letter-spacing:.02em; }
+  .card .d { font-size:10px; color:#555; padding:2px 8px 6px; font-weight:400; line-height:1.5; }
+  .card .hd { display:flex; justify-content:space-between; font-size:9px; color:#888; padding:0 8px; }
+  @media (max-width:560px) { .cmp .grid { grid-template-columns:1fr; } }
   footer { font-size:10px; color:#6b6b6b; margin-top:18px; text-align:center; line-height:1.8; font-weight:400; }
 </style>
 </head>
@@ -80,6 +97,7 @@
   <video id="video" autoplay playsinline muted></video>
   <canvas id="three"></canvas>
   <div id="msg">読み込み中…</div>
+  <div id="refWrap"><div>商品写真</div><img id="refPhoto" alt="商品写真"></div>
 </div>
 
 <div class="panel">
@@ -107,6 +125,8 @@
     <button data-m="glasses_A.glb?v=20261015b" class="active">ARQ（角型）</button>
     <button data-m="glasses_C.glb?v=20261015a">MOTION（角型）</button>
   </div>
+  <div class="row chips" id="colors" style="display:none"><label>カラー</label></div>
+  <span class="note" id="colorNote" style="display:none;margin:0 0 6px"></span>
   <div class="grp">納品モデルに反映する値 ①レンズ</div>
   <div class="row"><label>レンズの濃さ</label><input id="op" type="range" min="3" max="70" value="8"><span class="val" id="opV">8%</span>
     <span class="note">数値は可視光線透過率（VLT）。小さいほど濃い。実物のレンズと同じ濃さに見えるところに合わせます。</span></div>
@@ -132,6 +152,12 @@
     <button id="reset">既定に戻す</button>
   </div>
 </div>
+<section class="cmp" id="cmp">
+  <h3>カラー一覧 ― 3Dモデル（左）と商品写真（右）</h3>
+  <p>3Dは試着と同じく、レンズ越しに肌色の板を透かして描いています。カードを押すと上の試着画面がその色に切り替わります。<br>
+  ミラーはグラデーションの映り込みを、黒・グレー系はうっすらとした銀の映り込みを焼き込んでいます。調光は、かける人の右のレンズを反応前（明るい）、左を反応後（暗い）にしています（下の一覧は正面から見た向き、上の試着画面は鏡の向きなので、明るいレンズは一覧では左、試着画面では右に見えます）。</p>
+  <div class="grid" id="cmpGrid"></div>
+</section>
 <footer>
   Amazon 3D要件準拠（GLB／ノード分割／KHR_materials_transmission／glTF-Validator エラー0・警告0）<br>
   TORINOX &times; 合同会社ヤシノミ ― 技術デモ（非公開・関係者限り）<br>
@@ -164,6 +190,30 @@ const MODEL_DEFAULTS = {
   C: { tl: -1, sc: 100, oy: 0,  oz: 0, ox: 0, fade: 9.3, vlt: 8, hue: 0, sat: 0, refl: 10, py: 0.39, pz: 0.97 },   // MOTION（py/pz は 2026-10-06 版の原点＝外形前面中央 からブリッジ位置への補正）
 };
 let curKey = 'A';
+/* カラー確認（2026-10-21 色味追加 12色）。?colors=1 のときだけ表示。色違いはGLBの材質をそのまま見せる（レンズのバーで上書きしない） */
+const COLOR_MODE = new URLSearchParams(location.search).has('colors');
+const CV = '20261021c';
+const VARIANTS = {
+  A: [
+    { key:'ARQ_BASE', name:'BLACK/BLACK', d:'入稿済み（基準）', base:true },
+    { key:'ARQ_ALLBLACK', name:'ALL BLACK/BLACK', d:'銀のバーも黒／銀のうっすら映り込み' },
+    { key:'ARQ_ORANGE', name:'BLACK/ORANGE', d:'ミラー（黄→赤のグラデーション）' },
+    { key:'ARQ_MIRRORBLUE', name:'BLACK/MIRROR BLUE', d:'ミラー（水色→青）' },
+    { key:'ARQ_CHOKO_BLACK', name:'BLACK/偏光調光BLACK', d:'調光：かける人の右のレンズ＝反応前（明るい）／左＝反応後' },
+    { key:'ARQ_CHOKO_BROWN', name:'BLACK/偏光調光BROWN', d:'調光：かける人の右のレンズ＝反応前（明るい）／左＝反応後' },
+    { key:'ARQP_GREY', name:'PERFORMANCE BLACK/GREY', d:'グレー／銀のうっすら映り込み' },
+    { key:'ARQP_BROWN', name:'PERFORMANCE BLACK/BROWN', d:'ローズブラウン' },
+    { key:'ARQP_BLUE', name:'PERFORMANCE BLACK/BLUE', d:'ミラー（アイスブルー）' },
+  ],
+  C: [
+    { key:'MO_BASE', name:'MATT BLACK/BLACK', d:'入稿済み（基準）', base:true },
+    { key:'MO_CHOKO_BLUE', name:'BLACK/偏光調光BLUE', d:'調光：かける人の右のレンズ＝反応前（明るい）／左＝反応後／艶ありフレーム' },
+    { key:'MO_CHOKO_BLACK', name:'BLACK/偏光調光BLACK', d:'調光：かける人の右のレンズ＝反応前（明るい）／左＝反応後／艶ありフレーム' },
+    { key:'MO_MIRRORBLUE', name:'MATT BLACK/MIRROR BLUE', d:'ミラー（水色→青）' },
+    { key:'MO_SHINY', name:'SHINY BLACK/BLACK', d:'艶ありフレーム／銀のうっすら映り込み' },
+  ],
+};
+let curVariant = null;   // null＝基準（レンズのバーで色を決める）
 /* レンズ色 = 実製品写真から実測した「色相」を明るさ1.0に正規化したリニアRGB。
    実際の濃さは下のVLT（可視光線透過率）スライダーで決める。 */
 const LENS_COLORS = [
@@ -270,7 +320,10 @@ function loadModel(file){
       const ms = Array.isArray(o.material) ? o.material : [o.material];
       ms.forEach(m => {
         const n = m.name || '';
-        if (n === 'LensMat') {
+        if (n.startsWith('LensMat') && curVariant) {
+          // 色違い: GLBの材質（色・ミラー・映り込み）をそのまま見せる。縁の白い筋だけ防ぐ
+          m.side = THREE.FrontSide; o.renderOrder = 2;
+        } else if (n === 'LensMat') {
           if (!lensMats.includes(m)) lensMats.push(m);
           // レンズ縁やブリッジに白い筋が出るのを防ぐ（環境反射を落とし裏面を描かない）
           m.envMapIntensity = 0.05;
@@ -310,7 +363,7 @@ $('export').onclick = () => {
   showSheet(txt);
   if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).catch(() => {});
 };
-const DEMO_VERSION = '2026-10-15b';
+const DEMO_VERSION = '2026-10-21c';
 function showSheet(txt){
   const d = document.createElement('div'); d.id = 'sheet';
   d.innerHTML = '<div class="box"><div style="font-size:12px;color:var(--sub);margin-bottom:8px">設定（クリップボードにもコピーしました。コピーできない端末は下の文字を長押しで選択）</div>'
@@ -379,7 +432,8 @@ $('reset').onclick = applyDefaults;
 $('models').querySelectorAll('button').forEach(b => {
   b.onclick = () => {
     $('models').querySelectorAll('button').forEach(x => x.classList.remove('active'));
-    b.classList.add('active'); curKey = /glasses_C/.test(b.dataset.m) ? 'C' : 'A'; loadModel(b.dataset.m);
+    b.classList.add('active'); curKey = /glasses_C/.test(b.dataset.m) ? 'C' : 'A';
+    if (COLOR_MODE) { buildColors(); selectColor(VARIANTS[curKey][0]); } else loadModel(b.dataset.m);
   };
 });
 
@@ -415,7 +469,41 @@ $('shot').onclick = async () => {
 };
 
 applyFit();
-loadModel('glasses_A.glb?v=20261015b');
+function baseFile(){ return $('models').querySelector('button.active').dataset.m; }
+function selectColor(v){
+  curVariant = v.base ? null : v;
+  $('colors').querySelectorAll('button').forEach(x => x.classList.toggle('active', x.dataset.k === v.key));
+  document.querySelectorAll('.card').forEach(x => x.classList.toggle('active', x.dataset.k === v.key));
+  ['op','hue','sat'].forEach(id => $(id).disabled = !!curVariant);
+  $('colorNote').textContent = curVariant
+    ? `${v.name}：${v.d}。この色は商品写真から作った値で固定のため、レンズの濃さ・色味のバーは使えません（基準のBLACK/BLACKに戻すと使えます）。`
+    : `${v.name}：${v.d}。`;
+  $('refPhoto').src = 'colors/photo_' + v.key + '.jpg?v=' + CV; $('refWrap').style.display = 'block';
+  loadModel(v.base ? baseFile() : 'colors/' + v.key + '.glb?v=' + CV);
+}
+function buildColors(){
+  const row = $('colors'); row.querySelectorAll('button').forEach(b => b.remove());
+  VARIANTS[curKey].forEach(v => {
+    const b = document.createElement('button'); b.textContent = v.name; b.dataset.k = v.key; b.onclick = () => selectColor(v); row.appendChild(b);
+  });
+}
+function buildCompare(){
+  const g = $('cmpGrid');
+  [['A','ARQ'],['C','MOTION']].forEach(([mk, mn]) => VARIANTS[mk].forEach(v => {
+    const c = document.createElement('div'); c.className = 'card'; c.dataset.k = v.key;
+    c.innerHTML = `<div class="t">${mn} ${v.name}</div><div class="d">${v.d}</div><div class="hd"><span>3Dモデル</span><span>商品写真</span></div>`
+      + `<div class="pair"><img loading="lazy" src="colors/tile_${v.key}.jpg?v=${CV}" alt="3D"><img loading="lazy" src="colors/photo_${v.key}.jpg?v=${CV}" alt="商品写真"></div>`;
+    c.onclick = () => {
+      if (curKey !== mk) { $('models').querySelectorAll('button').forEach(x => x.classList.toggle('active', (mk === 'C') === /glasses_C/.test(x.dataset.m))); curKey = mk; buildColors(); }
+      selectColor(v); $('stage').scrollIntoView({ behavior:'smooth', block:'start' });
+    };
+    g.appendChild(c);
+  }));
+}
+if (COLOR_MODE) {
+  $('colors').style.display = 'flex'; $('colorNote').style.display = 'block'; $('cmp').style.display = 'block';
+  buildColors(); buildCompare(); selectColor(VARIANTS.A[0]);
+} else loadModel('glasses_A.glb?v=20261015b');
 
 let landmarker = null, running = false, lastT = -1;
 const faceMat = new THREE.Matrix4();
@@ -431,6 +519,7 @@ addEventListener('resize', resize);
 
 async function start(){
   try {
+    if (new URLSearchParams(location.search).has('nocam')) throw { name:'カメラを使わない表示' };   // カメラの無いPCで色を見比べる用
     msg.textContent = '顔認識モデルを読み込み中…';
     const vision = await FilesetResolver.forVisionTasks('https://unpkg.com/@mediapipe/tasks-vision@0.10.14/wasm');
     landmarker = await FaceLandmarker.createFromOptions(vision, {
@@ -476,12 +565,13 @@ function loop(){
 
 function demo(){
   resize();
+  if (COLOR_MODE) { scene.background = new THREE.Color(0xd9b49c); msg.querySelector('div') && (msg.querySelector('div').innerHTML = 'カメラを使わずに3Dモデルを回転表示しています（背景は肌色の代わり。レンズ越しの色の見え方を確認できます）。'); }
   anchor.visible = true;
   anchor.children.forEach(c => { if (c !== fit) c.visible = false; });
   let t = 0;
   (function spin(){
     t += 0.008;
-    const m = new THREE.Matrix4().makeRotationY(t);
+    const m = new THREE.Matrix4().makeRotationY(COLOR_MODE ? Math.sin(t*1.5) * 0.65 : t);   // カラー確認は正面中心に左右へ振る
     m.setPosition(0, -2.5, -30);
     anchor.matrix.copy(m);
     renderer.render(scene, camera);

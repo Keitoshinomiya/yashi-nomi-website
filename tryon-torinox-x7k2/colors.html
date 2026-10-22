@@ -105,12 +105,12 @@
   <div class="note">
     <b>見え方について</b><br>
     ・3Dの背景は切り替えられます。「肌色」はレンズ越しに顔が透ける試着に近い見え方です。<br>
-    ・ミラーは、商品写真のグラデーションの映り込みを焼き込んでいます。黒・グレー系は、うっすらとした銀の映り込みを焼き込んでいます。<br>
+    ・ミラーは金属反射とツヤ層で表現しています。映り込みの量は表示側の照明で決まるため、Amazonの試着では商品写真ほどギラッとは見えない可能性があります（試験用の「映り込み焼き込み版」は、映り込みをレンズに描き込んだものです）。<br>
     ・調光は、かける人の右のレンズを反応前（明るい）、左を反応後（暗い）にしています（正面から見ると明るいレンズが向かって左）。<br>
     ・「入稿済み」はAmazonに入稿済みのモデル（ARQ＝2026-10-06版、MOTION＝2026-10-15版）そのものです。
   </div>
 </div>
-<footer>TORINOX &times; 合同会社ヤシノミ ― 非公開・関係者限り<br><span style="opacity:.55">カラー版: 2026-10-21</span></footer>
+<footer>TORINOX &times; 合同会社ヤシノミ ― 非公開・関係者限り<br><span style="opacity:.55">カラー版: 2026-10-22（納品版）</span></footer>
 
 <script type="importmap">
 { "imports": {
@@ -126,7 +126,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 
 const $ = id => document.getElementById(id);
-const CV = '20261021d';
+const CV = '20261022b';
 const MODELS = {
   A: { name:'ARQ', shape:'角型', thumb:'ARQ_BASE' },
   C: { name:'MOTION', shape:'角型', thumb:'MO_BASE' },
@@ -135,21 +135,22 @@ const MODELS = {
 const VARIANTS = {
   A: [
     { key:'ARQ_BASE', g:'BASIC', name:'BLACK/BLACK', d:'入稿済み（2026-10-06版）', file:'glasses_A.glb?v=20261015b', base:true },
-    { key:'ARQ_ALLBLACK', g:'BASIC', name:'ALL BLACK/BLACK', d:'銀のバーも黒／うっすら銀の映り込み' },
-    { key:'ARQ_ORANGE', g:'BASIC', name:'BLACK/ORANGE', d:'ミラー（黄→赤）' },
-    { key:'ARQ_MIRRORBLUE', g:'BASIC', name:'BLACK/MIRROR BLUE', d:'ミラー（水色→青）' },
+    { key:'ARQ_ALLBLACK', g:'BASIC', name:'ALL BLACK/BLACK', d:'レンズは入稿済みと同じ黒／銀のバーを黒に' },
+    { key:'ARQ_ORANGE', g:'BASIC', name:'BLACK/ORANGE', d:'ミラー（金属反射＋ツヤ）。最初に試す色' },
+    { key:'ARQ_MIRRORBLUE', g:'BASIC', name:'BLACK/MIRROR BLUE', d:'ミラー（金属反射＋ツヤ）' },
     { key:'ARQ_CHOKO_BLACK', g:'BASIC', name:'BLACK/偏光調光BLACK', d:'調光（左右で反応前・反応後）' },
     { key:'ARQ_CHOKO_BROWN', g:'BASIC', name:'BLACK/偏光調光BROWN', d:'調光（左右で反応前・反応後）' },
-    { key:'ARQP_GREY', g:'PERFORMANCE', name:'BLACK/GREY', d:'グレー／うっすら銀の映り込み' },
+    { key:'ARQP_GREY', g:'PERFORMANCE', name:'BLACK/GREY', d:'グレー' },
     { key:'ARQP_BROWN', g:'PERFORMANCE', name:'BLACK/BROWN', d:'ローズブラウン' },
-    { key:'ARQP_BLUE', g:'PERFORMANCE', name:'BLACK/BLUE', d:'ミラー（アイスブルー）' },
+    { key:'ARQP_BLUE', g:'PERFORMANCE', name:'BLACK/BLUE', d:'ミラー（金属反射＋ツヤ）' },
+    { key:'ARQ_ORANGE_TEST', g:'試験用', name:'BLACK/ORANGE（映り込み焼き込み版）', d:'ミラーの映り込みをレンズに焼き込んだ試験用の1本。Amazonの審査での扱いを試す用' },
   ],
   C: [
     { key:'MO_BASE', g:'BASIC', name:'MATT BLACK/BLACK', d:'入稿済み（2026-10-15版）', file:'glasses_C.glb?v=20261015a', base:true },
     { key:'MO_CHOKO_BLUE', g:'BASIC', name:'BLACK/偏光調光BLUE', d:'調光（左右で反応前・反応後）／艶ありフレーム' },
     { key:'MO_CHOKO_BLACK', g:'BASIC', name:'BLACK/偏光調光BLACK', d:'調光（左右で反応前・反応後）／艶ありフレーム' },
-    { key:'MO_MIRRORBLUE', g:'BASIC', name:'MATT BLACK/MIRROR BLUE', d:'ミラー（水色→青）' },
-    { key:'MO_SHINY', g:'BASIC', name:'SHINY BLACK/BLACK', d:'艶ありフレーム／うっすら銀の映り込み' },
+    { key:'MO_MIRRORBLUE', g:'BASIC', name:'MATT BLACK/MIRROR BLUE', d:'ミラー（金属反射＋ツヤ）' },
+    { key:'MO_SHINY', g:'BASIC', name:'SHINY BLACK/BLACK', d:'レンズは入稿済みと同じ黒／艶ありフレーム' },
   ],
 };
 // 調光: 反応前（明るい）・反応後（暗い）のレンズ色（sRGB、GLBに焼いた値）
@@ -215,7 +216,7 @@ function buildGrades(){
   const groups = {};
   VARIANTS[curM].forEach(v => (groups[v.g] = groups[v.g] || []).push(v));
   Object.entries(groups).forEach(([g, list]) => {
-    const h = document.createElement('div'); h.className = 'grade'; h.textContent = `${MODELS[curM].name} ／ ${g}グレード（${list.length}色）`; box.appendChild(h);
+    const h = document.createElement('div'); h.className = 'grade'; h.textContent = `${MODELS[curM].name} ／ ${g === '試験用' ? '試験用（最初に入稿して見え方を試す）' : g + 'グレード'}（${list.length}${g === '試験用' ? '本' : '色'}）`; box.appendChild(h);
     const sw = document.createElement('div'); sw.className = 'sw';
     list.forEach(v => {
       const c = document.createElement('button'); c.className = 'chip'; c.dataset.k = v.key;

@@ -85,7 +85,7 @@
   <div id="grades"></div>
   <div class="note">
     <b>見え方について</b><br>
-    ・3Dの背景は切り替えられます。「肌色」はレンズ越しに顔が透ける試着に近い見え方です。<br>
+    ・3DはAmazonの試着と同じく、反射・映り込みなしで描いています。背景は切り替えられます。「肌色」はレンズ越しに顔が透ける試着に近い見え方です。<br>
     ・ミラーは、Amazonの試着が反射を描かないため、海外Amazonで試着に対応している他社のミラーレンズと同じく「色付きのグラデーションレンズ」で表現しています（商品写真のミラーの色を、上下のグラデーション＋斜めの明るい帯としてレンズの色に入れたもの）。<br>
     ・調光は、かける人の右のレンズを反応前（明るい）、左を反応後（暗い）にしています（正面から見ると明るいレンズが向かって左）。<br>
     ・「入稿済み」はAmazonに入稿済みのモデル（ARQ＝2026-10-06版、MOTION＝2026-10-15版）そのものです。
@@ -104,10 +104,9 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 
 const $ = id => document.getElementById(id);
-const CV = '20261023b';
+const CV = '20261023d';
 const MODELS = {
   A: { name:'ARQ', shape:'角型', thumb:'ARQ_BASE' },
   C: { name:'MOTION', shape:'角型', thumb:'MO_BASE' },
@@ -139,9 +138,11 @@ const BGS = [ ['肌色', 0xd9b49c], ['白', 0xf2f2f2], ['グレー', 0x8a8a8a], 
 const canvas = $('cv');
 const renderer = new THREE.WebGLRenderer({ canvas, antialias:true });
 renderer.outputColorSpace = THREE.SRGBColorSpace;
-renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.2;
+renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.0;
 const scene = new THREE.Scene();
-scene.environment = new THREE.PMREMGenerator(renderer).fromScene(new RoomEnvironment(), 0.02).texture;
+// Amazonの試着は反射を描かない（海外Amazonの他社商品で確認）→ 周囲の映り込み（環境マップ）は使わず、普通の照明だけで描く
+scene.add(new THREE.HemisphereLight(0xffffff, 0x8a8a8a, 1.6));
+const keyL = new THREE.DirectionalLight(0xffffff, 1.1); keyL.position.set(-0.3, 0.6, 1); scene.add(keyL);
 scene.background = new THREE.Color(BGS[0][1]);
 const camera = new THREE.PerspectiveCamera(28, 4/3, 0.005, 10);
 camera.position.set(-0.17, 0.05, 0.19);   // 商品写真と同じ斜め前（左前・やや上）から
@@ -165,6 +166,8 @@ function load(v){
     if (id !== reqId) return;
     if (current) scene.remove(current);
     current = g.scene; scene.add(current);
+    // レンズの映り込み・ハイライトを消す（Amazonの見え方に合わせる）
+    current.traverse(o => { if (o.isMesh && (o.material.name || '').startsWith('LensMat')) { o.material.specularIntensity = 0; o.material.clearcoat = 0; o.material.needsUpdate = true; } });
     $('load').style.display = 'none';
   }, undefined, () => { $('load').textContent = '読み込みに失敗しました'; });
 }

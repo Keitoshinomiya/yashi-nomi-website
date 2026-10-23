@@ -86,7 +86,7 @@
   <div class="note">
     <b>見え方について</b><br>
     ・3DはAmazonの試着と同じ描き方（反射・映り込みなし、明るさ補正なし）にしています。入稿済みのMOTION黒で、Amazonの実際の試着画面とレンズの暗さ・色味が一致することを確認済みです。背景は切り替えられます。「肌色」はレンズ越しに顔が透ける試着に近い見え方です。<br>
-    ・ミラーは、Amazonの試着が反射を描かないため、海外Amazonで試着に対応している他社のミラーレンズと同じく「色付きのグラデーションレンズ」で表現しています（商品写真のミラーの色を、上下のグラデーション＋斜めの明るい帯としてレンズの色に入れたもの）。<br>
+    ・ミラーは、Amazonの試着が反射を描かないため、2つの表現を用意しています。<b>A案</b>＝薄めの色付きグラデーション（目が透ける、海外Amazonのグリーン・レッドミラーの表現）、<b>B案</b>＝レンズに色を乗せたグラデーション（ほとんど透けない、海外Amazonのシルバーミラーの表現）。どちらにするかお選びください。<br>
     ・調光は、かける人の右のレンズを反応前（明るい）、左を反応後（暗い）にしています（正面から見ると明るいレンズが向かって左）。<br>
     ・「入稿済み」はAmazonに入稿済みのモデル（ARQ＝2026-10-06版、MOTION＝2026-10-15版）そのものです。
   </div>
@@ -106,7 +106,7 @@ import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
 const $ = id => document.getElementById(id);
-const CV = '20261023e';
+const CV = '20261023f';
 const MODELS = {
   A: { name:'ARQ', shape:'角型', thumb:'ARQ_BASE' },
   C: { name:'MOTION', shape:'角型', thumb:'MO_BASE' },
@@ -116,19 +116,23 @@ const VARIANTS = {
   A: [
     { key:'ARQ_BASE', g:'BASIC', name:'BLACK/BLACK', d:'入稿済み（2026-10-06版）', file:'glasses_A.glb?v=20261015b', base:true },
     { key:'ARQ_ALLBLACK', g:'BASIC', name:'ALL BLACK/BLACK', d:'レンズは入稿済みと同じ黒／銀のバーを黒に' },
-    { key:'ARQ_ORANGE', g:'BASIC', name:'BLACK/ORANGE', d:'ミラー（上が黄色→下が赤のグラデーション）。最初に試す色' },
-    { key:'ARQ_MIRRORBLUE', g:'BASIC', name:'BLACK/MIRROR BLUE', d:'ミラー（上が水色→下が青のグラデーション）' },
+    { key:'ARQ_ORANGE', g:'BASIC', name:'BLACK/ORANGE', d:'ミラー A案：薄めのグラデーション（上が黄色→下が赤）。最初に試す色' },
+    { key:'ARQ_MIRRORBLUE', g:'BASIC', name:'BLACK/MIRROR BLUE', d:'ミラー A案：薄めのグラデーション（上が水色→下が青）' },
     { key:'ARQ_CHOKO_BLACK', g:'BASIC', name:'BLACK/偏光調光BLACK', d:'調光（左右で反応前・反応後）' },
     { key:'ARQ_CHOKO_BROWN', g:'BASIC', name:'BLACK/偏光調光BROWN', d:'調光（左右で反応前・反応後）' },
     { key:'ARQP_GREY', g:'PERFORMANCE', name:'BLACK/GREY', d:'グレー' },
     { key:'ARQP_BROWN', g:'PERFORMANCE', name:'BLACK/BROWN', d:'ローズブラウン' },
-    { key:'ARQP_BLUE', g:'PERFORMANCE', name:'BLACK/BLUE', d:'ミラー（明るい水色→青のグラデーション）' },
+    { key:'ARQP_BLUE', g:'PERFORMANCE', name:'BLACK/BLUE', d:'ミラー A案：薄めのグラデーション（明るい水色→青）' },
+    { key:'ARQ_ORANGE_B', g:'ミラーB案', name:'BLACK/ORANGE（B案）', d:'ミラー B案：色を乗せたグラデーション（ほとんど透けない）' },
+    { key:'ARQ_MIRRORBLUE_B', g:'ミラーB案', name:'BLACK/MIRROR BLUE（B案）', d:'ミラー B案：色を乗せたグラデーション（ほとんど透けない）' },
+    { key:'ARQP_BLUE_B', g:'ミラーB案', name:'PERFORMANCE BLACK/BLUE（B案）', d:'ミラー B案：色を乗せたグラデーション（ほとんど透けない）' },
   ],
   C: [
     { key:'MO_BASE', g:'BASIC', name:'MATT BLACK/BLACK', d:'入稿済み（2026-10-15版）', file:'glasses_C.glb?v=20261015a', base:true },
     { key:'MO_CHOKO_BLUE', g:'BASIC', name:'BLACK/偏光調光BLUE', d:'調光（左右で反応前・反応後）／艶ありフレーム' },
     { key:'MO_CHOKO_BLACK', g:'BASIC', name:'BLACK/偏光調光BLACK', d:'調光（左右で反応前・反応後）／艶ありフレーム' },
-    { key:'MO_MIRRORBLUE', g:'BASIC', name:'MATT BLACK/MIRROR BLUE', d:'ミラー（上が水色→下が青のグラデーション）' },
+    { key:'MO_MIRRORBLUE', g:'BASIC', name:'MATT BLACK/MIRROR BLUE', d:'ミラー A案：薄めのグラデーション（上が水色→下が青）' },
+    { key:'MO_MIRRORBLUE_B', g:'ミラーB案', name:'MATT BLACK/MIRROR BLUE（B案）', d:'ミラー B案：色を乗せたグラデーション（ほとんど透けない）' },
     { key:'MO_SHINY', g:'BASIC', name:'SHINY BLACK/BLACK', d:'レンズは入稿済みと同じ黒／艶ありフレーム' },
   ],
 };
@@ -188,7 +192,7 @@ function buildGrades(){
   const groups = {};
   VARIANTS[curM].forEach(v => (groups[v.g] = groups[v.g] || []).push(v));
   Object.entries(groups).forEach(([g, list]) => {
-    const h = document.createElement('div'); h.className = 'grade'; h.textContent = `${MODELS[curM].name} ／ ${g === '試験用' ? '試験用（最初に入稿して見え方を試す）' : g + 'グレード'}（${list.length}${g === '試験用' ? '本' : '色'}）`; box.appendChild(h);
+    const h = document.createElement('div'); h.className = 'grade'; h.textContent = `${MODELS[curM].name} ／ ${g === '試験用' ? '試験用（最初に入稿して見え方を試す）' : g === 'ミラーB案' ? 'ミラーの表現 B案（色を乗せたグラデーション）※A案と見比べる用' : g + 'グレード'}（${list.length}${g === '試験用' || g === 'ミラーB案' ? '本' : '色'}）`; box.appendChild(h);
     const sw = document.createElement('div'); sw.className = 'sw';
     list.forEach(v => {
       const c = document.createElement('button'); c.className = 'chip'; c.dataset.k = v.key;

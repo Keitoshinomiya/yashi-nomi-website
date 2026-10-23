@@ -105,7 +105,7 @@
   <div class="note">
     <b>見え方について</b><br>
     ・3Dの背景は切り替えられます。「肌色」はレンズ越しに顔が透ける試着に近い見え方です。<br>
-    ・ミラーは、Amazonの試着で反射がほとんど出ないため、レンズ越しに見える色そのものを商品写真の色（青・オレンジ）に寄せています（そのぶん黒レンズより少し明るめ）。ツヤ層と弱い金属反射も入れています。試験用の「映り込み焼き込み版」は、映り込みをレンズに描き込んだものです。<br>
+    ・ミラーは、Amazonの試着が反射を描かないため、海外Amazonで試着に対応している他社のミラーレンズと同じく「色付きのグラデーションレンズ」で表現しています（商品写真のミラーの色を、上下のグラデーション＋斜めの明るい帯としてレンズの色に入れたもの）。<br>
     ・調光は、かける人の右のレンズを反応前（明るい）、左を反応後（暗い）にしています（正面から見ると明るいレンズが向かって左）。<br>
     ・「入稿済み」はAmazonに入稿済みのモデル（ARQ＝2026-10-06版、MOTION＝2026-10-15版）そのものです。
   </div>
@@ -126,7 +126,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 
 const $ = id => document.getElementById(id);
-const CV = '20261023a';
+const CV = '20261023b';
 const MODELS = {
   A: { name:'ARQ', shape:'角型', thumb:'ARQ_BASE' },
   C: { name:'MOTION', shape:'角型', thumb:'MO_BASE' },
@@ -136,20 +136,19 @@ const VARIANTS = {
   A: [
     { key:'ARQ_BASE', g:'BASIC', name:'BLACK/BLACK', d:'入稿済み（2026-10-06版）', file:'glasses_A.glb?v=20261015b', base:true },
     { key:'ARQ_ALLBLACK', g:'BASIC', name:'ALL BLACK/BLACK', d:'レンズは入稿済みと同じ黒／銀のバーを黒に' },
-    { key:'ARQ_ORANGE', g:'BASIC', name:'BLACK/ORANGE', d:'ミラー（レンズ越しの色をオレンジに寄せた版）。最初に試す色' },
-    { key:'ARQ_MIRRORBLUE', g:'BASIC', name:'BLACK/MIRROR BLUE', d:'ミラー（レンズ越しの色を青に寄せた版）' },
+    { key:'ARQ_ORANGE', g:'BASIC', name:'BLACK/ORANGE', d:'ミラー（上が黄色→下が赤のグラデーション）。最初に試す色' },
+    { key:'ARQ_MIRRORBLUE', g:'BASIC', name:'BLACK/MIRROR BLUE', d:'ミラー（上が水色→下が青のグラデーション）' },
     { key:'ARQ_CHOKO_BLACK', g:'BASIC', name:'BLACK/偏光調光BLACK', d:'調光（左右で反応前・反応後）' },
     { key:'ARQ_CHOKO_BROWN', g:'BASIC', name:'BLACK/偏光調光BROWN', d:'調光（左右で反応前・反応後）' },
     { key:'ARQP_GREY', g:'PERFORMANCE', name:'BLACK/GREY', d:'グレー' },
     { key:'ARQP_BROWN', g:'PERFORMANCE', name:'BLACK/BROWN', d:'ローズブラウン' },
-    { key:'ARQP_BLUE', g:'PERFORMANCE', name:'BLACK/BLUE', d:'ミラー（レンズ越しの色を水色寄りの青に寄せた版）' },
-    { key:'ARQ_ORANGE_TEST', g:'試験用', name:'BLACK/ORANGE（映り込み焼き込み版）', d:'ミラーの映り込みをレンズに焼き込んだ試験用の1本。Amazonの審査での扱いを試す用' },
+    { key:'ARQP_BLUE', g:'PERFORMANCE', name:'BLACK/BLUE', d:'ミラー（明るい水色→青のグラデーション）' },
   ],
   C: [
     { key:'MO_BASE', g:'BASIC', name:'MATT BLACK/BLACK', d:'入稿済み（2026-10-15版）', file:'glasses_C.glb?v=20261015a', base:true },
     { key:'MO_CHOKO_BLUE', g:'BASIC', name:'BLACK/偏光調光BLUE', d:'調光（左右で反応前・反応後）／艶ありフレーム' },
     { key:'MO_CHOKO_BLACK', g:'BASIC', name:'BLACK/偏光調光BLACK', d:'調光（左右で反応前・反応後）／艶ありフレーム' },
-    { key:'MO_MIRRORBLUE', g:'BASIC', name:'MATT BLACK/MIRROR BLUE', d:'ミラー（レンズ越しの色を青に寄せた版）' },
+    { key:'MO_MIRRORBLUE', g:'BASIC', name:'MATT BLACK/MIRROR BLUE', d:'ミラー（上が水色→下が青のグラデーション）' },
     { key:'MO_SHINY', g:'BASIC', name:'SHINY BLACK/BLACK', d:'レンズは入稿済みと同じ黒／艶ありフレーム' },
   ],
 };

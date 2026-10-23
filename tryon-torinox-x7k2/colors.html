@@ -41,13 +41,6 @@
   .stage .bg button { font-size:10px; background:rgba(0,0,0,.6); color:#fff; border:1px solid #fff; padding:3px 7px; cursor:pointer; }
   .stage .bg button.active { background:var(--accent); border-color:var(--accent); color:#000; }
   .stage .load { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,.45); font-size:12px; }
-  .choko { margin-top:8px; border:1px solid var(--line); background:var(--panel); padding:10px 14px; display:none; }
-  .choko .r { display:flex; flex-wrap:wrap; align-items:center; gap:8px 12px; }
-  .choko button { background:#000; color:#fff; border:1px solid #fff; padding:6px 12px; font-size:11.5px; cursor:pointer; }
-  .choko button.active { background:var(--accent); border-color:var(--accent); color:#000; font-weight:700; }
-  .choko input { flex:1; min-width:160px; accent-color:var(--accent); }
-  .choko .lab { font-size:11px; color:var(--sub); }
-  .choko .n { flex-basis:100%; font-size:10.5px; color:var(--sub); font-weight:400; line-height:1.6; margin-top:4px; }
   .photo { border:1px solid var(--line); background:#fff; display:flex; flex-direction:column; }
   .photo .cap { font-size:10px; color:#fff; background:#000; padding:4px 8px; letter-spacing:.08em; }
   .photo img { width:100%; display:block; margin:auto 0; }
@@ -88,18 +81,6 @@
       <div class="load" id="load">読み込み中…</div>
     </div>
     <div class="photo"><div class="cap">商品写真（Amazon）</div><img id="photo" alt="商品写真"></div>
-  </div>
-  <div class="choko" id="choko">
-    <div class="r">
-      <span class="lab">調光の見せ方</span>
-      <button id="ckSplit" class="active">左右で比較（入稿データ）</button>
-      <button id="ckSlide">屋内⇄屋外を切り替え</button>
-      <button id="ckPlay">▶ 変化を再生</button>
-    </div>
-    <div class="r" id="ckRow" style="margin-top:8px;display:none">
-      <span class="lab">屋内（反応前）</span><input id="ckT" type="range" min="0" max="100" value="100"><span class="lab">屋外（反応後）</span>
-    </div>
-    <div class="n">「左右で比較」がAmazonに入稿するデータそのもの（片方が反応前・片方が反応後）です。「屋内⇄屋外」と「変化を再生」は、このページでの見せ方の確認用です（Amazonの3Dは動きを付けられないため）。</div>
   </div>
   <div id="grades"></div>
   <div class="note">
@@ -152,13 +133,6 @@ const VARIANTS = {
     { key:'MO_SHINY', g:'BASIC', name:'SHINY BLACK/BLACK', d:'レンズは入稿済みと同じ黒／艶ありフレーム' },
   ],
 };
-// 調光: 反応前（明るい）・反応後（暗い）のレンズ色（sRGB、GLBに焼いた値）
-const CHOKO = {
-  ARQ_CHOKO_BLACK: { light:[177,179,185], dark:[80,79,87] },
-  ARQ_CHOKO_BROWN: { light:[196,166,108], dark:[103,87,53] },
-  MO_CHOKO_BLUE:   { light:[172,188,220], dark:[84,122,202] },
-  MO_CHOKO_BLACK:  { light:[186,188,186], dark:[80,80,80] },
-};
 const BGS = [ ['肌色', 0xd9b49c], ['白', 0xf2f2f2], ['グレー', 0x8a8a8a], ['黒', 0x111111] ];
 
 /* ---- 3D ---- */
@@ -176,7 +150,7 @@ controls.target.set(0, -0.012, -0.05); controls.enableDamping = true; controls.m
 controls.update();
 const loader = new GLTFLoader();
 const draco = new DRACOLoader(); draco.setDecoderPath('https://unpkg.com/three@0.160.0/examples/jsm/libs/draco/'); loader.setDRACOLoader(draco);
-let current = null, reqId = 0, lensMats = [], ckMode = 'split', playing = false;
+let current = null, reqId = 0;
 function resize(){
   const w = canvas.clientWidth, h = canvas.clientHeight;
   renderer.setPixelRatio(Math.min(devicePixelRatio, 2)); renderer.setSize(w, h, false);
@@ -191,10 +165,6 @@ function load(v){
     if (id !== reqId) return;
     if (current) scene.remove(current);
     current = g.scene; scene.add(current);
-    lensMats = [];
-    current.traverse(o => { if (o.isMesh && (o.material.name || '').startsWith('LensMat') && !lensMats.some(x => x.m === o.material))
-      lensMats.push({ m:o.material, map:o.material.map, color:o.material.color.clone(), ei:o.material.emissiveIntensity }); });
-    applyChoko();
     $('load').style.display = 'none';
   }, undefined, () => { $('load').textContent = '読み込みに失敗しました'; });
 }
@@ -239,34 +209,6 @@ BGS.forEach(([n, c], i) => {
   b.onclick = () => { scene.background = new THREE.Color(c); $('bgs').querySelectorAll('button').forEach(x => x.classList.toggle('active', x === b)); };
   $('bgs').appendChild(b);
 });
-const srgb = a => new THREE.Color().setRGB(a[0]/255, a[1]/255, a[2]/255, THREE.SRGBColorSpace);
-function applyChoko(){
-  const c = curV && CHOKO[curV.key];
-  if (!c || ckMode === 'split') {     // 入稿データのまま
-    lensMats.forEach(x => { x.m.map = x.map; x.m.color.copy(x.color); x.m.emissiveIntensity = x.ei; x.m.needsUpdate = true; });
-    return;
-  }
-  const t = +$('ckT').value / 100, col = new THREE.Color().lerpColors(srgb(c.light), srgb(c.dark), t);
-  lensMats.forEach(x => { x.m.map = null; x.m.color.copy(col); x.m.emissiveIntensity = x.ei * t; x.m.needsUpdate = true; });
-}
-function setCkMode(m){
-  ckMode = m; $('ckSplit').classList.toggle('active', m === 'split'); $('ckSlide').classList.toggle('active', m !== 'split');
-  $('ckRow').style.display = m === 'split' ? 'none' : 'flex'; applyChoko();
-}
-$('ckSplit').onclick = () => { playing = false; setCkMode('split'); };
-$('ckSlide').onclick = () => { playing = false; setCkMode('slide'); };
-$('ckT').oninput = () => { playing = false; applyChoko(); };
-$('ckPlay').onclick = () => {
-  setCkMode('slide'); playing = true; const t0 = performance.now();
-  (function step(now){
-    if (!playing) return;
-    const k = ((now - t0) / 1000) % 6;                 // 6秒で 屋内→屋外→屋内
-    const v = k < 1 ? 0 : k < 2.5 ? (k - 1) / 1.5 : k < 4 ? 1 : k < 5.5 ? 1 - (k - 4) / 1.5 : 0;
-    $('ckT').value = Math.round(100 * (v * v * (3 - 2 * v))); applyChoko(); requestAnimationFrame(step);
-  })(t0);
-};
-const _select = select;
-select = v => { playing = false; ckMode = 'split'; $('choko').style.display = CHOKO[v.key] ? 'block' : 'none'; setCkMode('split'); _select(v); };
 buildTabs(); buildGrades(); select(VARIANTS.A[0]);
 </script>
 </body>

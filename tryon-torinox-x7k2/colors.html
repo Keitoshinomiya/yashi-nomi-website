@@ -41,6 +41,14 @@
   .stage .bg button { font-size:10px; background:rgba(0,0,0,.6); color:#fff; border:1px solid #fff; padding:3px 7px; cursor:pointer; }
   .stage .bg button.active { background:var(--accent); border-color:var(--accent); color:#000; }
   .stage .load { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,.45); font-size:12px; }
+  .style { margin-top:8px; border:1px solid var(--line); background:var(--panel); padding:10px 14px; display:none; }
+  .style .r { display:flex; flex-wrap:wrap; align-items:center; gap:8px 10px; }
+  .style .lab { font-size:11px; color:var(--sub); letter-spacing:.1em; font-weight:700; }
+  .style button { background:#000; color:#fff; border:1px solid #fff; padding:7px 14px; font-size:12px; cursor:pointer; text-align:left; }
+  .style button b { font-family:var(--orbitron); margin-right:6px; }
+  .style button.active { background:var(--accent); border-color:var(--accent); color:#000; }
+  .style .n { flex-basis:100%; font-size:10.5px; color:var(--sub); font-weight:400; line-height:1.6; margin-top:4px; }
+  .chip .ab { font-size:9px; color:#fff; background:var(--accent); padding:1px 5px; margin-left:4px; vertical-align:1px; }
   .photo { border:1px solid var(--line); background:#fff; display:flex; flex-direction:column; }
   .photo .cap { font-size:10px; color:#fff; background:#000; padding:4px 8px; letter-spacing:.08em; }
   .photo img { width:100%; display:block; margin:auto 0; }
@@ -82,11 +90,19 @@
     </div>
     <div class="photo"><div class="cap">商品写真（Amazon）</div><img id="photo" alt="商品写真"></div>
   </div>
+  <div class="style" id="style">
+    <div class="r">
+      <span class="lab">ミラーの表現</span>
+      <button data-s="A"><b>A案</b>薄めのグラデーション（目が透ける）</button>
+      <button data-s="B"><b>B案</b>色を乗せたグラデーション（ほとんど透けない）</button>
+    </div>
+    <div class="n">Amazonの試着は反射を描かないため、ミラーは2通りの表現を用意しています。A案＝海外Amazonのグリーン・レッドミラーの表現、B案＝シルバーミラーの表現。どちらにするかお選びください（ミラー4色とも同じ切り替えです）。</div>
+  </div>
   <div id="grades"></div>
   <div class="note">
     <b>見え方について</b><br>
     ・3DはAmazonの試着と同じ描き方（反射・映り込みなし、明るさ補正なし）にしています。入稿済みのMOTION黒で、Amazonの実際の試着画面とレンズの暗さ・色味が一致することを確認済みです。背景は切り替えられます。「肌色」はレンズ越しに顔が透ける試着に近い見え方です。<br>
-    ・ミラーは、Amazonの試着が反射を描かないため、2つの表現を用意しています。<b>A案</b>＝薄めの色付きグラデーション（目が透ける、海外Amazonのグリーン・レッドミラーの表現）、<b>B案</b>＝レンズに色を乗せたグラデーション（ほとんど透けない、海外Amazonのシルバーミラーの表現）。どちらにするかお選びください。<br>
+    ・ミラーは、Amazonの試着が反射を描かないため、2通りの表現（A案＝薄めのグラデーション／B案＝色を乗せたグラデーション）を用意しています。ミラーの色を選ぶと、3Dの下で切り替えられます。<br>
     ・調光は、かける人の右のレンズを反応前（明るい）、左を反応後（暗い）にしています（正面から見ると明るいレンズが向かって左）。<br>
     ・「入稿済み」はAmazonに入稿済みのモデル（ARQ＝2026-10-06版、MOTION＝2026-10-15版）そのものです。
   </div>
@@ -106,7 +122,7 @@ import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
 const $ = id => document.getElementById(id);
-const CV = '20261023f';
+const CV = '20261023g';
 const MODELS = {
   A: { name:'ARQ', shape:'角型', thumb:'ARQ_BASE' },
   C: { name:'MOTION', shape:'角型', thumb:'MO_BASE' },
@@ -116,23 +132,19 @@ const VARIANTS = {
   A: [
     { key:'ARQ_BASE', g:'BASIC', name:'BLACK/BLACK', d:'入稿済み（2026-10-06版）', file:'glasses_A.glb?v=20261015b', base:true },
     { key:'ARQ_ALLBLACK', g:'BASIC', name:'ALL BLACK/BLACK', d:'レンズは入稿済みと同じ黒／銀のバーを黒に' },
-    { key:'ARQ_ORANGE', g:'BASIC', name:'BLACK/ORANGE', d:'ミラー A案：薄めのグラデーション（上が黄色→下が赤）。最初に試す色' },
-    { key:'ARQ_MIRRORBLUE', g:'BASIC', name:'BLACK/MIRROR BLUE', d:'ミラー A案：薄めのグラデーション（上が水色→下が青）' },
+    { key:'ARQ_ORANGE', g:'BASIC', name:'BLACK/ORANGE', d:'ミラー（上が黄色→下が赤）。最初に試す色', b:true },
+    { key:'ARQ_MIRRORBLUE', g:'BASIC', name:'BLACK/MIRROR BLUE', d:'ミラー（上が水色→下が青）', b:true },
     { key:'ARQ_CHOKO_BLACK', g:'BASIC', name:'BLACK/偏光調光BLACK', d:'調光（左右で反応前・反応後）' },
     { key:'ARQ_CHOKO_BROWN', g:'BASIC', name:'BLACK/偏光調光BROWN', d:'調光（左右で反応前・反応後）' },
     { key:'ARQP_GREY', g:'PERFORMANCE', name:'BLACK/GREY', d:'グレー' },
     { key:'ARQP_BROWN', g:'PERFORMANCE', name:'BLACK/BROWN', d:'ローズブラウン' },
-    { key:'ARQP_BLUE', g:'PERFORMANCE', name:'BLACK/BLUE', d:'ミラー A案：薄めのグラデーション（明るい水色→青）' },
-    { key:'ARQ_ORANGE_B', g:'ミラーB案', name:'BLACK/ORANGE（B案）', d:'ミラー B案：色を乗せたグラデーション（ほとんど透けない）' },
-    { key:'ARQ_MIRRORBLUE_B', g:'ミラーB案', name:'BLACK/MIRROR BLUE（B案）', d:'ミラー B案：色を乗せたグラデーション（ほとんど透けない）' },
-    { key:'ARQP_BLUE_B', g:'ミラーB案', name:'PERFORMANCE BLACK/BLUE（B案）', d:'ミラー B案：色を乗せたグラデーション（ほとんど透けない）' },
+    { key:'ARQP_BLUE', g:'PERFORMANCE', name:'BLACK/BLUE', d:'ミラー（明るい水色→青）', b:true },
   ],
   C: [
     { key:'MO_BASE', g:'BASIC', name:'MATT BLACK/BLACK', d:'入稿済み（2026-10-15版）', file:'glasses_C.glb?v=20261015a', base:true },
     { key:'MO_CHOKO_BLUE', g:'BASIC', name:'BLACK/偏光調光BLUE', d:'調光（左右で反応前・反応後）／艶ありフレーム' },
     { key:'MO_CHOKO_BLACK', g:'BASIC', name:'BLACK/偏光調光BLACK', d:'調光（左右で反応前・反応後）／艶ありフレーム' },
-    { key:'MO_MIRRORBLUE', g:'BASIC', name:'MATT BLACK/MIRROR BLUE', d:'ミラー A案：薄めのグラデーション（上が水色→下が青）' },
-    { key:'MO_MIRRORBLUE_B', g:'ミラーB案', name:'MATT BLACK/MIRROR BLUE（B案）', d:'ミラー B案：色を乗せたグラデーション（ほとんど透けない）' },
+    { key:'MO_MIRRORBLUE', g:'BASIC', name:'MATT BLACK/MIRROR BLUE', d:'ミラー（上が水色→下が青）', b:true },
     { key:'MO_SHINY', g:'BASIC', name:'SHINY BLACK/BLACK', d:'レンズは入稿済みと同じ黒／艶ありフレーム' },
   ],
 };
@@ -166,7 +178,7 @@ new ResizeObserver(resize).observe(canvas);
 
 function load(v){
   const id = ++reqId; $('load').style.display = 'flex';
-  loader.load((v.file || ('colors/' + v.key + '.glb?v=' + CV)), g => {
+  loader.load((v.file || ('colors/' + v.key + (v.b && mstyle === 'B' ? '_B' : '') + '.glb?v=' + CV)), g => {
     if (id !== reqId) return;
     if (current) scene.remove(current);
     current = g.scene; scene.add(current);
@@ -177,7 +189,7 @@ function load(v){
 }
 
 /* ---- UI ---- */
-let curM = 'A', curV = null;
+let curM = 'A', curV = null, mstyle = 'A';   // mstyle: ミラーの表現（A案/B案）
 function buildTabs(){
   $('tabs').innerHTML = '';
   Object.entries(MODELS).forEach(([k, m]) => {
@@ -192,12 +204,12 @@ function buildGrades(){
   const groups = {};
   VARIANTS[curM].forEach(v => (groups[v.g] = groups[v.g] || []).push(v));
   Object.entries(groups).forEach(([g, list]) => {
-    const h = document.createElement('div'); h.className = 'grade'; h.textContent = `${MODELS[curM].name} ／ ${g === '試験用' ? '試験用（最初に入稿して見え方を試す）' : g === 'ミラーB案' ? 'ミラーの表現 B案（色を乗せたグラデーション）※A案と見比べる用' : g + 'グレード'}（${list.length}${g === '試験用' || g === 'ミラーB案' ? '本' : '色'}）`; box.appendChild(h);
+    const h = document.createElement('div'); h.className = 'grade'; h.textContent = `${MODELS[curM].name} ／ ${g === '試験用' ? '試験用（最初に入稿して見え方を試す）' : g + 'グレード'}（${list.length}${g === '試験用' ? '本' : '色'}）`; box.appendChild(h);
     const sw = document.createElement('div'); sw.className = 'sw';
     list.forEach(v => {
       const c = document.createElement('button'); c.className = 'chip'; c.dataset.k = v.key;
-      c.innerHTML = `<div class="t">${v.name}${v.base ? '<span class="tag">入稿済み</span>' : ''}</div><div class="d">${v.d}</div>`
-        + `<div class="pair"><img loading="lazy" src="colors/tile_${v.key}.jpg?v=${CV}" alt="3D"><img loading="lazy" src="colors/photo_${v.key}.jpg?v=${CV}" alt="商品写真"></div>`;
+      c.innerHTML = `<div class="t">${v.name}${v.base ? '<span class="tag">入稿済み</span>' : ''}${v.b ? '<span class="ab">' + mstyle + '案</span>' : ''}</div><div class="d">${v.d}</div>`
+        + `<div class="pair"><img loading="lazy" src="colors/tile_${v.key}${v.b && mstyle === 'B' ? '_B' : ''}.jpg?v=${CV}" alt="3D"><img loading="lazy" src="colors/photo_${v.key}.jpg?v=${CV}" alt="商品写真"></div>`;
       c.onclick = () => select(v);
       sw.appendChild(c);
     });
@@ -206,8 +218,10 @@ function buildGrades(){
 }
 function select(v){
   curV = v;
+  $('style').style.display = v.b ? 'block' : 'none';
+  $('style').querySelectorAll('button').forEach(x => x.classList.toggle('active', x.dataset.s === mstyle));
   document.querySelectorAll('.chip').forEach(x => x.classList.toggle('active', x.dataset.k === v.key));
-  $('now').innerHTML = `<span class="m">${MODELS[curM].name}</span><span class="g">${v.g}</span><span class="c">${v.name}</span>${v.base ? '<span class="g">入稿済み</span>' : ''}<span class="d">${v.d}</span>`;
+  $('now').innerHTML = `<span class="m">${MODELS[curM].name}</span><span class="g">${v.g}</span><span class="c">${v.name}</span>${v.b ? '<span class="g">ミラー ' + mstyle + '案</span>' : ''}${v.base ? '<span class="g">入稿済み</span>' : ''}<span class="d">${v.d}</span>`;
   $('photo').src = `colors/photo_${v.key}.jpg?v=${CV}`;
   load(v);
 }
@@ -216,6 +230,7 @@ BGS.forEach(([n, c], i) => {
   b.onclick = () => { scene.background = new THREE.Color(c); $('bgs').querySelectorAll('button').forEach(x => x.classList.toggle('active', x === b)); };
   $('bgs').appendChild(b);
 });
+$('style').querySelectorAll('button').forEach(b => b.onclick = () => { mstyle = b.dataset.s; buildGrades(); select(curV); });
 buildTabs(); buildGrades(); select(VARIANTS.A[0]);
 </script>
 </body>

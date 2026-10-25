@@ -93,10 +93,23 @@
   <div class="style" id="style">
     <div class="r">
       <span class="lab">ミラーの表現</span>
-      <button data-s="A"><b>A案</b>薄めのグラデーション（目が透ける）</button>
-      <button data-s="B"><b>B案</b>色を乗せたグラデーション（ほとんど透けない）</button>
+      <button data-s="A"><b>A案</b>薄めのグラデーション</button>
+      <button data-s="B"><b>B案</b>色を乗せたグラデーション</button>
+      <button data-s="B1"><b>B案 明るめ1</b></button>
+      <button data-s="B2"><b>B案 明るめ2</b></button>
+      <button data-s="B3"><b>B案 明るめ3</b></button>
     </div>
-    <div class="n">Amazonの試着は反射を描かないため、ミラーは2通りの表現を用意しています。A案＝海外Amazonのグリーン・レッドミラーの表現、B案＝シルバーミラーの表現。どちらにするかお選びください（ミラー4色とも同じ切り替えです）。</div>
+    <div class="n">Amazonの試着は反射を描かないため、ミラーは色付きのレンズとして表現しています。A案＝目が透ける薄めのグラデーション、B案＝色を乗せたグラデーション（ほとんど透けない）。B案明るめ1〜3は、B案を商品写真のような明るいトーンに寄せたもので、数字が大きいほど明るく、上側が白っぽく光ります（ミラー4色とも同じ切り替えです）。</div>
+  </div>
+  <div class="style" id="kstyle">
+    <div class="r">
+      <span class="lab">黒レンズの濃さ</span>
+      <button data-k="K08"><b>今</b>透過8%（Amazonに出ている濃さ）</button>
+      <button data-k="K12"><b>案1</b>透過12%</button>
+      <button data-k="K16"><b>案2</b>透過16%</button>
+      <button data-k="K20"><b>案3</b>透過20%</button>
+    </div>
+    <div class="n">黒レンズを少し透き通る黒にした案です。数字が大きいほど透けます。黒レンズの色（入稿済みのBLACK/BLACK・ALL BLACK・SHINY BLACK・PERFORMANCE GREY）と、調光BLACKの暗い側（反応後）に同じ濃さが入ります（全色とも同じ切り替えです）。入稿済みのBLACK/BLACKを変える場合は再入稿になります。</div>
   </div>
   <div id="grades"></div>
   <div class="note">
@@ -107,7 +120,7 @@
     ・「入稿済み」はAmazonに入稿済みのモデル（ARQ＝2026-10-06版、MOTION＝2026-10-15版）そのものです。
   </div>
 </div>
-<footer>TORINOX &times; 合同会社ヤシノミ ― 非公開・関係者限り<br><span style="opacity:.55">カラー版: 2026-10-22（納品版）</span></footer>
+<footer>TORINOX &times; 合同会社ヤシノミ ― 非公開・関係者限り<br><span style="opacity:.55">カラー版: 2026-10-25（黒の濃さ・B案明るめを追加）</span></footer>
 
 <script type="importmap">
 { "imports": {
@@ -122,7 +135,7 @@ import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
 const $ = id => document.getElementById(id);
-const CV = '20261023g';
+const CV = '20261025a';
 const MODELS = {
   A: { name:'ARQ', shape:'角型', thumb:'ARQ_BASE' },
   C: { name:'MOTION', shape:'角型', thumb:'MO_BASE' },
@@ -130,22 +143,22 @@ const MODELS = {
 // file 無し＝colors/<key>.glb。入稿済みは納品ファイル（の軽量版）そのもの
 const VARIANTS = {
   A: [
-    { key:'ARQ_BASE', g:'BASIC', name:'BLACK/BLACK', d:'入稿済み（2026-10-06版）', file:'glasses_A.glb?v=20261015b', base:true },
-    { key:'ARQ_ALLBLACK', g:'BASIC', name:'ALL BLACK/BLACK', d:'レンズは入稿済みと同じ黒／銀のバーを黒に' },
+    { key:'ARQ_BASE', g:'BASIC', name:'BLACK/BLACK', d:'入稿済み（2026-10-06版）', file:'glasses_A.glb?v=20261015b', base:true, k:true },
+    { key:'ARQ_ALLBLACK', g:'BASIC', name:'ALL BLACK/BLACK', d:'レンズは入稿済みと同じ黒／銀のバーを黒に', k:true },
     { key:'ARQ_ORANGE', g:'BASIC', name:'BLACK/ORANGE', d:'ミラー（上が黄色→下が赤）。最初に試す色', b:true },
     { key:'ARQ_MIRRORBLUE', g:'BASIC', name:'BLACK/MIRROR BLUE', d:'ミラー（上が水色→下が青）', b:true },
-    { key:'ARQ_CHOKO_BLACK', g:'BASIC', name:'BLACK/偏光調光BLACK', d:'調光（左右で反応前・反応後）' },
+    { key:'ARQ_CHOKO_BLACK', g:'BASIC', name:'BLACK/偏光調光BLACK', d:'調光（左右で反応前・反応後）', k:true },
     { key:'ARQ_CHOKO_BROWN', g:'BASIC', name:'BLACK/偏光調光BROWN', d:'調光（左右で反応前・反応後）' },
-    { key:'ARQP_GREY', g:'PERFORMANCE', name:'BLACK/GREY', d:'グレー' },
+    { key:'ARQP_GREY', g:'PERFORMANCE', name:'BLACK/GREY', d:'グレー', k:true },
     { key:'ARQP_BROWN', g:'PERFORMANCE', name:'BLACK/BROWN', d:'ローズブラウン' },
     { key:'ARQP_BLUE', g:'PERFORMANCE', name:'BLACK/BLUE', d:'ミラー（明るい水色→青）', b:true },
   ],
   C: [
-    { key:'MO_BASE', g:'BASIC', name:'MATT BLACK/BLACK', d:'入稿済み（2026-10-15版）', file:'glasses_C.glb?v=20261015a', base:true },
+    { key:'MO_BASE', g:'BASIC', name:'MATT BLACK/BLACK', d:'入稿済み（2026-10-15版）', file:'glasses_C.glb?v=20261015a', base:true, k:true },
     { key:'MO_CHOKO_BLUE', g:'BASIC', name:'BLACK/偏光調光BLUE', d:'調光（左右で反応前・反応後）／艶ありフレーム' },
-    { key:'MO_CHOKO_BLACK', g:'BASIC', name:'BLACK/偏光調光BLACK', d:'調光（左右で反応前・反応後）／艶ありフレーム' },
+    { key:'MO_CHOKO_BLACK', g:'BASIC', name:'BLACK/偏光調光BLACK', d:'調光（左右で反応前・反応後）／艶ありフレーム', k:true },
     { key:'MO_MIRRORBLUE', g:'BASIC', name:'MATT BLACK/MIRROR BLUE', d:'ミラー（上が水色→下が青）', b:true },
-    { key:'MO_SHINY', g:'BASIC', name:'SHINY BLACK/BLACK', d:'レンズは入稿済みと同じ黒／艶ありフレーム' },
+    { key:'MO_SHINY', g:'BASIC', name:'SHINY BLACK/BLACK', d:'レンズは入稿済みと同じ黒／艶ありフレーム', k:true },
   ],
 };
 const BGS = [ ['肌色', 0xd9b49c], ['白', 0xf2f2f2], ['グレー', 0x8a8a8a], ['黒', 0x111111] ];
@@ -176,9 +189,13 @@ function resize(){
 new ResizeObserver(resize).observe(canvas);
 (function loop(){ controls.update(); renderer.render(scene, camera); requestAnimationFrame(loop); })();
 
+const LB = { A:'A案', B:'B案', B1:'B案 明るめ1', B2:'B案 明るめ2', B3:'B案 明るめ3' }, KB = { K08:'今 8%', K12:'案1 12%', K16:'案2 16%', K20:'案3 20%' };
+function sufOf(v){ if (v.k && kstyle !== 'K08') return '_' + kstyle; if (v.b && mstyle !== 'A') return '_' + mstyle; return ''; }
+function fileOf(v){ const s = sufOf(v); return (!s && v.file) ? v.file : ('colors/' + v.key + s + '.glb?v=' + CV); }
+function tileOf(v){ return 'colors/tile_' + v.key + sufOf(v) + '.jpg?v=' + CV; }
 function load(v){
   const id = ++reqId; $('load').style.display = 'flex';
-  loader.load((v.file || ('colors/' + v.key + (v.b && mstyle === 'B' ? '_B' : '') + '.glb?v=' + CV)), g => {
+  loader.load(fileOf(v), g => {
     if (id !== reqId) return;
     if (current) scene.remove(current);
     current = g.scene; scene.add(current);
@@ -189,7 +206,7 @@ function load(v){
 }
 
 /* ---- UI ---- */
-let curM = 'A', curV = null, mstyle = 'A';   // mstyle: ミラーの表現（A案/B案）
+let curM = 'A', curV = null, mstyle = 'A', kstyle = 'K08';   // mstyle: ミラーの表現 ／ kstyle: 黒レンズの濃さ
 function buildTabs(){
   $('tabs').innerHTML = '';
   Object.entries(MODELS).forEach(([k, m]) => {
@@ -208,8 +225,8 @@ function buildGrades(){
     const sw = document.createElement('div'); sw.className = 'sw';
     list.forEach(v => {
       const c = document.createElement('button'); c.className = 'chip'; c.dataset.k = v.key;
-      c.innerHTML = `<div class="t">${v.name}${v.base ? '<span class="tag">入稿済み</span>' : ''}${v.b ? '<span class="ab">' + mstyle + '案</span>' : ''}</div><div class="d">${v.d}</div>`
-        + `<div class="pair"><img loading="lazy" src="colors/tile_${v.key}${v.b && mstyle === 'B' ? '_B' : ''}.jpg?v=${CV}" alt="3D"><img loading="lazy" src="colors/photo_${v.key}.jpg?v=${CV}" alt="商品写真"></div>`;
+      c.innerHTML = `<div class="t">${v.name}${v.base ? '<span class="tag">入稿済み</span>' : ''}${v.b ? '<span class="ab">' + LB[mstyle] + '</span>' : ''}${v.k ? '<span class="ab">' + KB[kstyle] + '</span>' : ''}</div><div class="d">${v.d}</div>`
+        + `<div class="pair"><img loading="lazy" src="${tileOf(v)}" alt="3D"><img loading="lazy" src="colors/photo_${v.key}.jpg?v=${CV}" alt="商品写真"></div>`;
       c.onclick = () => select(v);
       sw.appendChild(c);
     });
@@ -220,8 +237,10 @@ function select(v){
   curV = v;
   $('style').style.display = v.b ? 'block' : 'none';
   $('style').querySelectorAll('button').forEach(x => x.classList.toggle('active', x.dataset.s === mstyle));
+  $('kstyle').style.display = v.k ? 'block' : 'none';
+  $('kstyle').querySelectorAll('button').forEach(x => x.classList.toggle('active', x.dataset.k === kstyle));
   document.querySelectorAll('.chip').forEach(x => x.classList.toggle('active', x.dataset.k === v.key));
-  $('now').innerHTML = `<span class="m">${MODELS[curM].name}</span><span class="g">${v.g}</span><span class="c">${v.name}</span>${v.b ? '<span class="g">ミラー ' + mstyle + '案</span>' : ''}${v.base ? '<span class="g">入稿済み</span>' : ''}<span class="d">${v.d}</span>`;
+  $('now').innerHTML = `<span class="m">${MODELS[curM].name}</span><span class="g">${v.g}</span><span class="c">${v.name}</span>${v.b ? '<span class="g">ミラー ' + LB[mstyle] + '</span>' : ''}${v.k ? '<span class="g">黒 ' + KB[kstyle] + '</span>' : ''}${v.base ? '<span class="g">入稿済み</span>' : ''}<span class="d">${v.d}</span>`;
   $('photo').src = `colors/photo_${v.key}.jpg?v=${CV}`;
   load(v);
 }
@@ -231,6 +250,7 @@ BGS.forEach(([n, c], i) => {
   $('bgs').appendChild(b);
 });
 $('style').querySelectorAll('button').forEach(b => b.onclick = () => { mstyle = b.dataset.s; buildGrades(); select(curV); });
+$('kstyle').querySelectorAll('button').forEach(b => b.onclick = () => { kstyle = b.dataset.k; buildGrades(); select(curV); });
 buildTabs(); buildGrades(); select(VARIANTS.A[0]);
 </script>
 </body>

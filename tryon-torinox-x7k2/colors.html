@@ -114,7 +114,7 @@
   <div id="grades"></div>
   <div class="note">
     <b>見え方について</b><br>
-    ・3DはAmazonの試着と同じ描き方（反射・映り込みなし、明るさ補正なし）にしています。入稿済みのMOTION黒で、Amazonの実際の試着画面とレンズの暗さ・色味が一致することを確認済みです。背景は切り替えられます。「肌色」はレンズ越しに顔が透ける試着に近い見え方です。<br>
+    ・3DはAmazonの試着と同じ描き方にしています（反射・映り込みなし。レンズの透け方は、入稿済みのMOTION黒の実際の試着画面から実測して合わせています。2026-10-26）。背景は切り替えられます。「肌色」はレンズ越しに顔が透ける試着に近い見え方です。<br>
     ・ミラーは、Amazonの試着が反射を描かないため、2通りの表現（A案＝薄めのグラデーション／B案＝色を乗せたグラデーション）を用意しています。ミラーの色を選ぶと、3Dの下で切り替えられます。<br>
     ・調光は、かける人の右のレンズを反応前（明るい）、左を反応後（暗い）にしています（正面から見ると明るいレンズが向かって左）。<br>
     ・「入稿済み」はAmazonに入稿済みのモデル（ARQ＝2026-10-06版、MOTION＝2026-10-15版）そのものです。
@@ -133,9 +133,10 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { amazonLens } from './js/amazon_lens.js?v=20261026a';
 
 const $ = id => document.getElementById(id);
-const CV = '20261025a';
+const CV = '20261026a';
 const MODELS = {
   A: { name:'ARQ', shape:'角型', thumb:'ARQ_BASE' },
   C: { name:'MOTION', shape:'角型', thumb:'MO_BASE' },
@@ -165,7 +166,7 @@ const BGS = [ ['肌色', 0xd9b49c], ['白', 0xf2f2f2], ['グレー', 0x8a8a8a], 
 
 /* ---- 3D ---- */
 const canvas = $('cv');
-const renderer = new THREE.WebGLRenderer({ canvas, antialias:true });
+const renderer = new THREE.WebGLRenderer({ canvas, antialias:true, stencil:true });
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.toneMapping = THREE.NoToneMapping;   // Amazonの実表示（2026-10-23 MOTION黒の試着画面で実測）は明るさ補正なしの物理的な透過だったので合わせる
 const scene = new THREE.Scene();
@@ -199,8 +200,7 @@ function load(v){
     if (id !== reqId) return;
     if (current) scene.remove(current);
     current = g.scene; scene.add(current);
-    // レンズの映り込み・ハイライトを消す（Amazonの見え方に合わせる）
-    current.traverse(o => { if (o.isMesh && (o.material.name || '').startsWith('LensMat')) { o.material.specularIntensity = 0; o.material.clearcoat = 0; o.material.needsUpdate = true; } });
+    amazonLens(current);   // レンズをAmazonの試着と同じ描き方に（2026-10-26 実画面で実測・js/amazon_lens.js）
     $('load').style.display = 'none';
   }, undefined, () => { $('load').textContent = '読み込みに失敗しました'; });
 }

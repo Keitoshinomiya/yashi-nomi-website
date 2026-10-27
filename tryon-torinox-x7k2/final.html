@@ -93,7 +93,6 @@
   .up { margin-top:8px; border:1px solid var(--line); background:var(--panel); padding:12px 14px; }
   .up h3 { font-size:13px; letter-spacing:.08em; display:flex; flex-wrap:wrap; align-items:center; gap:8px; }
   .up h3 .when { font-size:10.5px; font-weight:700; padding:2px 7px; border:1px solid var(--accent); color:var(--accent); }
-  .up h3 .when.first { background:var(--accent); color:#000; }
   .up ol { list-style:none; padding:0; margin-top:10px; display:grid; gap:10px; }
   .up li { display:grid; grid-template-columns:26px 1fr; gap:8px; font-size:11.5px; line-height:1.7; font-weight:400; }
   .up li .no { font-family:var(--orbitron); font-weight:900; color:#000; background:var(--accent); width:22px; height:22px; display:flex; align-items:center; justify-content:center; font-size:11px; }
@@ -132,9 +131,9 @@
   <div class="guide">
     <div class="gh">入稿のしかた<span>3ステップ</span></div>
     <div class="steps">
-      <div class="st"><i>1</i><b>オレンジの1色だけ入稿する</b><p>下の一覧で「BLACK/ORANGE」を選ぶと、入稿の手順とファイルが出ます。</p></div>
-      <div class="st"><i>2</i><b>承認を待って、スマホで見え方を確認</b><p>審査は2週間ほど。承認後、Amazonアプリの商品ページの「バーチャル試着」で確認します。</p></div>
-      <div class="st"><i>3</i><b>問題なければ、残りの11色を入稿</b><p>やり方は1と同じです。色を選んで、1色ずつ入稿します。</p></div>
+      <div class="st"><i>1</i><b>下の一覧で色を選ぶ</b><p>3Dの下に、その色の入稿手順・ASIN・寸法・ファイルが出ます。</p></div>
+      <div class="st"><i>2</i><b>手順どおりに入稿する</b><p>ASINと寸法はコピーボタンで貼り付け、ファイルはボタンで保存して選ぶだけです。</p></div>
+      <div class="st"><i>3</i><b>「入稿完了にする」を押す</b><p>その色がグレーになり、残りの色数が分かります。審査は2週間ほどです。</p></div>
     </div>
     <div class="gf"><span>※ 黒（BLACK/BLACK）は入稿済みのままでOK。入れ直しは不要です。</span>
       <a class="btn sub" href="dl/TORINOX_3D_12colors_2026-10-27.zip" download="TORINOX_3Dモデル_色違い12色_2026-10-27.zip">⬇ 12色まとめてダウンロード（zip）</a></div>
@@ -187,7 +186,7 @@ const VARIANTS = {
   A: [
     { key:'ARQ_BASE', s:'', file:'glasses_A.glb?v=20261015b', g:'BASIC', name:'BLACK/BLACK', st:'入稿済み', pre:true, d:'入稿済み（2026-10-06版）。黒レンズ 透過8%' },
     { key:'ARQ_ALLBLACK', asin:'B0D5J1B34S', dl:'B0D5J1B34S_ARQ_BASIC_ALL_BLACK-BLACK.glb', s:'', g:'BASIC', name:'ALL BLACK/BLACK', st:'変更なし', d:'レンズは入稿済みと同じ黒（透過8%）／銀のバーを黒に' },
-    { key:'ARQ_ORANGE', asin:'B0DG86HJ43', dl:'B0DG86HJ43_ARQ_BASIC_BLACK-ORANGE.glb', s:'_B2', g:'BASIC', name:'BLACK/ORANGE', fix:'B案 明るめ2', d:'ミラー（上が黄色→下が赤）。最初に入稿する色' },
+    { key:'ARQ_ORANGE', asin:'B0DG86HJ43', dl:'B0DG86HJ43_ARQ_BASIC_BLACK-ORANGE.glb', s:'_B2', g:'BASIC', name:'BLACK/ORANGE', fix:'B案 明るめ2', d:'ミラー（上が黄色→下が赤）' },
     { key:'ARQ_MIRRORBLUE', asin:'B0DB7KKFDK', dl:'B0DB7KKFDK_ARQ_BASIC_BLACK-MIRROR_BLUE.glb', s:'_B1', g:'BASIC', name:'BLACK/MIRROR BLUE', fix:'B案 明るめ1', d:'ミラー（上が水色→下が青）' },
     { key:'ARQ_CHOKO_BLACK', asin:'B0FR1VKKBG', dl:'B0FR1VKKBG_ARQ_BASIC_BLACK-偏光調光BLACK.glb', s:'_K16', g:'BASIC', name:'BLACK/偏光調光BLACK', fix:'暗い側 透過16%', d:'調光（左右で反応前・反応後）' },
     { key:'ARQ_CHOKO_BROWN', asin:'B0FR1VSGLF', dl:'B0FR1VSGLF_ARQ_BASIC_BLACK-偏光調光BROWN.glb', s:'', g:'BASIC', name:'BLACK/偏光調光BROWN', st:'変更なし', d:'調光（左右で反応前・反応後）' },
@@ -268,8 +267,7 @@ function renderUp(v){
   const up = $('up');
   if (!v.asin){ up.className = 'up base isdone'; up.innerHTML = '<h3>この色の入稿手順</h3><div style="margin-top:8px">この色はAmazonに入稿済みです。今回、<b style="color:#fff">入れ直しは不要</b>です。</div>'; return; }
   up.className = 'up' + (getDone()[v.asin] ? ' isdone' : '');
-  const first = v.asin === 'B0DG86HJ43';
-  up.innerHTML = `<h3>この色の入稿手順<span class="when${first ? ' first' : ''}">${first ? 'まず最初にこの1色' : 'オレンジの承認後に入稿'}</span></h3>
+  up.innerHTML = `<h3>この色の入稿手順</h3>
   <ol>
     <li><span class="no">1</span><div><b>商品を開く</b>　セラーセントラルの「商品」→「商品画像の管理」で、このASINを検索<div class="row">${copyBtn('ASIN', v.asin)}</div></div></li>
     <li><span class="no">2</span><div><b>寸法を入れる</b>　「3Dモデル」タブ →「3Dモデルをアップロード」。単位を「センチメートル」にして、下の数字を入力<div class="row">${DIMS[curM].map(([k, x]) => copyBtn(k, x)).join('')}</div></div></li>
@@ -326,7 +324,7 @@ BGS.forEach(([n, c], i) => {
   b.onclick = () => { scene.background = new THREE.Color(c); $('bgs').querySelectorAll('button').forEach(x => x.classList.toggle('active', x === b)); };
   $('bgs').appendChild(b);
 });
-buildTabs(); buildGrades(); renderProg(); select(VARIANTS.A.find(v => v.asin === 'B0DG86HJ43'));
+buildTabs(); buildGrades(); renderProg(); select(VARIANTS.A.find(v => !isDone(v)));
 </script>
 </body>
 </html>

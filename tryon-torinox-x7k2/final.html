@@ -126,7 +126,7 @@
 <header>
   <h1>TORINOX</h1>
   <div class="en">FINAL COLORS ― 2026-10-27</div>
-  <p>10/27にご確認いただいた内容で確定した、全色の最終版です（関係者限り）。<br><span style="color:#B48250">■</span> 修正した色　<span style="color:#888">■</span> 変更なし　<span style="color:#888">■</span> 前回入稿済み（今回の入稿は不要）</p>
+  <p>10/27にご確認いただいた内容で確定した、全色の最終版です（関係者限り）。<br><span style="color:#B48250">■</span> 修正した色　<span style="color:#888">■</span> 変更なし　<span style="color:#888">■</span> 入稿済み（グレー表示）</p>
 </header>
 <div class="wrap">
   <div class="guide">
@@ -157,7 +157,7 @@
     <b>このページについて</b><br>
     ・3DはAmazonの試着と同じ描き方です（反射・映り込みなし。入稿済みのMOTION黒の試着画面から実測して合わせています）。背景は切り替えられます。<br>
     ・調光は、かける人の右のレンズが反応前（明るい）、左が反応後（暗い）です（正面から見ると明るいレンズが向かって左）。<br>
-    ・「修正」は10/27の確認で変えた6色、「変更なし」は確認時のまま、「前回入稿済み」はAmazonに入稿済みのモデルそのもので、今回の12色には含みません。黒レンズは透過8%のままなので、入稿済みのBLACK/BLACKの再入稿は不要です。
+    ・「修正」は10/27の確認で変えた6色、「変更なし」は確認時のまま、「入稿済み」はAmazonに入稿済みのモデルそのものです（グレー表示）。黒レンズは透過8%のままなので、入稿済みのBLACK/BLACKの再入稿は不要です。
   </div>
 </div>
 <footer>TORINOX &times; 合同会社ヤシノミ ― 非公開・関係者限り<br><span style="opacity:.55">確定版: 2026-10-27（納品データと同じレンズ）</span></footer>
@@ -185,7 +185,7 @@ const MODELS = {
 // s＝確定した案のファイル名の末尾（colors/<key><s>.glb）／file＝入稿済みの納品ファイル（軽量版）そのもの／fix＝修正した色だけ
 const VARIANTS = {
   A: [
-    { key:'ARQ_BASE', s:'', file:'glasses_A.glb?v=20261015b', g:'BASIC', name:'BLACK/BLACK', st:'前回入稿済み', d:'入稿済み（2026-10-06版）。黒レンズ 透過8%' },
+    { key:'ARQ_BASE', s:'', file:'glasses_A.glb?v=20261015b', g:'BASIC', name:'BLACK/BLACK', st:'入稿済み', pre:true, d:'入稿済み（2026-10-06版）。黒レンズ 透過8%' },
     { key:'ARQ_ALLBLACK', asin:'B0D5J1B34S', dl:'B0D5J1B34S_ARQ_BASIC_ALL_BLACK-BLACK.glb', s:'', g:'BASIC', name:'ALL BLACK/BLACK', st:'変更なし', d:'レンズは入稿済みと同じ黒（透過8%）／銀のバーを黒に' },
     { key:'ARQ_ORANGE', asin:'B0DG86HJ43', dl:'B0DG86HJ43_ARQ_BASIC_BLACK-ORANGE.glb', s:'_B2', g:'BASIC', name:'BLACK/ORANGE', fix:'B案 明るめ2', d:'ミラー（上が黄色→下が赤）。最初に入稿する色' },
     { key:'ARQ_MIRRORBLUE', asin:'B0DB7KKFDK', dl:'B0DB7KKFDK_ARQ_BASIC_BLACK-MIRROR_BLUE.glb', s:'_B1', g:'BASIC', name:'BLACK/MIRROR BLUE', fix:'B案 明るめ1', d:'ミラー（上が水色→下が青）' },
@@ -196,7 +196,7 @@ const VARIANTS = {
     { key:'ARQP_BLUE', asin:'B0F2FXR68Y', dl:'B0F2FXR68Y_ARQ_PERFORMANCE_BLACK-BLUE.glb', s:'_B1', g:'PERFORMANCE', name:'BLACK/BLUE', fix:'B案 明るめ1', d:'ミラー（明るい水色→青）' },
   ],
   C: [
-    { key:'MO_BASE', s:'', file:'glasses_C.glb?v=20261015a', g:'BASIC', name:'MATT BLACK/BLACK', st:'前回入稿済み', d:'入稿済み（2026-10-15版）。黒レンズ 透過8%' },
+    { key:'MO_BASE', s:'', file:'glasses_C.glb?v=20261015a', g:'BASIC', name:'MATT BLACK/BLACK', st:'入稿済み', pre:true, d:'入稿済み（2026-10-15版）。黒レンズ 透過8%' },
     { key:'MO_CHOKO_BLUE', asin:'B0GGJCWXKD', dl:'B0GGJCWXKD_MOTION_BASIC_BLACK-偏光調光BLUE.glb', s:'', g:'BASIC', name:'BLACK/偏光調光BLUE', st:'変更なし', d:'調光（左右で反応前・反応後）／艶ありフレーム' },
     { key:'MO_CHOKO_BLACK', asin:'B0GGJB1M28', dl:'B0GGJB1M28_MOTION_BASIC_BLACK-偏光調光BLACK.glb', s:'_K16', g:'BASIC', name:'BLACK/偏光調光BLACK', fix:'暗い側 透過16%', d:'調光（左右で反応前・反応後）／艶ありフレーム' },
     { key:'MO_MIRRORBLUE', asin:'B0G4C8DR4D', dl:'B0G4C8DR4D_MOTION_BASIC_MATT_BLACK-MIRROR_BLUE.glb', s:'_B1', g:'BASIC', name:'MATT BLACK/MIRROR BLUE', fix:'B案 明るめ1', d:'ミラー（上が水色→下が青）' },
@@ -248,24 +248,25 @@ function load(v){
 
 /* ---- 入稿パネル ---- */
 const DONE_KEY = 'torinox_up_done_20261027';
+function isDone(v){ return !!(v.pre || (v.asin && getDone()[v.asin])); }
 function getDone(){ try { return JSON.parse(localStorage.getItem(DONE_KEY) || '{}'); } catch(e){ return {}; } }
 function setDone(a, on){ const d = getDone(); if (on) d[a] = 1; else delete d[a]; try { localStorage.setItem(DONE_KEY, JSON.stringify(d)); } catch(e){} }
 function copyBtn(label, val){ return `<button class="cp" data-v="${val}"><span class="k">${label}</span><b>${val}</b><span class="c">コピー</span></button>`; }
-const TARGETS = () => [...VARIANTS.A, ...VARIANTS.C].filter(v => v.asin);   // 今回入稿する12色
+const ALLV = () => [...VARIANTS.A, ...VARIANTS.C];   // Amazonに載せる全14色（入稿済み2色＋今回の12色）
 function renderProg(){
-  const d = getDone(), all = TARGETS(), n = all.filter(v => d[v.asin]).length, rest = all.length - n;
-  const by = k => { const l = VARIANTS[k].filter(v => v.asin); return `${MODELS[k].name} ${l.filter(v => d[v.asin]).length} / ${l.length}`; };
-  const left = all.filter(v => !d[v.asin]).map(v => (v.key.startsWith('MO') ? 'MOTION ' : 'ARQ ') + v.name);
-  $('prog').innerHTML = `<div class="top"><span class="lab">今回の入稿</span><span class="num">${n}<small> / ${all.length} 色 完了</small></span>`
+  const all = ALLV(), n = all.filter(isDone).length, rest = all.length - n;
+  const by = k => `${MODELS[k].name} ${VARIANTS[k].filter(isDone).length} / ${VARIANTS[k].length}`;
+  const left = all.filter(v => !isDone(v)).map(v => (v.key.startsWith('MO') ? 'MOTION ' : 'ARQ ') + v.name);
+  $('prog').innerHTML = `<div class="top"><span class="lab">入稿の進み具合</span><span class="num">${n}<small> / ${all.length} 色 完了</small></span>`
     + `<span class="rest${rest ? '' : ' all'}">${rest ? 'のこり ' + rest + ' 色' : 'すべて入稿しました'}</span></div>`
     + `<div class="bar"><i class="${rest ? '' : 'full'}" style="width:${n / all.length * 100}%"></i></div>`
     + `<div class="by"><span>${by('A')}</span><span>${by('C')}</span>${rest && rest <= 4 ? '<span>のこり：' + left.join('、') + '</span>' : ''}</div>`
-    + `<div class="by"><span>※ 各色の手順の最後にある「入稿完了にする」で記録されます（このブラウザに保存）</span></div>`;
+    + `<div class="by"><span>※ 完了済み＝入稿済みのBLACK/BLACK（ARQ・MOTION）。今回の12色は、各色の手順の最後の「入稿完了にする」で記録されます（このブラウザに保存）</span></div>`;
 }
 function refresh(v){ renderProg(); buildTabs(); buildGrades(); renderUp(v); document.querySelectorAll('.chip').forEach(x => x.classList.toggle('active', x.dataset.k === v.key)); }
 function renderUp(v){
   const up = $('up');
-  if (!v.asin){ up.className = 'up base'; up.innerHTML = 'この色は入稿済みです。<b style="color:#fff">入れ直しは不要</b>です（見比べ用に載せています）。'; return; }
+  if (!v.asin){ up.className = 'up base isdone'; up.innerHTML = '<h3>この色の入稿手順</h3><div style="margin-top:8px">この色はAmazonに入稿済みです。今回、<b style="color:#fff">入れ直しは不要</b>です。</div>'; return; }
   up.className = 'up' + (getDone()[v.asin] ? ' isdone' : '');
   const first = v.asin === 'B0DG86HJ43';
   up.innerHTML = `<h3>この色の入稿手順<span class="when${first ? ' first' : ''}">${first ? 'まず最初にこの1色' : 'オレンジの承認後に入稿'}</span></h3>
@@ -290,7 +291,7 @@ function buildTabs(){
   $('tabs').innerHTML = '';
   Object.entries(MODELS).forEach(([k, m]) => {
     const b = document.createElement('button'); b.className = 'tab' + (k === curM ? ' active' : '');
-    b.innerHTML = `<img src="colors/photo_${m.thumb}.jpg?v=${CV}" alt=""><div><b>${m.name}</b><span>${m.shape}／${VARIANTS[k].length}色</span><span class="cnt">入稿 ${VARIANTS[k].filter(v => v.asin && getDone()[v.asin]).length} / ${VARIANTS[k].filter(v => v.asin).length} 完了</span></div>`;
+    b.innerHTML = `<img src="colors/photo_${m.thumb}.jpg?v=${CV}" alt=""><div><b>${m.name}</b><span>${m.shape}／${VARIANTS[k].length}色</span><span class="cnt">入稿 ${VARIANTS[k].filter(isDone).length} / ${VARIANTS[k].length} 完了</span></div>`;
     b.onclick = () => { curM = k; buildTabs(); buildGrades(); select(VARIANTS[k][0]); };
     $('tabs').appendChild(b);
   });
@@ -303,7 +304,7 @@ function buildGrades(){
     const h = document.createElement('div'); h.className = 'grade'; h.textContent = `${MODELS[curM].name} ／ ${g === '試験用' ? '試験用（最初に入稿して見え方を試す）' : g + 'グレード'}（${list.length}${g === '試験用' ? '本' : '色'}）`; box.appendChild(h);
     const sw = document.createElement('div'); sw.className = 'sw';
     list.forEach(v => {
-      const c = document.createElement('button'); c.className = 'chip' + (v.asin && getDone()[v.asin] ? ' done' : ''); c.dataset.k = v.key;
+      const c = document.createElement('button'); c.className = 'chip' + (isDone(v) ? ' done' : ''); c.dataset.k = v.key;
       c.innerHTML = `<div class="t">${v.name}${v.fix ? '<span class="ab">修正 ' + v.fix + '</span>' : '<span class="tag">' + v.st + '</span>'}</div><div class="d">${v.d}</div>`
         + `<div class="pair"><img loading="lazy" src="${tileOf(v)}" alt="3D"><img loading="lazy" src="colors/photo_${v.key}.jpg?v=${CV}" alt="商品写真"></div>`;
       c.onclick = () => select(v);

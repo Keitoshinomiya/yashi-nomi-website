@@ -66,10 +66,17 @@
   .note { margin-top:18px; border:1px solid var(--line); background:var(--panel); padding:12px 14px; font-size:11px; color:var(--sub); line-height:1.8; font-weight:400; }
   .note b { color:#fff; }
   /* 入稿ガイド */
-  .guide { margin-top:14px; border:1px solid var(--accent); background:#120d08; padding:12px 14px; display:flex; flex-wrap:wrap; align-items:center; gap:10px 16px; }
-  .guide .flow { flex:1 1 420px; font-size:11.5px; line-height:1.8; font-weight:400; }
-  .guide .flow b { color:var(--accent); }
-  .guide .prog { font-size:11px; color:var(--sub); margin-top:2px; }
+  .guide { margin-top:14px; border:1px solid var(--accent); background:#120d08; padding:14px; }
+  .guide .gh { font-size:15px; font-weight:700; letter-spacing:.08em; display:flex; align-items:center; gap:8px; }
+  .guide .gh span { font-size:10.5px; color:#000; background:var(--accent); padding:2px 8px; }
+  .guide .steps { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:10px; }
+  .guide .st { background:#000; border:1px solid #3a2a1a; padding:10px 12px; }
+  .guide .st i { font-style:normal; font-family:var(--orbitron); font-weight:900; font-size:12px; color:#000; background:var(--accent); width:22px; height:22px; display:inline-flex; align-items:center; justify-content:center; margin-right:6px; }
+  .guide .st b { font-size:13px; }
+  .guide .st p { font-size:11px; color:var(--sub); line-height:1.7; margin-top:6px; font-weight:400; }
+  .guide .gf { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:8px 12px; margin-top:10px; font-size:11.5px; font-weight:400; }
+  .guide .prog { font-size:11px; color:var(--sub); margin-top:8px; }
+  @media (max-width:640px) { .guide .steps { grid-template-columns:1fr; } }
   .btn { display:inline-flex; align-items:center; gap:6px; background:var(--accent); color:#000; border:1px solid var(--accent); padding:9px 14px; font-size:12px; font-weight:700; cursor:pointer; text-decoration:none; font-family:inherit; }
   .btn:hover { opacity:.85; }
   .btn.sub { background:#000; color:#fff; border-color:#fff; }
@@ -102,14 +109,19 @@
 <header>
   <h1>TORINOX</h1>
   <div class="en">FINAL COLORS ― 2026-10-27</div>
-  <p>10/27にご確認いただいた内容で確定した全色です（関係者限り）。<br>ブルーミラー＝B案 明るめ1／オレンジミラー＝B案 明るめ2／調光BLACKの暗い側＝透過16%／黒レンズ＝透過8%（変更なし）<br><span style="color:#B48250">■</span> 修正した色　<span style="color:#888">■</span> 変更なし・入稿済み</p>
+  <p>10/27にご確認いただいた内容で確定した、全色の最終版です（関係者限り）。<br><span style="color:#B48250">■</span> 修正した色　<span style="color:#888">■</span> 変更なし・入稿済み</p>
 </header>
 <div class="wrap">
   <div class="guide">
-    <div class="flow"><b>入稿の流れ</b>　① <b>ARQ BLACK/ORANGE</b> だけ先に入稿 → ② 承認後（通常2週間以内）、Amazonショッピングアプリで見え方を確認 → ③ 残りの11色を入稿<br>
-      色を選ぶと、3Dの下に <b>ASIN・寸法のコピーボタン</b> と <b>その色のファイル</b> が出ます。入稿済みのBLACK/BLACKは再入稿不要です。
-      <div class="prog" id="prog"></div></div>
-    <a class="btn" href="dl/TORINOX_3D_12colors_2026-10-27.zip" download="TORINOX_3Dモデル_色違い12色_2026-10-27.zip">⬇ 12色まとめてダウンロード（zip・37MB）</a>
+    <div class="gh">入稿のしかた<span>3ステップ</span></div>
+    <div class="steps">
+      <div class="st"><i>1</i><b>オレンジの1色だけ入稿する</b><p>下の一覧で「BLACK/ORANGE」を選ぶと、入稿の手順とファイルが出ます。</p></div>
+      <div class="st"><i>2</i><b>承認を待って、スマホで見え方を確認</b><p>審査は2週間ほど。承認後、Amazonアプリの商品ページの「バーチャル試着」で確認します。</p></div>
+      <div class="st"><i>3</i><b>問題なければ、残りの11色を入稿</b><p>やり方は1と同じです。色を選んで、1色ずつ入稿します。</p></div>
+    </div>
+    <div class="gf"><span>※ 黒（BLACK/BLACK）は入稿済みのままでOK。入れ直しは不要です。</span>
+      <a class="btn sub" href="dl/TORINOX_3D_12colors_2026-10-27.zip" download="TORINOX_3Dモデル_色違い12色_2026-10-27.zip">⬇ 12色まとめてダウンロード（zip）</a></div>
+    <div class="prog" id="prog"></div>
   </div>
   <div class="tabs" id="tabs"></div>
   <div class="now" id="now"></div>
@@ -228,14 +240,14 @@ function renderProg(){
 }
 function renderUp(v){
   const up = $('up');
-  if (!v.asin){ up.className = 'up base'; up.innerHTML = 'この色は Amazon に入稿済みのモデルそのものです。変更がないため、<b style="color:#fff">再入稿は不要</b>です（見比べ用に載せています）。'; return; }
+  if (!v.asin){ up.className = 'up base'; up.innerHTML = 'この色は入稿済みです。<b style="color:#fff">入れ直しは不要</b>です（見比べ用に載せています）。'; return; }
   up.className = 'up';
   const first = v.asin === 'B0DG86HJ43';
-  up.innerHTML = `<h3>この色を入稿する<span class="when${first ? ' first' : ''}">${first ? '最初に入稿する1色' : 'ORANGEの承認後に入稿'}</span></h3>
+  up.innerHTML = `<h3>この色の入稿手順<span class="when${first ? ' first' : ''}">${first ? 'まず最初にこの1色' : 'オレンジの承認後に入稿'}</span></h3>
   <ol>
-    <li><span class="no">1</span><div>セラーセントラル →「商品」→「商品画像の管理」で、この ASIN を検索して選ぶ<div class="row">${copyBtn('ASIN', v.asin)}</div></div></li>
-    <li><span class="no">2</span><div>右側の「3Dモデル」タブ →「3Dモデルをアップロード」→ 単位を <b>センチメートル</b> にして寸法を入力（${MODELS[curM].name}は全色同じ値）<div class="row">${DIMS[curM].map(([k, x]) => copyBtn(k, x)).join('')}</div></div></li>
-    <li><span class="no">3</span><div>形式は GLB のまま、この色のファイルを選ぶ → 次へ → 概要でプレビューを確認 → 送信<div class="row"><a class="btn" href="dl/${v.asin}.glb" download="${v.dl}">⬇ この色のファイルをダウンロード</a></div><div class="fn">${v.dl}（ファイル名の先頭がASINです。選んでいるASINと同じか確認してから添付してください）</div></div></li>
+    <li><span class="no">1</span><div><b>商品を開く</b>　セラーセントラルの「商品」→「商品画像の管理」で、このASINを検索<div class="row">${copyBtn('ASIN', v.asin)}</div></div></li>
+    <li><span class="no">2</span><div><b>寸法を入れる</b>　「3Dモデル」タブ →「3Dモデルをアップロード」。単位を「センチメートル」にして、下の数字を入力<div class="row">${DIMS[curM].map(([k, x]) => copyBtn(k, x)).join('')}</div></div></li>
+    <li><span class="no">3</span><div><b>ファイルを選んで送信</b>　下のボタンでファイルを保存 → 画面でそのファイルを選ぶ → 次へ → 送信<div class="row"><a class="btn" href="dl/${v.asin}.glb" download="${v.dl}">⬇ この色のファイルをダウンロード</a></div><div class="fn">${v.dl}（ファイル名の先頭10桁＝ASIN。手順1のASINと同じか確認してください）</div></div></li>
   </ol>
   <label class="done"><input type="checkbox" ${getDone()[v.asin] ? 'checked' : ''}> 入稿した（チェックはこのブラウザだけに残ります）</label>`;
   up.querySelectorAll('.cp').forEach(b => b.onclick = async () => {

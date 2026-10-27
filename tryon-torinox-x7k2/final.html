@@ -76,7 +76,7 @@
 <header>
   <h1>TORINOX</h1>
   <div class="en">FINAL COLORS ― 2026-10-27</div>
-  <p>10/27にご確認いただいた内容で修正した6色だけを載せています（関係者限り）。<br>ブルーミラー＝B案 明るめ1／オレンジミラー＝B案 明るめ2／調光BLACKの暗い側＝透過16%</p>
+  <p>10/27にご確認いただいた内容で確定した全色です（関係者限り）。<br>ブルーミラー＝B案 明るめ1／オレンジミラー＝B案 明るめ2／調光BLACKの暗い側＝透過16%／黒レンズ＝透過8%（変更なし）<br><span style="color:#B48250">■</span> 修正した色　<span style="color:#888">■</span> 変更なし・入稿済み</p>
 </header>
 <div class="wrap">
   <div class="tabs" id="tabs"></div>
@@ -95,7 +95,7 @@
     <b>このページについて</b><br>
     ・3DはAmazonの試着と同じ描き方です（反射・映り込みなし。入稿済みのMOTION黒の試着画面から実測して合わせています）。背景は切り替えられます。<br>
     ・調光は、かける人の右のレンズが反応前（明るい）、左が反応後（暗い）です（正面から見ると明るいレンズが向かって左）。<br>
-    ・ここに無い6色（ALL BLACK・SHINY BLACK・PERFORMANCE GREY・調光BROWN・PERFORMANCE BROWN・調光BLUE）は、確認時から変更ありません。黒レンズは透過8%のままなので、入稿済みのBLACK/BLACKの再入稿は不要です。
+    ・「修正」は10/27の確認で変えた6色、「変更なし」は確認時のまま、「入稿済み」はAmazonに入稿済みのモデルそのものです。黒レンズは透過8%のままなので、入稿済みのBLACK/BLACKの再入稿は不要です。
   </div>
 </div>
 <footer>TORINOX &times; 合同会社ヤシノミ ― 非公開・関係者限り<br><span style="opacity:.55">確定版: 2026-10-27（納品データと同じレンズ）</span></footer>
@@ -116,20 +116,29 @@ import { amazonLens } from './js/amazon_lens.js?v=20261026a';
 const $ = id => document.getElementById(id);
 const CV = '20261026a';
 const MODELS = {
-  A: { name:'ARQ', shape:'角型', thumb:'ARQ_ORANGE' },
-  C: { name:'MOTION', shape:'角型', thumb:'MO_MIRRORBLUE' },
+  A: { name:'ARQ', shape:'角型', thumb:'ARQ_BASE' },
+  C: { name:'MOTION', shape:'角型', thumb:'MO_BASE' },
 };
 // file 無し＝colors/<key>.glb。入稿済みは納品ファイル（の軽量版）そのもの
+// s＝確定した案のファイル名の末尾（colors/<key><s>.glb）／file＝入稿済みの納品ファイル（軽量版）そのもの／fix＝修正した色だけ
 const VARIANTS = {
   A: [
+    { key:'ARQ_BASE', s:'', file:'glasses_A.glb?v=20261015b', g:'BASIC', name:'BLACK/BLACK', st:'入稿済み', d:'入稿済み（2026-10-06版）。黒レンズ 透過8%' },
+    { key:'ARQ_ALLBLACK', s:'', g:'BASIC', name:'ALL BLACK/BLACK', st:'変更なし', d:'レンズは入稿済みと同じ黒（透過8%）／銀のバーを黒に' },
     { key:'ARQ_ORANGE', s:'_B2', g:'BASIC', name:'BLACK/ORANGE', fix:'B案 明るめ2', d:'ミラー（上が黄色→下が赤）。最初に入稿する色' },
     { key:'ARQ_MIRRORBLUE', s:'_B1', g:'BASIC', name:'BLACK/MIRROR BLUE', fix:'B案 明るめ1', d:'ミラー（上が水色→下が青）' },
     { key:'ARQ_CHOKO_BLACK', s:'_K16', g:'BASIC', name:'BLACK/偏光調光BLACK', fix:'暗い側 透過16%', d:'調光（左右で反応前・反応後）' },
+    { key:'ARQ_CHOKO_BROWN', s:'', g:'BASIC', name:'BLACK/偏光調光BROWN', st:'変更なし', d:'調光（左右で反応前・反応後）' },
+    { key:'ARQP_GREY', s:'', g:'PERFORMANCE', name:'BLACK/GREY', st:'変更なし', d:'グレー（透過8%）' },
+    { key:'ARQP_BROWN', s:'', g:'PERFORMANCE', name:'BLACK/BROWN', st:'変更なし', d:'ローズブラウン' },
     { key:'ARQP_BLUE', s:'_B1', g:'PERFORMANCE', name:'BLACK/BLUE', fix:'B案 明るめ1', d:'ミラー（明るい水色→青）' },
   ],
   C: [
-    { key:'MO_MIRRORBLUE', s:'_B1', g:'BASIC', name:'MATT BLACK/MIRROR BLUE', fix:'B案 明るめ1', d:'ミラー（上が水色→下が青）' },
+    { key:'MO_BASE', s:'', file:'glasses_C.glb?v=20261015a', g:'BASIC', name:'MATT BLACK/BLACK', st:'入稿済み', d:'入稿済み（2026-10-15版）。黒レンズ 透過8%' },
+    { key:'MO_CHOKO_BLUE', s:'', g:'BASIC', name:'BLACK/偏光調光BLUE', st:'変更なし', d:'調光（左右で反応前・反応後）／艶ありフレーム' },
     { key:'MO_CHOKO_BLACK', s:'_K16', g:'BASIC', name:'BLACK/偏光調光BLACK', fix:'暗い側 透過16%', d:'調光（左右で反応前・反応後）／艶ありフレーム' },
+    { key:'MO_MIRRORBLUE', s:'_B1', g:'BASIC', name:'MATT BLACK/MIRROR BLUE', fix:'B案 明るめ1', d:'ミラー（上が水色→下が青）' },
+    { key:'MO_SHINY', s:'', g:'BASIC', name:'SHINY BLACK/BLACK', st:'変更なし', d:'レンズは入稿済みと同じ黒（透過8%）／艶ありフレーム' },
   ],
 };
 const BGS = [ ['肌色', 0xd9b49c], ['白', 0xf2f2f2], ['グレー', 0x8a8a8a], ['黒', 0x111111] ];
@@ -160,7 +169,7 @@ function resize(){
 new ResizeObserver(resize).observe(canvas);
 (function loop(){ controls.update(); renderer.render(scene, camera); requestAnimationFrame(loop); })();
 
-function fileOf(v){ return 'colors/' + v.key + v.s + '.glb?v=' + CV; }
+function fileOf(v){ return v.file || ('colors/' + v.key + v.s + '.glb?v=' + CV); }
 function tileOf(v){ return 'colors/tile_' + v.key + v.s + '.jpg?v=' + CV; }
 function load(v){
   const id = ++reqId; $('load').style.display = 'flex';
@@ -193,7 +202,7 @@ function buildGrades(){
     const sw = document.createElement('div'); sw.className = 'sw';
     list.forEach(v => {
       const c = document.createElement('button'); c.className = 'chip'; c.dataset.k = v.key;
-      c.innerHTML = `<div class="t">${v.name}<span class="ab">${v.fix}</span></div><div class="d">${v.d}</div>`
+      c.innerHTML = `<div class="t">${v.name}${v.fix ? '<span class="ab">修正 ' + v.fix + '</span>' : '<span class="tag">' + v.st + '</span>'}</div><div class="d">${v.d}</div>`
         + `<div class="pair"><img loading="lazy" src="${tileOf(v)}" alt="3D"><img loading="lazy" src="colors/photo_${v.key}.jpg?v=${CV}" alt="商品写真"></div>`;
       c.onclick = () => select(v);
       sw.appendChild(c);
@@ -204,7 +213,7 @@ function buildGrades(){
 function select(v){
   curV = v;
   document.querySelectorAll('.chip').forEach(x => x.classList.toggle('active', x.dataset.k === v.key));
-  $('now').innerHTML = `<span class="m">${MODELS[curM].name}</span><span class="g">${v.g}</span><span class="c">${v.name}</span><span class="g">確定 ${v.fix}</span><span class="d">${v.d}</span>`;
+  $('now').innerHTML = `<span class="m">${MODELS[curM].name}</span><span class="g">${v.g}</span><span class="c">${v.name}</span><span class="g">${v.fix ? '修正 ' + v.fix : v.st}</span><span class="d">${v.d}</span>`;
   $('photo').src = `colors/photo_${v.key}.jpg?v=${CV}`;
   load(v);
 }

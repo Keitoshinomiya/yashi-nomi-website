@@ -65,6 +65,32 @@
   .chip .tag { font-size:9px; color:#fff; background:#555; padding:1px 5px; margin-left:4px; vertical-align:1px; }
   .note { margin-top:18px; border:1px solid var(--line); background:var(--panel); padding:12px 14px; font-size:11px; color:var(--sub); line-height:1.8; font-weight:400; }
   .note b { color:#fff; }
+  /* 入稿ガイド */
+  .guide { margin-top:14px; border:1px solid var(--accent); background:#120d08; padding:12px 14px; display:flex; flex-wrap:wrap; align-items:center; gap:10px 16px; }
+  .guide .flow { flex:1 1 420px; font-size:11.5px; line-height:1.8; font-weight:400; }
+  .guide .flow b { color:var(--accent); }
+  .guide .prog { font-size:11px; color:var(--sub); margin-top:2px; }
+  .btn { display:inline-flex; align-items:center; gap:6px; background:var(--accent); color:#000; border:1px solid var(--accent); padding:9px 14px; font-size:12px; font-weight:700; cursor:pointer; text-decoration:none; font-family:inherit; }
+  .btn:hover { opacity:.85; }
+  .btn.sub { background:#000; color:#fff; border-color:#fff; }
+  .up { margin-top:8px; border:1px solid var(--line); background:var(--panel); padding:12px 14px; }
+  .up h3 { font-size:13px; letter-spacing:.08em; display:flex; flex-wrap:wrap; align-items:center; gap:8px; }
+  .up h3 .when { font-size:10.5px; font-weight:700; padding:2px 7px; border:1px solid var(--accent); color:var(--accent); }
+  .up h3 .when.first { background:var(--accent); color:#000; }
+  .up ol { list-style:none; padding:0; margin-top:10px; display:grid; gap:10px; }
+  .up li { display:grid; grid-template-columns:26px 1fr; gap:8px; font-size:11.5px; line-height:1.7; font-weight:400; }
+  .up li .no { font-family:var(--orbitron); font-weight:900; color:#000; background:var(--accent); width:22px; height:22px; display:flex; align-items:center; justify-content:center; font-size:11px; }
+  .up .row { display:flex; flex-wrap:wrap; gap:6px; margin-top:5px; }
+  .cp { display:inline-flex; align-items:center; gap:8px; background:#000; border:1px solid #555; color:#fff; padding:6px 10px; cursor:pointer; font-family:inherit; font-size:12px; }
+  .cp .k { font-size:10px; color:var(--sub); }
+  .cp b { font-family:var(--orbitron); font-size:14px; letter-spacing:.04em; }
+  .cp .c { font-size:10px; color:var(--accent); border-left:1px solid #333; padding-left:8px; }
+  .cp.ok { border-color:var(--accent); } .cp.ok .c { color:#7fd38a; }
+  .up .fn { font-size:10.5px; color:var(--sub); word-break:break-all; margin-top:4px; }
+  .up .done { margin-top:12px; display:flex; align-items:center; gap:8px; font-size:12px; cursor:pointer; border-top:1px solid var(--line); padding-top:10px; }
+  .up .done input { width:18px; height:18px; accent-color:var(--accent); }
+  .up.base { color:var(--sub); font-size:12px; }
+  .chip .ok2 { font-size:9px; color:#000; background:#7fd38a; padding:1px 5px; margin-left:4px; vertical-align:1px; }
   footer { font-size:10px; color:#6b6b6b; margin-top:18px; text-align:center; line-height:1.8; font-weight:400; }
   @media (max-width:640px) {
     .view { grid-template-columns:1fr; }
@@ -79,6 +105,12 @@
   <p>10/27にご確認いただいた内容で確定した全色です（関係者限り）。<br>ブルーミラー＝B案 明るめ1／オレンジミラー＝B案 明るめ2／調光BLACKの暗い側＝透過16%／黒レンズ＝透過8%（変更なし）<br><span style="color:#B48250">■</span> 修正した色　<span style="color:#888">■</span> 変更なし・入稿済み</p>
 </header>
 <div class="wrap">
+  <div class="guide">
+    <div class="flow"><b>入稿の流れ</b>　① <b>ARQ BLACK/ORANGE</b> だけ先に入稿 → ② 承認後（通常2週間以内）、Amazonショッピングアプリで見え方を確認 → ③ 残りの11色を入稿<br>
+      色を選ぶと、3Dの下に <b>ASIN・寸法のコピーボタン</b> と <b>その色のファイル</b> が出ます。入稿済みのBLACK/BLACKは再入稿不要です。
+      <div class="prog" id="prog"></div></div>
+    <a class="btn" href="dl/TORINOX_3D_12colors_2026-10-27.zip" download="TORINOX_3Dモデル_色違い12色_2026-10-27.zip">⬇ 12色まとめてダウンロード（zip・37MB）</a>
+  </div>
   <div class="tabs" id="tabs"></div>
   <div class="now" id="now"></div>
   <div class="view">
@@ -90,6 +122,7 @@
     </div>
     <div class="photo"><div class="cap">商品写真（Amazon）</div><img id="photo" alt="商品写真"></div>
   </div>
+  <div class="up" id="up"></div>
   <div id="grades"></div>
   <div class="note">
     <b>このページについて</b><br>
@@ -124,23 +157,25 @@ const MODELS = {
 const VARIANTS = {
   A: [
     { key:'ARQ_BASE', s:'', file:'glasses_A.glb?v=20261015b', g:'BASIC', name:'BLACK/BLACK', st:'入稿済み', d:'入稿済み（2026-10-06版）。黒レンズ 透過8%' },
-    { key:'ARQ_ALLBLACK', s:'', g:'BASIC', name:'ALL BLACK/BLACK', st:'変更なし', d:'レンズは入稿済みと同じ黒（透過8%）／銀のバーを黒に' },
-    { key:'ARQ_ORANGE', s:'_B2', g:'BASIC', name:'BLACK/ORANGE', fix:'B案 明るめ2', d:'ミラー（上が黄色→下が赤）。最初に入稿する色' },
-    { key:'ARQ_MIRRORBLUE', s:'_B1', g:'BASIC', name:'BLACK/MIRROR BLUE', fix:'B案 明るめ1', d:'ミラー（上が水色→下が青）' },
-    { key:'ARQ_CHOKO_BLACK', s:'_K16', g:'BASIC', name:'BLACK/偏光調光BLACK', fix:'暗い側 透過16%', d:'調光（左右で反応前・反応後）' },
-    { key:'ARQ_CHOKO_BROWN', s:'', g:'BASIC', name:'BLACK/偏光調光BROWN', st:'変更なし', d:'調光（左右で反応前・反応後）' },
-    { key:'ARQP_GREY', s:'', g:'PERFORMANCE', name:'BLACK/GREY', st:'変更なし', d:'グレー（透過8%）' },
-    { key:'ARQP_BROWN', s:'', g:'PERFORMANCE', name:'BLACK/BROWN', st:'変更なし', d:'ローズブラウン' },
-    { key:'ARQP_BLUE', s:'_B1', g:'PERFORMANCE', name:'BLACK/BLUE', fix:'B案 明るめ1', d:'ミラー（明るい水色→青）' },
+    { key:'ARQ_ALLBLACK', asin:'B0D5J1B34S', dl:'B0D5J1B34S_ARQ_BASIC_ALL_BLACK-BLACK.glb', s:'', g:'BASIC', name:'ALL BLACK/BLACK', st:'変更なし', d:'レンズは入稿済みと同じ黒（透過8%）／銀のバーを黒に' },
+    { key:'ARQ_ORANGE', asin:'B0DG86HJ43', dl:'B0DG86HJ43_ARQ_BASIC_BLACK-ORANGE.glb', s:'_B2', g:'BASIC', name:'BLACK/ORANGE', fix:'B案 明るめ2', d:'ミラー（上が黄色→下が赤）。最初に入稿する色' },
+    { key:'ARQ_MIRRORBLUE', asin:'B0DB7KKFDK', dl:'B0DB7KKFDK_ARQ_BASIC_BLACK-MIRROR_BLUE.glb', s:'_B1', g:'BASIC', name:'BLACK/MIRROR BLUE', fix:'B案 明るめ1', d:'ミラー（上が水色→下が青）' },
+    { key:'ARQ_CHOKO_BLACK', asin:'B0FR1VKKBG', dl:'B0FR1VKKBG_ARQ_BASIC_BLACK-偏光調光BLACK.glb', s:'_K16', g:'BASIC', name:'BLACK/偏光調光BLACK', fix:'暗い側 透過16%', d:'調光（左右で反応前・反応後）' },
+    { key:'ARQ_CHOKO_BROWN', asin:'B0FR1VSGLF', dl:'B0FR1VSGLF_ARQ_BASIC_BLACK-偏光調光BROWN.glb', s:'', g:'BASIC', name:'BLACK/偏光調光BROWN', st:'変更なし', d:'調光（左右で反応前・反応後）' },
+    { key:'ARQP_GREY', asin:'B0F7L698C5', dl:'B0F7L698C5_ARQ_PERFORMANCE_BLACK-GREY.glb', s:'', g:'PERFORMANCE', name:'BLACK/GREY', st:'変更なし', d:'グレー（透過8%）' },
+    { key:'ARQP_BROWN', asin:'B0FLF8JQZ9', dl:'B0FLF8JQZ9_ARQ_PERFORMANCE_BLACK-BROWN.glb', s:'', g:'PERFORMANCE', name:'BLACK/BROWN', st:'変更なし', d:'ローズブラウン' },
+    { key:'ARQP_BLUE', asin:'B0F2FXR68Y', dl:'B0F2FXR68Y_ARQ_PERFORMANCE_BLACK-BLUE.glb', s:'_B1', g:'PERFORMANCE', name:'BLACK/BLUE', fix:'B案 明るめ1', d:'ミラー（明るい水色→青）' },
   ],
   C: [
     { key:'MO_BASE', s:'', file:'glasses_C.glb?v=20261015a', g:'BASIC', name:'MATT BLACK/BLACK', st:'入稿済み', d:'入稿済み（2026-10-15版）。黒レンズ 透過8%' },
-    { key:'MO_CHOKO_BLUE', s:'', g:'BASIC', name:'BLACK/偏光調光BLUE', st:'変更なし', d:'調光（左右で反応前・反応後）／艶ありフレーム' },
-    { key:'MO_CHOKO_BLACK', s:'_K16', g:'BASIC', name:'BLACK/偏光調光BLACK', fix:'暗い側 透過16%', d:'調光（左右で反応前・反応後）／艶ありフレーム' },
-    { key:'MO_MIRRORBLUE', s:'_B1', g:'BASIC', name:'MATT BLACK/MIRROR BLUE', fix:'B案 明るめ1', d:'ミラー（上が水色→下が青）' },
-    { key:'MO_SHINY', s:'', g:'BASIC', name:'SHINY BLACK/BLACK', st:'変更なし', d:'レンズは入稿済みと同じ黒（透過8%）／艶ありフレーム' },
+    { key:'MO_CHOKO_BLUE', asin:'B0GGJCWXKD', dl:'B0GGJCWXKD_MOTION_BASIC_BLACK-偏光調光BLUE.glb', s:'', g:'BASIC', name:'BLACK/偏光調光BLUE', st:'変更なし', d:'調光（左右で反応前・反応後）／艶ありフレーム' },
+    { key:'MO_CHOKO_BLACK', asin:'B0GGJB1M28', dl:'B0GGJB1M28_MOTION_BASIC_BLACK-偏光調光BLACK.glb', s:'_K16', g:'BASIC', name:'BLACK/偏光調光BLACK', fix:'暗い側 透過16%', d:'調光（左右で反応前・反応後）／艶ありフレーム' },
+    { key:'MO_MIRRORBLUE', asin:'B0G4C8DR4D', dl:'B0G4C8DR4D_MOTION_BASIC_MATT_BLACK-MIRROR_BLUE.glb', s:'_B1', g:'BASIC', name:'MATT BLACK/MIRROR BLUE', fix:'B案 明るめ1', d:'ミラー（上が水色→下が青）' },
+    { key:'MO_SHINY', asin:'B0G6FPB5SB', dl:'B0G6FPB5SB_MOTION_BASIC_SHINY_BLACK-BLACK.glb', s:'', g:'BASIC', name:'SHINY BLACK/BLACK', st:'変更なし', d:'レンズは入稿済みと同じ黒（透過8%）／艶ありフレーム' },
   ],
 };
+// 寸法（cm）。色違いでも形は同じなので型ごとに同じ値（2026-10-06・10-15納品時と同じ）
+const DIMS = { A:[['長さ（奥行き）','15.9'],['幅','16.7'],['高さ','4.8']], C:[['長さ（奥行き）','15.3'],['幅','16.7'],['高さ','4.9']] };
 const BGS = [ ['肌色', 0xd9b49c], ['白', 0xf2f2f2], ['グレー', 0x8a8a8a], ['黒', 0x111111] ];
 
 /* ---- 3D ---- */
@@ -182,6 +217,36 @@ function load(v){
   }, undefined, () => { $('load').textContent = '読み込みに失敗しました'; });
 }
 
+/* ---- 入稿パネル ---- */
+const DONE_KEY = 'torinox_up_done_20261027';
+function getDone(){ try { return JSON.parse(localStorage.getItem(DONE_KEY) || '{}'); } catch(e){ return {}; } }
+function setDone(a, on){ const d = getDone(); if (on) d[a] = 1; else delete d[a]; try { localStorage.setItem(DONE_KEY, JSON.stringify(d)); } catch(e){} }
+function copyBtn(label, val){ return `<button class="cp" data-v="${val}"><span class="k">${label}</span><b>${val}</b><span class="c">コピー</span></button>`; }
+function renderProg(){
+  const all = [...VARIANTS.A, ...VARIANTS.C].filter(v => v.asin), d = getDone();
+  $('prog').textContent = `入稿チェック：${all.filter(v => d[v.asin]).length} / ${all.length} 色（このブラウザに記録）`;
+}
+function renderUp(v){
+  const up = $('up');
+  if (!v.asin){ up.className = 'up base'; up.innerHTML = 'この色は Amazon に入稿済みのモデルそのものです。変更がないため、<b style="color:#fff">再入稿は不要</b>です（見比べ用に載せています）。'; return; }
+  up.className = 'up';
+  const first = v.asin === 'B0DG86HJ43';
+  up.innerHTML = `<h3>この色を入稿する<span class="when${first ? ' first' : ''}">${first ? '最初に入稿する1色' : 'ORANGEの承認後に入稿'}</span></h3>
+  <ol>
+    <li><span class="no">1</span><div>セラーセントラル →「商品」→「商品画像の管理」で、この ASIN を検索して選ぶ<div class="row">${copyBtn('ASIN', v.asin)}</div></div></li>
+    <li><span class="no">2</span><div>右側の「3Dモデル」タブ →「3Dモデルをアップロード」→ 単位を <b>センチメートル</b> にして寸法を入力（${MODELS[curM].name}は全色同じ値）<div class="row">${DIMS[curM].map(([k, x]) => copyBtn(k, x)).join('')}</div></div></li>
+    <li><span class="no">3</span><div>形式は GLB のまま、この色のファイルを選ぶ → 次へ → 概要でプレビューを確認 → 送信<div class="row"><a class="btn" href="dl/${v.asin}.glb" download="${v.dl}">⬇ この色のファイルをダウンロード</a></div><div class="fn">${v.dl}（ファイル名の先頭がASINです。選んでいるASINと同じか確認してから添付してください）</div></div></li>
+  </ol>
+  <label class="done"><input type="checkbox" ${getDone()[v.asin] ? 'checked' : ''}> 入稿した（チェックはこのブラウザだけに残ります）</label>`;
+  up.querySelectorAll('.cp').forEach(b => b.onclick = async () => {
+    try { await navigator.clipboard.writeText(b.dataset.v); }
+    catch(e){ const t = document.createElement('textarea'); t.value = b.dataset.v; document.body.appendChild(t); t.select(); document.execCommand('copy'); t.remove(); }
+    b.classList.add('ok'); b.querySelector('.c').textContent = 'コピーしました';
+    setTimeout(() => { b.classList.remove('ok'); b.querySelector('.c').textContent = 'コピー'; }, 1500);
+  });
+  up.querySelector('.done input').onchange = e => { setDone(v.asin, e.target.checked); renderProg(); buildGrades(); document.querySelectorAll('.chip').forEach(x => x.classList.toggle('active', x.dataset.k === v.key)); };
+}
+
 /* ---- UI ---- */
 let curM = 'A', curV = null;
 function buildTabs(){
@@ -202,7 +267,7 @@ function buildGrades(){
     const sw = document.createElement('div'); sw.className = 'sw';
     list.forEach(v => {
       const c = document.createElement('button'); c.className = 'chip'; c.dataset.k = v.key;
-      c.innerHTML = `<div class="t">${v.name}${v.fix ? '<span class="ab">修正 ' + v.fix + '</span>' : '<span class="tag">' + v.st + '</span>'}</div><div class="d">${v.d}</div>`
+      c.innerHTML = `<div class="t">${v.name}${v.fix ? '<span class="ab">修正 ' + v.fix + '</span>' : '<span class="tag">' + v.st + '</span>'}${v.asin && getDone()[v.asin] ? '<span class="ok2">入稿済み✓</span>' : ''}</div><div class="d">${v.d}</div>`
         + `<div class="pair"><img loading="lazy" src="${tileOf(v)}" alt="3D"><img loading="lazy" src="colors/photo_${v.key}.jpg?v=${CV}" alt="商品写真"></div>`;
       c.onclick = () => select(v);
       sw.appendChild(c);
@@ -212,6 +277,7 @@ function buildGrades(){
 }
 function select(v){
   curV = v;
+  renderUp(v);
   document.querySelectorAll('.chip').forEach(x => x.classList.toggle('active', x.dataset.k === v.key));
   $('now').innerHTML = `<span class="m">${MODELS[curM].name}</span><span class="g">${v.g}</span><span class="c">${v.name}</span><span class="g">${v.fix ? '修正 ' + v.fix : v.st}</span><span class="d">${v.d}</span>`;
   $('photo').src = `colors/photo_${v.key}.jpg?v=${CV}`;
@@ -222,7 +288,7 @@ BGS.forEach(([n, c], i) => {
   b.onclick = () => { scene.background = new THREE.Color(c); $('bgs').querySelectorAll('button').forEach(x => x.classList.toggle('active', x === b)); };
   $('bgs').appendChild(b);
 });
-buildTabs(); buildGrades(); select(VARIANTS.A[0]);
+buildTabs(); buildGrades(); renderProg(); select(VARIANTS.A.find(v => v.asin === 'B0DG86HJ43'));
 </script>
 </body>
 </html>

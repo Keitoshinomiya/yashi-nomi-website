@@ -135,7 +135,7 @@
       <div class="st"><i>2</i><b>手順どおりに入稿する</b><p>ASINと寸法はコピーボタンで貼り付け、ファイルはボタンで保存して選ぶだけです。</p></div>
       <div class="st"><i>3</i><b>「入稿完了にする」を押す</b><p>その色がグレーになり、残りの色数が分かります。審査は2週間ほどです。</p></div>
     </div>
-    <div class="gf"><span>※ 黒（BLACK/BLACK）は入稿済みのままでOK。入れ直しは不要です。</span>
+    <div class="gf"><span>※ 黒（BLACK/BLACK）は入稿済みのままでOK。入れ直しは不要です。<br>※ 入稿作業はパソコンで行ってください（スマホだとファイルの保存・選択がしにくいため）。</span>
       <a class="btn sub" href="dl/TORINOX_3D_12colors_2026-10-27.zip" download="TORINOX_3Dモデル_色違い12色_2026-10-27.zip">⬇ 12色まとめてダウンロード（zip）</a></div>
     <div class="pg" id="prog"></div>
   </div>
@@ -185,7 +185,7 @@ const MODELS = {
 const VARIANTS = {
   A: [
     { key:'ARQ_BASE', s:'', file:'glasses_A.glb?v=20261015b', g:'BASIC', name:'BLACK/BLACK', st:'入稿済み', pre:true, d:'入稿済み（2026-10-06版）。黒レンズ 透過8%' },
-    { key:'ARQ_ALLBLACK', asin:'B0D5J1B34S', dl:'B0D5J1B34S_ARQ_BASIC_ALL_BLACK-BLACK.glb', s:'', g:'BASIC', name:'ALL BLACK/BLACK', st:'変更なし', d:'レンズは入稿済みと同じ黒（透過8%）／銀のバーを黒に' },
+    { key:'ARQ_ALLBLACK', asin:'B0D5J1B34S', dl:'B0D5J1B34S_ARQ_BASIC_ALL_BLACK-BLACK.glb', s:'', g:'BASIC', name:'ALL BLACK/BLACK', st:'変更なし', d:'入稿済みのBLACK/BLACKと同じ黒レンズ（透過8%）／銀のバーを黒に' },
     { key:'ARQ_ORANGE', asin:'B0DG86HJ43', dl:'B0DG86HJ43_ARQ_BASIC_BLACK-ORANGE.glb', s:'_B2', g:'BASIC', name:'BLACK/ORANGE', fix:'B案 明るめ2', d:'ミラー（上が黄色→下が赤）' },
     { key:'ARQ_MIRRORBLUE', asin:'B0DB7KKFDK', dl:'B0DB7KKFDK_ARQ_BASIC_BLACK-MIRROR_BLUE.glb', s:'_B1', g:'BASIC', name:'BLACK/MIRROR BLUE', fix:'B案 明るめ1', d:'ミラー（上が水色→下が青）' },
     { key:'ARQ_CHOKO_BLACK', asin:'B0FR1VKKBG', dl:'B0FR1VKKBG_ARQ_BASIC_BLACK-偏光調光BLACK.glb', s:'_K16', g:'BASIC', name:'BLACK/偏光調光BLACK', fix:'暗い側 透過16%', d:'調光（左右で反応前・反応後）' },
@@ -199,7 +199,7 @@ const VARIANTS = {
     { key:'MO_CHOKO_BLUE', asin:'B0GGJCWXKD', dl:'B0GGJCWXKD_MOTION_BASIC_BLACK-偏光調光BLUE.glb', s:'', g:'BASIC', name:'BLACK/偏光調光BLUE', st:'変更なし', d:'調光（左右で反応前・反応後）／艶ありフレーム' },
     { key:'MO_CHOKO_BLACK', asin:'B0GGJB1M28', dl:'B0GGJB1M28_MOTION_BASIC_BLACK-偏光調光BLACK.glb', s:'_K16', g:'BASIC', name:'BLACK/偏光調光BLACK', fix:'暗い側 透過16%', d:'調光（左右で反応前・反応後）／艶ありフレーム' },
     { key:'MO_MIRRORBLUE', asin:'B0G4C8DR4D', dl:'B0G4C8DR4D_MOTION_BASIC_MATT_BLACK-MIRROR_BLUE.glb', s:'_B1', g:'BASIC', name:'MATT BLACK/MIRROR BLUE', fix:'B案 明るめ1', d:'ミラー（上が水色→下が青）' },
-    { key:'MO_SHINY', asin:'B0G6FPB5SB', dl:'B0G6FPB5SB_MOTION_BASIC_SHINY_BLACK-BLACK.glb', s:'', g:'BASIC', name:'SHINY BLACK/BLACK', st:'変更なし', d:'レンズは入稿済みと同じ黒（透過8%）／艶ありフレーム' },
+    { key:'MO_SHINY', asin:'B0G6FPB5SB', dl:'B0G6FPB5SB_MOTION_BASIC_SHINY_BLACK-BLACK.glb', s:'', g:'BASIC', name:'SHINY BLACK/BLACK', st:'変更なし', d:'入稿済みのBLACK/BLACKと同じ黒レンズ（透過8%）／艶ありフレーム' },
   ],
 };
 // 寸法（cm）。色違いでも形は同じなので型ごとに同じ値（2026-10-06・10-15納品時と同じ）
@@ -256,7 +256,7 @@ function renderProg(){
   const all = ALLV(), n = all.filter(isDone).length, rest = all.length - n;
   const by = k => `${MODELS[k].name} ${VARIANTS[k].filter(isDone).length} / ${VARIANTS[k].length}`;
   const left = all.filter(v => !isDone(v)).map(v => (v.key.startsWith('MO') ? 'MOTION ' : 'ARQ ') + v.name);
-  $('prog').innerHTML = `<div class="top"><span class="lab">入稿の進み具合</span><span class="num">${n}<small> / ${all.length} 色 完了</small></span>`
+  $('prog').innerHTML = `<div class="top"><span class="lab">入稿の進み具合（入稿済み2色＋今回の12色＝全14色）</span><span class="num">${n}<small> / ${all.length} 色 完了</small></span>`
     + `<span class="rest${rest ? '' : ' all'}">${rest ? 'のこり ' + rest + ' 色' : 'すべて入稿しました'}</span></div>`
     + `<div class="bar"><i class="${rest ? '' : 'full'}" style="width:${n / all.length * 100}%"></i></div>`
     + `<div class="by"><span>${by('A')}</span><span>${by('C')}</span>${rest && rest <= 4 ? '<span>のこり：' + left.join('、') + '</span>' : ''}</div>`
